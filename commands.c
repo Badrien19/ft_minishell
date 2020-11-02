@@ -18,9 +18,16 @@ void     cmd_echo(char *cmd)
     }
     while (cmd[i])
     {
-        if ((cmd[i] == '"' || cmd[i] == '\'') && type_quote == 0)
-            type_quote = cmd[i];
-        if (cmd[i] != type_quote)
+        if ((cmd[i] == '"' || cmd[i] == '\''))
+        {    
+            if(type_quote == 0)
+                type_quote = cmd[i];
+            else if(type_quote == cmd[i])
+                type_quote = 0;
+            else // donc " et ' ou inverse
+                write(1, &cmd[i], 1);
+        }
+        else
             write(1, &cmd[i], 1);
         i++;
     }
