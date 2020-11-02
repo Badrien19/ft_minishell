@@ -35,6 +35,16 @@ void     cmd_echo(char *cmd)
         write(1, "\0", 1);
 }
 
+void     cmd_pwd()
+{
+    char *buff;
+
+    buff = malloc(sizeof(char) * 512);
+    getcwd(buff, 512);
+    write(1, buff, ft_strlen(buff));
+    write(1, "\n", 1);
+}
+
 void     cmd_exit(char *cmd)
 {
     exit(1);
