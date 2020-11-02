@@ -59,7 +59,7 @@ int     main(int argc, char *argv[])
     {
         preface();
         cmd = read_cmd();
-        cmd_parser(sh, cmd);
+        cmd_parser(cmd);
     }
     
     return (0);

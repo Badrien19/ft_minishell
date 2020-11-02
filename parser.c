@@ -2,12 +2,19 @@
 
 void     cmd_parser(char *cmd)
 {
-    if (ft_strstr(cmd, "echo") != NULL)
-        cmd_echo(&cmd[5]);
-    if (ft_strstr(cmd, "exit") != NULL)
-        cmd_exit(cmd);
-    if (ft_strstr(cmd, "pwd") != NULL)
-        cmd_pwd();
-    if (ft_strstr(cmd, "cd") != NULL)
-        cmd_cd(&cmd[3]);
+    char **tab;
+    size_t i;
+
+    i = 0;
+    tab = ft_split(cmd, ';');
+    while (tab[i])
+    {
+        if (ft_strstr(tab[i], "echo") != NULL)
+            cmd_echo(&tab[i][5]);
+        if (ft_strstr(tab[i], "exit") != NULL)
+            cmd_exit(tab[i]);
+        if (ft_strstr(tab[i], "pwd") != NULL)
+            cmd_pwd();
+        i++;
+    }
 }

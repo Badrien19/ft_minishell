@@ -24,7 +24,7 @@ void     cmd_echo(char *cmd)
                 type_quote = cmd[i];
             else if(type_quote == cmd[i])
                 type_quote = 0;
-            else // donc " et ' ou inverse
+            else // donc " et ' ou l'inverse
                 write(1, &cmd[i], 1);
         }
         else
@@ -33,6 +33,8 @@ void     cmd_echo(char *cmd)
     }
     if (flag_n == 1) // TODO
         write(1, "\0", 1);
+    if (cmd[i - 1] != '\n' && i > 0)
+       write(1, "\n", 1);
 }
 
 void     cmd_pwd()
