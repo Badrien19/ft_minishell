@@ -34,7 +34,7 @@ void     cmd_echo(char *cmd)
     if (flag_n == 1) // TODO
         write(1, "\0", 1);
     if (cmd[i - 1] != '\n' && i > 0)
-       write(1, "\n", 1);
+        write(1, "\n", 1);
 }
 
 void     cmd_pwd()

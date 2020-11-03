@@ -50,7 +50,7 @@ void    preface()
     write(1, "\033[0m", 4);
 }
 
-int     main(int argc, char *argv[])
+int     main(int argc, char *argv[], char** env)
 {
     char *cmd;
 
