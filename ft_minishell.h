@@ -13,6 +13,26 @@ typedef struct	s_env
     struct s_env	*next;
 }				t_env;
 
+typedef struct	s_rdir
+{
+	void 			*args;
+
+	struct s_rdir	*next;
+}				t_rdir
+
+typedef struct	s_cmd
+{
+    void			**args;
+	
+	BOOL			is_pipped;
+	BOOL			is_rdir;
+
+	t_rdir			*in; // arg qui vient apres
+	t_rdir			*out;
+	// ? t_pipped
+    struct s_cmd	*next;
+}				t_cmd;
+
 /*
 ** parser
 */
