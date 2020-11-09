@@ -12,7 +12,7 @@
 
 #include "ft_minishell.h"
 
-void     cmd_parser(char *cmd)
+void     cmd_parser(char *cmd, t_env *lst)
 {
     char **tab;
     size_t i;
@@ -21,12 +21,16 @@ void     cmd_parser(char *cmd)
     tab = ft_split(cmd, ';');
     while (tab[i])
     {
-        if (ft_strstr(tab[i], "echo") != NULL)
+        // echo "oui" | cat -e > text.txt
+		
+		if (ft_strstr(tab[i], "echo") != NULL)
             cmd_echo(&tab[i][5]);
         else if (ft_strstr(tab[i], "exit") != NULL)
             cmd_exit(tab[i]);
         else if (ft_strstr(tab[i], "pwd") != NULL)
             cmd_pwd();
+        else if (ft_strstr(tab[i], "env") != NULL)
+            print_lst(lst);
         else
         {   
             write(1, "minishell: command not found: ", 30);
