@@ -35,7 +35,7 @@ typedef struct	s_cmd
 
 	t_rdir			*in; // arg qui vient apres
 	t_rdir			*out;
-	t_pipped		*pip;
+//	t_pipped		*pip;
 
     struct s_cmd	*next;
 }				t_cmd;
