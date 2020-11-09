@@ -6,6 +6,12 @@
 # include <stdio.h>
 # include <dirent.h>
 
+# define EXIT_SUCCESS 0
+
+# define BOOL signed int
+# define TRUE 1
+# define FALSE 0
+
 typedef struct	s_env // ---> enfaite tableau c'est mieux
 {
     char			*name;
@@ -19,7 +25,7 @@ typedef struct	s_rdir
 
 	struct s_rdir	*next;
 }				t_rdir;
-/*
+
 typedef struct	s_cmd
 {
     void			**args;
@@ -33,7 +39,7 @@ typedef struct	s_cmd
 
     struct s_cmd	*next;
 }				t_cmd;
-*/
+
 /*
 ** parser
 */
@@ -52,7 +58,7 @@ void	cmd_pwd();
 ** main
 */
 
-void print_lst(t_env *lst);
+void	print_lst(t_env *lst);
 
 # define BUFFER 10
 #endif
