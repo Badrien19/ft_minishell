@@ -12,7 +12,8 @@
 
 #include "ft_minishell.h"
 
-#define SH_TOK_BUFFSIZE 64
+#define SH_LINE_BUFFSIZE 10
+#define SH_LINE_DELIM " \t\r\n\a"
 
 char	*stradd(char *s1, char const *s2)
 {
@@ -41,14 +42,14 @@ char	*stradd(char *s1, char const *s2)
 
 char    *sh_read_line()
 {
-    char    buff[BUFFER + 1];
+    char    buff[SH_LINE_BUFFSIZE + 1];
     char    *str;
     size_t  ret;
 
     str = NULL;
     while (1)
     {
-        ret = read(1, buff, BUFFER);
+        ret = read(1, buff, SH_LINE_BUFFSIZE);
         buff[ret] = 0;
         str = stradd(str, buff);
         if (ft_strchr(buff, '\n') != NULL)
@@ -70,23 +71,47 @@ void	sh_loop()
 	char	**cmd;
 	char	**args;
 	int		status;
+	size_t	k = 0;
+
+	// __TEST__ //
+	size_t i = 0;
 
 	status = 1;
 	while (status)
 	{
+		k = 0;
 		sh_pre();
 		line = sh_read_line();
 		cmd = ft_split(line, ';');
-		while (cmd)
+
+		// __TEST__ //
+		i = 0;
+		while (cmd[i])
+		{
+			printf("cmd[%li] : ´%.*s´\n", i, ft_strlen(cmd[i]) - 1, cmd[i]); // Attention aux retour à la ligne
+			i++;
+		}
+		printf("----------\n");
+
+		while (cmd[k])
 		{
 			// Gérer les variables env ($)
-			args = 	ft_split(cmd, ' '); // Version modifiée de split. (sh_split_line) (Quote)
+			args = 	sh_split_line(cmd[k], SH_LINE_DELIM);
+
+			// __TEST__ //
+			i = 0;
+			while (args[i])
+			{
+				printf("arg[%li] ´%.*s´\n", i, ft_strlen(args[i]) - 1, args[i]);
+				i++;
+			}
+
 			// Remplir la structure
-			*cmd++;
+			k++;
 		}
 		//status = sh_execute((cmd));
 		free(line);
-		free(cmd);
+		//free(cmd);
 	}
 }
 

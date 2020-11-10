@@ -41,6 +41,17 @@ typedef struct	s_cmd
 }				t_cmd;
 
 /*
+** utils
+*/
+
+char	detect_quote(char *str);
+char    *remove_quote(char *str);
+size_t 	count_tok(char *str, char* charset);
+BOOL	try_charset(char c, char *charset);
+char	*copy_str(char *src, size_t size);
+char	**sh_split_line(char *str, char* charset);
+
+/*
 ** parser
 */
 
@@ -55,10 +66,13 @@ void	cmd_exit(char *cmd);
 void	cmd_pwd();
 
 /*
-** main
+** minishell
 */
 
+int		main(int argc, char **argv);
+void    sh_pre();
+void	sh_loop();
 void	print_lst(t_env *lst);
 
-# define BUFFER 10
+
 #endif
