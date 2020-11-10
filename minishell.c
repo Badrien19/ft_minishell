@@ -102,7 +102,7 @@ void	sh_loop()
 			i = 0;
 			while (args[i])
 			{
-				printf("arg[%li] ´%.*s´\n", i, ft_strlen(args[i]) - 1, args[i]);
+				printf("arg[%li] ´%s´\n", i, args[i]);
 				i++;
 			}
 

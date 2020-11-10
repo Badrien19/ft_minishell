@@ -74,16 +74,20 @@ size_t  count_tok(char *str, char* charset)
 	size_t  i;
 	size_t  j;
 	size_t	quote_n;
+	char	quote;
 	BOOL	quote_open;
 
 	tok_n = 0;
 	i = 0;
 	quote_n = 0;
+	quote = 0;
 	quote_open = FALSE;
 	while (str[i])
 	{
 		j = 0;
-		if (str[i] == '"' || str[i] == '\'')
+		if (quote_open == FALSE)
+			quote = detect_quote(&str[i]);
+		if (str[i] == quote)
 		{
 			quote_n++;
 			if (quote_n % 2 != 0)
@@ -97,6 +101,7 @@ size_t  count_tok(char *str, char* charset)
 			tok_n++;
 		i++;
 	}
+	printf("tok_n : %li\n", tok_n);
 	return (tok_n);
 }
 
@@ -137,23 +142,30 @@ char	**sh_split_line(char *str, char* charset)
 	size_t  i;
 	size_t  j;
 	size_t	start;
+	char	quote;
 	char	**tab;
 
 	k = 0;
 	i = 0;
 	j = 0;
-	str = remove_quote(str);
+	quote = 0;
 	if (!(tab = malloc(sizeof(char *) * count_tok(str, charset) + 1)))
 		return (NULL); // TODO : Créer une fonction de gestion d'erreur.
 	while (str[i] && k < count_tok(str, charset))
 	{
-		// 1. S'il y a une parenthèse, copier jusqu'à la prochaine
-		if (str[i] == '\'' || str[j] == '"')
+		while (str[i] && try_charset(str[i], charset))
+			i++;
+		// 1. S'il y a une parenthèse, copier jusqu'à la prochaine 
+		quote = detect_quote(&str[i]);
+		printf("quote : %c\n", quote);
+		if (str[i] == quote)
 		{
 			start = i++;
-			while (str[i] && (str[i] != '\'' || str[i] != '"'))
+			while (str[i] && str[i] != quote)
 				i++;
+			printf("1. start : %li - i : %li\n", start, i);
 			tab[k] = copy_str(&str[start], i - start);
+			tab[k] = remove_quote(tab[k]);
 			k++;
 			continue;
 		}
@@ -165,6 +177,7 @@ char	**sh_split_line(char *str, char* charset)
 		while (str[i] && !try_charset(str[i], charset))
 			i++;
 		// 4. Copier entre début et fin
+		printf("2. start : %li - i : %li\n", start, i);
 		tab[k] = copy_str(&str[start], i - start);
 		k++;
 	}
