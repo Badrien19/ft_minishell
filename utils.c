@@ -155,7 +155,8 @@ char	**sh_split_line(char *str, char* charset)
 	{
 		while (str[i] && try_charset(str[i], charset))
 			i++;
-		// 1. S'il y a une parenthèse, copier jusqu'à la prochaine 
+		// 1. S'il y a une parenthèse, copier jusqu'au prochain charset
+		/*
 		quote = detect_quote(&str[i]);
 		printf("quote : %c\n", quote);
 		if (str[i] == quote)
@@ -165,10 +166,10 @@ char	**sh_split_line(char *str, char* charset)
 				i++;
 			printf("1. start : %li - i : %li\n", start, i);
 			tab[k] = copy_str(&str[start], i - start);
-			tab[k] = remove_quote(tab[k]);
 			k++;
 			continue;
 		}
+		*/
 		// 2. Passer tous les charsets
 		while (str[i] && try_charset(str[i], charset))
 			i++;
@@ -178,9 +179,15 @@ char	**sh_split_line(char *str, char* charset)
 			i++;
 		// 4. Copier entre début et fin
 		printf("2. start : %li - i : %li\n", start, i);
-		tab[k] = copy_str(&str[start], i - start);
+		tab[k] = copy_str(&str[start], i - start - 1);
+		tab[k] = remove_quote(tab[k]);
 		k++;
 	}
 	tab[k] = NULL;
 	return (tab);
 }
+
+/* 1. Détecter la quote.
+** 2. 
+**
+*/
