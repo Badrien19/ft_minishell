@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.s19.be>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/09 16:44:13 by cgoncalv          #+#    #+#             */
-/*   Updated: 2020/11/09 16:44:13 by cgoncalv         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ft_minishell.h"
 
 #define SH_LINE_BUFFSIZE 10
@@ -65,60 +53,12 @@ void    sh_pre()
     write(1, "\033[0m", 4);
 }
 
-void	sh_loop()
+int main(int argc, char const *argv[])
 {
-	char	*line;
-	char	**cmd;
-	char	**args;
-	int		status;
-	size_t	k = 0;
-
-	// __TEST__ //
-	size_t i = 0;
-
-	status = 1;
-	while (status)
-	{
-		k = 0;
-		sh_pre();
-		line = sh_read_line();
-		cmd = ft_split(line, ';');
-
-		// __TEST__ //
-		i = 0;
-		while (cmd[i])
-		{
-			printf("cmd[%li] : ´%.*s´\n", i, ft_strlen(cmd[i]) - 1, cmd[i]); // Attention aux retour à la ligne
-			i++;
-		}
-		printf("----------\n");
-
-		while (cmd[k])
-		{
-			// Gérer les variables env ($)
-			args = 	sh_split_line(cmd[k], SH_LINE_DELIM);
-
-			// __TEST__ //
-			i = 0;
-			while (args[i])
-			{
-				printf("arg[%li] ´%s´\n", i, args[i]);
-				i++;
-			}
-
-			// Remplir la structure
-			k++;
-		}
-		//status = sh_execute((cmd));
-		free(line);
-		//free(cmd);
-	}
-}
-
-int		main(int argc, char **argv)
-{
-
-    sh_loop();
-
-    return EXIT_SUCCESS;
+    while (1)
+    {
+        sh_pre();
+        sh_read_line();
+    }
+    return (0);
 }
