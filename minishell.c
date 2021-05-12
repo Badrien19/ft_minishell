@@ -56,12 +56,13 @@ void	sh_pre(void)
 
 int	main(int argc, char const *argv[])
 {
-	char	*cmd;
+	char	*user_input;
 
 	while (1)
 	{
 		sh_pre();
-		cmd = sh_read_line();
+		user_input = sh_read_line();
+        parsing(user_input);
 	}
 	return (0);
 }
