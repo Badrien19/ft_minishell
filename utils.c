@@ -1,80 +1,83 @@
 #include "ft_minishell.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+static char	**free_all(char **tab)
 {
-	size_t i;
+	int	i;
 
 	i = 0;
-	if (dst == NULL || src == NULL)
-		return (0);
-	if (size == 0)
-		return (ft_strlen(src));
-	while (src[i] && i < size - 1)
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (ft_strlen(src));
-}
-
-static char		**free_mllc(char **splitted, size_t k)
-{
-	size_t i;
-
-	i = -1;
-	while (++i > k)
-		free(splitted[i]);
-	free(splitted);
+	while (tab[i] != NULL)
+		free(tab[i++]);
+	free(tab);
 	return (0);
 }
 
-static size_t	nbr_str(char const *s, char c)
+static int	motcounter(const char *str, char charset)
 {
-	size_t count;
-	size_t i;
+	int	i;
+	int	mot;
+	int	motcount;
 
-	count = 0;
+	motcount = 0;
+	mot = 1;
 	i = 0;
-	while (s[i])
+	while (str[i] != '\0')
 	{
-		if (s[i] == c)
+		if (str[i] == charset)
 		{
-			i++;
-			continue;
+			if (mot++ == 0)
+				motcount++;
 		}
-		count++;
-		while (s[i] && s[i] != c)
-			i++;
+		else
+			mot = 0;
+		i++;
 	}
-	return (count);
+	if (mot == 0)
+		motcount++;
+	return (motcount);
 }
 
-char			**ft_split(char const *s, char c)
+static char	*fill(const char *str, char charset, int *i)
 {
-	size_t	i;
-	size_t	k;
-	size_t	start;
-	char	**splitted;
+	char	*tmp;
+	int		y;
 
+	y = 0;
+	while (str[*i] == charset && str[*i] != '\0')
+		(*i)++;
+	while ((str[(*i) + y] != charset) && str[(*i) + y] != '\0')
+		y++;
+	tmp = malloc(sizeof(char) * (y + 1));
+	if (tmp == 0)
+		return (NULL);
+	y = 0;
+	while ((str[*i] != charset) && str[*i] != '\0')
+		tmp[y++] = str[(*i)++];
+	tmp[y] = '\0';
+	return (tmp);
+}
+
+char	**ft_split(const char *str, char charset)
+{
+	int		wordcount;
+	char	**tab;
+	int		x;
+	int		i;
+
+	x = 0;
 	i = 0;
-	k = 0;
-	if (s == NULL)
+	if (str == NULL)
 		return (NULL);
-	if (!(splitted = (char**)malloc(sizeof(char*) * (nbr_str(s, c) + 1))))
-		return (NULL);
-	while (s[i] && k < (nbr_str(s, c)))
+	wordcount = motcounter(str, charset);
+	tab = malloc(sizeof(char *) * wordcount + 1);
+	if (tab == 0)
+		return (0);
+	while (wordcount > 0)
 	{
-		while (s[i] == c && s[i])
-			i++;
-		start = i;
-		while (s[i] != c && s[i])
-			i++;
-		if (!(splitted[k] = malloc(sizeof(char) * ((i - start) + 1))))
-			return (free_mllc(splitted, k));
-		ft_strlcpy(splitted[k], &s[start], i - start + 1);
-		k++;
+		tab[x++] = fill(str, charset, &i);
+		if (tab[x - 1] == NULL)
+			return (free_all(tab));
+		wordcount--;
 	}
-	splitted[k] = NULL;
-	return (splitted);
+	tab[x] = 0;
+	return (tab);
 }
