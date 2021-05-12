@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MINISHELL
-# define FT_MINISHELL
+#ifndef FT_MINISHELL_H
+# define FT_MINISHELL_H
 
 # include <unistd.h>
 # include <stdio.h>
@@ -32,7 +32,7 @@ typedef enum e_rdir
 	pipe	
 }	t_rdir;
 
-typedef struct	s_cmd
+typedef struct s_cmd
 {
 	void	*cmd;
 	void	*args;
@@ -43,7 +43,6 @@ typedef struct	s_cmd
 	t_cmd	*in;
 	t_cmd	*out;
 }	t_cmd;
-
 
 /*
 ** parser
