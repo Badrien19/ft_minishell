@@ -23,6 +23,28 @@
 # define TRUE 1
 # define FALSE 0
 
+typedef enum e_rdir
+{
+	none,
+	left,
+	right,
+	rright
+	pipe	
+}	t_rdir;
+
+typedef struct	s_cmd
+{
+	void	*cmd;
+	void	*args;
+	void	*result;
+
+	t_rdir	redirect;
+
+	t_cmd	*in;
+	t_cmd	*out;
+}	t_cmd;
+
+
 /*
 ** parser
 */
