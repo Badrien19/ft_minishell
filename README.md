@@ -3,6 +3,9 @@
 | Récupérer la ligne de l'utilisateur
 |--> getnextline
 
+| Structure
+|--> 
+
 | Parsing
 |--> Gérer les ;
 |--> Gérer les backslashs
@@ -12,9 +15,6 @@
 |--> Remplir la structure
 |--> Gérer les redirections
 |--> Gérer les pipes
-
-| Structure
-|--> 
 
 | Commandes
 |--> pwd
