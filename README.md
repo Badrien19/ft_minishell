@@ -1,7 +1,8 @@
 # ft_minishell
 
 | Récupérer la ligne de l'utilisateur
-|--> getnextline
+|--> getnextline ---> done
+
 
 | Structure
 |--> 

@@ -16,6 +16,8 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <dirent.h>
+# include <stdlib.h>
+# include <malloc.h>
 
 # define EXIT_SUCCESS 0
 
@@ -23,6 +25,7 @@
 # define TRUE 1
 # define FALSE 0
 
+<<<<<<< HEAD
 typedef enum e_token_type
 {
 	space,
@@ -52,6 +55,28 @@ typedef struct s_token
 	t_token_type type;
 
 }	t_token;
+=======
+typedef enum	e_rdir
+{
+	none,
+	left,
+	right,
+	rright,
+	pipe	
+}				t_rdir;
+
+typedef struct 	s_cmd
+{
+	void		*cmd;
+	void		*args;
+	void		*result;
+
+	t_rdir		redirect;
+
+	t_cmd		*in;
+	t_cmd		*out;
+}				t_cmd;
+>>>>>>> 31024987dfb63d21ce38e1fb8e8eb383adc60d25
 
 /*
 ** parser
@@ -70,6 +95,26 @@ char	**ft_split(char const *s, char c);
 */
 
 void	sh_pre(void);
-void	main(int argc, char *argv[]);
+int		main(int argc, char *argv[]);
+
+/*
+** libft
+*/
+
+void	ft_putstr(char *s, int fd);
+
+
+/*
+** init
+*/
+
+void    init_struct_cmd(t_cmd *cmd);
+
+/*
+** free
+*/
+
+void	free_cmd(t_cmd	*cmd);
+void	cmdclear(t_cmd **cmd);
 
 #endif
