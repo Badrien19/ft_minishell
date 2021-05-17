@@ -23,26 +23,35 @@
 # define TRUE 1
 # define FALSE 0
 
-typedef enum e_rdir
+typedef enum e_token_type
 {
-	none,
-	left,
-	right,
-	rright
-	pipe	
-}	t_rdir;
+	space,
+	pipeline,
+	semicolon,
+	simple_redir_left,
+	simple_redir_right,
+	double_redir_left,
+	double_redir,right,
+	single_quote,
+	double_quote,
+	backslash,
+	literal
 
-typedef struct s_cmd
+}	t_token_type;
+
+typedef struct	s_list
 {
-	void	*cmd;
-	void	*args;
-	void	*result;
+	void	*value;
+	struct s_list	*next;
+}	t_list;
 
-	t_rdir	redirect;
 
-	t_cmd	*in;
-	t_cmd	*out;
-}	t_cmd;
+typedef struct s_token
+{
+	void *value;
+	t_token_type type;
+
+}	t_token;
 
 /*
 ** parser
