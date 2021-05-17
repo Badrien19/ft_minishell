@@ -66,9 +66,23 @@ void	sh_pre(void);
 int		main(int argc, char *argv[]);
 
 /*
+** libft
+*/
+
+void	ft_putstr(char *s, int fd);
+
+
+/*
 ** init
 */
 
 void    init_struct_cmd(t_cmd *cmd);
+
+/*
+** free
+*/
+
+void	free_cmd(t_cmd	*cmd);
+void	cmdclear(t_cmd **cmd);
 
 #endif
