@@ -54,10 +54,17 @@ void	sh_pre(void)
 	write(1, "\033[0m", 4);
 }
 
-int	main(int argc, char const *argv[])
+int	main(int argc, char **argv)
 {
 	char	*user_input;
+	t_cmd 	*cmd;
 
+	cmd = malloc(sizeof(t_cmd));
+	if (cmd == NULL)
+		return (0);
+	init_struct_cmd(&cmd);
+	init_struct_cmd(&cmd->in);
+	init_struct_cmd(&cmd->out);
 	while (1)
 	{
 		sh_pre();

@@ -16,6 +16,8 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <dirent.h>
+# include <stdlib.h>
+# include <malloc.h>
 
 # define EXIT_SUCCESS 0
 
@@ -23,26 +25,26 @@
 # define TRUE 1
 # define FALSE 0
 
-typedef enum e_rdir
+typedef enum	e_rdir
 {
 	none,
 	left,
 	right,
-	rright
+	rright,
 	pipe	
-}	t_rdir;
+}				t_rdir;
 
-typedef struct s_cmd
+typedef struct 	s_cmd
 {
-	void	*cmd;
-	void	*args;
-	void	*result;
+	void		*cmd;
+	void		*args;
+	void		*result;
 
-	t_rdir	redirect;
+	t_rdir		redirect;
 
-	t_cmd	*in;
-	t_cmd	*out;
-}	t_cmd;
+	t_cmd		*in;
+	t_cmd		*out;
+}				t_cmd;
 
 /*
 ** parser
@@ -61,6 +63,12 @@ char	**ft_split(char const *s, char c);
 */
 
 void	sh_pre(void);
-void	main(int argc, char *argv[]);
+int		main(int argc, char *argv[]);
+
+/*
+** init
+*/
+
+void    init_struct_cmd(t_cmd *cmd);
 
 #endif
