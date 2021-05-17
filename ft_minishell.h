@@ -25,7 +25,6 @@
 # define TRUE 1
 # define FALSE 0
 
-<<<<<<< HEAD
 typedef enum e_token_type
 {
 	space,
@@ -55,28 +54,6 @@ typedef struct s_token
 	t_token_type type;
 
 }	t_token;
-=======
-typedef enum	e_rdir
-{
-	none,
-	left,
-	right,
-	rright,
-	pipe	
-}				t_rdir;
-
-typedef struct 	s_cmd
-{
-	void		*cmd;
-	void		*args;
-	void		*result;
-
-	t_rdir		redirect;
-
-	t_cmd		*in;
-	t_cmd		*out;
-}				t_cmd;
->>>>>>> 31024987dfb63d21ce38e1fb8e8eb383adc60d25
 
 /*
 ** parser
