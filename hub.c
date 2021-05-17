@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/05/17 17:42:50 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/17 18:13:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,23 @@ int		ft_strncmp(char *s1, char *s2, size_t n)
 
 void	cmd_echo(t_list *lst)
 {
-	
+	char	*str;
+	int		i;
+
+	i = 5;
+	str = (char *)lst->value;
+	while(str[i] && str[i] == ' ')
+		i++;
+	while(str[i])
+	{
+		if(str[i] == '\\')
+		{
+			printf("%c", str[i + 1]);
+			i = i + 2;
+		}
+		write(1, str[i], 1);
+		i++;
+	}
 }
 
 void    cmd_check(t_list *lst)
