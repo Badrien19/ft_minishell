@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/05/17 18:13:24 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/18 14:21:18 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,20 @@ int		ft_strncmp(char *s1, char *s2, size_t n)
 	}
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
+
+void	cmd_pwd(void)
+{
+	char	cwd[PATH_MAX];
+
+	if (getcwd(cwd, PATH_MAX))
+	{
+		ft_putendl_fd(cwd, 1);
+		return(0);
+	}
+	else
+		exit;
+}
+
 
 void	cmd_echo(t_list *lst)
 {
@@ -62,7 +76,7 @@ void    cmd_check(t_list *lst)
 		else if (ft_strncmp((char *)lst->value, "cd", 2) == 0)
 			cmd_cd(lst);
 		else if (ft_strncmp((char *)lst->value, "pwd", 3) == 0)
-			cmd_pwd(lst);
+			cmd_pwd();
 		else if (ft_strncmp((char *)lst->value, "export", 6) == 0)
 			cmd_export(lst);
 		else if (ft_strncmp((char *)lst->value, "unset", 5) == 0)
