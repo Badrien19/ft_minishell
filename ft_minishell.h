@@ -37,16 +37,16 @@ typedef enum e_token_type
 	single_quote,
 	double_quote,
 	backslash,
+	variable,
 	literal
 
 }	t_token_type;
 
 typedef struct	s_list
 {
-	void	*value;
+	void	*content;
 	struct s_list	*next;
 }	t_list;
-
 
 typedef struct s_token
 {
@@ -55,17 +55,45 @@ typedef struct s_token
 
 }	t_token;
 
+typedef struct s_sys_infos
+{
+	t_list *user_input;
+}	t_sys_infos;
+
+t_sys_infos g_sys_infos;
+
 /*
 ** parser
 */
 
 void	parsing(char *user_input);
+void    tokenizer(char *input);
 
 /*
 ** utils
 */
 
 char	**ft_split(char const *s, char c);
+size_t	ft_strlen(const char *s);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strdup(const char *s1);
+char	*ft_strndup(const char *s1, int n);
+
+
+/*
+** utils
+*/
+
+void	ft_lstadd_back(t_list **alst, t_list *new);
+void	ft_lstadd_front(t_list **alst, t_list *new);
+void	ft_lstclear(t_list **lst, void (*del)(void*));
+void	ft_lstdelone(t_list *lst, void (*del)(void*));
+void	ft_lstiter(t_list *lst, void (*f)(void *));
+t_list	*ft_lstlast(t_list *lst);
+t_list	*ft_lstnew(void *content);
+int		ft_lstsize(t_list *lst);
+
 
 /*
 ** minishell
@@ -85,13 +113,13 @@ void	ft_putstr(char *s, int fd);
 ** init
 */
 
-void    init_struct_cmd(t_cmd *cmd);
+// void    init_struct_cmd(t_cmd *cmd);
 
 /*
 ** free
 */
 
-void	free_cmd(t_cmd	*cmd);
-void	cmdclear(t_cmd **cmd);
+// void	free_cmd(t_cmd	*cmd);
+// void	cmdclear(t_cmd **cmd);
 
 #endif

@@ -81,3 +81,83 @@ char	**ft_split(const char *str, char charset)
 	tab[x] = 0;
 	return (tab);
 }
+
+size_t	ft_strlen(const char *s)
+{
+	size_t len;
+
+	len = 0;
+	while (*s++)
+		len++;
+	return (len);
+}
+
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	size_t	i;
+
+	if (dst == NULL)
+		return (NULL);
+	i = 0;
+	while (i < n && (dst != NULL || src != NULL))
+	{
+		((unsigned char*)dst)[i] = ((unsigned char*)src)[i];
+		i++;
+	}
+	return (dst);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	size_t i;
+	size_t size_s;
+
+	i = 0;
+	size_s = ft_strlen(s);
+	while (i < size_s)
+	{
+		if (c == s[i])
+			return (char*)(&s[i]);
+		i++;
+	}
+	if (c == s[i])
+		return (char*)(&s[i]);
+	return (NULL);
+}
+
+char	*ft_strdup(const char *s1)
+{
+	char	*copy;
+	size_t	i;
+	size_t	size_s1;
+
+	i = -1;
+	size_s1 = ft_strlen(s1);
+	if (!(copy = malloc((sizeof(char) * size_s1) + 1)))
+		return (NULL);
+	while (++i < size_s1)
+		copy[i] = s1[i];
+	copy[i] = '\0';
+	return (copy);
+}
+
+char		*ft_strndup(const char *s1, int n)
+{
+	char	*dup;
+	int		i;
+	int		size_s1;
+
+	i = 0;
+	size_s1 = (int)ft_strlen(s1);
+	if ((n > size_s1))
+		n = size_s1;
+	if (!(dup = malloc(sizeof(char) * (n + 1))))
+		return (0);
+	while (i < n)
+	{
+		dup[i] = s1[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
+}

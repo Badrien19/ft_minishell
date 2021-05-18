@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:24:05 by badrien           #+#    #+#             */
-/*   Updated: 2021/05/17 17:24:24 by badrien          ###   ########.fr       */
+/*   Updated: 2021/05/18 15:23:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
 	if (lst != NULL && f != NULL)
 	{
-		while (lst->next != '\0')
+		while (lst->next != NULL)
 		{
 			f(lst->content);
 			lst = lst->next;
@@ -68,7 +68,7 @@ t_list	*ft_lstlast(t_list *lst)
 {
 	if (lst != NULL)
 	{
-		while (lst->next != '\0')
+		while (lst->next != NULL)
 			lst = lst->next;
 		return (lst);
 	}
@@ -93,7 +93,7 @@ int	ft_lstsize(t_list *lst)
 	if (lst != NULL)
 	{
 		i = 0;
-		while (lst != '\0')
+		while (lst != NULL)
 		{
 			lst = lst->next;
 			i++;

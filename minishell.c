@@ -57,19 +57,13 @@ void	sh_pre(void)
 int	main(int argc, char **argv)
 {
 	char	*user_input;
-	t_cmd 	*cmd;
+	g_sys_infos.user_input = 0;
 
-	cmd = malloc(sizeof(t_cmd));
-	if (cmd == NULL)
-		return (0);
-	init_struct_cmd(&cmd);
-	init_struct_cmd(&cmd->in);
-	init_struct_cmd(&cmd->out);
 	while (1)
 	{
 		sh_pre();
 		user_input = sh_read_line();
-        parsing(user_input);
+		parsing(user_input);
 	}
 	return (0);
 }
