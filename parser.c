@@ -1,7 +1,5 @@
 #include "ft_minishell.h"
 
-
-
 static	t_token			g_tab_token[] = {
 	{"|", pipeline},
 	{"<", simple_redir_left},
@@ -19,12 +17,6 @@ static	t_token			g_tab_token[] = {
 	{"$", variable},
 	{0, 0},
 };
-
-
-void    print_list(void *str)
-{
-    printf(str);
-}
 
 t_token *create_token(char *value, t_token_type type)
 {
@@ -71,6 +63,7 @@ void    parsing(char *user_input)
     {
         new = ft_strndup(user_input + i, 1);
         tokenizer(new);
+        free(new);
         // ne pas oublier de free new
         i++;
     }
@@ -90,7 +83,5 @@ void    tokenizer(char *input)
     token = create_token(value, type);
     if (!(new = ft_lstnew(token)))
         exit (-1);
-    ft_lstadd_back(&g_sys_infos.user_input, new);
-
-    ft_lstiter(g_sys_infos.user_input, print_list);
+    ft_lstadd_back(&g_sys_infos.list_input, new);
 }

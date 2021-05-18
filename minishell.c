@@ -47,6 +47,12 @@ char	*sh_read_line(void)
 	return (str);
 }
 
+void    print_list(void *str)
+{
+	if (str != NULL)
+    	printf(str);
+}
+
 void	sh_pre(void)
 {
 	write(1, "\033[1;32m", 7);
@@ -57,13 +63,14 @@ void	sh_pre(void)
 int	main(int argc, char **argv)
 {
 	char	*user_input;
-	g_sys_infos.user_input = 0;
+	g_sys_infos.list_input = 0;
 
 	while (1)
 	{
 		sh_pre();
 		user_input = sh_read_line();
 		parsing(user_input);
+		ft_lstiter(g_sys_infos.list_input->content, print_list);
 	}
 	return (0);
 }

@@ -57,7 +57,7 @@ typedef struct s_token
 
 typedef struct s_sys_infos
 {
-	t_list *user_input;
+	t_list *list_input;
 }	t_sys_infos;
 
 t_sys_infos g_sys_infos;
