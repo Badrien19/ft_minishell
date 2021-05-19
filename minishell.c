@@ -71,13 +71,6 @@ void	sh_pre(void)
 	write(1, "\033[0m", 4);
 }
 
-void	del_list(t_list *lst)
-{
-	free(lst->content->value);
-	free(lst->content);
-	free(lst);
-}
-
 void	free_list(void)
 {
 	t_list	*buffer;
@@ -89,7 +82,9 @@ void	free_list(void)
 	{
 		g_sys_infos.list_input = buffer;
 		buffer = buffer->next;
-		del_list(g_sys_infos.list_input);
+		free(g_sys_infos.list_input->content->value);
+		free(g_sys_infos.list_input->content);
+		free(g_sys_infos.list_input);
 	}
 	g_sys_infos.list_input = NULL;
 }
