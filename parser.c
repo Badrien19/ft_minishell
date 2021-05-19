@@ -83,5 +83,7 @@ void    tokenizer(char *input)
     token = create_token(value, type);
     if (!(new = ft_lstnew(token)))
         exit (-1);
+    //printf("%s -> %p\n", new->content->value, new->next);
     ft_lstadd_back(&g_sys_infos.list_input, new);
+    //printf("%s -> %p\n", g_sys_infos.list_input->content->value, g_sys_infos.list_input->next);
 }

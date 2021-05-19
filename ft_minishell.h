@@ -42,18 +42,19 @@ typedef enum e_token_type
 
 }	t_token_type;
 
-typedef struct	s_list
-{
-	void	*content;
-	struct s_list	*next;
-}	t_list;
-
 typedef struct s_token
 {
 	void *value;
 	t_token_type type;
 
 }	t_token;
+
+typedef struct	s_list
+{
+	t_token	*content;
+	struct s_list	*next;
+}	t_list;
+
 
 typedef struct s_sys_infos
 {

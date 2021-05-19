@@ -47,10 +47,21 @@ char	*sh_read_line(void)
 	return (str);
 }
 
-void    print_list(void *str)
+void    print_list(void)
 {
-	if (str != NULL)
-    	printf(str);
+	t_sys_infos tmp_sys_infos;
+	
+	tmp_sys_infos = g_sys_infos;
+
+	if (tmp_sys_infos.list_input != NULL)
+	{
+		while (tmp_sys_infos.list_input->next != NULL)
+		{
+			printf("%s (%i) -> %p\n", tmp_sys_infos.list_input->content->value, tmp_sys_infos.list_input->content->type, tmp_sys_infos.list_input->next);
+			tmp_sys_infos.list_input = tmp_sys_infos.list_input->next;
+		}
+		printf("%s (%i) -> %p\n", tmp_sys_infos.list_input->content->value, tmp_sys_infos.list_input->content->type, tmp_sys_infos.list_input->next);
+	}
 }
 
 void	sh_pre(void)
@@ -70,7 +81,7 @@ int	main(int argc, char **argv)
 		sh_pre();
 		user_input = sh_read_line();
 		parsing(user_input);
-		ft_lstiter(g_sys_infos.list_input->content, print_list);
+		print_list();
 	}
 	return (0);
 }
