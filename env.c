@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:17:37 by badrien           #+#    #+#             */
-/*   Updated: 2021/05/17 16:41:07 by badrien          ###   ########.fr       */
+/*   Updated: 2021/05/19 10:56:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ft_minishell.h"
 
 void print_env(char **env)
 {
@@ -58,7 +60,7 @@ char *get_value_env(char **env, char *name)
     while(env[i] != NULL)
     {
         if(ft_strncmp(env[i], name, len) != 1)
-            return(ft_substr(env[i], (len + 1), ft_strlen(env[i]));
+            return(ft_substr(env[i], (len + 1), ft_strlen(env[i])));
         i++;
     }
     return (NULL);
@@ -75,5 +77,32 @@ int add_env(char **env, char *name, char *value)
         return (1);
     tmp = ft_strjoin("=", value);
     env[size_env(env) - 1] = strjoin(name, tmp);
-    return(0)
+    return(0);
+}
+
+//ajouter par Alex
+
+int     init_env(char **env_array)
+{
+    t_list  *env;
+    t_list  *new;
+    int     i;
+
+    env = malloc(sizeof(t_list));
+    if (env == NULL)
+        return (0);
+    env->value = ft_strdup(env_array[0]);
+    env->next = NULL;
+    i = 1;
+    while (env_array && env_array[0] && env_array[i])
+    {
+        new = malloc(sizeof(t_list));
+        if (new == NULL)
+            return (0);
+        new->value = ft_strdup(env_array[i]);
+        new->next = NULL;
+        env->next = new;
+        i++;
+    }
+    return(0);
 }
