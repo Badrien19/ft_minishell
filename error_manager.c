@@ -6,15 +6,14 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:28:08 by user42            #+#    #+#             */
-/*   Updated: 2021/05/17 15:00:29 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/19 16:33:21 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-void error_manager(char *msg, t_cmd *cmd)
+void error_manager(char *msg)
 {
     ft_putstr(msg, 1);
-    cmdclear(&cmd);
-    exit ;
+    exit (0);
 }

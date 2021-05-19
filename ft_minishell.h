@@ -110,6 +110,8 @@ int		main(int argc, char *argv[]);
 void	ft_putstr(char *s, int fd);
 
 
+void	error_manager(char *msg);
+
 /*
 ** init
 */
