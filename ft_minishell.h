@@ -18,12 +18,15 @@
 # include <dirent.h>
 # include <stdlib.h>
 # include <malloc.h>
+# include <limits.h>
+
 
 # define EXIT_SUCCESS 0
 
 # define BOOL signed int
 # define TRUE 1
 # define FALSE 0
+# define PATH_MAX        4096
 
 typedef enum e_token_type
 {
@@ -80,18 +83,5 @@ int		main(int argc, char *argv[]);
 
 void	ft_putstr(char *s, int fd);
 
-
-/*
-** init
-*/
-
-void    init_struct_cmd(t_cmd *cmd);
-
-/*
-** free
-*/
-
-void	free_cmd(t_cmd	*cmd);
-void	cmdclear(t_cmd **cmd);
 
 #endif
