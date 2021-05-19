@@ -1,39 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_putndl.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/17 14:21:04 by user42            #+#    #+#             */
-/*   Updated: 2021/05/17 15:44:03 by user42           ###   ########.fr       */
+/*   Created: 2021/05/19 11:23:32 by user42            #+#    #+#             */
+/*   Updated: 2021/05/19 11:23:46 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_minishell.h"
+#include "minishell.h"
 
-void	free_cmd(t_cmd	*cmd)
+void	ft_putendl(char *s)
 {
-	if (cmd->redirect != NULL)
-		free(cmd->redirect);
-	if (cmd->in != NULL)
-		free(cmd->in);
-	if (cmd->out != NULL)
-		free(cmd->out);
-}
+	int	i;
 
-void	cmdclear(t_cmd **cmd)
-{
-	t_cmd	*buffer;
-
-	if (cmd == NULL)
+	i = 0;
+	if (s == NULL)
 		return ;
-	buffer = cmd;
-	while (buffer != NULL)
+	while (s[i] != '\0')
 	{
-		*cmd = buffer;
-		buffer = buffer->out;
-		free_cmd(&cmd);
+		write(1, &s[i], 1);
+		i++;
 	}
-	free_cmd(&cmd);
+	write(1, "\n", 1);
 }

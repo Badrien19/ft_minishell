@@ -1,39 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/17 14:21:04 by user42            #+#    #+#             */
-/*   Updated: 2021/05/17 15:44:03 by user42           ###   ########.fr       */
+/*   Created: 2021/05/19 10:47:58 by user42            #+#    #+#             */
+/*   Updated: 2021/05/19 10:48:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-void	free_cmd(t_cmd	*cmd)
+char	*ft_strdup(const char *s)
 {
-	if (cmd->redirect != NULL)
-		free(cmd->redirect);
-	if (cmd->in != NULL)
-		free(cmd->in);
-	if (cmd->out != NULL)
-		free(cmd->out);
-}
+	char			*str;
+	unsigned int	n;
 
-void	cmdclear(t_cmd **cmd)
-{
-	t_cmd	*buffer;
-
-	if (cmd == NULL)
-		return ;
-	buffer = cmd;
-	while (buffer != NULL)
-	{
-		*cmd = buffer;
-		buffer = buffer->out;
-		free_cmd(&cmd);
-	}
-	free_cmd(&cmd);
+	n = ft_strlen(s);
+	if (!(str = malloc((sizeof(char) * (n + 1)))))
+		return (NULL);
+	ft_strlcpy(str, s, n + 1);
+	str[n] = '\0';
+	return (str);
 }

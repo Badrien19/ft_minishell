@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:17:37 by badrien           #+#    #+#             */
-/*   Updated: 2021/05/19 10:56:54 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/19 11:27:33 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,15 @@ int     init_env(char **env_array)
         i++;
     }
     return(0);
+}
+
+void    ft_env(t_list *env)
+{
+    while (env && env->next)
+    {
+        ft_putendl(env->value);
+        env = env->next;
+    }
+    if(env)
+        ft_putendl(env->value);
 }

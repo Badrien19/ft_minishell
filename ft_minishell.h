@@ -82,6 +82,8 @@ int		main(int argc, char *argv[]);
 */
 
 void	ft_putstr(char *s, int fd);
+char	*ft_strdup(const char *s);
+void	ft_putendl(char *s);
 
 
 #endif
