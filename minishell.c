@@ -71,6 +71,30 @@ void	sh_pre(void)
 	write(1, "\033[0m", 4);
 }
 
+void	del_list(t_list *lst)
+{
+	free(lst->content->value);
+	free(lst->content);
+	free(lst);
+}
+
+void	free_list(void)
+{
+	t_list	*buffer;
+
+	if (g_sys_infos.list_input == NULL)
+		return ;
+	buffer = g_sys_infos.list_input;
+	while (buffer != NULL)
+	{
+		g_sys_infos.list_input = buffer;
+		buffer = buffer->next;
+		del_list(g_sys_infos.list_input);
+	}
+	g_sys_infos.list_input = NULL;
+}
+
+
 int	main(int argc, char **argv)
 {
 	char	*user_input;
@@ -82,6 +106,7 @@ int	main(int argc, char **argv)
 		user_input = sh_read_line();
 		parsing(user_input);
 		print_list();
+		free_list();
 	}
 	return (0);
 }
