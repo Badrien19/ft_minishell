@@ -67,6 +67,7 @@ void    parsing(char *user_input)
         // ne pas oublier de free new
         i++;
     }
+    concat_tokens();
 }
 
 void    tokenizer(char *input)
@@ -84,12 +85,11 @@ void    tokenizer(char *input)
     if (!(new = ft_lstnew(token)))
         exit (-1);
     ft_lstadd_back(&g_sys_infos.list_input, new);
-    concat_tokens();
 }
 
 t_token_type get_token_type(t_token *token)
 {
-    printf("%i\n", token->type);
+    //printf("%i\n", token->type);
     return (token->type);
 }
 
@@ -107,10 +107,10 @@ void *join_two_tokens(t_token *token_1, t_token *token_2)
 
     str_1 = token_1->value;
     str_2 = token_2->value;
-    printf("%s - %s\n", str_1, str_2);
+    //printf("%s - %s\n", str_1, str_2);
     new_tok_value = ft_strjoin(str_1, str_2);
     token = create_token(new_tok_value, get_token_type(token_1));
-    printf("%s\n", token->value);
+    //printf("%s\n", token->value);
     return (token);
 }
 
@@ -126,16 +126,14 @@ void    concat_tokens()
     t_sys_infos tmp_sys_infos;
 
     tmp_sys_infos = g_sys_infos;
-    tmp_sys_infos.list_input = tmp_sys_infos.list_input->next;
-    printf("%s\n", tmp_sys_infos.list_input->content->value);
     while (tmp_sys_infos.list_input != NULL)
     {
         if (get_token_type(tmp_sys_infos.list_input->content) == get_token_type(tmp_sys_infos.list_input->next->content))
         {
-            printf("test\n");
             tmp_sys_infos.list_input->content = join_two_tokens(tmp_sys_infos.list_input->content, tmp_sys_infos.list_input->next->content);
             printf("%s\n", tmp_sys_infos.list_input->content->value);
-            tmp_list = tmp_sys_infos.list_input->next;
+            tmp_list = tmp_sys_infos.list_input->content->value;
+            printf("%p\n", tmp_list->next);
             tmp_sys_infos.list_input = tmp_sys_infos.list_input->next;
             del_node(tmp_sys_infos.list_input);
             tmp_sys_infos.list_input = tmp_list;
@@ -143,3 +141,8 @@ void    concat_tokens()
         tmp_sys_infos.list_input = tmp_sys_infos.list_input->next;
     }
 }
+/*
+1: T 2: E 3: S 4: T
+1: TE 2: E 3: S 4: T
+1: TE 2: S 3: T
+*/
