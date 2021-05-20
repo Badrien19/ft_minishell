@@ -94,6 +94,8 @@ char	*ft_strdup(const char *s1);
 char	*ft_strndup(const char *s1, int n);
 char	*ft_strjoin(char const *s1, char const *s2);
 void	ft_putstr(char *s, int fd);
+int		ft_strncmp(char *s1, char *s2, size_t n);
+int		ft_strcmp(char *s1, char *s2);
 
 /*
 ** lists
@@ -131,5 +133,11 @@ void	free_list(void);
 */
 
 void    print_list(void);
+
+/*
+** hub.c
+*/
+
+void	cmd_hub(void);
 
 #endif

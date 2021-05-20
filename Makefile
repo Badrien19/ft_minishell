@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:00:43 by user42            #+#    #+#              #
-#    Updated: 2021/05/20 17:20:04 by marvin           ###   ########.fr        #
+#    Updated: 2021/05/20 17:50:45 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 #CFLAGS = -Wall -Wextra -Werror
-SRC = 	minishell.c parser.c list.c utils.c free.c errors.c checker.c debug.c
+SRC = 	minishell.c parser.c list.c utils.c free.c errors.c checker.c debug.c hub.c
 NAME = ft_minishell
 LIB = ar rcs
 
@@ -35,6 +35,5 @@ fclean:	clean
 re:			fclean all
 		
 exec:		re
-			@echo "\033[32m[✓]\033[0m		[$(NAME) and main.c compiled]"
 			@echo "\033[32m[✓]\033[0m		[$(NAME) executed]\n"
 			@./$(NAME)
