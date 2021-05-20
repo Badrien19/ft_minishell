@@ -21,9 +21,11 @@
 
 # define EXIT_SUCCESS 0
 
-# define BOOL signed int
-# define TRUE 1
-# define FALSE 0
+typedef enum e_bool
+{
+	False,
+	True
+} t_bool;
 
 typedef enum e_token_type
 {
@@ -112,7 +114,7 @@ int		ft_lstsize(t_list *lst);
 ** checker.c
 */
 
-void	checking_if_quotes_even();
+t_bool	checking_if_quotes_even();
 
 /*
 ** errors.c

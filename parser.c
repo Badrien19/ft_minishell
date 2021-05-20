@@ -121,9 +121,37 @@ void    del_node(t_list *node)
 	node->next = NULL;
 }
 
+void    arrange_list()
+{
+    t_list *tmp_list;
+
+    g_sys_infos.list_input->content = join_two_tokens(g_sys_infos.list_input->content, g_sys_infos.list_input->next->content);
+    tmp_list = g_sys_infos.list_input->next->next;
+    del_node(g_sys_infos.list_input->next);
+    g_sys_infos.list_input->next->content = tmp_list->content;
+    g_sys_infos.list_input->next->next = tmp_list->next;
+}
+
 void    concat_tokens_quotes()
 {
-    checking_if_quotes_even();
+    t_list *begin;
+    t_token_type quote_type;
+
+    begin = g_sys_infos.list_input;
+    if (checking_if_quotes_even() == False)
+        return ;
+    while (g_sys_infos.list_input != NULL)
+    {
+        if (g_sys_infos.list_input->content->type == single_quote || g_sys_infos.list_input->content->type == double_quote)
+        {
+            quote_type = g_sys_infos.list_input->content->type;
+            while (g_sys_infos.list_input->next->content->type != quote_type && g_sys_infos.list_input->next != NULL)
+                arrange_list();
+            arrange_list();
+        }
+        g_sys_infos.list_input = g_sys_infos.list_input->next;
+    }
+    g_sys_infos.list_input = begin;
 }
 
 void    concat_tokens_all()
@@ -139,12 +167,7 @@ void    concat_tokens_all()
         if (get_token_type(g_sys_infos.list_input->content) == get_token_type(g_sys_infos.list_input->next->content))
         {
             //printf("[if]\n");
-            g_sys_infos.list_input->content = join_two_tokens(g_sys_infos.list_input->content, g_sys_infos.list_input->next->content);
-            tmp_list = g_sys_infos.list_input->next->next;
-            del_node(g_sys_infos.list_input->next);
-            g_sys_infos.list_input->next->content = tmp_list->content;
-            //printf("checkpoint.\n");
-            g_sys_infos.list_input->next->next = tmp_list->next;
+            arrange_list();
         }
         else
         {

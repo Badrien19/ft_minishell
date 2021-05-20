@@ -1,6 +1,6 @@
 #include "ft_minishell.h"
 
-void	checking_if_quotes_even(void)
+t_bool	checking_if_quotes_even(void)
 {
 	t_list	*list;
 	int		count_s;
@@ -21,5 +21,10 @@ void	checking_if_quotes_even(void)
 		list = list->next;
 	}
 	if (count_s % 2 != 0 || count_d % 2 != 0)
+	{
 		printf("Warning : Quotes are uneven.\n");
+		return (False);
+	}
+	else
+		return (True);
 }
