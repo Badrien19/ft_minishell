@@ -57,10 +57,10 @@ void    print_list(void)
 	{
 		while (tmp_sys_infos.list_input->next != NULL)
 		{
-			printf("%s (%i) -> %p\n", (char*)tmp_sys_infos.list_input->content->value, tmp_sys_infos.list_input->content->type, tmp_sys_infos.list_input->next);
+			printf("'%s' (%i) -> %p\n", (char*)tmp_sys_infos.list_input->content->value, tmp_sys_infos.list_input->content->type, tmp_sys_infos.list_input->next);
 			tmp_sys_infos.list_input = tmp_sys_infos.list_input->next;
 		}
-		printf("%s (%i) -> %p\n", (char*)tmp_sys_infos.list_input->content->value, tmp_sys_infos.list_input->content->type, tmp_sys_infos.list_input->next);
+		printf("'%s' (%i) -> %p\n", (char*)tmp_sys_infos.list_input->content->value, tmp_sys_infos.list_input->content->type, tmp_sys_infos.list_input->next);
 	}
 }
 
@@ -109,7 +109,7 @@ void	error_checker(void)
 			count_d++;
 		list = list->next;
 	}
-	printf("%i\n", count_d);
+	//printf("%i\n", count_d);
 	if (count_s % 2 != 0 || count_d % 2 != 0)
 		printf("quotes uneven\n");
 }

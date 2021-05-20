@@ -116,30 +116,41 @@ void *join_two_tokens(t_token *token_1, t_token *token_2)
 
 void    del_node(t_list *node)
 {
-    free(node->content);
-	free(node->next);
+    node->content = NULL;
+	node->next = NULL;
 }
 
 void    concat_tokens()
 {
     t_list *tmp_list;
-    t_sys_infos tmp_sys_infos;
+    t_list *begin;
 
-    tmp_sys_infos = g_sys_infos;
-    while (tmp_sys_infos.list_input != NULL)
+    begin = g_sys_infos.list_input;
+
+    while (g_sys_infos.list_input != NULL && g_sys_infos.list_input->next != NULL)
     {
-        if (get_token_type(tmp_sys_infos.list_input->content) == get_token_type(tmp_sys_infos.list_input->next->content))
+        //printf("act : %s\n", g_sys_infos.list_input->content->value);
+        if (get_token_type(g_sys_infos.list_input->content) == get_token_type(g_sys_infos.list_input->next->content))
         {
-            tmp_sys_infos.list_input->content = join_two_tokens(tmp_sys_infos.list_input->content, tmp_sys_infos.list_input->next->content);
-            printf("%s\n", tmp_sys_infos.list_input->content->value);
-            tmp_list = tmp_sys_infos.list_input->content->value;
-            printf("%p\n", tmp_list->next);
-            tmp_sys_infos.list_input = tmp_sys_infos.list_input->next;
-            del_node(tmp_sys_infos.list_input);
-            tmp_sys_infos.list_input = tmp_list;
+            g_sys_infos.list_input->content = join_two_tokens(g_sys_infos.list_input->content, g_sys_infos.list_input->next->content);
+            //printf("%s\n", g_sys_infos.list_input->content->value);
+            tmp_list = g_sys_infos.list_input->next->next;
+            // printf("%s\n", tmp_list->content->value);
+            del_node(g_sys_infos.list_input->next);
+            g_sys_infos.list_input->next->content = tmp_list->content;
+            g_sys_infos.list_input->next->next = tmp_list->next;
+            //printf("%s\n", g_sys_infos.list_input->next->content->value);
+            //printf("%p\n", g_sys_infos.list_input->next->next);
         }
-        tmp_sys_infos.list_input = tmp_sys_infos.list_input->next;
+        else// if (g_sys_infos.list_input->next != NULL)
+        {
+            //printf("'%s' -> '%s'\n", g_sys_infos.list_input->content->value, g_sys_infos.list_input->next->content->value);
+            g_sys_infos.list_input = g_sys_infos.list_input->next;
+        }
+        //g_sys_infos.list_input = tmp_sys_infos->list_input->next;
     }
+    g_sys_infos.list_input = begin;
+    //printf("Test\n");
 }
 /*
 1: T 2: E 3: S 4: T
