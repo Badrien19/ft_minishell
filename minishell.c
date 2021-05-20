@@ -53,7 +53,7 @@ void	sh_pre(void)
 	write(1, "\033[0m", 4);
 }
 
-int	main(int argc, char **argv)
+int	main(void)
 {
 	char	*user_input;
 	g_sys_infos.list_input = 0;

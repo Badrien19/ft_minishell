@@ -9,7 +9,7 @@ static	t_token			g_tab_token[] = {
 	{"'", single_quote},
 	{"\\", backslash},
 	{"\f", space},
-	{"\n", space},
+	{"\n", line_return},
 	{"\r", space},
 	{"\t", space},
 	{"\v", space},
@@ -135,28 +135,24 @@ void    concat_tokens_all()
 
     while (g_sys_infos.list_input != NULL && g_sys_infos.list_input->next != NULL)
     {
-        //printf("act : %s\n", g_sys_infos.list_input->content->value);
+        //printf("'%s' -> '%s'\n", g_sys_infos.list_input->content->value, g_sys_infos.list_input->next->content->value);
         if (get_token_type(g_sys_infos.list_input->content) == get_token_type(g_sys_infos.list_input->next->content))
         {
+            //printf("[if]\n");
             g_sys_infos.list_input->content = join_two_tokens(g_sys_infos.list_input->content, g_sys_infos.list_input->next->content);
-            //printf("%s\n", g_sys_infos.list_input->content->value);
             tmp_list = g_sys_infos.list_input->next->next;
-            // printf("%s\n", tmp_list->content->value);
             del_node(g_sys_infos.list_input->next);
             g_sys_infos.list_input->next->content = tmp_list->content;
+            //printf("checkpoint.\n");
             g_sys_infos.list_input->next->next = tmp_list->next;
-            //printf("%s\n", g_sys_infos.list_input->next->content->value);
-            //printf("%p\n", g_sys_infos.list_input->next->next);
         }
-        else// if (g_sys_infos.list_input->next != NULL)
+        else
         {
-            //printf("'%s' -> '%s'\n", g_sys_infos.list_input->content->value, g_sys_infos.list_input->next->content->value);
+            //printf("[else]\n");
             g_sys_infos.list_input = g_sys_infos.list_input->next;
         }
-        //g_sys_infos.list_input = tmp_sys_infos->list_input->next;
     }
     g_sys_infos.list_input = begin;
-    //printf("Test\n");
 }
 /*
 1: T 2: E 3: S 4: T

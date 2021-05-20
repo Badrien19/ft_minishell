@@ -28,6 +28,7 @@
 typedef enum e_token_type
 {
 	space,
+	line_return,
 	pipeline,
 	semicolon,
 	simple_redir_left,
@@ -68,7 +69,7 @@ t_sys_infos g_sys_infos;
 */
 
 void	sh_pre(void);
-int		main(int argc, char *argv[]);
+int		main(void);
 void    print_list(void);
 
 /*
@@ -120,10 +121,15 @@ void	checking_if_quotes_even();
 void	error(char *error_text);
 
 /*
-** free
+** free.c
 */
 
 void	free_list(void);
 
+/*
+** debug.c
+*/
+
+void    print_list(void);
 
 #endif

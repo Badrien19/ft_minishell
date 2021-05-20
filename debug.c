@@ -15,4 +15,5 @@ void    print_list(void)
 		}
 		printf("'%s' (%i) -> %p\n", (char*)tmp_sys_infos.list_input->content->value, tmp_sys_infos.list_input->content->type, tmp_sys_infos.list_input->next);
 	}
+	printf("-----------------------------------------------\n");
 }
