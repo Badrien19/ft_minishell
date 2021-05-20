@@ -64,12 +64,21 @@ typedef struct s_sys_infos
 t_sys_infos g_sys_infos;
 
 /*
+** minishell
+*/
+
+void	sh_pre(void);
+int		main(int argc, char *argv[]);
+void    print_list(void);
+
+/*
 ** parser
 */
 
 void	parsing(char *user_input);
 void    tokenizer(char *input);
-void    concat_tokens();
+void    concat_tokens_all();
+void	concat_tokens_quotes();
 
 
 /*
@@ -83,6 +92,7 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s1);
 char	*ft_strndup(const char *s1, int n);
 char	*ft_strjoin(char const *s1, char const *s2);
+void	ft_putstr(char *s, int fd);
 
 /*
 ** lists
@@ -97,36 +107,23 @@ t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstnew(void *content);
 int		ft_lstsize(t_list *lst);
 
-
 /*
-** minishell
+** checker.c
 */
 
-void	sh_pre(void);
-int		main(int argc, char *argv[]);
-void    print_list(void);
-
+void	checking_if_quotes_even();
 
 /*
-** libft
+** errors.c
 */
 
-void	ft_putstr(char *s, int fd);
-
-
-void	error_manager(char *msg);
-
-/*
-** init
-*/
-
-// void    init_struct_cmd(t_cmd *cmd);
+void	error(char *error_text);
 
 /*
 ** free
 */
 
-// void	free_cmd(t_cmd	*cmd);
-// void	cmdclear(t_cmd **cmd);
+void	free_list(void);
+
 
 #endif

@@ -1,7 +1,6 @@
 #include "ft_minishell.h"
 
 #define SH_LINE_BUFFSIZE 10
-#define SH_LINE_DELIM " \t\r\n\a"
 
 char	*stradd(char *s1, char const *s2)
 {
@@ -47,71 +46,11 @@ char	*sh_read_line(void)
 	return (str);
 }
 
-void    print_list(void)
-{
-	t_sys_infos tmp_sys_infos;
-	
-	tmp_sys_infos = g_sys_infos;
-
-	if (tmp_sys_infos.list_input != NULL)
-	{
-		while (tmp_sys_infos.list_input->next != NULL)
-		{
-			printf("'%s' (%i) -> %p\n", (char*)tmp_sys_infos.list_input->content->value, tmp_sys_infos.list_input->content->type, tmp_sys_infos.list_input->next);
-			tmp_sys_infos.list_input = tmp_sys_infos.list_input->next;
-		}
-		printf("'%s' (%i) -> %p\n", (char*)tmp_sys_infos.list_input->content->value, tmp_sys_infos.list_input->content->type, tmp_sys_infos.list_input->next);
-	}
-}
-
 void	sh_pre(void)
 {
 	write(1, "\033[1;32m", 7);
 	write(1, "minishell > ", 13);
 	write(1, "\033[0m", 4);
-}
-
-void	free_list(void)
-{
-	t_list	*buffer;
-
-	if (g_sys_infos.list_input == NULL)
-		return ;
-	buffer = g_sys_infos.list_input;
-	while (buffer != NULL)
-	{
-		g_sys_infos.list_input = buffer;
-		buffer = buffer->next;
-		free(g_sys_infos.list_input->content->value);
-		free(g_sys_infos.list_input->content);
-		free(g_sys_infos.list_input);
-	}
-	g_sys_infos.list_input = NULL;
-}
-
-void	error_checker(void)
-{
-	t_list	*list;
-	int		count_s;
-	int		count_d;
-
-	list = g_sys_infos.list_input;
-	count_s = 0;
-	count_d = 0;
-
-	if (list == NULL)
-		error_manager("no list_input\n");
-	while (list)
-	{
-		if(list->content->type == single_quote)
-			count_s++;
-		else if(list->content->type == double_quote)
-			count_d++;
-		list = list->next;
-	}
-	//printf("%i\n", count_d);
-	if (count_s % 2 != 0 || count_d % 2 != 0)
-		printf("quotes uneven\n");
 }
 
 int	main(int argc, char **argv)
@@ -124,7 +63,6 @@ int	main(int argc, char **argv)
 		sh_pre();
 		user_input = sh_read_line();
 		parsing(user_input);
-		error_checker();
 		print_list();
 		free_list();
 	}

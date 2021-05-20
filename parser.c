@@ -67,7 +67,8 @@ void    parsing(char *user_input)
         // ne pas oublier de free new
         i++;
     }
-    concat_tokens();
+    concat_tokens_all();
+    concat_tokens_quotes();
 }
 
 void    tokenizer(char *input)
@@ -120,7 +121,12 @@ void    del_node(t_list *node)
 	node->next = NULL;
 }
 
-void    concat_tokens()
+void    concat_tokens_quotes()
+{
+    checking_if_quotes_even();
+}
+
+void    concat_tokens_all()
 {
     t_list *tmp_list;
     t_list *begin;

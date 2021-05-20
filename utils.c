@@ -178,3 +178,11 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	ft_memcpy(&ret[size_s1], s2, size_s2 + 1);
 	return (ret);
 }
+
+void	ft_putstr(char *s, int fd)
+{
+	if (s == NULL || fd < 0)
+		return ;
+	while (*s)
+		write(fd, s++, 1);
+}

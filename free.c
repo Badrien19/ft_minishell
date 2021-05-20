@@ -3,37 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:21:04 by user42            #+#    #+#             */
-/*   Updated: 2021/05/17 14:59:35 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/20 16:53:12 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-void	free_cmd(t_cmd	*cmd)
+void	free_list(void)
 {
-	if (cmd->redirect != NULL)
-		free(cmd->redirect);
-	if (cmd->in != NULL)
-		free(cmd->in);
-	if (cmd->out != NULL)
-		free(cmd->out);
-}
+	t_list	*buffer;
 
-void	cmdclear(t_cmd **cmd)
-{
-	t_cmd	*buffer;
-
-	if (cmd == NULL)
+	if (g_sys_infos.list_input == NULL)
 		return ;
-	buffer = cmd;
+	buffer = g_sys_infos.list_input;
 	while (buffer != NULL)
 	{
-		*cmd = buffer;
-		buffer = buffer->out;
-		free_cmd(&cmd);
-		
-	free_cmd(&cmd);
+		g_sys_infos.list_input = buffer;
+		buffer = buffer->next;
+		free(g_sys_infos.list_input->content->value);
+		free(g_sys_infos.list_input->content);
+		free(g_sys_infos.list_input);
+	}
+	g_sys_infos.list_input = NULL;
 }
