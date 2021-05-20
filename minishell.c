@@ -63,6 +63,7 @@ int	main(void)
 		sh_pre();
 		user_input = sh_read_line();
 		parsing(user_input);
+		cmd_hub();
 		print_list();
 		free_list();
 	}
