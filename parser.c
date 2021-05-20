@@ -83,7 +83,63 @@ void    tokenizer(char *input)
     token = create_token(value, type);
     if (!(new = ft_lstnew(token)))
         exit (-1);
-    //printf("%s -> %p\n", new->content->value, new->next);
     ft_lstadd_back(&g_sys_infos.list_input, new);
-    //printf("%s -> %p\n", g_sys_infos.list_input->content->value, g_sys_infos.list_input->next);
+    concat_tokens();
+}
+
+t_token_type get_token_type(t_token *token)
+{
+    printf("%i\n", token->type);
+    return (token->type);
+}
+
+void *get_token_value(t_token *token)
+{
+    return (token->value);
+}
+
+void *join_two_tokens(t_token *token_1, t_token *token_2)
+{
+    char *str_1;
+    char *str_2;
+    char *new_tok_value;
+    t_token *token;
+
+    str_1 = token_1->value;
+    str_2 = token_2->value;
+    printf("%s - %s\n", str_1, str_2);
+    new_tok_value = ft_strjoin(str_1, str_2);
+    token = create_token(new_tok_value, get_token_type(token_1));
+    printf("%s\n", token->value);
+    return (token);
+}
+
+void    del_node(t_list *node)
+{
+    free(node->content);
+	free(node->next);
+}
+
+void    concat_tokens()
+{
+    t_list *tmp_list;
+    t_sys_infos tmp_sys_infos;
+
+    tmp_sys_infos = g_sys_infos;
+    tmp_sys_infos.list_input = tmp_sys_infos.list_input->next;
+    printf("%s\n", tmp_sys_infos.list_input->content->value);
+    while (tmp_sys_infos.list_input != NULL)
+    {
+        if (get_token_type(tmp_sys_infos.list_input->content) == get_token_type(tmp_sys_infos.list_input->next->content))
+        {
+            printf("test\n");
+            tmp_sys_infos.list_input->content = join_two_tokens(tmp_sys_infos.list_input->content, tmp_sys_infos.list_input->next->content);
+            printf("%s\n", tmp_sys_infos.list_input->content->value);
+            tmp_list = tmp_sys_infos.list_input->next;
+            tmp_sys_infos.list_input = tmp_sys_infos.list_input->next;
+            del_node(tmp_sys_infos.list_input);
+            tmp_sys_infos.list_input = tmp_list;
+        }
+        tmp_sys_infos.list_input = tmp_sys_infos.list_input->next;
+    }
 }

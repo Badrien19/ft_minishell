@@ -69,6 +69,8 @@ t_sys_infos g_sys_infos;
 
 void	parsing(char *user_input);
 void    tokenizer(char *input);
+void    concat_tokens();
+
 
 /*
 ** utils
@@ -80,10 +82,10 @@ void	*ft_memcpy(void *dst, const void *src, size_t n);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s1);
 char	*ft_strndup(const char *s1, int n);
-
+char	*ft_strjoin(char const *s1, char const *s2);
 
 /*
-** utils
+** lists
 */
 
 void	ft_lstadd_back(t_list **alst, t_list *new);
@@ -102,6 +104,8 @@ int		ft_lstsize(t_list *lst);
 
 void	sh_pre(void);
 int		main(int argc, char *argv[]);
+void    print_list(void);
+
 
 /*
 ** libft
