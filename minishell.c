@@ -89,6 +89,30 @@ void	free_list(void)
 	g_sys_infos.list_input = NULL;
 }
 
+void	error_checker(void)
+{
+	t_list	*list;
+	int		count_s;
+	int		count_d;
+
+	list = g_sys_infos.list_input;
+	count_s = 0;
+	count_d = 0;
+
+	if (list == NULL)
+		error_manager("no list_input\n");
+	while (list)
+	{
+		if(list->content->type == single_quote)
+			count_s++;
+		else if(list->content->type == double_quote)
+			count_d++;
+		list = list->next;
+	}
+	printf("%i\n", count_d);
+	if (count_s % 2 != 0 || count_d % 2 != 0)
+		printf("quotes uneven\n");
+}
 
 int	main(int argc, char **argv)
 {
@@ -100,6 +124,7 @@ int	main(int argc, char **argv)
 		sh_pre();
 		user_input = sh_read_line();
 		parsing(user_input);
+		error_checker();
 		print_list();
 		free_list();
 	}

@@ -114,6 +114,8 @@ void    print_list(void);
 void	ft_putstr(char *s, int fd);
 
 
+void	error_manager(char *msg);
+
 /*
 ** init
 */
