@@ -3,28 +3,49 @@
 t_bool	checking_if_quotes_even(void)
 {
 	t_list	*list;
-	int		count_s;
-	int		count_d;
+	int		quote;
 
 	list = g_sys_infos.list_input;
-	count_s = 0;
-	count_d = 0;
-
+	quote = 0;
 	if (list == NULL)
 		error("List is empty.\n");
-	while (list)
-	{
-		if(list->content->type == single_quote)
-			count_s++;
-		else if(list->content->type == double_quote)
-			count_d++;
-		list = list->next;
+	while (list && list->next)
+	{	
+		if(list->content->type == 9)
+			quote = 1;
+			while (quote == 1)
+			{
+				if(list->next)
+					list = list->next;				
+				else
+					return ;
+				if(list->content->type == 1 || list->content->type == 3)
+				{
+					printf("Warning : Quotes are uneven.\n");
+					free_list();
+					main();
+				}
+				if(list->content->type == 9)
+					quote = 0;
+			}
+			if(list->content->type == 10)
+				quote = 1;
+			while (quote == 1)
+			{
+				if(list->next)
+					list = list->next;				
+				else
+					return ;
+				if(list->content->type == 1 || list->content->type == 3)
+				{
+					printf("Warning : Quotes are uneven.\n");
+					free_list();
+					main();
+				}
+				if(list->content->type == 10)
+					quote = 0;
+			}
+				list = list->next;
 	}
-	if (count_s % 2 != 0 || count_d % 2 != 0)
-	{
-		printf("Warning : Quotes are uneven.\n");
-		return (False);
-	}
-	else
-		return (True);
+	return (True);
 }

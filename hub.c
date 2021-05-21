@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/05/20 22:43:13 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/20 23:05:49 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,24 @@ void	cmd_echo(t_list *list)
 			}
 			if(list->content->type == 3 || list->content->type == 1)
 				return ;
-
 			if(list->content->type == 11 )
 				{
-					if(list->next)
+					if(ft_strcmp(list->content->value, "\\"))
+					{
+						printf("\\");
+						if (list->next)
+							list = list->next;
+						else
+							return ;
+					}
+					else if(list->next)
+					{
 						printf("%s", list->next->content->value);
-					if(list->next && list->next->next)
-						list = list->next->next;
-					else
-						return ;
+						if(list->next->next)
+							list = list->next->next;
+						else
+							return ;
+					}
 				}
 			if(list->content->type == 3 || list->content->type == 1)
 				return ;
