@@ -36,6 +36,9 @@ t_bool	checking_if_quotes_even(void)
 					list = list->next;				
 				else
 					return(False);
+				if(list->content->type == 11 )
+					if(list->next && list->next->next)
+						list = list->next->next;
 				if(list->content->type == 1 || list->content->type == 3)
 				{
 					printf("Warning : Quotes are uneven.\n");
@@ -45,7 +48,10 @@ t_bool	checking_if_quotes_even(void)
 				if(list->content->type == 10)
 					quote = 0;
 			}
-				list = list->next;
+				if(list)
+					list = list->next;
+				else
+					return(True);
 	}
 	return (True);
 }
