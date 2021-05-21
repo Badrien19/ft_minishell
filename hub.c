@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/05/21 10:19:35 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/21 14:24:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 void	print_quote(void *s)
 {
 	char	*str;
+	int		len;
 	int		i;
 
 	str = (char *)s;
+	len = ft_strlen(str) - 2;
 	i = 0;
-	while(i < (ft_strlen(str) - 2))
+	while(i < len)
 		printf("%c", str[++i]);
 }
 
@@ -94,16 +96,15 @@ void	cmd_hub(void)
 	t_list	*list;
 
 	list = g_sys_infos.list_input;
-	while (list)
-	{
+
 		if(list->content->type == literal && !ft_strcmp(list->content->value, "exit"))
 			error("exit minishell\n");
-		if(list->content->type == literal && !ft_strcmp(list->content->value, "echo"))
+		else if(list->content->type == literal && !ft_strcmp(list->content->value, "echo"))
 			cmd_echo(list->next->next);
-		if(list->next)
-			list = list->next;
 		else
-			break ;
-	}
-	
+		{
+			printf(" \"%s\" no a command\n",(char *) list->content->value);
+			//free_list();
+			//main();
+		}	
 }
