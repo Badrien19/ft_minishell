@@ -12,16 +12,16 @@
 |--> Gérer les backslashs
 |--> | Variables d'environnement
      |--> $?
-|--> Gérer les guillemets
+|--> Gérer les guillemets ---> done
 |--> Remplir la structure
 |--> Gérer les redirections
 |--> Gérer les pipes
 
 | Commandes
 |--> pwd
-|--> echo
+|--> echo --> done
 |--> cd
 |--> export
 |--> unset
 |--> env
-|--> exit
+|--> exit --done
