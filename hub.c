@@ -6,13 +6,31 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/05/22 13:22:19 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/22 14:12:07 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-void	print_quote(void *s)
+static void	print_non_quote(void *s)
+{
+	char	*str;
+	int		len;
+	int		i;
+
+	str = (char *)s;
+	len = ft_strlen(str);
+	i = 0;
+	while(i < len)
+	{
+		if(str[i] == '\\')
+			i++;
+		printf("%c", str[i]);
+		i++;
+	}
+}
+
+static void	print_quote(void *s)
 {
 	char	*str;
 	int		len;
@@ -30,7 +48,7 @@ void	print_quote(void *s)
 	}
 }
 
-void	cmd_echo(t_list *list)
+void		cmd_echo(t_list *list)
 {
 	int		quote;
 
@@ -86,17 +104,15 @@ void	cmd_echo(t_list *list)
 				}
 			if(list->content->type == 3 || list->content->type == 1)
 				return ;
-			printf("%s", (char *)list->content->value);
+			print_non_quote(list->content->value);
 			if(list->next)
 					list = list->next;
 			else
 				return ;
 	}
-	
-
 }
 
-void	cmd_hub(void)
+void		cmd_hub(void)
 {
 	t_list	*list;
 
@@ -108,7 +124,7 @@ void	cmd_hub(void)
 			cmd_echo(list->next->next);
 		else
 		{
-			printf(" \"%s\" no a command\n",(char *) list->content->value);
+			printf(" %s: command not found\n",(char *) list->content->value);
 			//free_list();
 			//main();
 		}	
