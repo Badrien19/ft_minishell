@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/05/21 14:24:11 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/22 13:22:19 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,15 @@ void	print_quote(void *s)
 	int		i;
 
 	str = (char *)s;
-	len = ft_strlen(str) - 2;
-	i = 0;
+	len = ft_strlen(str) - 1;
+	i = 1;
 	while(i < len)
-		printf("%c", str[++i]);
+	{
+		if(str[i] == '\\')
+			i++;
+		printf("%c", str[i]);
+		i++;
+	}
 }
 
 void	cmd_echo(t_list *list)
