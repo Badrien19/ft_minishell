@@ -48,6 +48,9 @@ t_bool	checking_if_quotes_even(void)
 				if(list->content->type == 10)
 					quote = 0;
 			}
+			if(list->content->type == 11 )
+					if(list->next && list->next->next)
+						list = list->next->next;
 				if(list)
 					list = list->next;
 				else
