@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/05/22 14:12:07 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/24 10:07:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,11 @@ void		cmd_echo(t_list *list)
 	quote = 0;
 	while (list && list->content->type != 3)
 	{
+		if(list->content->type == literal && !ft_strcmp(list->content->value, "-n"))
+		{
+			printf("\n");
+			list = list->next->next;
+		}
 		if(list->content->type == 9)
 			quote = 1;
 			if (quote == 1)
