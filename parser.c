@@ -51,7 +51,7 @@ t_token_type find_type(char c)
     return (type);
 }
 
-void    parsing(char *user_input)
+t_bool    parsing(char *user_input)
 {
     char *new;
     size_t i;
@@ -69,7 +69,8 @@ void    parsing(char *user_input)
     }
     concat_tokens_all();
     concat_no_spaces();
-    concat_tokens_quotes();
+    if (concat_tokens_quotes() == False)
+        return (False);
 }
 
 void    tokenizer(char *input)

@@ -49,15 +49,14 @@ static char get_last_char(void *value)
     return (ret);
 }
 
-void    concat_tokens_quotes()
+t_bool  concat_tokens_quotes()
 {
     t_list *begin;
     t_token_type quote_type;
-    char *tmp_value;
 
     begin = g_sys_infos.list_input;
     if (checking_if_quotes_even() == False)
-        return ;
+        return (False);
     while (g_sys_infos.list_input != NULL)
     {
         if (get_token_type(g_sys_infos.list_input->content) == single_quote || get_token_type(g_sys_infos.list_input->content) == double_quote)
@@ -75,4 +74,5 @@ void    concat_tokens_quotes()
         g_sys_infos.list_input = g_sys_infos.list_input->next;
     }
     g_sys_infos.list_input = begin;
+    return (True);
 }

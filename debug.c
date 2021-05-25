@@ -5,7 +5,6 @@ static void	print_list(void)
 	t_sys_infos tmp_sys_infos;
 	
 	tmp_sys_infos = g_sys_infos;
-	printf("\n---------------------DEBUG---------------------\n");
 	if (tmp_sys_infos.list_input != NULL)
 	{
 		while (tmp_sys_infos.list_input->next != NULL)
@@ -15,10 +14,11 @@ static void	print_list(void)
 		}
 		//printf("'%-10s' (%2i) -> %25p\n", (char*)tmp_sys_infos.list_input->content->value, tmp_sys_infos.list_input->content->type, tmp_sys_infos.list_input->next);
 	}
-	printf("-----------------------------------------------\n");
 }
 
 void	debug(void)
 {
+	printf("\n---------------------DEBUG---------------------\n");
 	print_list();
+	printf("-----------------------------------------------\n");
 }

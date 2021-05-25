@@ -77,7 +77,7 @@ int		main(int argc, char *argv, char **env);
 ** parser
 */
 
-void	parsing(char *user_input);
+t_bool	parsing(char *user_input);
 void    tokenizer(char *input);
 t_token *create_token(char *value, t_token_type type);
 
@@ -93,7 +93,7 @@ int		main_env(char **env);
 
 void    concat_tokens_all();
 void    concat_no_spaces();
-void    concat_tokens_quotes();
+t_bool	concat_tokens_quotes();
 
 /*
 ** get_token
