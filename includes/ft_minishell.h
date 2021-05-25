@@ -159,7 +159,7 @@ void	free_list(void);
 ** debug.c
 */
 
-void    print_list(void);
+void	debug(void);
 
 /*
 ** hub.c

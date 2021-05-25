@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 09:57:55 by user42            #+#    #+#             */
-/*   Updated: 2021/05/25 14:55:32 by marvin           ###   ########.fr       */
+/*   Updated: 2021/05/25 15:01:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	main(int argc, char *argv, char **env)
 		parsing(user_input);
 		main_env(env);
 		cmd_hub();
-		print_list();
+		debug();
 		free_list();
 	}
 	return (0);
