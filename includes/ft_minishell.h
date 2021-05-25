@@ -71,7 +71,7 @@ t_sys_infos g_sys_infos;
 */
 
 void	sh_pre(void);
-int		main(void);
+int		main(int argc, char *argv, char **env);
 
 /*
 ** parser
@@ -80,6 +80,12 @@ int		main(void);
 void	parsing(char *user_input);
 void    tokenizer(char *input);
 t_token *create_token(char *value, t_token_type type);
+
+/*
+**	env.c
+*/
+
+int		main_env(char **env);
 
 /*
 ** concat_tokens
