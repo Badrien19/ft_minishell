@@ -68,6 +68,7 @@ void    parsing(char *user_input)
         i++;
     }
     concat_tokens_all();
+    concat_no_spaces();
     concat_tokens_quotes();
 }
 
@@ -126,7 +127,7 @@ void    relink_nodes()
     t_list *tmp_list;
 
     g_sys_infos.list_input->content = join_two_tokens(g_sys_infos.list_input->content, g_sys_infos.list_input->next->content);
-    printf("relink : %s\n", g_sys_infos.list_input->content->value);
+    //printf("relink : %s\n", g_sys_infos.list_input->content->value);
     tmp_list = g_sys_infos.list_input->next->next;
     clear_node(g_sys_infos.list_input->next);
     g_sys_infos.list_input->next->content = tmp_list->content;
@@ -144,6 +145,24 @@ char    get_last_char(void *value)
     ret = str[size - 1];
 
     return (ret);
+}
+
+void    concat_no_spaces()
+{
+    t_list *begin;
+
+    begin = g_sys_infos.list_input;
+    while (g_sys_infos.list_input->next != NULL)
+    {
+        while (g_sys_infos.list_input->next->next != NULL && (g_sys_infos.list_input->next->content->type != space) && g_sys_infos.list_input->content->type != space)
+        {
+            //printf("[in] %s\n", g_sys_infos.list_input->content->value);
+            relink_nodes();
+        }
+        //printf("[out] %s\n", g_sys_infos.list_input->content->value);
+        g_sys_infos.list_input = g_sys_infos.list_input->next;
+    }
+    g_sys_infos.list_input = begin;
 }
 
 void    concat_tokens_quotes()
@@ -191,8 +210,3 @@ void    concat_tokens_all()
     }
     g_sys_infos.list_input = begin;
 }
-/*
-1: T 2: E 3: S 4: T
-1: TE 2: E 3: S 4: T
-1: TE 2: S 3: T
-*/
