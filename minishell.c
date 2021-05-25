@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 09:57:55 by user42            #+#    #+#             */
-/*   Updated: 2021/05/21 09:57:56 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/25 14:14:29 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	sh_pre(void)
 	write(1, "\033[0m", 4);
 }
 
-int	main(void)
+int	main(int argc, char *argv, char **env)
 {
 	char	*user_input;
 	g_sys_infos.list_input = 0;
@@ -75,6 +75,7 @@ int	main(void)
 		sh_pre();
 		user_input = sh_read_line();
 		parsing(user_input);
+		main_env(env);
 		cmd_hub();
 		print_list();
 		free_list();
