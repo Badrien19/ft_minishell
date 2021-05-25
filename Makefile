@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:00:43 by user42            #+#    #+#              #
-#    Updated: 2021/05/20 17:50:45 by user42           ###   ########.fr        #
+#    Updated: 2021/05/25 14:48:05 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 #CFLAGS = -Wall -Wextra -Werror
-SRC = 	minishell.c parser.c list.c utils.c free.c errors.c checker.c debug.c hub.c
+SRC = 	minishell.c parser.c list.c utils.c free.c errors.c checker.c debug.c hub.c ./tokens/concat_tokens.c ./tokens/get_token.c ./tokens/utils_concat_tokens.c
 NAME = ft_minishell
 LIB = ar rcs
 

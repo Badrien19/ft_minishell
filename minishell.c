@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 09:57:55 by user42            #+#    #+#             */
-/*   Updated: 2021/05/21 09:57:56 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/25 14:51:36 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_minishell.h"
+#include "includes/ft_minishell.h"
 
 #define SH_LINE_BUFFSIZE 10
 

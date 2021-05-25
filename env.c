@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:17:37 by badrien           #+#    #+#             */
-/*   Updated: 2021/05/17 16:41:07 by badrien          ###   ########.fr       */
+/*   Updated: 2021/05/25 14:51:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "includes/ft_minishell.h"
 
 void print_env(char **env)
 {

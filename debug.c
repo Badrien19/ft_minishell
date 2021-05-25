@@ -1,4 +1,4 @@
-#include "ft_minishell.h"
+#include "includes/ft_minishell.h"
 
 void    print_list(void)
 {

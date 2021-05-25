@@ -79,9 +79,29 @@ int		main(void);
 
 void	parsing(char *user_input);
 void    tokenizer(char *input);
-void    concat_tokens_all();
-void	concat_tokens_quotes();
+t_token *create_token(char *value, t_token_type type);
 
+/*
+** concat_tokens
+*/
+
+void    concat_tokens_all();
+void    concat_no_spaces();
+void    concat_tokens_quotes();
+
+/*
+** get_token
+*/
+
+t_token_type get_token_type(t_token *token);
+void	*get_token_value(t_token *token);
+
+/*
+** utils_concat_tokens
+*/
+
+void	*join_two_tokens(t_token *token_1, t_token *token_2);
+void	relink_nodes();
 
 /*
 ** utils

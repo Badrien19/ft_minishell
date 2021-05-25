@@ -6,12 +6,11 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:24:05 by badrien           #+#    #+#             */
-/*   Updated: 2021/05/18 16:07:10 by marvin           ###   ########.fr       */
+/*   Updated: 2021/05/25 14:51:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_minishell.h"
-
+#include "includes/ft_minishell.h"
 
 void	ft_lstadd_back(t_list **alst, t_list *new)
 {
