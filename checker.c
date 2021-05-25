@@ -23,7 +23,7 @@ t_bool	checking_if_quotes_even(void)
 				{
 					printf("Warning : Quotes are uneven.\n");
 					free_list();
-					main();
+					return (False);
 				}
 				if(list->content->type == 9)
 					quote = 0;
@@ -43,7 +43,7 @@ t_bool	checking_if_quotes_even(void)
 				{
 					printf("Warning : Quotes are uneven.\n");
 					free_list();
-					main();
+					return(False);
 				}
 				if(list->content->type == 10)
 					quote = 0;

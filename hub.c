@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/05/25 14:51:28 by marvin           ###   ########.fr       */
+/*   Updated: 2021/05/25 14:55:23 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ void		cmd_hub(void)
 			error("exit minishell\n");
 		else if(list->content->type == literal && !ft_strcmp(list->content->value, "echo"))
 			cmd_echo(list->next->next);
+		else if(list->content->type == literal && !ft_strcmp(list->content->value, "env"))
+			print_env(list->next->next);
 		else
 		{
 			printf(" %s: command not found\n",(char *) list->content->value);
