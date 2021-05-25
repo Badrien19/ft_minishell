@@ -23,8 +23,38 @@ t_bool	checking_if_quotes_even(void)
 		error("List is empty.\n");
 	while (list && list->next)
 	{	
-		printf("type : %i value : %s\n", list->content->type, list->content->value);
 		if(list->content->type == double_quote)
+			quote = 1;
+		while (quote == 1)
+		{
+			if(list->next)
+				list = list->next;
+			else
+			{
+				printf("Warning: Quotes are uneven.\n");
+				return(False);
+			}
+			if(list->content->type == line_return)
+			{
+				printf("Warning: Quotes are uneven.\n");
+				return(False);
+			}
+			if(list->content->type == backslash)
+			{
+				if (list->next && list->next->next)
+					list = list->next->next;
+				else
+				{
+					printf("Warning: Quotes are uneven.\n");
+					return(False);
+				}
+				if(list->content->type == line_return)
+					quote = 0;
+			}
+			if(list->content->type == double_quote)
+				quote = 0;
+		}
+		if(list->content->type == single_quote)
 			quote = 1;
 		while (quote == 1)
 		{
@@ -41,16 +71,18 @@ t_bool	checking_if_quotes_even(void)
 					list = list->next->next;
 				else
 				{
-					printf("Warning : Quotes are uneven.\n");
+					printf("Warning: Quotes are uneven.\n");
 					return(False);
 				}
+				if(list->content->type == line_return)
+					quote = 0;
 			}
 			if(list->content->type == line_return)
 			{
 				printf("Warning : Quotes are uneven.\n");
 				return(False);
 			}
-			if(list->content->type == double_quote)
+			if(list->content->type == single_quote)
 				quote = 0;
 		}
 		if(list->next)
@@ -59,7 +91,6 @@ t_bool	checking_if_quotes_even(void)
 			return(True);
 		if(list->content->type == line_return)
 			return (True);
-		
 	}
 	return (True);
 }
