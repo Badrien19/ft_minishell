@@ -62,6 +62,7 @@ typedef struct	s_list
 typedef struct s_sys_infos
 {
 	t_list *list_input;
+	char **env;
 }	t_sys_infos;
 
 t_sys_infos g_sys_infos;
@@ -71,7 +72,7 @@ t_sys_infos g_sys_infos;
 */
 
 void	sh_pre(void);
-int		main(void);
+int		main(int argc, char *argv, char **env);
 void    print_list(void);
 
 /*
@@ -111,6 +112,12 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstnew(void *content);
 int		ft_lstsize(t_list *lst);
+
+/*
+** env.c
+*/
+
+int main_env(char **env);
 
 /*
 ** checker.c
