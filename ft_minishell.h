@@ -72,7 +72,6 @@ t_sys_infos g_sys_infos;
 
 void	sh_pre(void);
 int		main(void);
-void    print_list(void);
 
 /*
 ** parser
