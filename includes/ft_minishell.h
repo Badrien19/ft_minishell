@@ -92,7 +92,7 @@ int		main_env(char **env);
 */
 
 void    concat_tokens_all();
-void    concat_no_spaces();
+t_bool  concat_no_spaces();
 t_bool	concat_tokens_quotes();
 
 /*

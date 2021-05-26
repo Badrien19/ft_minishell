@@ -68,9 +68,12 @@ t_bool    parsing(char *user_input)
         i++;
     }
     concat_tokens_all();
-    concat_no_spaces();
+    //debug();
     if (concat_tokens_quotes() == False)
         return (False);
+    concat_no_spaces();
+
+    return (True);
 }
 
 void    tokenizer(char *input)

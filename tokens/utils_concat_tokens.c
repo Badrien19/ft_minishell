@@ -28,7 +28,13 @@ void    relink_nodes()
 
     g_sys_infos.list_input->content = join_two_tokens(g_sys_infos.list_input->content, g_sys_infos.list_input->next->content);
     //printf("relink : %s\n", g_sys_infos.list_input->content->value);
-    tmp_list = g_sys_infos.list_input->next->next;
+    if (g_sys_infos.list_input->next->next)
+        tmp_list = g_sys_infos.list_input->next->next;
+    else
+    {
+        tmp_list->content = create_token(NULL, 0);
+        tmp_list->next = NULL;
+    }
     clear_node(g_sys_infos.list_input->next);
     g_sys_infos.list_input->next->content = tmp_list->content;
     g_sys_infos.list_input->next->next = tmp_list->next;

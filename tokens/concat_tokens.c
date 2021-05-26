@@ -10,7 +10,9 @@ void    concat_tokens_all()
     while (g_sys_infos.list_input != NULL && g_sys_infos.list_input->next != NULL)
     {
         //printf("'%s' -> '%s'\n", g_sys_infos.list_input->content->value, g_sys_infos.list_input->next->content->value);
-        if (get_token_type(g_sys_infos.list_input->content) == get_token_type(g_sys_infos.list_input->next->content))
+        if (get_token_type(g_sys_infos.list_input->content) == single_quote || get_token_type(g_sys_infos.list_input->content) == double_quote)
+            g_sys_infos.list_input = g_sys_infos.list_input->next;
+        else if (get_token_type(g_sys_infos.list_input->content) == get_token_type(g_sys_infos.list_input->next->content))
             relink_nodes();
         else
             g_sys_infos.list_input = g_sys_infos.list_input->next;
@@ -18,14 +20,18 @@ void    concat_tokens_all()
     g_sys_infos.list_input = begin;
 }
 
-void    concat_no_spaces()
+t_bool    concat_no_spaces()
 {
     t_list *begin;
 
     begin = g_sys_infos.list_input;
     while (g_sys_infos.list_input->next != NULL)
     {
-        while (g_sys_infos.list_input->next->next != NULL && (g_sys_infos.list_input->next->content->type != space) && g_sys_infos.list_input->content->type != space)
+        while (g_sys_infos.list_input->next->next != NULL 
+        && g_sys_infos.list_input->next->content->type != space
+        && g_sys_infos.list_input->content->type != space
+        && g_sys_infos.list_input->content->type != single_quote
+        && g_sys_infos.list_input->content->type != double_quote)
         {
             //printf("[in] %s\n", g_sys_infos.list_input->content->value);
             relink_nodes();
@@ -65,11 +71,14 @@ t_bool  concat_tokens_quotes()
             while ((get_token_type(g_sys_infos.list_input->next->content) != quote_type && g_sys_infos.list_input->next != NULL) || 
             (get_last_char(get_token_value(g_sys_infos.list_input->content)) == '\\' && get_token_type(g_sys_infos.list_input->next->content) == quote_type))
             {
-                //printf("[in] last : %c -> %i\n", get_last_char(get_token_value(g_sys_infos.list_input->content)), get_token_type(g_sys_infos.list_input->next->content));
+                //printf("[in] s : %s -> %i\n", get_token_value(g_sys_infos.list_input->content), get_token_type(g_sys_infos.list_input->next->content));
                 relink_nodes();
             }
-            //printf("[out] last : %c -> %i\n", get_last_char(get_token_value(g_sys_infos.list_input->content)), get_token_type(g_sys_infos.list_input->next->content));
-            relink_nodes();
+            if (g_sys_infos.list_input->next && g_sys_infos.list_input->next->next)
+            {
+                //printf("[out] last : %c -> %i\n", get_last_char(get_token_value(g_sys_infos.list_input->content)), get_token_type(g_sys_infos.list_input->next->content));
+                relink_nodes();
+            }
         }
         g_sys_infos.list_input = g_sys_infos.list_input->next;
     }
