@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 09:57:55 by user42            #+#    #+#             */
-/*   Updated: 2021/05/25 16:06:54 by marvin           ###   ########.fr       */
+/*   Updated: 2021/06/01 09:24:49 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@ int	main(int argc, char *argv, char **env)
 {
 	char	*user_input;
 	g_sys_infos.list_input = 0;
+	g_sys_infos.env = env;
+
+	//main_env();
 
 	while (1)
 	{
@@ -76,7 +79,6 @@ int	main(int argc, char *argv, char **env)
 		user_input = sh_read_line();
 		if (parsing(user_input) == True)
 		{
-			//main_env(env);
 			cmd_hub();
 			debug();
 		}

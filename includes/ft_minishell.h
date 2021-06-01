@@ -62,6 +62,7 @@ typedef struct	s_list
 typedef struct s_sys_infos
 {
 	t_list *list_input;
+	char **env;
 }	t_sys_infos;
 
 t_sys_infos g_sys_infos;
@@ -85,7 +86,7 @@ t_token *create_token(char *value, t_token_type type);
 **	env.c
 */
 
-int		main_env(char **env);
+int		main_env();
 
 /*
 ** concat_tokens
