@@ -18,10 +18,10 @@
 |--> Gérer les pipes
 
 | Commandes
-|--> pwd
+|--> pwd  -->done
 |--> echo --> done
 |--> cd
 |--> export
 |--> unset
-|--> env
-|--> exit --done
+|--> env  -->done
+|--> exit -->done
