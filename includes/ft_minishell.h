@@ -87,6 +87,8 @@ t_token *create_token(char *value, t_token_type type);
 */
 
 int		main_env();
+void	print_env();
+char	*get_value_env(char *name);
 
 /*
 ** concat_tokens

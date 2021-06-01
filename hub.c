@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/05/25 14:55:23 by marvin           ###   ########.fr       */
+/*   Updated: 2021/06/01 09:28:39 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,9 @@ void		cmd_hub(void)
 		else if(list->content->type == literal && !ft_strcmp(list->content->value, "echo"))
 			cmd_echo(list->next->next);
 		else if(list->content->type == literal && !ft_strcmp(list->content->value, "env"))
-			print_env(list->next->next);
+			print_env();
+		else if(list->content->type == literal && !ft_strcmp(list->content->value, "pwd"))
+			printf("%s\n",get_value_env("PWD"));
 		else
 		{
 			printf(" %s: command not found\n",(char *) list->content->value);
