@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: walker <walker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/08/26 17:37:24 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/26 18:24:19 by walker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void	print_non_quote(void *s)
 		printf("%c", str[i]);
 		i++;
 	}
+	printf("\n");
 }
 
 static void	print_quote(void *s)
@@ -46,21 +47,22 @@ static void	print_quote(void *s)
 		printf("%c", str[i]);
 		i++;
 	}
+	printf("\n");
 }
 
 void	cmd_echo(t_list *list)
 {
 	int		quote;
-
+	printf("entry_echo -> '%s'\n", list->content->value);
 	quote = 0;
-	while (list && list->content->type != 3)
+	while (list && list->content->type != semicolon)
 	{
 		if (list->content->type == literal && !ft_strcmp(list->content->value, "-n"))
 		{
 			printf("\n");
 			list = list->next->next;
 		}
-		if (list->content->type == 9)
+		if (list->content->type == single_quote)
 			quote = 1;
 		if (quote == 1)
 		{
@@ -69,11 +71,11 @@ void	cmd_echo(t_list *list)
 				list = list->next;
 			else
 				return ;
-			if (list->content->type == 3 || list->content->type == 1)
+			if (list->content->type == semicolon || list->content->type == line_return)
 				return ;
 			quote = 0;
 		}
-		if (list->content->type == 10)
+		if (list->content->type == double_quote)
 			quote = 1;
 		if (quote == 1)
 		{
@@ -82,13 +84,13 @@ void	cmd_echo(t_list *list)
 				list = list->next;
 			else
 				return ;
-			if (list->content->type == 3 || list->content->type == 1)
+			if (list->content->type == semicolon || list->content->type == line_return)
 				return ;
 			quote = 0;
 		}
-		if (list->content->type == 3 || list->content->type == 1)
+		if (list->content->type == semicolon || list->content->type == line_return)
 			return ;
-		if (list->content->type == 11 )
+		if (list->content->type == backslash)
 		{
 			if (ft_strcmp(list->content->value, "\\"))
 			{
@@ -107,7 +109,7 @@ void	cmd_echo(t_list *list)
 					return ;
 			}
 		}
-		if (list->content->type == 3 || list->content->type == 1)
+		if (list->content->type == semicolon || list->content->type == line_return)
 			return ;
 		print_non_quote(list->content->value);
 		if (list->next)
@@ -115,11 +117,11 @@ void	cmd_echo(t_list *list)
 		else
 			return ;
 	}
-	printf("\n");
 }
 
 void	ft_switch(t_list *list)
 {
+	//printf("\nentry -> %s\n", list->content->value);
 	if (list->content->type == literal && !ft_strcmp(list->content->value, "exit"))
 		error("exit minishell\n");
 	else if (list->content->type == literal && !ft_strcmp(list->content->value, "echo"))
@@ -133,7 +135,6 @@ void	ft_switch(t_list *list)
 		}
 	while (list)
 	{
-		list = list->next;
 		//printf("value: %s\n", list->content->value);
 		
 		if (list->content->type == semicolon && !ft_strcmp(list->content->value, ";"))
@@ -144,6 +145,7 @@ void	ft_switch(t_list *list)
 		}
 		if (list->next == NULL)
 			break ;
+		list = list->next;
 	}
 }
 
