@@ -68,18 +68,9 @@ t_bool    parsing(char *user_input)
         i++;
     }
     concat_tokens_all();
-<<<<<<< HEAD
     if (concat_tokens_quotes() == False)
         return (False);
    // concat_no_spaces();
-=======
-    //debug();
-    if (concat_tokens_quotes() == False)
-        return (False);
-    concat_no_spaces();
-
-    return (True);
->>>>>>> refs/remotes/origin/parsing
 }
 
 void    tokenizer(char *input)

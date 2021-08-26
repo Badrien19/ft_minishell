@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/08/26 15:51:16 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/26 17:37:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	cmd_echo(t_list *list)
 			}
 			else if (list->next)
 			{
-				printf("%s", (char *)list->next->content->value);
+				printf("%s\n", (char *)list->next->content->value);
 				if (list->next->next)
 					list = list->next->next;
 				else
@@ -115,13 +115,11 @@ void	cmd_echo(t_list *list)
 		else
 			return ;
 	}
+	printf("\n");
 }
 
-void	cmd_hub(void)
+void	ft_switch(t_list *list)
 {
-	t_list	*list;
-
-	list = g_sys_infos.list_input;
 	if (list->content->type == literal && !ft_strcmp(list->content->value, "exit"))
 		error("exit minishell\n");
 	else if (list->content->type == literal && !ft_strcmp(list->content->value, "echo"))
@@ -129,9 +127,30 @@ void	cmd_hub(void)
 	else if (list->content->type == literal && !ft_strcmp(list->content->value, "env"))
 		print_env(list->next->next);
 	else
+		{
+			printf("%s: command not found\n", (char *) list->content->value);
+			error("");
+		}
+	while (list)
 	{
-		printf(" %s: command not found\n",(char *) list->content->value);
-		//free_list();
-		//main();
-	}	
+		list = list->next;
+		//printf("value: %s\n", list->content->value);
+		
+		if (list->content->type == semicolon && !ft_strcmp(list->content->value, ";"))
+		{
+			while (list->next && list->content->type != literal)
+				list = list->next;
+			ft_switch(list);
+		}
+		if (list->next == NULL)
+			break ;
+	}
+}
+
+void	cmd_hub(void)
+{
+	t_list	*list;
+
+	list = g_sys_infos.list_input;
+	ft_switch(list);
 }
