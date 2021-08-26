@@ -1,27 +1,31 @@
 # ft_minishell
 
 | Récupérer la ligne de l'utilisateur
-|--> getnextline ---> done
+     
+     |--> getnextline ---> done
 
 
 | Structure
-|--> 
+     
+     |--> 
 
 | Parsing
-|--> Gérer les ;
-|--> Gérer les backslashs
-|--> | Variables d'environnement
-     |--> $?
-|--> Gérer les guillemets ---> done
-|--> Remplir la structure
-|--> Gérer les redirections
-|--> Gérer les pipes
+     
+     |--> Gérer les ;
+     |--> Gérer les backslashs
+     |--> | Variables d'environnement
+          |--> $?
+     |--> Gérer les guillemets ---> done
+     |--> Remplir la structure
+     |--> Gérer les redirections
+     |--> Gérer les pipes
 
 | Commandes
-|--> pwd
-|--> echo --> done
-|--> cd
-|--> export
-|--> unset
-|--> env
-|--> exit --done
+
+     |--> pwd  -->done
+     |--> echo --> done
+     |--> cd
+     |--> export
+     |--> unset
+     |--> env  -->done
+     |--> exit -->done

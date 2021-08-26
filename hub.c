@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
 /*   Updated: 2021/08/26 15:46:50 by user42           ###   ########.fr       */
+=======
+/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
+/*   Updated: 2021/06/01 09:28:39 by badrien          ###   ########.fr       */
+>>>>>>> refs/remotes/origin/parsing
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +129,7 @@ void	cmd_hub(void)
 	t_list	*list;
 
 	list = g_sys_infos.list_input;
+<<<<<<< HEAD
 	if (list->content->type == literal && !ft_strcmp(list->content->value, "exit"))
 		error("exit minishell\n");
 	else if (list->content->type == literal && !ft_strcmp(list->content->value, "echo"))
@@ -134,4 +142,21 @@ void	cmd_hub(void)
 		//free_list();
 		//main();
 	}	
+=======
+
+		if(list->content->type == literal && !ft_strcmp(list->content->value, "exit"))
+			error("exit minishell\n");
+		else if(list->content->type == literal && !ft_strcmp(list->content->value, "echo"))
+			cmd_echo(list->next->next);
+		else if(list->content->type == literal && !ft_strcmp(list->content->value, "env"))
+			print_env();
+		else if(list->content->type == literal && !ft_strcmp(list->content->value, "pwd"))
+			printf("%s\n",get_value_env("PWD"));
+		else
+		{
+			printf(" %s: command not found\n",(char *) list->content->value);
+			//free_list();
+			//main();
+		}	
+>>>>>>> refs/remotes/origin/parsing
 }
