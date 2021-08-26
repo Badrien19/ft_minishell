@@ -6,7 +6,7 @@
 /*   By: walker <walker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/08/26 18:24:19 by walker           ###   ########.fr       */
+/*   Updated: 2021/08/26 18:29:56 by walker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,8 @@ void	cmd_echo(t_list *list)
 		}
 		if (list->content->type == semicolon || list->content->type == line_return)
 			return ;
-		print_non_quote(list->content->value);
+		if (list->content->type == literal)
+			print_non_quote(list->content->value);
 		if (list->next)
 			list = list->next;
 		else
