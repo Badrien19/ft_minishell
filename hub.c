@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/08/26 17:37:24 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/26 18:25:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void	print_non_quote(void *s)
 		printf("%c", str[i]);
 		i++;
 	}
+	printf("\n");
 }
 
 static void	print_quote(void *s)
@@ -46,6 +47,7 @@ static void	print_quote(void *s)
 		printf("%c", str[i]);
 		i++;
 	}
+	printf("\n");
 }
 
 void	cmd_echo(t_list *list)
@@ -53,6 +55,7 @@ void	cmd_echo(t_list *list)
 	int		quote;
 
 	quote = 0;
+	printf("entry echo\n");
 	while (list && list->content->type != 3)
 	{
 		if (list->content->type == literal && !ft_strcmp(list->content->value, "-n"))
@@ -109,13 +112,13 @@ void	cmd_echo(t_list *list)
 		}
 		if (list->content->type == 3 || list->content->type == 1)
 			return ;
-		print_non_quote(list->content->value);
+		if (list->content->type == literal)
+			print_non_quote(list->content->value);
 		if (list->next)
 			list = list->next;
 		else
 			return ;
 	}
-	printf("\n");
 }
 
 void	ft_switch(t_list *list)
