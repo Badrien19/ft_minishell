@@ -57,6 +57,7 @@ t_bool  concat_tokens_quotes()
     begin = g_sys_infos.list_input;
     if (checking_if_quotes_even() == False)
         return (False);
+    printf("TEST\n");
     while (g_sys_infos.list_input != NULL)
     {
         if (get_token_type(g_sys_infos.list_input->content) == single_quote || get_token_type(g_sys_infos.list_input->content) == double_quote)
