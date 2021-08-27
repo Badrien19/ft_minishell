@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: walker <walker@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/08/26 18:29:56 by walker           ###   ########.fr       */
+/*   Updated: 2021/08/27 09:29:30 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_minishell.h"
 
-static void	print_non_quote(void *s)
+static void	print_non_quote(void *s, int flag)
 {
 	char	*str;
 	int		len;
@@ -21,17 +21,19 @@ static void	print_non_quote(void *s)
 	str = (char *)s;
 	len = ft_strlen(str);
 	i = 0;
-	while (i < len)
+	while (str[i] && i < len)
 	{
 		if (str[i] == '\\')
 			i++;
-		printf("%c", str[i]);
+		write(1, &str[i], 1);
+		//printf("%c", str[i]);
 		i++;
 	}
-	printf("\n");
+	if(flag == 0)
+		printf("\n");
 }
 
-static void	print_quote(void *s)
+static void	print_quote(void *s, int flag)
 {
 	char	*str;
 	int		len;
@@ -40,33 +42,37 @@ static void	print_quote(void *s)
 	str = (char *)s;
 	len = ft_strlen(str) - 1;
 	i = 1;
-	while (i < len)
+	while (str[i] && i < len)
 	{
 		if (str[i] == '\\')
 			i++;
-		printf("%c", str[i]);
+		write(1, &str[i], 1);
 		i++;
 	}
-	printf("\n");
+	if(flag == 0)
+		printf("\n");
 }
 
 void	cmd_echo(t_list *list)
 {
 	int		quote;
-	printf("entry_echo -> '%s'\n", list->content->value);
+	int		flag;
+	
+	//printf("entry_echo -> '%s'\n", list->content->value);
 	quote = 0;
+	flag = 0;
 	while (list && list->content->type != semicolon)
 	{
 		if (list->content->type == literal && !ft_strcmp(list->content->value, "-n"))
 		{
-			printf("\n");
+			flag = 1;
 			list = list->next->next;
 		}
 		if (list->content->type == single_quote)
 			quote = 1;
 		if (quote == 1)
 		{
-			print_quote(list->content->value);
+			print_quote(list->content->value, flag);
 			if (list->next)
 				list = list->next;
 			else
@@ -79,7 +85,7 @@ void	cmd_echo(t_list *list)
 			quote = 1;
 		if (quote == 1)
 		{
-			print_quote(list->content->value);
+			print_quote(list->content->value, flag);
 			if (list->next)
 				list = list->next;
 			else
@@ -112,7 +118,7 @@ void	cmd_echo(t_list *list)
 		if (list->content->type == semicolon || list->content->type == line_return)
 			return ;
 		if (list->content->type == literal)
-			print_non_quote(list->content->value);
+			print_non_quote(list->content->value, flag);
 		if (list->next)
 			list = list->next;
 		else
@@ -137,7 +143,6 @@ void	ft_switch(t_list *list)
 	while (list)
 	{
 		//printf("value: %s\n", list->content->value);
-		
 		if (list->content->type == semicolon && !ft_strcmp(list->content->value, ";"))
 		{
 			while (list->next && list->content->type != literal)
