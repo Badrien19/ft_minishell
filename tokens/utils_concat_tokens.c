@@ -26,16 +26,16 @@ void    relink_nodes()
 {
     t_list *tmp_list;
 
-    g_sys_infos.list_input->content = join_two_tokens(g_sys_infos.list_input->content, g_sys_infos.list_input->next->content);
-    //printf("relink : %s\n", g_sys_infos.list_input->content->value);
-    if (g_sys_infos.list_input->next->next)
-        tmp_list = g_sys_infos.list_input->next->next;
+    g_minishell.list_input->content = join_two_tokens(g_minishell.list_input->content, g_minishell.list_input->next->content);
+    //printf("relink : %s\n", g_minishell.list_input->content->value);
+    if (g_minishell.list_input->next->next)
+        tmp_list = g_minishell.list_input->next->next;
     else
     {
         tmp_list->content = create_token(NULL, 0);
         tmp_list->next = NULL;
     }
-    clear_node(g_sys_infos.list_input->next);
-    g_sys_infos.list_input->next->content = tmp_list->content;
-    g_sys_infos.list_input->next->next = tmp_list->next;
+    clear_node(g_minishell.list_input->next);
+    g_minishell.list_input->next->content = tmp_list->content;
+    g_minishell.list_input->next->next = tmp_list->next;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
+/*   By: walker <walker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:17:37 by badrien           #+#    #+#             */
-/*   Updated: 2021/06/01 09:24:30 by badrien          ###   ########.fr       */
+/*   Updated: 2021/08/27 17:46:05 by walker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (rep);
 }
 
-void print_env()
+void print_env() // Vérifier les strings dans le tableau env
 {
     int x;
     x = 0;
 
-    while(g_sys_infos.env[x] != NULL)
+    while(g_minishell.env[x] != NULL)
     {
-        printf("%s\n", g_sys_infos.env[x]);
+        printf("%s\n", g_minishell.env[x]);
         x++;
     }
 }
@@ -58,15 +58,15 @@ char **realloc_env(int size)
         return NULL;
     printf("begin copy\n");
 	new[size] = NULL;
-	while(g_sys_infos.env[i] != NULL && i < size)
+	while(g_minishell.env[i] != NULL && i < size)
     {
-		new[i] = ft_strdup(g_sys_infos.env[i]);
+		new[i] = ft_strdup(g_minishell.env[i]);
 		i++;
 	}
 	//printf("begin free\n");
 	//i = 0;
-    //while(g_sys_infos.env[i] != NULL)
-    //    free(g_sys_infos.env[i++]);
+    //while(g_minishell.env[i] != NULL)
+    //    free(g_minishell.env[i++]);
     printf("end\n");
 	/*
     int x;
@@ -87,7 +87,7 @@ int size_env()
     int i;
 
 	i = 0;
-    while(g_sys_infos.env[i] != NULL)
+    while(g_minishell.env[i] != NULL)
 		i++;
     return (i);
 }
@@ -99,11 +99,11 @@ char *get_value_env(char *name)
 
     i = 0;
     len = ft_strlen(name);
-    while(g_sys_infos.env[i] != NULL)
+    while(g_minishell.env[i] != NULL)
     {
-        if(ft_strncmp(g_sys_infos.env[i], name, len) == 0)
+        if(ft_strncmp(g_minishell.env[i], name, len) == 0)
         {
-			return(ft_substr(g_sys_infos.env[i], (len + 1), ft_strlen(g_sys_infos.env[i])));
+			return(ft_substr(g_minishell.env[i], (len + 1), ft_strlen(g_minishell.env[i])));
 		}
 		i++;
     }
@@ -118,11 +118,11 @@ int add_env(char *name, char *value)
     if(name == NULL || value == NULL)
         return (1);
 	printf("lauch realloc\n");
-    g_sys_infos.env = realloc_env(size_env() + 1);
-    if(g_sys_infos.env == NULL)
+    g_minishell.env = realloc_env(size_env() + 1);
+    if(g_minishell.env == NULL)
         return (1);
     tmp = ft_strjoin("=", value);
-    g_sys_infos.env[size_env() - 1] = ft_strjoin(name, tmp);
+    g_minishell.env[size_env() - 1] = ft_strjoin(name, tmp);
 	free(tmp);
     return(0);
 }
@@ -131,7 +131,7 @@ int main_env()
 {
 	add_env("test","test");
 	printf("OK\n");
-	//print_env(g_sys_infos.env);
+	//print_env(g_minishell.env);
 	printf("value of USER = %s\n", get_value_env("PWD"));
 	return (0);
 }

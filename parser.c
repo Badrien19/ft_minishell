@@ -87,5 +87,5 @@ void    tokenizer(char *input)
     token = create_token(value, type);
     if (!(new = ft_lstnew(token)))
         exit (-1);
-    ft_lstadd_back(&g_sys_infos.list_input, new);
+    ft_lstadd_back(&g_minishell.list_input, new);
 }

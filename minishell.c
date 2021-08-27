@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   g_minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: walker <walker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 09:57:55 by user42            #+#    #+#             */
-/*   Updated: 2021/08/26 17:37:47 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/27 17:38:08 by walker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_minishell.h"
 
-#define SH_LINE_BUFFSIZE 10
+// PLUS NÉCESSAIRE
+
+/* #define SH_LINE_BUFFSIZE 10
 
 char	*stradd(char *s1, char const *s2)
 {
@@ -61,19 +63,23 @@ char	*sh_read_line(void)
 void	sh_pre(void)
 {
 	write(1, "\033[1;32m", 7);
-	write(1, "minishell > ", 13);
+	write(1, "g_minishell > ", 13);
 	write(1, "\033[0m", 4);
-}
+} */
 
 int	main(int argc, char *argv, char **env)
 {
 	char	*user_input;
-	g_sys_infos.list_input = 0;
-	g_sys_infos.env = env;
+	
+	g_minishell.list_input = 0;
+	g_minishell.env = env;
 	while (1)
 	{
-		sh_pre();
-		user_input = sh_read_line();
+		//sh_pre();
+		//user_input = sh_read_line();
+		user_input = readline("\033[1;32mminishell >\033[0m ");
+		if (user_input && *user_input)
+			add_history(user_input);
 		if (parsing(user_input) == True)
 		{
 			debug();

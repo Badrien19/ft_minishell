@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: walker <walker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/08/27 11:38:42 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/27 17:46:25 by walker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ char	*search_env(char *array, int len)
 	needle[k] = '\0';
 	k = 0;
 	i = 0;
-	while (g_sys_infos.env[i] && ft_strncmp(g_sys_infos.env[i], needle, len))
+	while (g_minishell.env[i] && ft_strncmp(g_minishell.env[i], needle, len))
 		i++;
-	ret = malloc(sizeof(char *) * ft_strlen(g_sys_infos.env[i]) - len);
+	ret = malloc(sizeof(char *) * ft_strlen(g_minishell.env[i]) - len);
 	if(!ret)
 		error("MALLOC ERROR");
-	while (g_sys_infos.env[i][j])
+	while (g_minishell.env[i][j])
 	{
-		ret[k] = g_sys_infos.env[i][j];
+		ret[k] = g_minishell.env[i][j];
 		j++;
 		k++;
 	}
@@ -125,11 +125,11 @@ void	cmd_pwd(t_list *list)
 
     i = 0;
 	j = 4;
-	while (g_sys_infos.env[i] && ft_strncmp(g_sys_infos.env[i], "PWD=", 4))
+	while (g_minishell.env[i] && ft_strncmp(g_minishell.env[i], "PWD=", 4))
 		i++;
-	while (g_sys_infos.env[i][j])
+	while (g_minishell.env[i][j])
 	{
-		write(1, &g_sys_infos.env[i][j], 1);
+		write(1, &g_minishell.env[i][j], 1);
 		j++;
 	}
 	write(1, "\n", 1);
@@ -212,17 +212,26 @@ void	ft_switch(t_list *list)
 {
 	//printf("\nentry -> %s\n", list->content->value);
 	if (list->content->type == literal && !ft_strcmp(list->content->value, "exit"))
-		error("exit minishell\n");
+		error("exit g_minishell\n");
 	else if (list->content->type == literal && !ft_strcmp(list->content->value, "echo"))
 		cmd_echo(list->next->next);
 	else if (list->content->type == literal && !ft_strcmp(list->content->value, "env"))
 		print_env(list->next->next);
 	else if (list->content->type == literal && !ft_strcmp(list->content->value, "pwd"))
 		cmd_pwd(list->next->next);
+/* 	else if (list->content->type == literal && !ft_strcmp(list->content->value, "history"))
+	{
+		int i = 0;
+		HIST_ENTRY **history = history_list();
+		while (history[i])
+		{
+			printf("%s\n", history[i]->line);
+			i++;
+		}
+	} */
 	else
 		{
-			printf("%s: command not found\n", (char *) list->content->value);
-			error("");
+			printf("%s : Command not found.\n", (char *) list->content->value);
 		}
 	while (list)
 	{
@@ -243,6 +252,6 @@ void	cmd_hub(void)
 {
 	t_list	*list;
 
-	list = g_sys_infos.list_input;
+	list = g_minishell.list_input;
 	ft_switch(list);
 }

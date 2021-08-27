@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: walker <walker@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:00:43 by user42            #+#    #+#              #
-#    Updated: 2021/05/25 14:58:59 by marvin           ###   ########.fr        #
+#    Updated: 2021/08/27 17:45:08 by walker           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ LIB = ar rcs
 all : $(NAME)
 
 $(NAME):	
-			@$(CC) $(CFLAGS) ${SRC} -o $(NAME)
+			@$(CC) $(CFLAGS) ${SRC} -o $(NAME) -lreadline
 			@echo "\n\033[32m[✓]\033[0m		[$(NAME) compiled]"
 
 %.o: %.c

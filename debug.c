@@ -4,7 +4,7 @@ static void	print_list(void)
 {
 	t_list	*list;
 
-	list = g_sys_infos.list_input;
+	list = g_minishell.list_input;
 	if (list != NULL)
 	{
 		while (list->next != NULL)
@@ -18,7 +18,7 @@ static void	print_list(void)
 
 void	debug(void)
 {
-	printf("\n---------------------DEBUG---------------------\n");
+	printf("---------------------DEBUG---------------------\n");
 	print_list();
-	printf("-----------------------------------------------\n");
+	printf("-----------------------------------------------\n\n");
 }

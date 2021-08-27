@@ -17,7 +17,7 @@ t_bool	checking_if_quotes_even(void)
 	t_list	*list;
 	int		quote;
 
-	list = g_sys_infos.list_input;
+	list = g_minishell.list_input;
 	quote = 0;
 	if (list == NULL)
 		error("List is empty.\n");

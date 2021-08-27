@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_minishell.h                                     :+:      :+:    :+:   */
+/*   ft_g_minishell.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -18,6 +18,9 @@
 # include <dirent.h>
 # include <stdlib.h>
 # include <malloc.h>
+
+# include <readline/readline.h>
+# include <readline/history.h>
 
 # define EXIT_SUCCESS 0
 
@@ -59,16 +62,16 @@ typedef struct	s_list
 }	t_list;
 
 
-typedef struct s_sys_infos
+typedef struct s_minishell
 {
 	t_list *list_input;
 	char **env;
-}	t_sys_infos;
+}	t_minishell;
 
-t_sys_infos g_sys_infos;
+t_minishell g_minishell;
 
 /*
-** minishell
+** g_minishell
 */
 
 void	sh_pre(void);

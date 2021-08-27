@@ -1,0 +1,29 @@
+Pour readline :
+    sudo apt-get install libreadline-dev
+
+Variable: 
+    char *rl_line_buffer
+        This is the line gathered so far. You are welcome to modify the contents of the line, but see 2.4.5 Allowing Undoing. The function rl_extend_line_buffer is available to increase the memory allocated to rl_line_buffer. 
+
+Fonctions :
+    readline :
+        Many programs provide a command line interface, such as mail, ftp, and sh. For such programs, the default behaviour of Readline is sufficient.
+        The function readline() prints a prompt prompt and then reads and returns a single line of text from the user. If prompt is NULL or the empty string, no prompt is displayed. The line readline returns is allocated with malloc(); the caller should free() the line when it has finished with it. The declaration for readline in ANSI C is 
+    rl_on_new_line :
+        Tell the update routines that we have moved onto a new (empty) line, usually after ouputting a newline.
+    rl_replace_line :
+        Replace the contents of <rl_line_buffer> with text. The point and mark are preserved, if possible. If clear_undo is non-zero, the undo list associated with the current line is cleared. 
+    rl_redisplay :
+        Change what's displayed on the screen to reflect the current contents of <rl_line_buffer>. 
+    add_history :
+        If you want the user to be able to get at the line later, (with C-p for example), you must call add_history () to save the line away in a history list of such lines.
+    fork :
+        Create a child process.
+    waitpid :
+        Wait for process to change state.
+    wait3, wait4 :
+        Attendre la fin d'un processus.
+    getcwd :
+        Copie le chemin d'accès absolu du répertoire de travail courant dans la chaîne pointée par buf, qui est de longueur size.
+    chdir :
+        Remplace le répertoire de travail courant du processus appelant par celui indiqué dans le chemin <path>.
