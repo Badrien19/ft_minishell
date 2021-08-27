@@ -21,6 +21,7 @@
 
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <errno.h>
 
 # define EXIT_SUCCESS 0
 
@@ -92,6 +93,8 @@ t_token *create_token(char *value, t_token_type type);
 int		main_env();
 void	print_env();
 char	*get_value_env(char *name);
+int 	add_env(char *name, char *value);
+
 
 /*
 ** concat_tokens
