@@ -6,7 +6,7 @@
 /*   By: walker <walker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/08/27 17:46:25 by walker           ###   ########.fr       */
+/*   Updated: 2021/08/27 18:26:59 by walker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,27 @@ void	cmd_echo(t_list *list)
 	}
 }
 
+void	cmd_cd(t_list *list)
+{
+	int ret;
+	char *cwd;
+
+	errno = 0;
+	ret = chdir(list->content->value);
+	if (ret == -1)
+		printf("%s : %s\n", (char*)list->content->value, strerror(errno));
+	else
+	{
+		printf("Successfuly changed directory.\n"); // Temporaire
+		add_env("PWD", getcwd(cwd, NULL)); // Il faudrait remplacer la valeur, pas l'ajouter
+		if (errno == ERANGE)
+			printf("<error> : %s\n", strerror(errno));
+		else
+			free(cwd);
+	}
+}
+
+
 void	ft_switch(t_list *list)
 {
 	//printf("\nentry -> %s\n", list->content->value);
@@ -219,6 +240,8 @@ void	ft_switch(t_list *list)
 		print_env(list->next->next);
 	else if (list->content->type == literal && !ft_strcmp(list->content->value, "pwd"))
 		cmd_pwd(list->next->next);
+	else if (list->content->type == literal && !ft_strcmp(list->content->value, "cd"))
+		cmd_cd(list->next->next);
 /* 	else if (list->content->type == literal && !ft_strcmp(list->content->value, "history"))
 	{
 		int i = 0;
