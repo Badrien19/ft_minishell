@@ -6,27 +6,74 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/08/27 09:59:54 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/27 11:38:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_minishell.h"
 
+char	*search_env(char *array, int len)
+{
+	int		i;
+	int		j;
+	int		k;
+	char	*needle;
+	char	*ret;
+
+    i = 0;
+	j = len;
+	k = -1;
+	needle = malloc(sizeof(char *) * len);
+	if(!needle)
+		error("MALLOC ERROR");
+	while (array[i] && array[i] != '$')
+		i++;
+	i++;
+	while (++k < len -1)
+		needle[k] = array[k];
+	needle[k] = '\0';
+	k = 0;
+	i = 0;
+	while (g_sys_infos.env[i] && ft_strncmp(g_sys_infos.env[i], needle, len))
+		i++;
+	ret = malloc(sizeof(char *) * ft_strlen(g_sys_infos.env[i]) - len);
+	if(!ret)
+		error("MALLOC ERROR");
+	while (g_sys_infos.env[i][j])
+	{
+		ret[k] = g_sys_infos.env[i][j];
+		j++;
+		k++;
+	}
+	ret[k] = '\0';
+	free (needle);
+	return (ret);
+}
+
 static void	print_non_quote(void *s, int flag)
 {
 	char	*str;
+	char	*dollar;
 	int		len;
 	int		i;
+	int		j;
 
 	str = (char *)s;
 	len = ft_strlen(str);
 	i = 0;
+	j = 0;
 	while (str[i] && i < len)
 	{
+		if (str[i] == '$')
+		{
+			while (str[i] != ' ')
+				j++;
+			dollar = search_env((char *)s, j);
+			write(1, &dollar, j - 1);
+		}
 		if (str[i] == '\\')
 			i++;
 		write(1, &str[i], 1);
-		//printf("%c", str[i]);
 		i++;
 	}
 	if(flag == 0)
