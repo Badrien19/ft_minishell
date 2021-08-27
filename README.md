@@ -1,9 +1,4 @@
-# ft_g_minishell
-
-| Récupérer la ligne de l'utilisateur
-     
-     |--> getnextline ---> Done
-
+# ft_minishell
 
 | Structure
      
@@ -25,7 +20,7 @@
 
      |--> pwd  --> Done
      |--> echo --> Done
-     |--> cd
+     |--> cd -> Presque fini
      |--> export
      |--> unset
      |--> env  --> Done
