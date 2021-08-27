@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/08/27 09:29:30 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/27 09:34:20 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	print_non_quote(void *s, int flag)
 		printf("\n");
 }
 
-static void	print_quote(void *s, int flag)
+static void	print_double_quote(void *s, int flag)
 {
 	char	*str;
 	int		len;
@@ -46,6 +46,24 @@ static void	print_quote(void *s, int flag)
 	{
 		if (str[i] == '\\')
 			i++;
+		write(1, &str[i], 1);
+		i++;
+	}
+	if(flag == 0)
+		printf("\n");
+}
+
+static void	print_single_quote(void *s, int flag)
+{
+		char	*str;
+	int		len;
+	int		i;
+
+	str = (char *)s;
+	len = ft_strlen(str) - 1;
+	i = 1;
+	while (str[i] && i < len)
+	{
 		write(1, &str[i], 1);
 		i++;
 	}
@@ -72,7 +90,7 @@ void	cmd_echo(t_list *list)
 			quote = 1;
 		if (quote == 1)
 		{
-			print_quote(list->content->value, flag);
+			print_single_quote(list->content->value, flag);
 			if (list->next)
 				list = list->next;
 			else
@@ -85,7 +103,7 @@ void	cmd_echo(t_list *list)
 			quote = 1;
 		if (quote == 1)
 		{
-			print_quote(list->content->value, flag);
+			print_double_quote(list->content->value, flag);
 			if (list->next)
 				list = list->next;
 			else
