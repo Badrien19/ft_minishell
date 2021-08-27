@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/08/27 09:34:20 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/27 09:59:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,23 @@ static void	print_single_quote(void *s, int flag)
 	}
 	if(flag == 0)
 		printf("\n");
+}
+
+void	cmd_pwd(t_list *list)
+{
+	int i;
+	int	j;
+
+    i = 0;
+	j = 4;
+	while (g_sys_infos.env[i] && ft_strncmp(g_sys_infos.env[i], "PWD=", 4))
+		i++;
+	while (g_sys_infos.env[i][j])
+	{
+		write(1, &g_sys_infos.env[i][j], 1);
+		j++;
+	}
+	write(1, "\n", 1);
 }
 
 void	cmd_echo(t_list *list)
@@ -153,6 +170,8 @@ void	ft_switch(t_list *list)
 		cmd_echo(list->next->next);
 	else if (list->content->type == literal && !ft_strcmp(list->content->value, "env"))
 		print_env(list->next->next);
+	else if (list->content->type == literal && !ft_strcmp(list->content->value, "pwd"))
+		cmd_pwd(list->next->next);
 	else
 		{
 			printf("%s: command not found\n", (char *) list->content->value);
