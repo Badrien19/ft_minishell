@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: walker <walker@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/08/27 18:26:59 by walker           ###   ########.fr       */
+/*   Updated: 2021/08/30 14:57:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,28 +29,20 @@ char	*search_env(char *array, int len)
 	while (array[i] && array[i] != '$')
 		i++;
 	i++;
-	while (++k < len -1)
-		needle[k] = array[k];
+	while (++k < len)
+		needle[k] = array[i++];
 	needle[k] = '\0';
+	//printf("%s\n", array);
 	k = 0;
 	i = 0;
 	while (g_minishell.env[i] && ft_strncmp(g_minishell.env[i], needle, len))
 		i++;
-	ret = malloc(sizeof(char *) * ft_strlen(g_minishell.env[i]) - len);
-	if(!ret)
-		error("MALLOC ERROR");
-	while (g_minishell.env[i][j])
-	{
-		ret[k] = g_minishell.env[i][j];
-		j++;
-		k++;
-	}
-	ret[k] = '\0';
+	ret = ft_strdup(g_minishell.env[i]);
 	free (needle);
 	return (ret);
 }
 
-static void	print_non_quote(void *s, int flag)
+static void	print_non_quote(void *s)
 {
 	char	*str;
 	char	*dollar;
@@ -64,23 +56,24 @@ static void	print_non_quote(void *s, int flag)
 	j = 0;
 	while (str[i] && i < len)
 	{
+		
 		if (str[i] == '$')
 		{
-			while (str[i] != ' ')
+			while (str[i] && str[i++] != ' ')
 				j++;
-			dollar = search_env((char *)s, j);
-			write(1, &dollar, j - 1);
+			dollar = search_env(str, j - 1);
+			//do a free split
+			dollar = ft_split(dollar, '=')[1];
+			printf("%s", dollar);
 		}
 		if (str[i] == '\\')
 			i++;
 		write(1, &str[i], 1);
 		i++;
 	}
-	if(flag == 0)
-		printf("\n");
 }
 
-static void	print_double_quote(void *s, int flag)
+static void	print_double_quote(void *s)
 {
 	char	*str;
 	int		len;
@@ -96,11 +89,9 @@ static void	print_double_quote(void *s, int flag)
 		write(1, &str[i], 1);
 		i++;
 	}
-	if(flag == 0)
-		printf("\n");
 }
 
-static void	print_single_quote(void *s, int flag)
+static void	print_single_quote(void *s)
 {
 		char	*str;
 	int		len;
@@ -114,8 +105,6 @@ static void	print_single_quote(void *s, int flag)
 		write(1, &str[i], 1);
 		i++;
 	}
-	if(flag == 0)
-		printf("\n");
 }
 
 void	cmd_pwd(t_list *list)
@@ -154,7 +143,7 @@ void	cmd_echo(t_list *list)
 			quote = 1;
 		if (quote == 1)
 		{
-			print_single_quote(list->content->value, flag);
+			print_single_quote(list->content->value);
 			if (list->next)
 				list = list->next;
 			else
@@ -167,7 +156,7 @@ void	cmd_echo(t_list *list)
 			quote = 1;
 		if (quote == 1)
 		{
-			print_double_quote(list->content->value, flag);
+			print_double_quote(list->content->value);
 			if (list->next)
 				list = list->next;
 			else
@@ -199,13 +188,15 @@ void	cmd_echo(t_list *list)
 		}
 		if (list->content->type == semicolon || list->content->type == line_return)
 			return ;
-		if (list->content->type == literal)
-			print_non_quote(list->content->value, flag);
+		if (list && (list->content->type == literal || list->content->type == variable || list->content->value == 0))
+			print_non_quote(list->content->value);
 		if (list->next)
 			list = list->next;
 		else
 			return ;
 	}
+	if (flag == 0)
+		write(1, "\n", 1);
 }
 
 void	cmd_cd(t_list *list)
@@ -223,8 +214,8 @@ void	cmd_cd(t_list *list)
 		add_env("PWD", getcwd(cwd, NULL)); // Il faudrait remplacer la valeur, pas l'ajouter
 		if (errno == ERANGE)
 			printf("<error> : %s\n", strerror(errno));
-		else
-			free(cwd);
+		//else
+			//free(cwd);
 	}
 }
 
