@@ -3,12 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: walker <walker@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/08/30 18:21:42 by walker           ###   ########.fr       */
+=======
+/*   Updated: 2021/08/30 18:32:07 by user42           ###   ########.fr       */
+>>>>>>> 632b75d2c6ccb9e215092308258c2a88e834bf08
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "includes/ft_minishell.h"
 
@@ -57,7 +62,6 @@ static void	print_non_quote(void *s)
 	j = 0;
 	while (str[++i] && i < len)
 	{
-		
 		if (str[i] == '$')
 		{
 			while (str[i] && str[i++] != ' ')
@@ -79,14 +83,29 @@ static void	print_non_quote(void *s)
 static void	print_double_quote(void *s)
 {
 	char	*str;
+	char	*dollar;
 	int		len;
 	int		i;
+	int		j;
 
 	str = (char *)s;
 	len = ft_strlen(str) - 1;
 	i = 1;
+	j = 0;
 	while (str[i] && i < len)
 	{
+		if (str[i] == '$')
+		{
+			while (str[i] && str[i++] != ' ')
+				j++;
+			dollar = search_env(str, j - 1);
+			if(dollar)
+			{
+				dollar = ft_split(dollar, '=')[1];
+				if(dollar)
+					write(1, dollar, ft_strlen(dollar));
+			}
+		}
 		if (str[i] == '\\')
 			i++;
 		write(1, &str[i], 1);
@@ -96,15 +115,30 @@ static void	print_double_quote(void *s)
 
 static void	print_single_quote(void *s)
 {
-		char	*str;
+	char	*str;
+	char	*dollar;
 	int		len;
 	int		i;
+	int		j;
 
 	str = (char *)s;
 	len = ft_strlen(str) - 1;
 	i = 1;
+	j = 0;
 	while (str[i] && i < len)
 	{
+		if (str[i] == '$')
+		{
+			while (str[i] && str[i++] != ' ')
+				j++;
+			dollar = search_env(str, j - 1);
+			if(dollar)
+			{
+				dollar = ft_split(dollar, '=')[1];
+				if(dollar)
+					write(1, dollar, ft_strlen(dollar));
+			}
+		}
 		write(1, &str[i], 1);
 		i++;
 	}
@@ -133,7 +167,6 @@ void	cmd_echo(t_list *list)
 	int		flag;
 	
 	//printf("entry_echo -> '%s'\n", list->content->value);
-	quote = 0;
 	flag = 0;
 	while (list->content->value && list->content->type != semicolon)
 	{
@@ -143,8 +176,6 @@ void	cmd_echo(t_list *list)
 			list = list->next->next;
 		}
 		if (list->content->type == single_quote)
-			quote = 1;
-		if (quote == 1)
 		{
 			print_single_quote(list->content->value);
 			if (list->next)
@@ -153,11 +184,8 @@ void	cmd_echo(t_list *list)
 				return ;
 			if (list->content->type == semicolon || list->content->type == line_return)
 				return ;
-			quote = 0;
 		}
 		if (list->content->type == double_quote)
-			quote = 1;
-		if (quote == 1)
 		{
 			print_double_quote(list->content->value);
 			if (list->next)
@@ -166,7 +194,14 @@ void	cmd_echo(t_list *list)
 				return ;
 			if (list->content->type == semicolon || list->content->type == line_return)
 				return ;
-			quote = 0;
+		}
+		else
+		{
+			print_non_quote(list->content->value);
+			if (list->next)
+				list = list->next;
+			else
+				return ;
 		}
 		if (list->content->type == semicolon || list->content->type == line_return)
 			return ;
@@ -189,14 +224,6 @@ void	cmd_echo(t_list *list)
 					return ;
 			}
 		}
-		if (list->content->type == semicolon || list->content->type == line_return)
-			return ;
-		if(list->content->value)
-			print_non_quote(list->content->value);
-		if (list->next)
-			list = list->next;
-		else
-			return ;
 	}
 	if (flag == 0)
 		write(1, "\n", 1);
