@@ -27,8 +27,6 @@ t_token *create_token(char *value, t_token_type type)
         exit(-1);
     token->value = value;
     token->type = type;
-/*     printf("token->value = %s\n", token->value);
-    printf("token-type = %d\n", token->type); */
     return (token);
 }
 

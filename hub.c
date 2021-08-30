@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: walker <walker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/08/30 16:01:14 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/30 18:11:19 by walker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,12 +214,27 @@ void	cmd_cd(t_list *list)
 	else
 	{
 		printf("Successfuly changed directory.\n"); // Temporaire
-		add_env("PWD", getcwd(cwd, NULL)); // Il faudrait remplacer la valeur, pas l'ajouter
+		//add_env("PWD", getcwd(cwd, NULL)); // Il faudrait remplacer la valeur, pas l'ajouter
 		if (errno == ERANGE)
 			printf("<error> : %s\n", strerror(errno));
 		//else
 			//free(cwd);
 	}
+}
+
+void	cmd_execute(t_list *list)
+{
+	char *program_name;
+	char **argv;
+
+	argv = NULL;
+	*argv = NULL;
+
+	printf("__TEST__\n");
+	program_name = ft_split(list->content->value, '/')[1];
+	printf("program_name : %s\n", program_name);
+	if (execve(program_name, argv, 0) == -1)
+		printf("<Error> : %s\n", strerror(errno));
 }
 
 void	ft_switch(t_list *list)
@@ -235,6 +250,8 @@ void	ft_switch(t_list *list)
 		cmd_pwd(list->next->next);
 	else if (list->content->type == literal && !ft_strcmp(list->content->value, "cd"))
 		cmd_cd(list->next->next);
+	else if (list->content->type == literal && !ft_strncmp(list->content->value, "./", 2))
+		cmd_execute(list);
 /* 	else if (list->content->type == literal && !ft_strcmp(list->content->value, "history"))
 	{
 		int i = 0;

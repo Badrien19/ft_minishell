@@ -6,7 +6,7 @@
 #    By: walker <walker@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:00:43 by user42            #+#    #+#              #
-#    Updated: 2021/08/30 14:56:11 by walker           ###   ########.fr        #
+#    Updated: 2021/08/30 18:11:04 by walker           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ $(NAME):
 
 clean:
 			@rm -f *.o
+			@make -C ./libft fclean
 
 fclean:		clean
 			@rm -f $(LIBFT)
