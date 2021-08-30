@@ -3,16 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: walker <walker@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/08/30 17:20:27 by user42           ###   ########.fr       */
-=======
-/*   Updated: 2021/08/30 18:11:19 by walker           ###   ########.fr       */
->>>>>>> refs/remotes/origin/parsing
+/*   Updated: 2021/08/30 18:32:07 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "includes/ft_minishell.h"
 
@@ -166,7 +163,6 @@ void	cmd_echo(t_list *list)
 	int		flag;
 	
 	//printf("entry_echo -> '%s'\n", list->content->value);
-	quote = 0;
 	flag = 0;
 	while (list->content->value && list->content->type != semicolon)
 	{
@@ -176,8 +172,6 @@ void	cmd_echo(t_list *list)
 			list = list->next->next;
 		}
 		if (list->content->type == single_quote)
-			quote = 1;
-		if (quote == 1)
 		{
 			print_single_quote(list->content->value);
 			if (list->next)
@@ -186,11 +180,8 @@ void	cmd_echo(t_list *list)
 				return ;
 			if (list->content->type == semicolon || list->content->type == line_return)
 				return ;
-			quote = 0;
 		}
 		if (list->content->type == double_quote)
-			quote = 2;
-		if (quote == 2)
 		{
 			print_double_quote(list->content->value);
 			if (list->next)
@@ -199,7 +190,14 @@ void	cmd_echo(t_list *list)
 				return ;
 			if (list->content->type == semicolon || list->content->type == line_return)
 				return ;
-			quote = 0;
+		}
+		else
+		{
+			print_non_quote(list->content->value);
+			if (list->next)
+				list = list->next;
+			else
+				return ;
 		}
 		if (list->content->type == semicolon || list->content->type == line_return)
 			return ;
@@ -222,13 +220,6 @@ void	cmd_echo(t_list *list)
 					return ;
 			}
 		}
-		if (list->content->type == semicolon || list->content->type == line_return)
-			return ;
-		print_non_quote(list->content->value);
-		if (list->next)
-			list = list->next;
-		else
-			return ;
 	}
 	if (flag == 0)
 		write(1, "\n", 1);
