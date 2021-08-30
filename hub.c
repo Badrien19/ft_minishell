@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/08/30 16:01:14 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/30 17:20:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static void	print_non_quote(void *s)
 	j = 0;
 	while (str[++i] && i < len)
 	{
-		
 		if (str[i] == '$')
 		{
 			while (str[i] && str[i++] != ' ')
@@ -79,14 +78,29 @@ static void	print_non_quote(void *s)
 static void	print_double_quote(void *s)
 {
 	char	*str;
+	char	*dollar;
 	int		len;
 	int		i;
+	int		j;
 
 	str = (char *)s;
 	len = ft_strlen(str) - 1;
 	i = 1;
+	j = 0;
 	while (str[i] && i < len)
 	{
+		if (str[i] == '$')
+		{
+			while (str[i] && str[i++] != ' ')
+				j++;
+			dollar = search_env(str, j - 1);
+			if(dollar)
+			{
+				dollar = ft_split(dollar, '=')[1];
+				if(dollar)
+					write(1, dollar, ft_strlen(dollar));
+			}
+		}
 		if (str[i] == '\\')
 			i++;
 		write(1, &str[i], 1);
@@ -96,15 +110,30 @@ static void	print_double_quote(void *s)
 
 static void	print_single_quote(void *s)
 {
-		char	*str;
+	char	*str;
+	char	*dollar;
 	int		len;
 	int		i;
+	int		j;
 
 	str = (char *)s;
 	len = ft_strlen(str) - 1;
 	i = 1;
+	j = 0;
 	while (str[i] && i < len)
 	{
+		if (str[i] == '$')
+		{
+			while (str[i] && str[i++] != ' ')
+				j++;
+			dollar = search_env(str, j - 1);
+			if(dollar)
+			{
+				dollar = ft_split(dollar, '=')[1];
+				if(dollar)
+					write(1, dollar, ft_strlen(dollar));
+			}
+		}
 		write(1, &str[i], 1);
 		i++;
 	}
@@ -156,8 +185,8 @@ void	cmd_echo(t_list *list)
 			quote = 0;
 		}
 		if (list->content->type == double_quote)
-			quote = 1;
-		if (quote == 1)
+			quote = 2;
+		if (quote == 2)
 		{
 			print_double_quote(list->content->value);
 			if (list->next)
@@ -191,8 +220,7 @@ void	cmd_echo(t_list *list)
 		}
 		if (list->content->type == semicolon || list->content->type == line_return)
 			return ;
-		if(list->content->value)
-			print_non_quote(list->content->value);
+		print_non_quote(list->content->value);
 		if (list->next)
 			list = list->next;
 		else
