@@ -6,7 +6,7 @@
 /*   By: walker <walker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:21:04 by user42            #+#    #+#             */
-/*   Updated: 2021/08/27 17:46:10 by walker           ###   ########.fr       */
+/*   Updated: 2021/08/30 14:53:22 by walker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_list(void)
 {
-	t_list	*buffer;
+	t_node	*buffer;
 
 	if (g_minishell.list_input == NULL)
 		return ;

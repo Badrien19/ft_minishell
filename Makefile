@@ -6,20 +6,23 @@
 #    By: walker <walker@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:00:43 by user42            #+#    #+#              #
-#    Updated: 2021/08/27 17:45:08 by walker           ###   ########.fr        #
+#    Updated: 2021/08/30 14:56:11 by walker           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 #CFLAGS = -Wall -Wextra -Werror
-SRC = 	minishell.c parser.c list.c utils.c free.c errors.c checker.c debug.c hub.c ./tokens/concat_tokens.c ./tokens/get_token.c ./tokens/utils_concat_tokens.c env.c
+SRC = 	minishell.c parser.c free.c errors.c checker.c debug.c hub.c ./tokens/concat_tokens.c ./tokens/get_token.c ./tokens/utils_concat_tokens.c env.c
 NAME = ft_minishell
 LIB = ar rcs
+LIBFT =	libft.a
 
 all : $(NAME)
 
 $(NAME):	
-			@$(CC) $(CFLAGS) ${SRC} -o $(NAME) -lreadline
+			@make -C ./libft
+			@cp ./libft/libft.a $(LIBFT)
+			@$(CC) $(CFLAGS) ${SRC} $(LIBFT) -o $(NAME) -lreadline
 			@echo "\n\033[32m[✓]\033[0m		[$(NAME) compiled]"
 
 %.o: %.c
@@ -28,7 +31,8 @@ $(NAME):
 clean:
 			@rm -f *.o
 
-fclean:	clean
+fclean:		clean
+			@rm -f $(LIBFT)
 			@rm -f $(NAME)
 			@rm -f a.aout
 			
