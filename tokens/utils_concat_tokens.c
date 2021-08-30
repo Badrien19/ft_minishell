@@ -16,7 +16,7 @@ void *join_two_tokens(t_token *token_1, t_token *token_2)
     return (token);
 }
 
-static void clear_node(t_node *node)
+static void clear_node(t_list *node)
 {
     node->content = NULL;
 	node->next = NULL;
@@ -24,7 +24,7 @@ static void clear_node(t_node *node)
 
 void    relink_nodes()
 {
-    t_node *tmp_list;
+    t_list *tmp_list;
 
     g_minishell.list_input->content = join_two_tokens(g_minishell.list_input->content, g_minishell.list_input->next->content);
     //printf("relink : %s\n", g_minishell.list_input->content->value);

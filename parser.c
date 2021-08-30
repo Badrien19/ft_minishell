@@ -77,7 +77,7 @@ t_bool    parsing(char *user_input)
 
 void    tokenizer(char *input)
 {
-    t_node          *new;
+    t_list          *new;
     char            *value;
     t_token         *token;
     t_token_type    type;

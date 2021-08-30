@@ -2,8 +2,8 @@
 
 void    concat_tokens_all()
 {
-    t_node *tmp_list;
-    t_node *begin;
+    t_list *tmp_list;
+    t_list *begin;
 
     begin = g_minishell.list_input;
 
@@ -24,7 +24,7 @@ void    concat_tokens_all()
 
 t_bool    concat_no_spaces()
 {
-    t_node *begin;
+    t_list *begin;
 
     begin = g_minishell.list_input;
     while (g_minishell.list_input->next != NULL)
@@ -59,7 +59,7 @@ static char get_last_char(void *value)
 
 t_bool  concat_tokens_quotes()
 {
-    t_node *begin;
+    t_list *begin;
     t_token_type quote_type;
 
     begin = g_minishell.list_input;

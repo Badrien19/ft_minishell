@@ -2,7 +2,7 @@
 
 static void	print_list(void)
 {
-	t_node	*list;
+	t_list	*list;
 
 	list = g_minishell.list_input;
 	if (list != NULL)
