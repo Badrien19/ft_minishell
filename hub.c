@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/08/30 15:00:22 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/30 15:15:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ static void	print_single_quote(void *s)
 	}
 }
 
-void	cmd_pwd(t_node *list)
+void	cmd_pwd(t_list *list)
 {
 	int i;
 	int	j;
@@ -124,7 +124,7 @@ void	cmd_pwd(t_node *list)
 	write(1, "\n", 1);
 }
 
-void	cmd_echo(t_node *list)
+void	cmd_echo(t_list *list)
 {
 	int		quote;
 	int		flag;
@@ -199,7 +199,7 @@ void	cmd_echo(t_node *list)
 		write(1, "\n", 1);
 }
 
-void	cmd_cd(t_node *list)
+void	cmd_cd(t_list *list)
 {
 	int ret;
 	char *cwd;
@@ -220,7 +220,7 @@ void	cmd_cd(t_node *list)
 }
 
 
-void	ft_switch(t_node *list)
+void	ft_switch(t_list *list)
 {
 	//printf("\nentry -> %s\n", list->content->value);
 	if (list->content->type == literal && !ft_strcmp(list->content->value, "exit"))
@@ -264,7 +264,7 @@ void	ft_switch(t_node *list)
 
 void	cmd_hub(void)
 {
-	t_node	*list;
+	t_list	*list;
 
 	list = g_minishell.list_input;
 	ft_switch(list);

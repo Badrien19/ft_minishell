@@ -14,7 +14,7 @@
 
 t_bool	checking_if_quotes_even(void)
 {
-	t_node	*list;
+	t_list	*list;
 	int		quote;
 
 	list = g_minishell.list_input;

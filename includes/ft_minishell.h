@@ -25,41 +25,9 @@
 # include <readline/history.h>
 # include <errno.h>
 
-typedef enum e_token_type
-{
-	space,
-	line_return,
-	pipeline,
-	semicolon,
-	simple_redir_left,
-	simple_redir_right,
-	double_redir_left,
-	double_redir,right,
-	single_quote,
-	double_quote,
-	backslash,
-	variable,
-	literal
-
-}	t_token_type;
-
-typedef struct s_token
-{
-	void *value;
-	t_token_type type;
-
-}	t_token;
-
-typedef struct	s_node
-{
-	t_token	*content;
-	struct s_node	*next;
-}	t_node;
-
-
 typedef struct s_minishell
 {
-	t_node *list_input;
+	t_list *list_input;
 	char **env;
 }	t_minishell;
 
