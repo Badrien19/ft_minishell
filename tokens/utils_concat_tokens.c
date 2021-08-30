@@ -32,6 +32,9 @@ void    relink_nodes()
         tmp_list = g_minishell.list_input->next->next;
     else
     {
+        tmp_list = malloc(sizeof(t_list));
+        if (!(tmp_list))
+            exit(-1);
         tmp_list->content = create_token(NULL, 0);
         tmp_list->next = NULL;
     }

@@ -2,20 +2,21 @@
 
 void    concat_tokens_all()
 {
-    t_list *tmp_list;
     t_list *begin;
 
     begin = g_minishell.list_input;
 
     while (g_minishell.list_input != NULL && g_minishell.list_input->next != NULL)
     {
-        //printf("'%s' -> '%s'\n", g_minishell.list_input->content->value, g_minishell.list_input->next->content->value);
         if (get_token_type(g_minishell.list_input->content) == single_quote
         || get_token_type(g_minishell.list_input->content) == double_quote)
             g_minishell.list_input = g_minishell.list_input->next;
         else if (get_token_type(g_minishell.list_input->content) == get_token_type(g_minishell.list_input->next->content)
         || (get_token_type(g_minishell.list_input->content) == variable && get_token_type(g_minishell.list_input->next->content) == literal))
+        {
+            //printf("'%s%s'\n", g_minishell.list_input->content->value, g_minishell.list_input->next->content->value);
             relink_nodes();
+        }
         else
             g_minishell.list_input = g_minishell.list_input->next;
     }
@@ -65,24 +66,30 @@ t_bool  concat_tokens_quotes()
     begin = g_minishell.list_input;
     if (checking_if_quotes_even() == False)
         return (False);
-    while (g_minishell.list_input != NULL)
+    while (g_minishell.list_input->next != NULL)
     {
-        if (get_token_type(g_minishell.list_input->content) == single_quote || get_token_type(g_minishell.list_input->content) == double_quote)
+        //printf("s : %s\n", get_token_value(g_minishell.list_input->content));
+        if (get_token_value(g_minishell.list_input->next->content) != NULL && (get_token_type(g_minishell.list_input->content) == single_quote || get_token_type(g_minishell.list_input->content) == double_quote))
         {
+           /*  printf("__Entry__\n");
+            printf("next : %p\n", g_minishell.list_input->next); */
             quote_type = get_token_type(g_minishell.list_input->content);
-            while ((get_token_type(g_minishell.list_input->next->content) != quote_type && g_minishell.list_input->next != NULL) || 
-            (get_last_char(get_token_value(g_minishell.list_input->content)) == '\\' && get_token_type(g_minishell.list_input->next->content) == quote_type))
+            //printf("n_s : %s\n", get_token_value(g_minishell.list_input->next->content));
+            while ((g_minishell.list_input->next != NULL && get_token_type(g_minishell.list_input->next->content) != quote_type) || 
+            (get_last_char(get_token_value(g_minishell.list_input->content)) == '\\' && g_minishell.list_input->next != NULL && get_token_type(g_minishell.list_input->next->content) == quote_type))
             {
-                //printf("[in] s : %s -> %i\n", get_token_value(g_minishell.list_input->content), get_token_type(g_minishell.list_input->next->content));
+                //printf("[in] s : %s -> %s\n", get_token_value(g_minishell.list_input->content), get_token_value(g_minishell.list_input->next->content));
                 relink_nodes();
             }
-            if (g_minishell.list_input->next && g_minishell.list_input->next->next)
+            if (g_minishell.list_input->next &&  get_token_type(g_minishell.list_input->next->content) == quote_type)
             {
-                //printf("[out] last : %c -> %i\n", get_last_char(get_token_value(g_minishell.list_input->content)), get_token_type(g_minishell.list_input->next->content));
+                //printf("[out] last : %s -> %s\n", get_token_value(g_minishell.list_input->content), get_token_value(g_minishell.list_input->next->content));
                 relink_nodes();
+                //printf("TEST\n");
             }
         }
-        g_minishell.list_input = g_minishell.list_input->next;
+        else
+            g_minishell.list_input = g_minishell.list_input->next;
     }
     g_minishell.list_input = begin;
     return (True);
