@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/08/30 15:15:00 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/30 16:01:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,12 @@ char	*search_env(char *array, int len)
 	while (++k < len)
 		needle[k] = array[i++];
 	needle[k] = '\0';
-	//printf("%s\n", array);
 	k = 0;
 	i = 0;
 	while (g_minishell.env[i] && ft_strncmp(g_minishell.env[i], needle, len))
 		i++;
+	if(!g_minishell.env[i])
+		return(NULL);
 	ret = ft_strdup(g_minishell.env[i]);
 	free (needle);
 	return (ret);
@@ -52,9 +53,9 @@ static void	print_non_quote(void *s)
 
 	str = (char *)s;
 	len = ft_strlen(str);
-	i = 0;
+	i = -1;
 	j = 0;
-	while (str[i] && i < len)
+	while (str[++i] && i < len)
 	{
 		
 		if (str[i] == '$')
@@ -62,14 +63,16 @@ static void	print_non_quote(void *s)
 			while (str[i] && str[i++] != ' ')
 				j++;
 			dollar = search_env(str, j - 1);
-			//do a free split
-			dollar = ft_split(dollar, '=')[1];
-			printf("%s", dollar);
+			if(dollar)
+			{
+				dollar = ft_split(dollar, '=')[1];
+				if(dollar)
+					write(1, dollar, ft_strlen(dollar));
+			}
 		}
 		if (str[i] == '\\')
 			i++;
 		write(1, &str[i], 1);
-		i++;
 	}
 }
 
@@ -132,7 +135,7 @@ void	cmd_echo(t_list *list)
 	//printf("entry_echo -> '%s'\n", list->content->value);
 	quote = 0;
 	flag = 0;
-	while (list && list->content->type != semicolon)
+	while (list->content->value && list->content->type != semicolon)
 	{
 		if (list->content->type == literal && !ft_strcmp(list->content->value, "-n"))
 		{
@@ -188,7 +191,7 @@ void	cmd_echo(t_list *list)
 		}
 		if (list->content->type == semicolon || list->content->type == line_return)
 			return ;
-		if (list && (list->content->type == literal || list->content->type == variable || list->content->value == 0))
+		if(list->content->value)
 			print_non_quote(list->content->value);
 		if (list->next)
 			list = list->next;
@@ -218,7 +221,6 @@ void	cmd_cd(t_list *list)
 			//free(cwd);
 	}
 }
-
 
 void	ft_switch(t_list *list)
 {
