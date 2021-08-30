@@ -19,17 +19,11 @@
 # include <stdlib.h>
 # include <malloc.h>
 
+# include "../libft/libft.h"
+
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <errno.h>
-
-# define EXIT_SUCCESS 0
-
-typedef enum e_bool
-{
-	False,
-	True
-} t_bool;
 
 typedef enum e_token_type
 {
@@ -56,16 +50,16 @@ typedef struct s_token
 
 }	t_token;
 
-typedef struct	s_list
+typedef struct	s_node
 {
 	t_token	*content;
-	struct s_list	*next;
-}	t_list;
+	struct s_node	*next;
+}	t_node;
 
 
 typedef struct s_minishell
 {
-	t_list *list_input;
+	t_node *list_input;
 	char **env;
 }	t_minishell;
 
@@ -117,34 +111,6 @@ void	*get_token_value(t_token *token);
 
 void	*join_two_tokens(t_token *token_1, t_token *token_2);
 void	relink_nodes();
-
-/*
-** utils
-*/
-
-char	**ft_split(char const *s, char c);
-size_t	ft_strlen(const char *s);
-void	*ft_memcpy(void *dst, const void *src, size_t n);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strdup(const char *s1);
-char	*ft_strndup(const char *s1, int n);
-char	*ft_strjoin(char const *s1, char const *s2);
-void	ft_putstr(char *s, int fd);
-int		ft_strncmp(char *s1, char *s2, size_t n);
-int		ft_strcmp(char *s1, char *s2);
-
-/*
-** lists
-*/
-
-void	ft_lstadd_back(t_list **alst, t_list *new);
-void	ft_lstadd_front(t_list **alst, t_list *new);
-void	ft_lstclear(t_list **lst, void (*del)(void*));
-void	ft_lstdelone(t_list *lst, void (*del)(void*));
-void	ft_lstiter(t_list *lst, void (*f)(void *));
-t_list	*ft_lstlast(t_list *lst);
-t_list	*ft_lstnew(void *content);
-int		ft_lstsize(t_list *lst);
 
 /*
 ** checker.c

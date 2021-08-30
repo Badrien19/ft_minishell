@@ -6,7 +6,7 @@
 /*   By: walker <walker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:28:08 by user42            #+#    #+#             */
-/*   Updated: 2021/08/27 17:46:07 by walker           ###   ########.fr       */
+/*   Updated: 2021/08/30 14:54:36 by walker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void error(char *error_text)
 {
-    ft_putstr(error_text, 1);
+    ft_putstr_fd(error_text, 1);
     free_list();
     exit (0);
 }
