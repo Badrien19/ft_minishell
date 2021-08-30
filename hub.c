@@ -6,7 +6,7 @@
 /*   By: walker <walker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/08/30 18:11:19 by walker           ###   ########.fr       */
+/*   Updated: 2021/08/30 18:21:42 by walker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,8 +227,7 @@ void	cmd_execute(t_list *list)
 	char *program_name;
 	char **argv;
 
-	argv = NULL;
-	*argv = NULL;
+	**argv = NULL;
 
 	printf("__TEST__\n");
 	program_name = ft_split(list->content->value, '/')[1];

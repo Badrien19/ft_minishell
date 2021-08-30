@@ -1,6 +1,6 @@
 #include "../includes/ft_minishell.h"
 
-void    concat_tokens_all()
+/* void    concat_tokens_all()
 {
     t_list *begin;
 
@@ -14,13 +14,30 @@ void    concat_tokens_all()
         else if (get_token_type(g_minishell.list_input->content) == get_token_type(g_minishell.list_input->next->content)
         || (get_token_type(g_minishell.list_input->content) == variable && get_token_type(g_minishell.list_input->next->content) == literal))
         {
-            //printf("'%s%s'\n", g_minishell.list_input->content->value, g_minishell.list_input->next->content->value);
+            printf("link - '%s%s'\n", g_minishell.list_input->content->value, g_minishell.list_input->next->content->value);
             relink_nodes();
         }
         else
             g_minishell.list_input = g_minishell.list_input->next;
     }
     g_minishell.list_input = begin;
+    printf("TEST\n");
+} */
+
+void    concat_tokens_same_type()
+{
+    t_list *begin;
+
+    begin = g_minishell.list_input;
+    while (g_minishell.list_input->next != NULL)
+    {
+        if (get_token_type(g_minishell.list_input->content) == get_token_type(g_minishell.list_input->next->content))
+            relink_nodes();
+        else
+            g_minishell.list_input = g_minishell.list_input->next;
+    }
+    g_minishell.list_input = begin;
+    //print_current_chain();
 }
 
 t_bool    concat_no_spaces()

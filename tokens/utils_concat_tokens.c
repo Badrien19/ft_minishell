@@ -1,6 +1,6 @@
 #include "../includes/ft_minishell.h"
 
-void *join_two_tokens(t_token *token_1, t_token *token_2)
+void *join_two_tokens(t_token *token_1, t_token *token_2) // Free
 {
     char *str_1;
     char *str_2;
@@ -19,26 +19,34 @@ void *join_two_tokens(t_token *token_1, t_token *token_2)
 static void clear_node(t_list *node)
 {
     node->content = NULL;
+    free(node->content);
 	node->next = NULL;
+    free(node->next);
+    free(node);
 }
 
 void    relink_nodes()
 {
     t_list *tmp_list;
 
+    tmp_list = NULL;
     g_minishell.list_input->content = join_two_tokens(g_minishell.list_input->content, g_minishell.list_input->next->content);
     //printf("relink : %s\n", g_minishell.list_input->content->value);
     if (g_minishell.list_input->next->next)
         tmp_list = g_minishell.list_input->next->next;
     else
     {
-        tmp_list = malloc(sizeof(t_list));
+    /*  tmp_list = malloc(sizeof(t_list));
         if (!(tmp_list))
             exit(-1);
         tmp_list->content = create_token(NULL, 0);
-        tmp_list->next = NULL;
+        tmp_list->next = NULL; */
+        clear_node(g_minishell.list_input->next);
+        g_minishell.list_input->next = NULL;
     }
-    clear_node(g_minishell.list_input->next);
-    g_minishell.list_input->next->content = tmp_list->content;
-    g_minishell.list_input->next->next = tmp_list->next;
+    if (tmp_list)
+    {
+        g_minishell.list_input->next = tmp_list;
+    }
+    //print_current_chain();
 }
