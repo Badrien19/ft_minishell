@@ -10,9 +10,11 @@ void    concat_tokens_all()
     while (g_minishell.list_input != NULL && g_minishell.list_input->next != NULL)
     {
         //printf("'%s' -> '%s'\n", g_minishell.list_input->content->value, g_minishell.list_input->next->content->value);
-        if (get_token_type(g_minishell.list_input->content) == single_quote || get_token_type(g_minishell.list_input->content) == double_quote)
+        if (get_token_type(g_minishell.list_input->content) == single_quote
+        || get_token_type(g_minishell.list_input->content) == double_quote)
             g_minishell.list_input = g_minishell.list_input->next;
-        else if (get_token_type(g_minishell.list_input->content) == get_token_type(g_minishell.list_input->next->content))
+        else if (get_token_type(g_minishell.list_input->content) == get_token_type(g_minishell.list_input->next->content)
+        || (get_token_type(g_minishell.list_input->content) == variable && get_token_type(g_minishell.list_input->next->content) == literal))
             relink_nodes();
         else
             g_minishell.list_input = g_minishell.list_input->next;
