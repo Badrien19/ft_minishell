@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/08/31 15:30:12 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/31 16:58:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,13 +152,18 @@ void	cmd_echo(t_list *list)
 	
 	//printf("entry_echo -> '%s'\n", list->content->value);
 	flag = 0;
+	if(list->next && list->content->type == space)
+		list = list->next;
+	if (list->content->type == literal && !ft_strcmp(list->content->value, "-n"))
+	{
+		flag = 1;
+		if(list->next && list->next->next)
+			list = list->next->next;
+		else
+			return ;
+	}
 	while (list->content->value && list->content->type != semicolon)
 	{
-		if (list->content->type == literal && !ft_strcmp(list->content->value, "-n"))
-		{
-			flag = 1;
-			list = list->next->next;
-		}
 		if (list->content->type == single_quote)
 		{
 			print_single_quote(list->content->value);
@@ -253,7 +258,7 @@ void	ft_switch(t_list *list)
 	if (list->content->type == literal && !ft_strcmp(list->content->value, "exit"))
 		error("exit g_minishell\n");
 	else if (list->content->type == literal && !ft_strcmp(list->content->value, "echo"))
-		cmd_echo(list->next->next);
+		cmd_echo(list->next);
 	else if (list->content->type == literal && !ft_strcmp(list->content->value, "env"))
 		print_env(list->next->next);
 	else if (list->content->type == literal && !ft_strcmp(list->content->value, "pwd"))
