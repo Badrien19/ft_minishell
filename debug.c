@@ -18,15 +18,15 @@ static char *replace_by_name(t_token_type nb)
 		return ("double_redir_left");
 	else if (nb == 7)
 		return ("double_redir_right");
-	else if (nb == 9)
+	else if (nb == 8)
 		return ("single_quote");
-	else if (nb == 10)
+	else if (nb == 9)
 		return ("double_quote");
-	else if (nb == 11)
+	else if (nb == 10)
 		return ("backslash");
-	else if (nb == 12)
+	else if (nb == 11)
 		return ("variable");
-	else if (nb == 13)
+	else if (nb == 12)
 		return ("litteral");
 }
 
