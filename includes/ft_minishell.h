@@ -34,7 +34,7 @@ typedef struct s_minishell
 t_minishell g_minishell;
 
 /*
-** g_minishell
+** minishell
 */
 
 void	sh_pre(void);
@@ -62,6 +62,7 @@ int 	add_env(char *name, char *value);
 ** concat_tokens
 */
 
+void    concat_tokens_same_type();
 void    concat_tokens_all();
 t_bool  concat_no_spaces();
 t_bool	concat_tokens_quotes();
@@ -103,6 +104,7 @@ void	free_list(void);
 */
 
 void	debug(void);
+void	print_current_chain(void);
 
 /*
 ** hub.c

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/08/30 18:35:01 by user42           ###   ########.fr       */
+/*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
+/*   Updated: 2021/08/31 15:15:05 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,8 +250,7 @@ void	cmd_execute(t_list *list)
 	char *program_name;
 	char **argv;
 
-	argv = NULL;
-	*argv = NULL;
+	**argv = NULL;
 
 	printf("__TEST__\n");
 	program_name = ft_split(list->content->value, '/')[1];

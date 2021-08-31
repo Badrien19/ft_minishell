@@ -27,6 +27,7 @@ t_token *create_token(char *value, t_token_type type)
         exit(-1);
     token->value = value;
     token->type = type;
+    //printf("New Token ! ('%s' - %i)\n", (char *)token->value, token->type);
     return (token);
 }
 
@@ -59,18 +60,19 @@ t_bool    parsing(char *user_input)
 
     i = 0;
     size = ft_strlen(user_input);
+    if (size == 0)
+        return (False);
     while (i < size)
     {
         new = ft_strndup(user_input + i, 1);
         tokenizer(new);
         free(new);
-        // ne pas oublier de free new
         i++;
     }
-    concat_tokens_all();
+    //print_current_chain();
+    concat_tokens_same_type();
     if (concat_tokens_quotes() == False)
         return (False);
-   // concat_no_spaces();
 }
 
 void    tokenizer(char *input)
