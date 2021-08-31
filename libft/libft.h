@@ -6,7 +6,7 @@
 /*   By: walker <walker@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 11:28:30 by cgoncalv          #+#    #+#             */
-/*   Updated: 2021/08/30 15:21:01 by walker           ###   ########.fr       */
+/*   Updated: 2021/08/31 16:23:35 by walker           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef enum e_token_type
 	simple_redir_left,
 	simple_redir_right,
 	double_redir_left,
-	double_redir,right,
+	double_redir_right,
 	single_quote,
 	double_quote,
 	backslash,

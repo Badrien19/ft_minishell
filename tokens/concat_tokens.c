@@ -36,6 +36,10 @@ void    concat_tokens_same_type()
         {
             //printf("'%s%s'\n", get_token_value(g_minishell.list_input->content), get_token_value(g_minishell.list_input->next->content));
             relink_nodes();
+            if (ft_strcmp(g_minishell.list_input->content->value, ">>") == 0)
+                g_minishell.list_input->content->type = double_redir_right;
+            else if (ft_strcmp(g_minishell.list_input->content->value, "<<") == 0)
+                g_minishell.list_input->content->type = double_redir_left;
         }
         else
             g_minishell.list_input = g_minishell.list_input->next;
