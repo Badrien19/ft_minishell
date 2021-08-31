@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:05:31 by user42            #+#    #+#             */
-/*   Updated: 2021/08/30 18:32:07 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/30 18:35:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ void	cmd_echo(t_list *list)
 			if (list->content->type == semicolon || list->content->type == line_return)
 				return ;
 		}
-		if (list->content->type == double_quote)
+		else if (list->content->type == double_quote)
 		{
 			print_double_quote(list->content->value);
 			if (list->next)
