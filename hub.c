@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/08/31 15:15:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/31 15:30:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,18 +123,6 @@ static void	print_single_quote(void *s)
 	j = 0;
 	while (str[i] && i < len)
 	{
-		if (str[i] == '$')
-		{
-			while (str[i] && str[i++] != ' ')
-				j++;
-			dollar = search_env(str, j - 1);
-			if(dollar)
-			{
-				dollar = ft_split(dollar, '=')[1];
-				if(dollar)
-					write(1, dollar, ft_strlen(dollar));
-			}
-		}
 		write(1, &str[i], 1);
 		i++;
 	}
@@ -177,9 +165,9 @@ void	cmd_echo(t_list *list)
 			if (list->next)
 				list = list->next;
 			else
-				return ;
+				break ;
 			if (list->content->type == semicolon || list->content->type == line_return)
-				return ;
+				break ;
 		}
 		else if (list->content->type == double_quote)
 		{
@@ -187,9 +175,9 @@ void	cmd_echo(t_list *list)
 			if (list->next)
 				list = list->next;
 			else
-				return ;
+				break ;
 			if (list->content->type == semicolon || list->content->type == line_return)
-				return ;
+				break ;
 		}
 		else
 		{
@@ -197,7 +185,7 @@ void	cmd_echo(t_list *list)
 			if (list->next)
 				list = list->next;
 			else
-				return ;
+				break ;
 		}
 		if (list->content->type == semicolon || list->content->type == line_return)
 			return ;
@@ -209,7 +197,7 @@ void	cmd_echo(t_list *list)
 				if (list->next)
 					list = list->next;
 				else
-					return ;
+					break ;
 			}
 			else if (list->next)
 			{
@@ -217,7 +205,7 @@ void	cmd_echo(t_list *list)
 				if (list->next->next)
 					list = list->next->next;
 				else
-					return ;
+					break ;
 			}
 		}
 	}
