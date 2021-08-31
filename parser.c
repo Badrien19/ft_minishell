@@ -4,6 +4,8 @@ static	t_token			g_tab_token[] = {
 	{"|", pipeline},
 	{"<", simple_redir_left},
 	{">", simple_redir_right},
+    {"<<", double_redir_left},
+    {">>", double_redir_right},
 	{";", semicolon},
 	{"\"", double_quote},
 	{"'", single_quote},
@@ -69,10 +71,11 @@ t_bool    parsing(char *user_input)
         free(new);
         i++;
     }
-    //print_current_chain();
     concat_tokens_same_type();
+    print_current_chain();
     if (concat_tokens_quotes() == False)
         return (False);
+    return (True);
 }
 
 void    tokenizer(char *input)
