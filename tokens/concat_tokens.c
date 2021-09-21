@@ -68,6 +68,7 @@ t_bool    concat_no_spaces()
         g_minishell.list_input = g_minishell.list_input->next;
     }
     g_minishell.list_input = begin;
+    return(0);
 }
 
 static char get_last_char(void *value)

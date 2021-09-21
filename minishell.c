@@ -67,7 +67,7 @@ void	sh_pre(void)
 	write(1, "\033[0m", 4);
 } */
 
-int	main(int argc, char *argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
 	char	*user_input;
 	

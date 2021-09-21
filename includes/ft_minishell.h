@@ -16,8 +16,8 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <dirent.h>
+# include <string.h>
 # include <stdlib.h>
-# include <malloc.h>
 
 # include "../libft/libft.h"
 
@@ -38,7 +38,7 @@ t_minishell g_minishell;
 */
 
 void	sh_pre(void);
-int		main(int argc, char *argv, char **env);
+int		main(int argc, char **argv, char **env);
 
 /*
 ** parser
