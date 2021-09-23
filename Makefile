@@ -3,42 +3,44 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: walker <walker@student.42.fr>              +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:00:43 by user42            #+#    #+#              #
-#    Updated: 2021/08/30 18:11:04 by walker           ###   ########.fr        #
+#    Updated: 2021/09/23 18:00:50 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
-#CFLAGS = -Wall -Wextra -Werror
-SRC = 	minishell.c parser.c free.c errors.c checker.c debug.c hub.c ./tokens/concat_tokens.c ./tokens/get_token.c ./tokens/utils_concat_tokens.c env.c
-NAME = ft_minishell
-LIB = ar rcs
-LIBFT =	libft.a
+CC		=	gcc
+#CFLAGS =	-Wall -Wextra -Werror
+SRC		=	minishell.c parser.c free.c errors.c \
+			checker.c debug.c hub.c \
+			./tokens/concat_tokens.c ./tokens/get_token.c \
+			./tokens/utils_concat_tokens.c env.c
+OBJ 	=	$(SRC:%.c=%.o)
+NAME 	=	ft_minishell
+LIBFT	=	libft.a
 
 all : $(NAME)
 
-$(NAME):	
-			@make -C ./libft
-			@cp ./libft/libft.a $(LIBFT)
-			@$(CC) $(CFLAGS) ${SRC} $(LIBFT) -o $(NAME) -lreadline
+$(NAME):	$(LIBFT) $(OBJ)
+			@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) -lreadline
 			@echo "\n\033[32m[✓]\033[0m		[$(NAME) compiled]"
 
-%.o: %.c
-			$(CC) $(CFLAGS) -c -o $@ $<
+$(LIBFT):	
+			@make --no-print-directory -C ./libft
+			@cp ./libft/libft.a $(LIBFT)
 
 clean:
 			@rm -f *.o
-			@make -C ./libft fclean
+			@rm -f tokens/*.o
+			@make --no-print-directory -C ./libft clean
 
 fclean:		clean
-			@rm -f $(LIBFT)
-			@rm -f $(NAME)
-			@rm -f a.aout
+			@make --no-print-directory -C ./libft fclean
+			@rm -f $(LIBFT) $(NAME) a.aout
 			
 re:			fclean all
 		
-exec:		re
+exec:		all
 			@echo "\033[32m[✓]\033[0m		[$(NAME) executed]\n"
 			@./$(NAME)

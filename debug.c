@@ -28,6 +28,8 @@ static char *replace_by_name(t_token_type nb)
 		return ("variable");
 	else if (nb == 12)
 		return ("litteral");
+	else if (nb == 13)
+		return ("none");
 	return(NULL);
 }
 

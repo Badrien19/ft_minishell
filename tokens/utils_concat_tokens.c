@@ -25,6 +25,7 @@ static void clear_node(t_list *node)
     free(node);
 }
 
+/* Fusionne le token actuel avec le token suivant et garde le type du token actuel. */
 void    relink_nodes()
 {
     t_list *tmp_list;
