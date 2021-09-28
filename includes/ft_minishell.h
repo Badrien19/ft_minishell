@@ -56,6 +56,9 @@ int		main_env();
 void	print_env();
 char	*get_value_env(char *name);
 int 	add_env(char *name, char *value);
+char 	**realloc_env(int size);
+void	copy_env(int env_size, char **tmp);
+
 
 
 /*
@@ -112,5 +115,8 @@ void	print_current_chain(void);
 */
 
 void	cmd_hub(void);
+void    cmd_unset(t_list *list);
+void	cmd_echo(t_list *list);
+void	cmd_export(t_list *list);
 
 #endif

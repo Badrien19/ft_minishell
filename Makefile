@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:00:43 by user42            #+#    #+#              #
-#    Updated: 2021/09/23 18:00:50 by marvin           ###   ########.fr        #
+#    Updated: 2021/09/28 14:24:19 by arapaill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ CC		=	gcc
 SRC		=	minishell.c parser.c free.c errors.c \
 			checker.c debug.c hub.c \
 			./tokens/concat_tokens.c ./tokens/get_token.c \
-			./tokens/utils_concat_tokens.c env.c
+			./tokens/utils_concat_tokens.c env.c cmd_unset.c \
+			cmd_echo.c cmd_export.c
 OBJ 	=	$(SRC:%.c=%.o)
 NAME 	=	ft_minishell
 LIBFT	=	libft.a

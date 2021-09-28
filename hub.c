@@ -6,7 +6,7 @@
 /*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/09/28 13:59:56 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/09/28 15:49:43 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void	ft_switch(t_list *list)
 		cmd_execute(list);
 	else if (list->content->type == literal && !ft_strcmp(list->content->value, "unset"))
 		cmd_unset(list->next);
+	else if (list->content->type == literal && !ft_strcmp(list->content->value, "export"))
+		cmd_export(list->next);
 /* 	else if (list->content->type == literal && !ft_strcmp(list->content->value, "history"))
 	{
 		int i = 0;

@@ -6,13 +6,11 @@
 /*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:58:01 by arapaill          #+#    #+#             */
-/*   Updated: 2021/09/28 13:59:50 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/09/28 14:20:11 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_minishell.h"
-
-
 
 char	*search_env(char *array, int len)
 {
