@@ -6,7 +6,7 @@
 /*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/09/28 08:23:32 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/09/28 09:43:54 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,7 @@ void	cmd_echo(t_list *list)
 				break ;
 		}
 		if (list->content->type == semicolon || list->content->type == line_return)
-			return ;
+			break ;
 		if (list->content->type == backslash)
 		{
 			if (ft_strcmp(list->content->value, "\\"))
@@ -278,10 +278,10 @@ void	ft_switch(t_list *list)
 		}
 	} */
 	else
-		{
-			printf("%s : Command not found.\n", (char *) list->content->value);
-			return ;
-		}
+	{
+		printf("%s : Command not found.\n", (char *) list->content->value);
+		return ;
+	}
 	while (list)
 	{
 		//printf("value: %s\n", list->content->value);
@@ -289,6 +289,8 @@ void	ft_switch(t_list *list)
 		{
 			while (list->next && list->content->type != literal)
 				list = list->next;
+			if (!list->next)
+				return ;
 			ft_switch(list);
 		}
 		list = list->next;

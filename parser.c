@@ -73,9 +73,9 @@ t_bool    parsing(char *user_input)
     }
     concat_tokens_same_type();
     //print_current_chain(); DEBUG
-    printf("__TEST1__\n");
+   // printf("__TEST1__\n");
     concat_tokens_var();
-    printf("__TEST2__\n");
+    //printf("__TEST2__\n");
     if (concat_tokens_quotes() == False)
         return (False);
     return (True);
