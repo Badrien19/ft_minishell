@@ -66,6 +66,7 @@ void    concat_tokens_same_type();
 void    concat_tokens_all();
 t_bool  concat_no_spaces();
 t_bool	concat_tokens_quotes();
+void 	concat_tokens_var(void);
 
 /*
 ** get_token

@@ -6,7 +6,7 @@
 /*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/09/21 12:01:18 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/09/28 08:23:32 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,9 +260,9 @@ void	ft_switch(t_list *list)
 	else if (list->content->type == literal && !ft_strcmp(list->content->value, "echo"))
 		cmd_echo(list->next);
 	else if (list->content->type == literal && !ft_strcmp(list->content->value, "env"))
-		print_env(list->next->next);
+		print_env(list);
 	else if (list->content->type == literal && !ft_strcmp(list->content->value, "pwd"))
-		cmd_pwd(list->next->next);
+		cmd_pwd(list);
 	else if (list->content->type == literal && !ft_strcmp(list->content->value, "cd"))
 		cmd_cd(list->next->next);
 	else if (list->content->type == literal && !ft_strncmp(list->content->value, "./", 2))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: walker <walker@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 11:28:30 by cgoncalv          #+#    #+#             */
-/*   Updated: 2021/08/31 16:23:35 by walker           ###   ########.fr       */
+/*   Updated: 2021/09/23 17:22:04 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ typedef enum e_token_type
 	double_quote,
 	backslash,
 	variable,
-	literal
-
+	literal,
+	none
 }	t_token_type;
 
 typedef struct s_token
