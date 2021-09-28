@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/09/28 13:59:56 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/09/28 15:47:08 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,7 @@ void	cmd_hub(void)
 {
 	t_list	*list;
 	list = g_minishell.list_input;
+	apply_dollar(list);
+	debug();
 	ft_switch(list);
 }

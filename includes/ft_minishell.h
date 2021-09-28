@@ -52,10 +52,11 @@ t_token *create_token(char *value, t_token_type type);
 **	env.c
 */
 
+int		apply_dollar(t_list *list);
 int		main_env();
 void	print_env();
 char	*get_value_env(char *name);
-int 	add_env(char *name, char *value);
+//int 	add_env(char *name, char *value);
 
 
 /*

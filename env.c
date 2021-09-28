@@ -3,14 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:17:37 by badrien           #+#    #+#             */
-/*   Updated: 2021/09/16 11:25:07 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/09/28 15:25:59 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_minishell.h"
+
+char *get_value_env(char *name)
+{
+	int i;
+	int len;
+
+	i = 0;
+	len = 0;
+	printf("name = (%s)\n\n", name);
+	while(name[len] != '\0' && name[len] != ' ' && name[len] != '$' && name[len] != '\"' && name[len] != '\'')
+		len++;
+	//printf("len %d\n", len);
+	while(g_minishell.env[i] != NULL)
+	{
+		if(ft_strncmp(g_minishell.env[i], name, len) == 0)
+		{
+			return(ft_substr(g_minishell.env[i], (len + 1), ft_strlen(g_minishell.env[i])));
+		}
+		i++;
+	}
+	return (NULL);
+}
+
+int apply_dollar(t_list *list) // UTILISER UN SPLIT $
+{
+	int i;
+	char *value;
+
+	while(list != NULL)
+	{
+		value = list->content->value;
+		i = 0;
+		/*if(list->content->type == double_quote)
+		{
+			while (value[i] != '\0')
+			{
+				if(value[i] == '$')
+					list->content->value = get_dollar_value(value);
+				i++;
+			}
+		}*/
+		if(list->content->type == variable)
+		{
+			list->content->value = get_value_env(value + 1);
+			list->content->type = literal;
+		}
+	list = list->next;
+	}
+
+	return (0);
+	//if(list->content->type=variable)
+}
+
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
@@ -92,44 +145,73 @@ int size_env()
 	return (i);
 }
 
-char *get_value_env(char *name)
+char *apply_quote(char *data)
 {
+	int quote;
+	int double_quote;
+	char *buff;
+	char *tmp;
+	int nb;
 	int i;
-	int len;
+	int x;
 
+	quote = 0;
+	double_quote = 0;
+	nb = 0;
 	i = 0;
-	len = ft_strlen(name);
-	while(g_minishell.env[i] != NULL)
+	x= 0;
+
+	while(data[x] != '\0')
 	{
-		if(ft_strncmp(g_minishell.env[i], name, len) == 0)
+		printf("Data[%d] = %c \n",x , data[x]);
+		if(data[x] == '\"' && quote%2 == 0) // Si on tombe sur un " et qu'on est pas dans un ' '
+			double_quote++;
+		else if(data[x] == '\'' && double_quote%2 == 0) // Si on tombe sur un ' et qu'on est pas dans un " "
+			quote++;
+		else if(data[x] == '$' && quote%2 != 1) // On skip que si on est Dans un ' '
 		{
-			return(ft_substr(g_minishell.env[i], (len + 1), ft_strlen(g_minishell.env[i])));
+			while(data[x + i] != '\0' || data[x + i] != ' ')
+				i++;
+			ft_strjoin(buff, get_value_env(ft_substr(data, 1, (i - 1))));
+			i = 0;
 		}
-		i++;
+		else
+		{
+			
+		}
+		x++;
 	}
-	return (NULL);
+	if(double_quote%2 == 1 || quote%2 == 1)
+		return (NULL);
+	return(buff);
 }
 
-int add_env(char *name, char *value)
+int add_env(t_list *list)
 {
 	printf("Enter add env\n");
-	char *tmp;
+	char	*tmp;
+	int i;
+	tmp = apply_quote(list->content->value);	
 	
-	if (name == NULL || value == NULL)
-		return (1);
+	printf("TEST: (%s)\nDONE: (%s)",list->content->value ,tmp);
+
+
+
 	printf("lauch realloc\n");
 	g_minishell.env = realloc_env(size_env() + 1);
 	if (g_minishell.env == NULL)
 		return (1);
-	tmp = ft_strjoin("=", value);
-	g_minishell.env[size_env() - 1] = ft_strjoin(name, tmp);
+	g_minishell.env[size_env() - 1] = tmp;
 	free(tmp);
+
+	print_env();
+
 	return(0);
 }
 
 int main_env()
 {
-	add_env("test","test");
+	//add_env("test","test");
 	printf("OK\n");
 	//print_env(g_minishell.env);
 	printf("value of USER = %s\n", get_value_env("PWD"));
