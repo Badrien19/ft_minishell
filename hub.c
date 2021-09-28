@@ -6,7 +6,7 @@
 /*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/09/21 09:17:12 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/09/21 12:01:18 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,6 +280,7 @@ void	ft_switch(t_list *list)
 	else
 		{
 			printf("%s : Command not found.\n", (char *) list->content->value);
+			return ;
 		}
 	while (list)
 	{
@@ -290,8 +291,6 @@ void	ft_switch(t_list *list)
 				list = list->next;
 			ft_switch(list);
 		}
-		if (list->next == NULL)
-			break ;
 		list = list->next;
 	}
 }
@@ -299,7 +298,6 @@ void	ft_switch(t_list *list)
 void	cmd_hub(void)
 {
 	t_list	*list;
-
 	list = g_minishell.list_input;
 	ft_switch(list);
 }
