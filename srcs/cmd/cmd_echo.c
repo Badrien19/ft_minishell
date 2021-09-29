@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/ft_minishell.h"
+#include "../../includes/ft_minishell.h"
 
 char	*search_env(char *array, int len)
 {
@@ -127,7 +127,7 @@ static void	print_single_quote(void *s)
 	}
 }
 
-void	cmd_echo(t_list *list)
+void	cmd_echo(t_cmd *list)
 {
 	int		quote;
 	int		flag;

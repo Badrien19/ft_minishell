@@ -1,4 +1,4 @@
-#include "../includes/ft_minishell.h"
+#include "../../includes/ft_minishell.h"
 
 void *join_two_tokens(t_token *token_1, t_token *token_2) // Free
 {
@@ -16,7 +16,7 @@ void *join_two_tokens(t_token *token_1, t_token *token_2) // Free
     return (token);
 }
 
-static void clear_node(t_list *node)
+static void clear_node(t_cmd *node)
 {
     node->content = NULL;
     free(node->content);
@@ -28,7 +28,7 @@ static void clear_node(t_list *node)
 /* Fusionne le token actuel avec le token suivant et garde le type du token actuel. */
 void    relink_nodes()
 {
-    t_list *tmp_list;
+    t_cmd *tmp_list;
 
     tmp_list = NULL;
     g_minishell.list_input->content = join_two_tokens(g_minishell.list_input->content, g_minishell.list_input->next->content);

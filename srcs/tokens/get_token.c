@@ -1,4 +1,4 @@
-#include "../includes/ft_minishell.h"
+#include "../../includes/ft_minishell.h"
 
 t_token_type get_token_type(t_token *token)
 {

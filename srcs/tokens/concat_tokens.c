@@ -1,4 +1,4 @@
-#include "../includes/ft_minishell.h"
+#include "../../includes/ft_minishell.h"
 
 /* void    concat_tokens_all()
 {
@@ -26,7 +26,7 @@
 
 void    concat_tokens_same_type()
 {
-	t_list *begin;
+	t_cmd *begin;
 
 	begin = g_minishell.list_input;
 	while (g_minishell.list_input->next != NULL)
@@ -50,7 +50,7 @@ void    concat_tokens_same_type()
 
 t_bool    concat_no_spaces()
 {
-	t_list *begin;
+	t_cmd *begin;
 
 	begin = g_minishell.list_input;
 	while (g_minishell.list_input->next != NULL)
@@ -86,7 +86,7 @@ static char get_last_char(void *value)
 
 t_bool  concat_tokens_quotes()
 {
-	t_list *begin;
+	t_cmd *begin;
 	t_token_type quote_type;
 
 	begin = g_minishell.list_input;
@@ -125,7 +125,7 @@ t_bool  concat_tokens_quotes()
 
 void  concat_tokens_var(void)
 {
-	t_list *begin;
+	t_cmd *begin;
 
 	begin = g_minishell.list_input;
 	if (!g_minishell.list_input)

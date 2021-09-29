@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/ft_minishell.h"
+#include "../../includes/ft_minishell.h"
 
 t_bool	checking_if_quotes_even(void)
 {
-	t_list	*list;
+	t_cmd	*list;
 	int		quote;
 
 	list = g_minishell.list_input;

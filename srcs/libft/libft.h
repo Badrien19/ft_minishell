@@ -26,35 +26,11 @@ typedef enum e_bool
 	True
 }	t_bool;
 
-typedef enum e_token_type
-{
-	space,
-	line_return,
-	pipeline,
-	semicolon,
-	simple_redir_left,
-	simple_redir_right,
-	double_redir_left,
-	double_redir_right,
-	single_quote,
-	double_quote,
-	backslash,
-	variable,
-	literal,
-	none
-}	t_token_type;
-
-typedef struct s_token
-{
-	void *value;
-	t_token_type type;
-
-}	t_token;
-
 typedef struct s_list
 {
-	t_token			*content;
+	void			*content;
 	struct s_list	*next;
+	struct s_list	*previous;
 }	t_list;
 
 /*

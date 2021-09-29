@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/ft_minishell.h"
+#include "../../includes/ft_minishell.h"
 
 void	copy_env(int env_size, char **tmp)
 {
@@ -25,7 +25,7 @@ void	copy_env(int env_size, char **tmp)
 	//free(tmp);
 }
 
-void    cmd_unset(t_list *list)
+void    cmd_unset(t_cmd *list)
 {
 	int     i;
 	int		env_size;

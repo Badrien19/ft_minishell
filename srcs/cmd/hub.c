@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 
-#include "includes/ft_minishell.h"
+#include "../../includes/ft_minishell.h"
 
-void	cmd_pwd(t_list *list)
+void	cmd_pwd(t_cmd *list)
 {
 	int i;
 	int	j;
@@ -30,7 +30,7 @@ void	cmd_pwd(t_list *list)
 	write(1, "\n", 1);
 }
 
-void	cmd_cd(t_list *list)
+void	cmd_cd(t_cmd *list)
 {
 	int ret;
 	char *cwd;
@@ -50,7 +50,7 @@ void	cmd_cd(t_list *list)
 	}
 }
 
-void	cmd_execute(t_list *list)
+void	cmd_execute(t_cmd *list)
 {
 	char *program_name;
 	char **argv;
@@ -64,7 +64,7 @@ void	cmd_execute(t_list *list)
 		printf("<Error> : %s\n", strerror(errno));
 }
 
-void	ft_switch(t_list *list)
+void	ft_switch(t_cmd *list)
 {
 	//printf("\nentry -> %s\n", list->content->value);
 	if (list->content->type == literal && !ft_strcmp(list->content->value, "exit"))
@@ -81,8 +81,8 @@ void	ft_switch(t_list *list)
 		cmd_execute(list);
 	else if (list->content->type == literal && !ft_strcmp(list->content->value, "unset"))
 		cmd_unset(list->next);
-	else if (list->content->type == literal && !ft_strcmp(list->content->value, "export"))
-		cmd_export(list->next);
+	/* else if (list->content->type == literal && !ft_strcmp(list->content->value, "export"))
+		cmd_export(list->next); */
 /* 	else if (list->content->type == literal && !ft_strcmp(list->content->value, "history"))
 	{
 		int i = 0;
@@ -115,7 +115,7 @@ void	ft_switch(t_list *list)
 
 void	cmd_hub(void)
 {
-	t_list	*list;
+	t_cmd	*list;
 	list = g_minishell.list_input;
 	ft_switch(list);
 }
