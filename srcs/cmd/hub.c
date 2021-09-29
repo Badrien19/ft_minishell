@@ -67,43 +67,36 @@ void	cmd_execute(t_cmd *list)
 void	ft_switch(t_cmd *list)
 {
 	//printf("\nentry -> %s\n", list->content->value);
-	if (list->content->type == literal && !ft_strcmp(list->content->value, "exit"))
-		error("exit g_minishell\n");
-	else if (list->content->type == literal && !ft_strcmp(list->content->value, "echo"))
-		cmd_echo(list->next);
-	else if (list->content->type == literal && !ft_strcmp(list->content->value, "env"))
-		print_env(list);
-	else if (list->content->type == literal && !ft_strcmp(list->content->value, "pwd"))
-		cmd_pwd(list);
-	else if (list->content->type == literal && !ft_strcmp(list->content->value, "cd"))
-		cmd_cd(list->next->next);
-	else if (list->content->type == literal && !ft_strncmp(list->content->value, "./", 2))
-		cmd_execute(list);
-	else if (list->content->type == literal && !ft_strcmp(list->content->value, "unset"))
-		cmd_unset(list->next);
-	/* else if (list->content->type == literal && !ft_strcmp(list->content->value, "export"))
+	if (list->content->type == cmd_instr)
+	{
+		if (!ft_strcmp(list->content->value, "exit"))
+			error("Exiting minishell...\n");
+		else if (!ft_strcmp(list->content->value, "echo"))
+			cmd_echo(list->next);
+		else if (!ft_strcmp(list->content->value, "env"))
+			print_env(list);
+		else if (!ft_strcmp(list->content->value, "pwd"))
+			cmd_pwd(list);
+		else if (!ft_strcmp(list->content->value, "cd"))
+			cmd_cd(list->next->next);
+		else if (!ft_strncmp(list->content->value, "./", 2))
+			cmd_execute(list);
+		else if (!ft_strcmp(list->content->value, "unset"))
+			cmd_unset(list->next);
+		/* else if (!ft_strcmp(list->content->value, "export"))
 		cmd_export(list->next); */
-/* 	else if (list->content->type == literal && !ft_strcmp(list->content->value, "history"))
+	}
+	else if (list->content->type == literal)
 	{
-		int i = 0;
-		HIST_ENTRY **history = history_list();
-		while (history[i])
-		{
-			printf("%s\n", history[i]->line);
-			i++;
-		}
-	} */
-	else
-	{
-		printf("%s : Command not found.\n", (char *) list->content->value);
+		printf("minishell: command not found: %s\n", (char *) list->content->value);
 		return ;
 	}
 	while (list)
 	{
 		//printf("value: %s\n", list->content->value);
-		if (list->content->type == semicolon && !ft_strcmp(list->content->value, ";"))
+		if (list->content->type == semicolon && !ft_strcmp(list->content->value, ";")) // Double vérification pas forcément nécessaire
 		{
-			while (list->next && list->content->type != literal)
+			while (list->next && list->content->type != cmd_instr)
 				list = list->next;
 			if (!list->next)
 				return ;

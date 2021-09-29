@@ -40,6 +40,7 @@ typedef enum e_token_type
 	backslash,
 	variable,
 	literal,
+	cmd_instr,
 	none
 }	t_token_type;
 
