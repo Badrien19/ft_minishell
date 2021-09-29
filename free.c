@@ -14,7 +14,7 @@
 
 void	free_list(void)
 {
-	t_list	*buffer;
+	t_cmd	*buffer;
 
 	if (g_minishell.list_input == NULL)
 		return ;

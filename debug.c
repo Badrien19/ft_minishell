@@ -35,7 +35,7 @@ static char *replace_by_name(t_token_type nb)
 
 static void	print_list(void)
 {
-	t_list	*begin;
+	t_cmd	*begin;
 
 	begin = g_minishell.list_input;
 	if (g_minishell.list_input != NULL)
@@ -51,7 +51,7 @@ static void	print_list(void)
 
 void	print_current_chain(void)
 {
-	t_list *begin = g_minishell.list_input;
+	t_cmd *begin = g_minishell.list_input;
 
     while (g_minishell.list_input)
     {
