@@ -84,6 +84,18 @@ t_cmd	*find_next_cmd(void)
 			return (g_minishell.list_input);
 		g_minishell.list_input = g_minishell.list_input->next;
 	}
+	return (g_minishell.list_input);
+}
+
+t_cmd	*find_prev_cmd(void)
+{
+	while (g_minishell.list_input)
+	{
+		if (g_minishell.list_input->content->type == cmd_instr)
+			return (g_minishell.list_input);
+		g_minishell.list_input = g_minishell.list_input->prev;
+	}
+	return (g_minishell.list_input);
 }
 
 void	check_redirection(void)
@@ -98,7 +110,7 @@ void	check_redirection(void)
 		{
 			fd = open(g_minishell.list_input->next->next->content->value, O_RDONLY);
 			if (!fd)
-				return ;
+				return ; // Erreur
 			g_minishell.list_input = find_next_cmd();
 			g_minishell.list_input->content->pipe_in = fd;
 		}
@@ -106,7 +118,7 @@ void	check_redirection(void)
 		{
 			fd = open(g_minishell.list_input->next->next->content->value, O_WRONLY);
 			if (!fd)
-				return ;
+				return ; // Erreur
 			g_minishell.list_input = find_next_cmd();
 			g_minishell.list_input->content->pipe_out = fd;
 		}
@@ -124,7 +136,7 @@ void	detect_cmd_type(void)
 	{
 		if (!ft_strcmp(g_minishell.list_input->content->value, "echo") || 
 		!ft_strcmp(g_minishell.list_input->content->value, "cd") ||
-		!ft_strcmp(g_minishell.list_input->content->value, "pwc") ||
+		!ft_strcmp(g_minishell.list_input->content->value, "pwd") ||
 		!ft_strcmp(g_minishell.list_input->content->value, "export") ||
 		!ft_strcmp(g_minishell.list_input->content->value, "unset") ||
 		!ft_strcmp(g_minishell.list_input->content->value, "env") ||
@@ -133,6 +145,31 @@ void	detect_cmd_type(void)
 		g_minishell.list_input = g_minishell.list_input->next;
 	}
 	g_minishell.list_input = begin;
+}
+
+void	check_pipes(void)
+{
+	t_cmd	*tmp;
+	t_cmd	*prev_cmd;
+	t_cmd	*next_cmd;
+	int		fd[2];
+
+	while (g_minishell.list_input)
+	{
+		if (g_minishell.list_input->content->type == pipeline)
+		{	
+			tmp = g_minishell.list_input;
+			if (pipe(fd) == -1)
+				return ; // Erreur
+			prev_cmd = find_prev_cmd();
+			prev_cmd->content->pipe_out = fd[0];
+			g_minishell.list_input = tmp;
+			next_cmd = find_next_cmd();
+			next_cmd->content->pipe_in = fd[1];
+		}
+		g_minishell.list_input = g_minishell.list_input->next;
+	}
+	g_minishell.list_input = tmp;
 }
 
 t_bool	parsing(char *user_input)
@@ -161,5 +198,7 @@ t_bool	parsing(char *user_input)
 	if (concat_tokens_quotes() == False)
 		return (False);
 	check_redirection();
+	check_pipes();
+	g_minishell.list_input = ft_cmdfirst(g_minishell.list_input);
 	return (True);
 }

@@ -17,7 +17,10 @@ void	ft_cmdadd_back(t_cmd **alst, t_cmd *new)
 	if (new == NULL)
 		return ;
 	if (*alst != NULL)
+	{
+		new->prev = ft_cmdlast(*alst);
 		ft_cmdlast(*alst)->next = new;
+	}
 	else
 		*alst = new;
 }

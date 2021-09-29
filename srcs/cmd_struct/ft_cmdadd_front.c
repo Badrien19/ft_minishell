@@ -16,6 +16,15 @@ void	ft_cmdadd_front(t_cmd **alst, t_cmd *new)
 {
 	if (alst == NULL || new == NULL)
 		return ;
-	new->next = *alst;
-	*alst = new;
+	if (*alst == NULL)
+	{
+		(*alst) = new;
+		(*alst)->prev = NULL;
+	}
+	else
+	{
+		ft_cmdfirst(*alst)->prev = new;
+		new->next = *alst;
+		*alst = new;
+	}
 }

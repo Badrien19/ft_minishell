@@ -57,6 +57,7 @@ typedef struct s_cmd
 {
 	t_token			*content;
 	struct s_cmd	*next;
+	struct s_cmd	*prev;
 }	t_cmd;
 
 typedef struct s_minishell
@@ -84,6 +85,7 @@ void	ft_cmdadd_front(t_cmd **alst, t_cmd *new);
 t_cmd	*ft_cmdlast(t_cmd *lst);
 t_cmd	*ft_cmdnew(void *content);
 size_t	ft_cmdsize(t_cmd *lst);
+t_cmd	*ft_cmdfirst(t_cmd *lst);
 
 /*
 ** parser

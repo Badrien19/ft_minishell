@@ -21,5 +21,6 @@ t_cmd	*ft_cmdnew(void *content)
 		return (NULL);
 	new->content = content;
 	new->next = NULL;
+	new->prev = NULL;
 	return (new);
 }

@@ -40,11 +40,12 @@ static void	print_list(void)
 	t_cmd	*begin;
 
 	begin = g_minishell.list_input;
+	g_minishell.list_input = ft_cmdfirst(g_minishell.list_input);
 	if (g_minishell.list_input != NULL)
 	{
 		while (g_minishell.list_input != NULL)
 		{
-			printf("%-20s | %-18s | %5d | %5d | %14p\n", (char*)g_minishell.list_input->content->value, replace_by_name(g_minishell.list_input->content->type), g_minishell.list_input->content->pipe_in, g_minishell.list_input->content->pipe_out, g_minishell.list_input->next);
+			printf("%-20s | %-18s | %5d | %5d | %14p | %14p\n", (char*)g_minishell.list_input->content->value, replace_by_name(g_minishell.list_input->content->type), g_minishell.list_input->content->pipe_in, g_minishell.list_input->content->pipe_out, g_minishell.list_input->prev, g_minishell.list_input->next);
 			g_minishell.list_input = g_minishell.list_input->next;
 		}
 	}
@@ -68,8 +69,8 @@ void	print_current_chain(void)
 
 void	debug(void)
 {
-	printf("-----------------------------------DEBUG-----------------------------------\n");
-	printf("%-20s   %-18s   %5s   %5s   %14s\n", "Name", "Type", "In", "Out", "Next Address");
+	printf("-------------------------------------------DEBUG-------------------------------------------\n");
+	printf("%-20s   %-18s   %5s   %5s  %14s  %14s\n", "Name", "Type", "In", "Out", "Prev Address", "Next Address");
 	print_list();
-	printf("---------------------------------------------------------------------------\n\n");
+	printf("-------------------------------------------------------------------------------------------\n\n");
 }

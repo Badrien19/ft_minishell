@@ -14,7 +14,7 @@ CC		=	gcc
 #CFLAGS =	-Wall -Wextra -Werror
 SRC		=	minishell.c free.c errors.c debug.c \
 			./srcs/cmd/cmd_echo.c ./srcs/cmd/cmd_unset.c ./srcs/cmd/hub.c \
-			./srcs/cmd_struct/ft_cmdadd_back.c ./srcs/cmd_struct/ft_cmdadd_front.c ./srcs/cmd_struct/ft_cmdlast.c ./srcs/cmd_struct/ft_cmdnew.c ./srcs/cmd_struct/ft_cmdsize.c \
+			./srcs/cmd_struct/ft_cmdadd_back.c ./srcs/cmd_struct/ft_cmdadd_front.c ./srcs/cmd_struct/ft_cmdlast.c ./srcs/cmd_struct/ft_cmdnew.c ./srcs/cmd_struct/ft_cmdsize.c ./srcs/cmd_struct/ft_cmdfirst.c \
 			./srcs/env/env.c \
 			./srcs/parsing/checker.c ./srcs/parsing/parser.c \
 			./srcs/tokens/concat_tokens.c ./srcs/tokens/get_token.c ./srcs/tokens/utils_concat_tokens.c
