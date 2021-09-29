@@ -93,7 +93,6 @@ t_cmd	*ft_cmdfirst(t_cmd *lst);
 
 t_bool	parsing(char *user_input);
 void    tokenizer(char *input);
-t_token *create_token(char *value, t_token_type type);
 
 /*
 **	env.c
@@ -115,20 +114,17 @@ void    concat_tokens_all();
 t_bool  concat_no_spaces();
 t_bool	concat_tokens_quotes();
 void 	concat_tokens_var(void);
-
-/*
-** get_token
-*/
-
-t_token_type get_token_type(t_token *token);
-void	*get_token_value(t_token *token);
-
-/*
-** utils_concat_tokens
-*/
-
 void	*join_two_tokens(t_token *token_1, t_token *token_2);
 void	relink_nodes();
+
+/*
+** tokens
+*/
+
+t_token_type	get_token_type(t_token *token);
+void			*get_token_value(t_token *token);
+t_token			*create_token(char *value, t_token_type type);
+t_token_type 	find_type(char c);
 
 /*
 ** checker.c

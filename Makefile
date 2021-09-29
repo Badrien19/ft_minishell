@@ -17,7 +17,7 @@ SRC		=	minishell.c free.c errors.c debug.c \
 			./srcs/cmd_struct/ft_cmdadd_back.c ./srcs/cmd_struct/ft_cmdadd_front.c ./srcs/cmd_struct/ft_cmdlast.c ./srcs/cmd_struct/ft_cmdnew.c ./srcs/cmd_struct/ft_cmdsize.c ./srcs/cmd_struct/ft_cmdfirst.c \
 			./srcs/env/env.c \
 			./srcs/parsing/checker.c ./srcs/parsing/parser.c \
-			./srcs/tokens/concat_tokens.c ./srcs/tokens/get_token.c ./srcs/tokens/utils_concat_tokens.c
+			./srcs/tokens/concat_tokens.c ./srcs/tokens/get_token.c ./srcs/tokens/utils_concat_tokens.c ./srcs/tokens/tokens.c
 OBJ 	=	$(SRC:%.c=%.o)
 NAME 	=	ft_minishell
 LIBFT	=	libft.a
