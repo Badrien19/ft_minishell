@@ -78,7 +78,7 @@ void    tokenizer(char *input)
 
 t_cmd	*find_next_cmd(void)
 {
-	while (g_minishell.list_input)
+	while (g_minishell.list_input->next)
 	{
 		if (g_minishell.list_input->content->type == cmd_instr)
 			return (g_minishell.list_input);
@@ -89,7 +89,7 @@ t_cmd	*find_next_cmd(void)
 
 t_cmd	*find_prev_cmd(void)
 {
-	while (g_minishell.list_input)
+	while (g_minishell.list_input->prev)
 	{
 		if (g_minishell.list_input->content->type == cmd_instr)
 			return (g_minishell.list_input);
@@ -101,10 +101,11 @@ t_cmd	*find_prev_cmd(void)
 void	check_redirection(void)
 {
 	t_cmd	*begin;
+	t_cmd	*tmp;
 	int		fd;
 
 	begin = g_minishell.list_input;
-	while (g_minishell.list_input)
+	while (g_minishell.list_input->next)
 	{
 		if (g_minishell.list_input->content->type == simple_redir_left || g_minishell.list_input->content->type == double_redir_left)
 		{
@@ -116,11 +117,13 @@ void	check_redirection(void)
 		}
 		if (g_minishell.list_input->content->type == simple_redir_right || g_minishell.list_input->content->type == double_redir_right)
 		{
-			fd = open(g_minishell.list_input->next->next->content->value, O_WRONLY);
+			fd = open(g_minishell.list_input->next->content->value, O_CREAT | O_RDWR | O_TRUNC, 0644);
 			if (!fd)
 				return ; // Erreur
-			g_minishell.list_input = find_next_cmd();
+			tmp = g_minishell.list_input;
+			g_minishell.list_input = find_prev_cmd();
 			g_minishell.list_input->content->pipe_out = fd;
+			g_minishell.list_input = tmp;
 		}
 		g_minishell.list_input = g_minishell.list_input->next;
 	}
@@ -154,7 +157,7 @@ void	check_pipes(void)
 	t_cmd	*next_cmd;
 	int		fd[2];
 
-	while (g_minishell.list_input)
+	while (g_minishell.list_input->next)
 	{
 		if (g_minishell.list_input->content->type == pipeline)
 		{	
@@ -169,7 +172,7 @@ void	check_pipes(void)
 		}
 		g_minishell.list_input = g_minishell.list_input->next;
 	}
-	g_minishell.list_input = tmp;
+	g_minishell.list_input = ft_cmdfirst(g_minishell.list_input);
 }
 
 t_bool	parsing(char *user_input)
