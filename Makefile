@@ -3,12 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
+<<<<<<< HEAD
 #    By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:00:43 by user42            #+#    #+#              #
 #    Updated: 2021/09/30 17:12:40 by cgoncalv         ###   ########.fr        #
+=======
+#    By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/09/30 16:42:15 by arapaill          #+#    #+#              #
+#    Updated: 2021/09/30 16:42:16 by arapaill         ###   ########.fr        #
+>>>>>>> a1f0c410507ad29353e28f8ee8fe789461ad8da5
 #                                                                              #
 # **************************************************************************** #
+
 
 CC		=	gcc
 #CFLAGS =	-Wall -Wextra -Werror
