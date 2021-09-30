@@ -6,7 +6,7 @@
 /*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 09:46:55 by arapaill          #+#    #+#             */
-/*   Updated: 2021/09/30 12:32:32 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/09/30 13:47:05 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void    cmd_unset(t_cmd *list)
 		word_size = ft_strlen(list->content->value);
 		if (!ft_strncmp(list->content->value, g_minishell.env[i], word_size))
 		{
-			printf("i = %d env_size = %d\n", i, env_size);
+			//printf("i = %d env_size = %d\n", i, env_size);
 			g_minishell.env[i] = g_minishell.env[env_size];
 			env_size--;
 			g_minishell.env = realloc_env(env_size);

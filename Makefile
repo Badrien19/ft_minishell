@@ -3,17 +3,25 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: badrien <badrien@student.42.fr>            +#+  +:+       +#+         #
+<<<<<<< HEAD
+#    By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:00:43 by user42            #+#    #+#              #
-#    Updated: 2021/09/30 15:07:29 by badrien          ###   ########.fr        #
+#    Updated: 2021/09/30 17:12:40 by cgoncalv         ###   ########.fr        #
+=======
+#    By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/09/30 16:42:15 by arapaill          #+#    #+#              #
+#    Updated: 2021/09/30 16:42:16 by arapaill         ###   ########.fr        #
+>>>>>>> a1f0c410507ad29353e28f8ee8fe789461ad8da5
 #                                                                              #
 # **************************************************************************** #
+
 
 CC		=	gcc
 #CFLAGS =	-Wall -Wextra -Werror
 SRC		=	./srcs/others/minishell.c ./srcs/others/free.c ./srcs/others/errors.c ./srcs/others/debug.c \
-			./srcs/cmd/cmd_echo.c ./srcs/cmd/cmd_unset.c ./srcs/cmd/hub.c ./srcs/cmd/cmd_export.c \
+			./srcs/cmd/cmd_echo.c ./srcs/cmd/cmd_unset.c ./srcs/cmd/hub.c ./srcs/cmd/cmd_export.c ./srcs/cmd/cmd_execve.c \
 			./srcs/cmd_struct/ft_cmdadd_back.c ./srcs/cmd_struct/ft_cmdadd_front.c ./srcs/cmd_struct/ft_cmdlast.c ./srcs/cmd_struct/ft_cmdnew.c ./srcs/cmd_struct/ft_cmdsize.c ./srcs/cmd_struct/ft_cmdfirst.c \
 			./srcs/env/env.c \
 			./srcs/parsing/checker.c ./srcs/parsing/parser.c ./srcs/parsing/apply.c \
