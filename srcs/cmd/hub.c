@@ -6,7 +6,7 @@
 /*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/09/30 10:08:08 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/09/30 15:56:19 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,10 @@ void	ft_switch(t_cmd *list)
 		else if (!ft_strcmp(list->content->value, "unset"))
 			cmd_unset(list->next);
 		else if (!ft_strcmp(list->content->value, "export"))
-		cmd_export(list->next);
-	}
-	else if (list && list->content->type == literal)
-	{
-		printf("minishell: command not found: %s\n", (char *) list->content->value);
-		return ;
+			cmd_export(list->next);
+		else
+			cmd_execve(list->next);
+		
 	}
 	while (list != NULL)
 	{

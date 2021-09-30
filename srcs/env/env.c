@@ -6,7 +6,7 @@
 /*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:17:37 by badrien           #+#    #+#             */
-/*   Updated: 2021/09/30 12:29:16 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/09/30 13:38:43 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ char **realloc_env(int size)
 		new[i] = ft_strdup(g_minishell.env[i]);
 		i++;
 	}
-	while(g_minishell.env[i] != NULL)
-	    free(g_minishell.env[i++]);
+	//while(g_minishell.env[i] != NULL)
+	  //  free(g_minishell.env[i++]);
 	return (new);
 }
 
