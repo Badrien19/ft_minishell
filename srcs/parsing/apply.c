@@ -6,7 +6,7 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/09/30 17:38:34 by badrien          ###   ########.fr       */
+/*   Updated: 2021/09/30 18:00:48 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ char *apply_dollar(char *str)
 			new = ft_strjoin(new, tmp);
 			len = ft_strlen(new);
 			i++;
-			while(str[i] != '\0' && str[i]  != ' ' && str[i]  != '$')
+			while(str[i] != '\0' && str[i]  != ' ' && str[i]  != '$' && str[i]  != '\'' && str[i]  != '\"')
 				i++;
 		}
 		new[len] = str[i];
