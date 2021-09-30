@@ -6,7 +6,7 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/09/30 15:23:56 by badrien          ###   ########.fr       */
+/*   Updated: 2021/09/30 17:38:34 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,7 @@ char *apply_quotes(char *str) // OK
 		printf("quote not even\n");
 		exit(-1);
 	}
-	printf("strlen = %lu\n", strlen(str));
-	printf("New len = %d\n", len);
 	new_str= remove_quote(str, len);
-	printf("new_str = %s\n", new_str);
-
 	return(new_str);
 }
 
@@ -97,14 +93,11 @@ char *get_value_env(char *name)
 {
 	int i;
 	int len;
-	//char c;
 
 	i = 0;
 	len = 0;
-	printf("name = (%s)\n\n", name);
 	while(name[len] != '\0' && name[len] != ' ' && name[len] != '$' && name[len] != '\"' && name[len] != '\'')
 		len++;
-	//printf("len %d\n", len);
 	while(g_minishell.env[i] != NULL)
 	{
 		if(ft_strncmp(g_minishell.env[i], name, len) == 0)
@@ -113,8 +106,6 @@ char *get_value_env(char *name)
 		}
 		i++;
 	}
-	//c = '$';
-	//return ((char *)c);
 	return (NULL);
 }
 
@@ -122,15 +113,27 @@ int size_str(char *str)
 {
 	int i;
 	int len;
+	char *tmp;
 
 	i = 0;
+	len = 0;
 	while(str[i] != '\0')
 	{
 		if(str[i] == '$')
-			len += ft_strlen(get_value_env(&str[i]));
+		{
+			i++;
+			tmp = get_value_env(&str[i]);
+			len += ft_strlen(tmp);
+			free(tmp);
+			//len += ft_strlen(get_value_env(&str[i]));
+			while(str[i] != '\0' && str[i]  != ' ' && str[i]  != '$')
+				i++;
+		}
 		i++;
+		len++;
 	}
-	return(i + len);
+	return(len - 1);
+
 }
 
 char *apply_dollar(char *str)
@@ -141,10 +144,11 @@ char *apply_dollar(char *str)
 	char *tmp;
 
 	len = size_str(str);
-	printf("size_str = %d", len);
+	new = NULL;
 	i = 0;
 
 	new = malloc(sizeof(char) * (len + 1));
+	ft_bzero(new, len + 1);
 	if (new == NULL)
 		return (NULL);
 	len = 0;
@@ -152,13 +156,16 @@ char *apply_dollar(char *str)
 	{
 		if(str[i] == '$')
 		{
-			tmp = get_value_env(&str[i]);
+			tmp = get_value_env(&str[i + 1]);
 			new = ft_strjoin(new, tmp);
 			len = ft_strlen(new);
+			i++;
 			while(str[i] != '\0' && str[i]  != ' ' && str[i]  != '$')
 				i++;
 		}
 		new[len] = str[i];
+		i++;
+		len++;
 	}
 	new[len] = '\0';
 	return(new); 
@@ -172,23 +179,23 @@ int remove_quote_dollar(t_cmd *list)
 	while(list != NULL)
 	{
 		value = list->content->value;
-		i = 0;
 		if(list->content->type == double_quote || list->content->type == single_quote) // OK
 		{
 			list->content->value = apply_quotes(list->content->value);
 			//list->content->type = literal;
 		}
-		//if(list->content->type == double_quote) // TO DO
-		//	list->content->value = apply_dollar(value);
+		if(list->content->type == double_quote) // OK $?
+		{
+			list->content->value = apply_dollar(list->content->value);
+		}
 		if(list->content->type == variable) // OK
 		{
-			list->content->value = get_value_env(value + 1);
+			list->content->value = get_value_env(list->content->value + 1);
 			list->content->type = literal;
 		}
 		//free(value);
 		list = list->next;
 	}
-
 	return (0);
 	//if(list->content->type=variable)
 }

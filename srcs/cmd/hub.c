@@ -6,7 +6,7 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/09/30 15:10:28 by badrien          ###   ########.fr       */
+/*   Updated: 2021/09/30 17:42:14 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ void	cmd_hub(void)
 	t_cmd	*list;
 	list = g_minishell.list_input;
 	remove_quote_dollar(list);
+	concat_tokens_same_type();
+	detect_cmd_type();
 	debug();
 	ft_switch(list);
 }
