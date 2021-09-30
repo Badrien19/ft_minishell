@@ -6,7 +6,7 @@
 /*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:17:37 by badrien           #+#    #+#             */
-/*   Updated: 2021/09/21 09:24:35 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/09/30 12:29:16 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void print_env() // Vérifier les strings dans le tableau env
 
 char **realloc_env(int size)
 {
-	printf("Enter realloc env\n");
 	char    **new;
 	int i;
 	
@@ -57,29 +56,14 @@ char **realloc_env(int size)
 	new = malloc(sizeof(char *) * (size + 1));
 	if (new==NULL)
 		return NULL;
-	printf("begin copy\n");
 	new[size] = NULL;
 	while(g_minishell.env[i] != NULL && i < size)
 	{
 		new[i] = ft_strdup(g_minishell.env[i]);
 		i++;
 	}
-	//printf("begin free\n");
-	//i = 0;
-	//while(g_minishell.env[i] != NULL)
-	//    free(g_minishell.env[i++]);
-	printf("end\n");
-	/*
-	int x;
-	x = 0;
-	printf("printing new\n");
-	while(new[x] != NULL)
-	{
-		printf("%s\n", new[x]);
-		x++;
-	}
-	printf("end printing new\n");
-	*/
+	while(g_minishell.env[i] != NULL)
+	    free(g_minishell.env[i++]);
 	return (new);
 }
 
