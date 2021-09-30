@@ -6,7 +6,7 @@
 /*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 09:46:55 by arapaill          #+#    #+#             */
-/*   Updated: 2021/09/30 10:07:46 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/09/30 10:33:43 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	copy_env(int env_size, char **tmp)
 	i = 0;
 	while (env_size > i)
 	{
-		printf("[%d] %s\n", i, tmp[i]);
+		//printf("[%d] %s\n", i, tmp[i]);
 		g_minishell.env[i] = tmp[i];
 		i++;
 	}

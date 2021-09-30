@@ -54,7 +54,7 @@ t_token_type find_type(char c)
 		i++;
 	}
 	if (type == none)
-		if (ft_isalpha(c))
+		if (ft_isprint(c))
 			type = literal;
 	return (type);
 }
