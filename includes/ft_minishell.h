@@ -158,6 +158,6 @@ void	print_current_chain(void);
 void	cmd_hub(void);
 void    cmd_unset(t_cmd *list);
 void	cmd_echo(t_cmd *list);
-//void	cmd_export(t_cmd *list);
+void	cmd_export(t_cmd *list);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/09/30 09:00:55 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/09/30 09:57:21 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	cmd_export(t_cmd *list)
 			env_size--;
 			tmp = g_minishell.env;
 			g_minishell.env = realloc_env(env_size + 1);
-			copy_env(env_size + 1, tmp);
-			g_minishell.env[env_size] = ft_strdup((char *) list->content->value);
+			copy_env(env_size, tmp);
+			g_minishell.env[env_size + 1] = ft_strdup((char *) list->content->value);
 		}
 		list = list->next;
 	}

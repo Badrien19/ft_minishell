@@ -6,7 +6,7 @@
 /*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/09/28 15:49:43 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/09/30 10:08:08 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	cmd_execute(t_cmd *list)
 void	ft_switch(t_cmd *list)
 {
 	//printf("\nentry -> %s\n", list->content->value);
-	if (list->content->type == cmd_instr)
+	if (list && list->content->type == cmd_instr)
 	{
 		if (!ft_strcmp(list->content->value, "exit"))
 			error("Exiting minishell...\n");
@@ -83,15 +83,15 @@ void	ft_switch(t_cmd *list)
 			cmd_execute(list);
 		else if (!ft_strcmp(list->content->value, "unset"))
 			cmd_unset(list->next);
-		/* else if (!ft_strcmp(list->content->value, "export"))
-		cmd_export(list->next); */
+		else if (!ft_strcmp(list->content->value, "export"))
+		cmd_export(list->next);
 	}
-	else if (list->content->type == literal)
+	else if (list && list->content->type == literal)
 	{
 		printf("minishell: command not found: %s\n", (char *) list->content->value);
 		return ;
 	}
-	while (list)
+	while (list != NULL)
 	{
 		//printf("value: %s\n", list->content->value);
 		if (list->content->type == semicolon && !ft_strcmp(list->content->value, ";")) // Double vérification pas forcément nécessaire
