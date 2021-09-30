@@ -3,10 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+         #
+#    By: badrien <badrien@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:00:43 by user42            #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2021/09/30 16:03:04 by arapaill         ###   ########.fr        #
+=======
+#    Updated: 2021/09/30 15:07:29 by badrien          ###   ########.fr        #
+>>>>>>> 6e59787ea8fae412cad942371fe86edcc98676b1
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +20,7 @@ SRC		=	./srcs/others/minishell.c ./srcs/others/free.c ./srcs/others/errors.c ./s
 			./srcs/cmd/cmd_echo.c ./srcs/cmd/cmd_unset.c ./srcs/cmd/hub.c ./srcs/cmd/cmd_export.c ./srcs/cmd/cmd_execve.c \
 			./srcs/cmd_struct/ft_cmdadd_back.c ./srcs/cmd_struct/ft_cmdadd_front.c ./srcs/cmd_struct/ft_cmdlast.c ./srcs/cmd_struct/ft_cmdnew.c ./srcs/cmd_struct/ft_cmdsize.c ./srcs/cmd_struct/ft_cmdfirst.c \
 			./srcs/env/env.c \
-			./srcs/parsing/checker.c ./srcs/parsing/parser.c \
+			./srcs/parsing/checker.c ./srcs/parsing/parser.c ./srcs/parsing/apply.c \
 			./srcs/tokens/concat_tokens.c ./srcs/tokens/get_token.c ./srcs/tokens/utils_concat_tokens.c ./srcs/tokens/tokens.c
 OBJ 	=	$(SRC:%.c=%.o)
 NAME 	=	ft_minishell

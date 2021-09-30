@@ -95,6 +95,12 @@ t_bool	parsing(char *user_input);
 void    tokenizer(char *input);
 
 /*
+**	apply
+*/
+
+int remove_quote_dollar(t_cmd *list);
+
+/*
 **	env.c
 */
 
