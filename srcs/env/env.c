@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:17:37 by badrien           #+#    #+#             */
-/*   Updated: 2021/09/30 12:29:16 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/09/30 15:08:31 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,24 +75,6 @@ int size_env()
 	while(g_minishell.env[i] != NULL)
 		i++;
 	return (i);
-}
-
-char *get_value_env(char *name)
-{
-	int i;
-	int len;
-
-	i = 0;
-	len = ft_strlen(name);
-	while(g_minishell.env[i] != NULL)
-	{
-		if(ft_strncmp(g_minishell.env[i], name, len) == 0)
-		{
-			return(ft_substr(g_minishell.env[i], (len + 1), ft_strlen(g_minishell.env[i])));
-		}
-		i++;
-	}
-	return (NULL);
 }
 
 int add_env(char *name, char *value)
