@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
+/*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/09/30 15:56:19 by arapaill         ###   ########.fr       */
-=======
-/*   Updated: 2021/09/30 15:10:28 by badrien          ###   ########.fr       */
->>>>>>> 6e59787ea8fae412cad942371fe86edcc98676b1
+/*   Updated: 2021/09/30 16:43:55 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +85,9 @@ void	ft_switch(t_cmd *list)
 			cmd_unset(list->next);
 		else if (!ft_strcmp(list->content->value, "export"))
 			cmd_export(list->next);
-		else
-			cmd_execve(list->next);
-		
 	}
+	else
+			cmd_execve(list);
 	while (list != NULL)
 	{
 		//printf("value: %s\n", list->content->value);
