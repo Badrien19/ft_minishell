@@ -6,13 +6,13 @@
 #    By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:00:43 by user42            #+#    #+#              #
-#    Updated: 2021/09/28 14:24:19 by arapaill         ###   ########.fr        #
+#    Updated: 2021/09/30 09:09:18 by arapaill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		=	gcc
 #CFLAGS =	-Wall -Wextra -Werror
-SRC		=	minishell.c free.c errors.c debug.c \
+SRC		=	./srcs/others/minishell.c ./srcs/others/free.c ./srcs/others/errors.c ./srcs/others/debug.c \
 			./srcs/cmd/cmd_echo.c ./srcs/cmd/cmd_unset.c ./srcs/cmd/hub.c \
 			./srcs/cmd_struct/ft_cmdadd_back.c ./srcs/cmd_struct/ft_cmdadd_front.c ./srcs/cmd_struct/ft_cmdlast.c ./srcs/cmd_struct/ft_cmdnew.c ./srcs/cmd_struct/ft_cmdsize.c ./srcs/cmd_struct/ft_cmdfirst.c \
 			./srcs/env/env.c \
