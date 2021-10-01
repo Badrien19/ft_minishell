@@ -13,6 +13,8 @@ void *join_two_tokens(t_token *token_1, t_token *token_2) // Free
     new_tok_value = ft_strjoin(str_1, str_2);
     token = create_token(new_tok_value, get_token_type(token_1));
     //printf("%s\n", token->value);
+    free(token_1->value);
+    free(token_1);
     return (token);
 }
 
