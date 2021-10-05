@@ -19,27 +19,43 @@ void    tokenizer(char *input)
 
 t_cmd	*find_next_cmd(void)
 {
-	while (g_minishell.list_input->next)
+	t_cmd *current;
+	t_cmd *ret;
+
+	current = g_minishell.list_input;
+	while (g_minishell.list_input->next && g_minishell.list_input->content->type != pipeline)
 	{
 		if (g_minishell.list_input->content->type == cmd_instr)
-			return (g_minishell.list_input);
+		{
+			ret = g_minishell.list_input;
+			g_minishell.list_input = current;
+			return (ret);
+		}
 		g_minishell.list_input = g_minishell.list_input->next;
 	}
-	return (g_minishell.list_input);
+	return (NULL);
 }
 
 t_cmd	*find_prev_cmd(void)
 {
-	while (g_minishell.list_input->prev)
+	t_cmd *current;
+	t_cmd *ret;
+
+	current = g_minishell.list_input;
+	while (g_minishell.list_input->prev && g_minishell.list_input->content->type != pipeline)
 	{
 		if (g_minishell.list_input->content->type == cmd_instr)
-			return (g_minishell.list_input);
+		{
+			ret = g_minishell.list_input;
+			g_minishell.list_input = current;
+			return (ret);
+		}
 		g_minishell.list_input = g_minishell.list_input->prev;
 	}
-	return (g_minishell.list_input);
+	return (NULL);
 }
 
-void	check_redirection(void)
+void	check_redirection_left(void) // Close le precedent fd
 {
 	t_cmd	*begin;
 	t_cmd	*tmp;
@@ -51,20 +67,13 @@ void	check_redirection(void)
 		if (g_minishell.list_input->content->type == simple_redir_left || g_minishell.list_input->content->type == double_redir_left)
 		{
 			fd = open(g_minishell.list_input->next->next->content->value, O_RDONLY);
+			printf("fd : %d\n", fd);
 			if (!fd)
 				return ; // Erreur
-			g_minishell.list_input = find_next_cmd();
-			g_minishell.list_input->content->pipe_in = fd;
-		}
-		if (g_minishell.list_input->content->type == simple_redir_right || g_minishell.list_input->content->type == double_redir_right)
-		{
-			fd = open(g_minishell.list_input->next->content->value, O_CREAT | O_RDWR | O_TRUNC, 0644);
-			if (!fd)
-				return ; // Erreur
-			tmp = g_minishell.list_input;
-			g_minishell.list_input = find_prev_cmd();
-			g_minishell.list_input->content->pipe_out = fd;
-			g_minishell.list_input = tmp;
+			if (find_next_cmd())
+				find_next_cmd()->content->pipe_in = fd;
+			else if (find_prev_cmd())
+				find_prev_cmd()->content->pipe_in = fd;
 		}
 		g_minishell.list_input = g_minishell.list_input->next;
 	}
@@ -142,7 +151,7 @@ t_bool	parsing(char *user_input)
 	//printf("__TEST2__\n");
 	if (concat_tokens_quotes() == False)
 		return (False);
-	check_redirection();
+	check_redirection_left();
 	check_pipes();
 	g_minishell.list_input = ft_cmdfirst(g_minishell.list_input);
 	return (True);
