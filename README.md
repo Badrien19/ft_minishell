@@ -7,9 +7,8 @@
 | Parsing
      
      |--> Gérer les ; -> En cours
-     |--> Gérer les backslashs (N'affiche pas les \ alors qu'on devrait [echo "Je m\'appelle Corentin"])
-     |--> | Variables d'environnement
-          |--> $?
+     |--> | Variables d'environnement ; -> Done
+          |--> $? ; En cours
      |--> Gérer les guillemets ---> Done
      |--> Remplir la structure -> Done ?
      |--> Gérer les redirections
