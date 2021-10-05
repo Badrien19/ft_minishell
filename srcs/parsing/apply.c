@@ -6,7 +6,7 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/09/30 18:00:48 by badrien          ###   ########.fr       */
+/*   Updated: 2021/10/05 14:06:21 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,8 @@ int size_str(char *str)
 		{
 			i++;
 			tmp = get_value_env(&str[i]);
-			len += ft_strlen(tmp);
+			if(tmp != NULL)
+				len += ft_strlen(tmp);
 			free(tmp);
 			//len += ft_strlen(get_value_env(&str[i]));
 			while(str[i] != '\0' && str[i]  != ' ' && str[i]  != '$')
@@ -157,8 +158,10 @@ char *apply_dollar(char *str)
 		if(str[i] == '$')
 		{
 			tmp = get_value_env(&str[i + 1]);
-			new = ft_strjoin(new, tmp);
-			len = ft_strlen(new);
+			if(tmp != NULL)
+				new = ft_strjoin(new, tmp);
+			if (new != NULL)
+				len = ft_strlen(new);
 			i++;
 			while(str[i] != '\0' && str[i]  != ' ' && str[i]  != '$' && str[i]  != '\'' && str[i]  != '\"')
 				i++;
@@ -192,6 +195,8 @@ int remove_quote_dollar(t_cmd *list)
 		{
 			list->content->value = get_value_env(list->content->value + 1);
 			list->content->type = literal;
+			if(list->content->value == NULL)
+				list->content->type = none;
 		}
 		//free(value);
 		list = list->next;
