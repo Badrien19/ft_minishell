@@ -93,6 +93,19 @@ t_cmd	*ft_cmdfirst(t_cmd *lst);
 
 t_bool	parsing(char *user_input);
 void    tokenizer(char *input);
+void	detect_cmd_type(void);
+
+void	check_redirection_and_pipe(void);
+void	check_simple_redirection_left(void);
+void	check_simple_redirection_right(void);
+
+/*
+** search_in_parsing
+*/
+
+t_cmd	*find_next_literal(void);
+t_cmd	*find_prev_cmd(void);
+t_cmd	*find_next_cmd(void);
 
 /*
 **	apply

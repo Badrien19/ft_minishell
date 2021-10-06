@@ -17,69 +17,6 @@ void    tokenizer(char *input)
 	ft_cmdadd_back(&g_minishell.list_input, new);
 }
 
-t_cmd	*find_next_cmd(void)
-{
-	t_cmd *current;
-	t_cmd *ret;
-
-	current = g_minishell.list_input;
-	while (g_minishell.list_input->next && g_minishell.list_input->content->type != pipeline)
-	{
-		if (g_minishell.list_input->content->type == cmd_instr)
-		{
-			ret = g_minishell.list_input;
-			g_minishell.list_input = current;
-			return (ret);
-		}
-		g_minishell.list_input = g_minishell.list_input->next;
-	}
-	return (NULL);
-}
-
-t_cmd	*find_prev_cmd(void)
-{
-	t_cmd *current;
-	t_cmd *ret;
-
-	current = g_minishell.list_input;
-	while (g_minishell.list_input->prev && g_minishell.list_input->content->type != pipeline)
-	{
-		if (g_minishell.list_input->content->type == cmd_instr)
-		{
-			ret = g_minishell.list_input;
-			g_minishell.list_input = current;
-			return (ret);
-		}
-		g_minishell.list_input = g_minishell.list_input->prev;
-	}
-	return (NULL);
-}
-
-void	check_redirection_left(void) // Close le precedent fd
-{
-	t_cmd	*begin;
-	t_cmd	*tmp;
-	int		fd;
-
-	begin = g_minishell.list_input;
-	while (g_minishell.list_input->next)
-	{
-		if (g_minishell.list_input->content->type == simple_redir_left || g_minishell.list_input->content->type == double_redir_left)
-		{
-			fd = open(g_minishell.list_input->next->next->content->value, O_RDONLY);
-			printf("fd : %d\n", fd);
-			if (!fd)
-				return ; // Erreur
-			if (find_next_cmd())
-				find_next_cmd()->content->pipe_in = fd;
-			else if (find_prev_cmd())
-				find_prev_cmd()->content->pipe_in = fd;
-		}
-		g_minishell.list_input = g_minishell.list_input->next;
-	}
-	g_minishell.list_input = begin;
-}
-
 void	detect_cmd_type(void)
 {
 	t_cmd *begin;
@@ -151,8 +88,7 @@ t_bool	parsing(char *user_input)
 	//printf("__TEST2__\n");
 	if (concat_tokens_quotes() == False)
 		return (False);
-	check_redirection_left();
-	check_pipes();
+	check_redirection_and_pipe();
 	g_minishell.list_input = ft_cmdfirst(g_minishell.list_input);
 	return (True);
 }
