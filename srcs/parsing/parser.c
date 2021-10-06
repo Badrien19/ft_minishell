@@ -38,31 +38,6 @@ void	detect_cmd_type(void)
 	g_minishell.list_input = begin;
 }
 
-void	check_pipes(void)
-{
-	t_cmd	*tmp;
-	t_cmd	*prev_cmd;
-	t_cmd	*next_cmd;
-	int		fd[2];
-
-	while (g_minishell.list_input->next)
-	{
-		if (g_minishell.list_input->content->type == pipeline)
-		{	
-			tmp = g_minishell.list_input;
-			if (pipe(fd) == -1)
-				return ; // Erreur
-			prev_cmd = find_prev_cmd();
-			prev_cmd->content->pipe_out = fd[0];
-			g_minishell.list_input = tmp;
-			next_cmd = find_next_cmd();
-			next_cmd->content->pipe_in = fd[1];
-		}
-		g_minishell.list_input = g_minishell.list_input->next;
-	}
-	g_minishell.list_input = ft_cmdfirst(g_minishell.list_input);
-}
-
 t_bool	parsing(char *user_input)
 {
 	char *new;

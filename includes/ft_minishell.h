@@ -98,6 +98,8 @@ void	detect_cmd_type(void);
 void	check_redirection_and_pipe(void);
 void	check_simple_redirection_left(void);
 void	check_simple_redirection_right(void);
+t_bool	is_there_pipe(void);
+void	check_pipe(void);
 
 /*
 ** search_in_parsing
