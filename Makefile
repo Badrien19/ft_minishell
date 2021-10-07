@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: badrien <badrien@student.42.fr>            +#+  +:+       +#+         #
+#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:00:43 by user42            #+#    #+#              #
-#    Updated: 2021/09/30 17:53:17 by badrien          ###   ########.fr        #
+#    Updated: 2021/10/07 17:33:54 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ LIBFT	=	libft.a
 all : $(NAME)
 
 $(NAME):	$(LIBFT) $(OBJ)
-			@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) ./srcs/$(LIBFT) -lreadline
+			@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) ./srcs/libft/$(LIBFT) -lreadline
 			@echo "\n\033[32m[✓]\033[0m		[$(NAME) compiled]"
 
 $(LIBFT):	
