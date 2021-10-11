@@ -73,6 +73,7 @@ int	main(int argc, char **argv, char **env)
 	
 	g_minishell.list_input = 0;
 	g_minishell.env = env;
+	g_minishell.parsing_error = False;
 	while (1)
 	{
 		//sh_pre();

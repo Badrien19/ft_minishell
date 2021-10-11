@@ -67,7 +67,7 @@ void	cmd_execute(t_cmd *list)
 void	ft_switch(t_cmd *list)
 {
 	//printf("\nentry -> %s\n", list->content->value);
-	if (list && list->content->type == cmd_instr)
+	if (g_minishell.parsing_error == False && list && list->content->type == cmd_instr)
 	{
 		if (!ft_strcmp(list->content->value, "exit"))
 			error("Exiting minishell...\n");
@@ -87,7 +87,7 @@ void	ft_switch(t_cmd *list)
 			cmd_export(list->next);
 	}
 	else
-			cmd_execve(list);
+			cmd_execve(list); // Why ? Crash si on fait appel à un commande style "test"
 	while (list != NULL)
 	{
 		//printf("value: %s\n", list->content->value);
@@ -103,13 +103,13 @@ void	ft_switch(t_cmd *list)
 	}
 }
 
-void	cmd_hub(void)
+void		cmd_hub(void)
 {
 	t_cmd	*list;
 	list = g_minishell.list_input;
 	remove_quote_dollar(list);
 	concat_tokens_same_type();
 	detect_cmd_type();
-	debug();
+	//debug();
 	ft_switch(list);
 }

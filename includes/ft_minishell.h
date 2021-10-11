@@ -64,6 +64,7 @@ typedef struct s_minishell
 {
 	t_cmd *list_input;
 	char **env;
+	t_bool parsing_error;
 }	t_minishell;
 
 t_minishell g_minishell;
@@ -105,7 +106,7 @@ void	check_pipe(void);
 ** search_in_parsing
 */
 
-t_cmd	*find_next_literal(void);
+t_cmd	*find_next_literal(int range);
 t_cmd	*find_prev_cmd(void);
 t_cmd	*find_next_cmd(void);
 
@@ -113,7 +114,7 @@ t_cmd	*find_next_cmd(void);
 **	apply
 */
 
-int remove_quote_dollar(t_cmd *list);
+int		remove_quote_dollar(t_cmd *list);
 
 /*
 **	env.c
@@ -157,6 +158,7 @@ t_bool	checking_if_quotes_even();
 */
 
 void	error(char *error_text);
+void    parsing_error(int error_code);
 
 /*
 ** free.c

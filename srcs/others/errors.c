@@ -14,7 +14,21 @@
 
 void error(char *error_text)
 {
-    ft_putstr_fd(error_text, 1);
+    ft_putstr_fd(error_text, 2);
     free_list();
     exit (0);
+}
+
+void    parsing_error(int error_code)
+{
+    if (error_code == 1)
+        write(2, "minishell: parse error\n", 24);
+    else if (error_code == 2)
+    	write(2, "minishell: too many arguments\n", 30);
+    else if (error_code == 3)
+        perror("minishell");
+    else if (error_code == 4)
+    	write(2, "minishell: command not found.\n", 30);
+
+    g_minishell.parsing_error = True;
 }

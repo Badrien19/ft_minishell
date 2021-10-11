@@ -13,9 +13,7 @@ void	check_redirection_and_pipe(void)
 
 void	check_simple_redirection_left(void) // Vérifier les mots après le <
 {
-	t_cmd	*tmp;
 	int		fd;
-	int		prev_fd;
 
 	fd = -1;
 	while (g_minishell.list_input->next)
@@ -24,10 +22,12 @@ void	check_simple_redirection_left(void) // Vérifier les mots après le <
 		{
 			if (fd > 0)
 				close(fd);
-			fd = open(find_next_literal()->content->value, O_RDONLY);
+			if (verify_redir_parse_error() != 0)
+				return ;
+			fd = open(find_next_literal(1)->content->value, O_RDONLY);
 			if (fd < 0)
 			{
-				perror("minishell");
+				parsing_error(3);
 				return ;
 			}
 			if (find_next_cmd())
@@ -36,7 +36,7 @@ void	check_simple_redirection_left(void) // Vérifier les mots après le <
 				find_prev_cmd()->content->pipe_in = fd;
 			else
 			{
-				write(2, "minishell: command not found.\n", 30); // TEMP
+				parsing_error(4);
 				return ;
 			}
 		}
@@ -45,22 +45,51 @@ void	check_simple_redirection_left(void) // Vérifier les mots après le <
 	g_minishell.list_input = ft_cmdfirst(g_minishell.list_input);
 }
 
-void	check_simple_redirection_right(void) // Vérifier les mots après le >
+int		verify_redir_parse_error(void)
 {
 	int		fd;
-	int		prev_fd;
+	t_cmd 	*file;
+	t_cmd	*current;
+
+	current = g_minishell.list_input; 
+	file = find_next_literal(1);
+	if (file == NULL)
+	{
+		parsing_error(1);
+		return (-1); // TEMP
+	}
+	g_minishell.list_input = file->next;
+	if (find_next_literal(0))
+	{
+		parsing_error(2);
+		return (-1); // TEMP
+	}
+	g_minishell.list_input = current;
+	return (0);
+}
+
+void	check_simple_redirection_right(void)
+{
+	int		fd;
 
 	fd = -1;
 	while (g_minishell.list_input->next)
 	{
 		if (g_minishell.list_input->content->type == simple_redir_right)
 		{
+			/* Verify the parsing
+			** Verify the file
+			** Open the file
+			** Replace pipe_out of cmd
+			*/ 
 			if (fd > 0)
 				close(fd);
-			fd = open(find_next_literal()->content->value, O_WRONLY);
+			if (verify_redir_parse_error() != 0)
+				return ;
+			fd = open(find_next_literal(1)->content->value, O_CREAT | O_RDWR | O_TRUNC, 0644);
 			if (fd < 0)
 			{
-				perror("minishell");
+				parsing_error(3);
 				return ;
 			}
 			if (find_next_cmd())
@@ -69,7 +98,7 @@ void	check_simple_redirection_right(void) // Vérifier les mots après le >
 				find_prev_cmd()->content->pipe_out = fd;
 			else
 			{
-				write(2, "minishell: command not found.\n", 30); // TEMP
+				parsing_error(4);
 				return ;
 			}
 		}
@@ -112,3 +141,10 @@ void	check_pipe(void)
 	else
 		find_next_cmd()->content->pipe_in = find_prev_cmd()->content->pipe_out;
 }
+
+/* Erreurs possibles :
+** cmd > > file1 : parse error
+** cmd > file1 file2 : too many arguments
+** cmd1 > cmd2 : Fonctionne (le fichier cmd2 est créé)
+**
+*/
