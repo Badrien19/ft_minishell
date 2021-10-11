@@ -97,8 +97,11 @@ void    tokenizer(char *input);
 void	detect_cmd_type(void);
 
 void	check_redirection_and_pipe(void);
+int		verify_redir_parse_error(void);
 void	check_simple_redirection_left(void);
 void	check_simple_redirection_right(void);
+void	check_double_redirection_left(void);
+void	check_double_redirection_right(void);
 t_bool	is_there_pipe(void);
 void	check_pipe(void);
 

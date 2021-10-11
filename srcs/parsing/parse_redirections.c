@@ -3,7 +3,9 @@
 void	check_redirection_and_pipe(void)
 {
 	check_simple_redirection_left();
+	check_double_redirection_left();
 	check_simple_redirection_right();
+	check_double_redirection_right();
 	while (is_there_pipe() == True)
 	{
 		check_pipe();
@@ -96,6 +98,81 @@ void	check_simple_redirection_right(void)
 				find_next_cmd()->content->pipe_out = fd;
 			else if (find_prev_cmd())
 				find_prev_cmd()->content->pipe_out = fd;
+			else
+			{
+				parsing_error(4);
+				return ;
+			}
+		}
+		g_minishell.list_input = g_minishell.list_input->next;
+	}
+	g_minishell.list_input = ft_cmdfirst(g_minishell.list_input);
+}
+
+void	check_double_redirection_right(void)
+{
+	int		fd;
+
+	fd = -1;
+	while (g_minishell.list_input->next)
+	{
+		if (g_minishell.list_input->content->type == double_redir_right)
+		{
+			/* Verify the parsing
+			** Verify the file
+			** Open the file
+			** Replace pipe_out of cmd
+			*/ 
+			if (fd > 0)
+				close(fd);
+			if (verify_redir_parse_error() != 0)
+				return ;
+			fd = open(find_next_literal(1)->content->value, O_CREAT | O_APPEND | O_TRUNC, 0644);
+			if (fd < 0)
+			{
+				parsing_error(3);
+				return ;
+			}
+			if (find_next_cmd())
+				find_next_cmd()->content->pipe_out = fd;
+			else if (find_prev_cmd())
+				find_prev_cmd()->content->pipe_out = fd;
+			else
+			{
+				parsing_error(4);
+				return ;
+			}
+		}
+		g_minishell.list_input = g_minishell.list_input->next;
+	}
+	g_minishell.list_input = ft_cmdfirst(g_minishell.list_input);
+}
+
+void	check_double_redirection_left(void)
+{
+	char	*end_redir;
+	char	*buffer;
+	int		fd[2];
+
+	buffer = NULL;
+	while (g_minishell.list_input->next)
+	{
+		if (g_minishell.list_input->content->type == double_redir_left)
+		{
+			end_redir = find_next_literal(1)->content->value;
+			pipe(fd);
+			printf("end_redir : %s\n", end_redir);
+			while (True)
+			{
+				buffer = readline("\033[1;32m>\033[0m ");
+				write(fd[0], &buffer, ft_strlen(buffer));
+				if (!ft_strcmp(buffer, end_redir))
+					break ;
+			}
+			if (find_next_cmd())
+				find_next_cmd()->content->pipe_in = fd[0];
+			else if (find_prev_cmd())
+				find_prev_cmd()->content->pipe_in = fd[0];
 			else
 			{
 				parsing_error(4);
