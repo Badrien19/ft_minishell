@@ -1,6 +1,6 @@
-get_next_line_19/
-get_next_line/
 a.out
 .vscode/
 ft_minishell
-Old/
+*.o
+*.a
+Untitled Diagram.drawio
