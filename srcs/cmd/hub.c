@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
+/*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/09/30 17:43:31 by badrien          ###   ########.fr       */
+/*   Updated: 2021/10/12 14:27:56 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	cmd_execute(t_cmd *list)
 	char **argv;
 
 	argv = NULL;
-
 	printf("__TEST__\n");
 	program_name = ft_split(list->content->value, '/')[1];
 	printf("program_name : %s\n", program_name);
@@ -106,6 +105,7 @@ void	ft_switch(t_cmd *list)
 void		cmd_hub(void)
 {
 	t_cmd	*list;
+	
 	list = g_minishell.list_input;
 	remove_quote_dollar(list);
 	concat_tokens_same_type();

@@ -6,7 +6,7 @@
 /*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/10/12 13:24:06 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/10/12 14:34:07 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	**get_path(char **env)
 	}
 	return (path);
 }
-
+ 
 void	free_array(char **array)
 {
 	int		i;
@@ -87,6 +87,6 @@ void	cmd_execve(t_cmd *list)
 	}
 	else
 	{
-		close(list->content->pipe_out);
+		waitpid(pid, NULL, 0);
 	}
 }
