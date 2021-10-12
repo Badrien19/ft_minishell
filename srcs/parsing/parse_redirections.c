@@ -127,7 +127,7 @@ void	check_double_redirection_right(void)
 				close(fd);
 			if (verify_redir_parse_error() != 0)
 				return ;
-			fd = open(find_next_literal(1)->content->value, O_CREAT | O_APPEND | O_TRUNC, 0644);
+			fd = open(find_next_literal(1)->content->value, O_CREAT | O_RDWR | O_APPEND);
 			if (fd < 0)
 			{
 				parsing_error(3);
