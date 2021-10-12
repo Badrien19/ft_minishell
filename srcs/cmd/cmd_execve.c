@@ -6,7 +6,7 @@
 /*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/09/30 16:44:43 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/10/12 13:24:06 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	free_array(char **array)
 	free(array);
 }
 
-void	cmd_execve(t_cmd *list)
+void	ft_exec_free(t_cmd *list)
 {
 	char	**args;
 	char	**path;
@@ -49,7 +49,7 @@ void	cmd_execve(t_cmd *list)
 
 	i = -1;
 	if (ft_strlen(list->content->value) == 0)
-		return ;
+		parsing_error(4);
 	args = ft_split(list->content->value, ' ');
 	path = get_path(g_minishell.env);
 	while (path[++i])
@@ -64,4 +64,29 @@ void	cmd_execve(t_cmd *list)
 	}
 	free_array(args);
 	free_array(path);
+	parsing_error(4);
+}
+
+void	cmd_execve(t_cmd *list)
+{
+	pid_t	pid;
+	int		pipefd[2];
+
+	printf("entry_execve -> '%s'\n", (char *)list->content->value);
+	if (pipe(pipefd) == -1)
+		error("minishell: Failed to create a pipe\n");
+	pid = fork();
+	if (pid == -1)
+		error("minishell: Failed to create a fork\n");
+	if (!pid)
+	{
+		close(pipefd[1]);
+		dup2(pipefd[0], list->content->pipe_in);
+		dup2(list->content->pipe_out, list->content->pipe_out);
+		ft_exec_free(list);
+	}
+	else
+	{
+		close(list->content->pipe_out);
+	}
 }

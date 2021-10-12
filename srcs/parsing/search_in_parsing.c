@@ -57,7 +57,7 @@ t_cmd	*find_next_literal(int range)
 			range--;
 		g_minishell.list_input = g_minishell.list_input->next;
 	}
-	if (g_minishell.list_input && g_minishell.list_input->content->type == pipeline || range <= 0)
+	if ((g_minishell.list_input && g_minishell.list_input->content->type == pipeline) || range <= 0)
 		ret = NULL;
 	else
 		ret = g_minishell.list_input;

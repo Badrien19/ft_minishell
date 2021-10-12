@@ -25,6 +25,8 @@
 # include <readline/history.h>
 # include <errno.h>
 
+# define STDIN 0
+# define STDOUT 1
 typedef enum e_token_type
 {
 	space,

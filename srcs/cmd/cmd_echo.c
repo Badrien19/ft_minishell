@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_echo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:58:01 by arapaill          #+#    #+#             */
-/*   Updated: 2021/10/07 17:50:42 by user42           ###   ########.fr       */
+/*   Updated: 2021/10/12 12:00:46 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
-static void	print_non_quote(void *s)
+static void	print_non_quote(void *s, t_cmd *list)
 {
 	char	*str;
 	int		len;
@@ -25,7 +25,7 @@ static void	print_non_quote(void *s)
 	{
 		if (str[i] == '\\')
 			i++;
-		write(1, &str[i], 1);
+		write(1, &str[i], list->content->pipe_out);
 	}
 }
 
@@ -48,7 +48,7 @@ void	cmd_echo(t_cmd *list)
 	}
 	while (list->content->value && list->content->type != semicolon)
 	{
-		print_non_quote(list->content->value);
+		print_non_quote(list->content->value, list);
 			if (list->next)
 				list = list->next;
 			else
@@ -57,5 +57,5 @@ void	cmd_echo(t_cmd *list)
 			break ;
 	}
 	if (flag == 0)
-		write(1, "\n", 1);
+		write(1, "\n", list->content->pipe_out);
 }
