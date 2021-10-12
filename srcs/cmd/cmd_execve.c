@@ -6,7 +6,7 @@
 /*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/10/12 15:24:12 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/10/12 15:33:56 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,8 @@ void	cmd_execve(t_cmd *list)
 	char	*cmd;
 	int		pipefd[2];
 
-	printf("entry_execve -> '%s'\n", (char *)list->content->value);
+
 	cmd = ft_strdup(list->content->value);
-	printf("entry_execve -> '%s'\n", (char *)list->next->content->value);
 	while (list->next && (list->next->content->type == literal || list->next->content->type == variable ||
 	list->next->content->type == single_quote || list->next->content->type == double_quote || list->next->content->type == space))
 	{
@@ -83,6 +82,7 @@ void	cmd_execve(t_cmd *list)
 		cmd = ft_strjoin_free(cmd, list->next->content->value);
 		list = list->next;
 	}
+	//printf("TEST %s\n", cmd);
 	if (pipe(pipefd) == -1)
 		error("minishell: Failed to create a pipe\n");
 	pid = fork();
