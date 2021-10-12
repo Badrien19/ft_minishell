@@ -6,7 +6,7 @@
 /*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:58:01 by arapaill          #+#    #+#             */
-/*   Updated: 2021/10/12 16:23:01 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/10/12 16:38:29 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	cmd_echo(t_cmd *list)
 		}
 		if (flag == 0)
 			write(out, "\n", 1);
+		exit(0);
 	}
 	else
 	{
@@ -75,7 +76,6 @@ void	cmd_echo(t_cmd *list)
 			close(list->content->pipe_out);
 		if(list->content->pipe_in && list->content->pipe_in != 0)
 			close(list->content->pipe_in);
-		exit(0);
 	}
 	
 }
