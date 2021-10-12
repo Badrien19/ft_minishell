@@ -6,7 +6,7 @@
 /*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:17:37 by badrien           #+#    #+#             */
-/*   Updated: 2021/10/12 13:45:01 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/10/12 16:36:24 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 void print_env() // Vérifier les strings dans le tableau env
 {
 	int x;
-	x = 0;
 
-	printf("TEST4\n");
+	x = 0;
 	while(g_minishell.env[x] != NULL)
 	{
 		printf("%s\n", g_minishell.env[x]);

@@ -126,7 +126,7 @@ int		remove_quote_dollar(t_cmd *list);
 */
 
 int		main_env();
-void	print_env();
+void 	print_env();
 char	*get_value_env(char *name);
 int 	add_env(char *name, char *value);
 char 	**realloc_env(int size);
