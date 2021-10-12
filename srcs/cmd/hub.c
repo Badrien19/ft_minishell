@@ -6,7 +6,7 @@
 /*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/10/12 15:49:39 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/10/12 16:10:13 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	ft_switch(t_cmd *list)
 		if (!ft_strcmp(list->content->value, "exit"))
 			error("Exiting minishell...\n");
 		else if (!ft_strcmp(list->content->value, "echo"))
-			cmd_echo(list->next);
+			cmd_echo(list);
 		else if (!ft_strcmp(list->content->value, "env"))
 			print_env(list);
 		else if (!ft_strcmp(list->content->value, "pwd"))

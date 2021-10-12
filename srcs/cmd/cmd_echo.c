@@ -6,13 +6,13 @@
 /*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:58:01 by arapaill          #+#    #+#             */
-/*   Updated: 2021/10/12 15:58:13 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/10/12 16:10:49 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
-static void	print_non_quote(void *s, t_cmd *list)
+static void	print_non_quote(void *s, t_cmd *list, int out)
 {
 	char	*str;
 	int		len;
@@ -25,17 +25,20 @@ static void	print_non_quote(void *s, t_cmd *list)
 	{
 		if (str[i] == '\\')
 			i++;
-		write(list->content->pipe_out, &str[i], 1);
+		write(out, &str[i], 1);
 	}
 }
 
 void	cmd_echo(t_cmd *list)
 {
 	int		flag;
+	int		out;
 	pid_t	pid;
 	
-	//printf("entry_echo -> '%s'\n", list->content->value);
 	pid = fork();
+	out = list->content->pipe_out;
+	if(list->next)
+		list = list->next;
 	if(!pid)
 	{
 		flag = 0;
@@ -53,7 +56,7 @@ void	cmd_echo(t_cmd *list)
 		list->content->type != simple_redir_left && list->content->type != simple_redir_right &&
 		list->content->type != pipeline)
 		{
-			print_non_quote(list->content->value, list);
+			print_non_quote(list->content->value, list, out);
 				if (list->next)
 					list = list->next;
 				else
@@ -62,14 +65,14 @@ void	cmd_echo(t_cmd *list)
 				break ;
 		}
 		if (flag == 0)
-			write(list->content->pipe_out, "\n", 1);
+			write(out, "\n", 1);
 	}
 	else
 	{
 		waitpid(pid, NULL, 0);
-		if(list->content->pipe_out && list->content->pipe_out !=1)
+		if(list->content->pipe_out && list->content->pipe_out != 1)
 			close(list->content->pipe_out);
-		if(list->content->pipe_in && list->content->pipe_in !=1)
+		if(list->content->pipe_in && list->content->pipe_in != 0)
 			close(list->content->pipe_in);
 	}
 	
