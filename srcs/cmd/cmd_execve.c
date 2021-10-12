@@ -6,7 +6,7 @@
 /*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/10/12 15:41:02 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/10/12 16:13:35 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,8 @@ void	cmd_execve(t_cmd *list)
 		ft_exec_free(list, cmd);
 	}
 	else
+	{
 		waitpid(pid, NULL, 0);
+		exit(0);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:58:01 by arapaill          #+#    #+#             */
-/*   Updated: 2021/10/12 16:10:49 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/10/12 16:23:01 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	cmd_echo(t_cmd *list)
 		}
 		while (list->content->value && list->content->type != semicolon &&
 		list->content->type != simple_redir_left && list->content->type != simple_redir_right &&
-		list->content->type != pipeline)
+		list->content->type != pipeline && list->content->type != double_redir_left &&
+		list->content->type != double_redir_right)
 		{
 			print_non_quote(list->content->value, list, out);
 				if (list->next)
@@ -74,6 +75,7 @@ void	cmd_echo(t_cmd *list)
 			close(list->content->pipe_out);
 		if(list->content->pipe_in && list->content->pipe_in != 0)
 			close(list->content->pipe_in);
+		exit(0);
 	}
 	
 }
