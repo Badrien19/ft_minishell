@@ -6,7 +6,7 @@
 /*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/10/12 14:34:07 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/10/12 15:24:12 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	free_array(char **array)
 	free(array);
 }
 
-void	ft_exec_free(t_cmd *list)
+void	ft_exec_free(t_cmd *list, char *cmd)
 {
 	char	**args;
 	char	**path;
@@ -48,9 +48,9 @@ void	ft_exec_free(t_cmd *list)
 	size_t	i;
 
 	i = -1;
-	if (ft_strlen(list->content->value) == 0)
+	if (ft_strlen(cmd) == 0)
 		parsing_error(4);
-	args = ft_split(list->content->value, ' ');
+	args = ft_split(cmd, ' ');
 	path = get_path(g_minishell.env);
 	while (path[++i])
 	{
@@ -70,9 +70,19 @@ void	ft_exec_free(t_cmd *list)
 void	cmd_execve(t_cmd *list)
 {
 	pid_t	pid;
+	char	*cmd;
 	int		pipefd[2];
 
 	printf("entry_execve -> '%s'\n", (char *)list->content->value);
+	cmd = ft_strdup(list->content->value);
+	printf("entry_execve -> '%s'\n", (char *)list->next->content->value);
+	while (list->next && (list->next->content->type == literal || list->next->content->type == variable ||
+	list->next->content->type == single_quote || list->next->content->type == double_quote || list->next->content->type == space))
+	{
+		printf("entry_execve -> '%s'\n", (char *)list->next->content->value);
+		cmd = ft_strjoin_free(cmd, list->next->content->value);
+		list = list->next;
+	}
 	if (pipe(pipefd) == -1)
 		error("minishell: Failed to create a pipe\n");
 	pid = fork();
@@ -83,10 +93,8 @@ void	cmd_execve(t_cmd *list)
 		close(pipefd[1]);
 		dup2(pipefd[0], list->content->pipe_in);
 		dup2(list->content->pipe_out, list->content->pipe_out);
-		ft_exec_free(list);
+		ft_exec_free(list, cmd);
 	}
 	else
-	{
 		waitpid(pid, NULL, 0);
-	}
 }

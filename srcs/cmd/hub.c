@@ -6,7 +6,7 @@
 /*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/10/12 14:27:56 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/10/12 15:24:21 by arapaill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	cmd_execute(t_cmd *list)
 void	ft_switch(t_cmd *list)
 {
 	//printf("\nentry -> %s\n", list->content->value);
+	while(list->content->type == space && list->next)
+		list = list->next;
 	if (g_minishell.parsing_error == False && list && list->content->type == cmd_instr)
 	{
 		if (!ft_strcmp(list->content->value, "exit"))
