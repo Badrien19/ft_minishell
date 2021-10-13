@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/10/12 16:33:56 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/10/13 09:46:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,18 @@ void	ft_switch(t_cmd *list)
 	}
 	else
 			cmd_execve(list); // Why ? Crash si on fait appel à un commande style "test"
+}
+
+void		cmd_hub(void)
+{
+	t_cmd	*list;
+	
+	list = g_minishell.list_input;
+	remove_quote_dollar(list);
+	concat_tokens_same_type();
+	detect_cmd_type();
+	//debug();
+	ft_switch(list);
 	while (list != NULL)
 	{
 		//printf("value: %s\n", list->content->value);
@@ -116,16 +128,4 @@ void	ft_switch(t_cmd *list)
 		}
 		list = list->next;
 	}
-}
-
-void		cmd_hub(void)
-{
-	t_cmd	*list;
-	
-	list = g_minishell.list_input;
-	remove_quote_dollar(list);
-	concat_tokens_same_type();
-	detect_cmd_type();
-	//debug();
-	ft_switch(list);
 }
