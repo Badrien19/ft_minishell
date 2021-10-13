@@ -157,6 +157,7 @@ t_token_type 	find_type(char c);
 */
 
 t_bool	checking_if_quotes_even();
+int		check_path(char *cmd);
 
 /*
 ** errors.c

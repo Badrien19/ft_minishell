@@ -12,6 +12,34 @@
 
 #include "../../includes/ft_minishell.h"
 
+int check_path(char *cmd)
+{
+	int		i;
+	char	*path;
+	char	*tmp;
+	char	**paths;
+
+	i = 0;
+	while (ft_strnstr(g_minishell.env[i], "PATH=", 5) == 0 && g_minishell.env[i] != NULL)
+		i++;
+	if(g_minishell.env[i] != NULL)
+		paths = ft_split(g_minishell.env[i] + 5, ':');
+	i = 0;
+	while(paths[i])
+	{
+		if(cmd[0] != '/')
+		{
+			tmp = ft_strjoin(paths[i], "/");
+			path = ft_strjoin(tmp, cmd[0]);
+			free(tmp);
+		}
+		if(access(path, X_OK) == 0) 
+			return (0)
+		i++;
+	}
+	return (-1);
+}
+
 t_bool	checking_if_quotes_even(void)
 {
 	t_cmd	*list;
