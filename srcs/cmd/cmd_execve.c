@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_execve.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/10/12 16:41:54 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/10/13 19:24:47 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,13 @@ void	ft_exec_free(t_cmd *list, char *cmd)
 void	cmd_execve(t_cmd *list)
 {
 	pid_t	pid;
+	int		in;
+	int		out;
 	char	*cmd;
-	int		pipefd[2];
-
 
 	cmd = ft_strdup(list->content->value);
+	in = list->content->pipe_in;
+	out = list->content->pipe_out;
 	while (list->next && (list->next->content->type == literal || list->next->content->type == variable ||
 	list->next->content->type == single_quote || list->next->content->type == double_quote || list->next->content->type == space))
 	{
@@ -82,17 +84,22 @@ void	cmd_execve(t_cmd *list)
 		cmd = ft_strjoin_free(cmd, list->next->content->value);
 		list = list->next;
 	}
-	//printf("TEST %s\n", cmd);
-	if (pipe(pipefd) == -1)
-		error("minishell: Failed to create a pipe\n");
+	printf("TEST %s\n", cmd);
 	pid = fork();
 	if (pid == -1)
 		error("minishell: Failed to create a fork\n");
 	if (!pid)
 	{
-		close(pipefd[1]);
-		dup2(pipefd[0], list->content->pipe_in);
-		dup2(list->content->pipe_out, list->content->pipe_out);
+		if(in != STDIN_FILENO)
+		{
+			dup2(in, STDIN_FILENO);
+			close(in);
+		}
+		if(out != STDOUT_FILENO)
+		{
+			dup2(out, STDOUT_FILENO);
+			close(out);
+		}
 		ft_exec_free(list, cmd);
 		exit(0);
 	}

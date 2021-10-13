@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/10/13 09:46:41 by user42           ###   ########.fr       */
+/*   Updated: 2021/10/13 19:00:38 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,13 @@ void	ft_switch(t_cmd *list)
 			cmd_unset(list->next);
 		else if (!ft_strcmp(list->content->value, "export"))
 			cmd_export(list->next);
+		else
+			cmd_execve(list);
 	}
 	else
-			cmd_execve(list); // Why ? Crash si on fait appel à un commande style "test"
+		printf("Minishell: %s command not found\n",(char *) list->content->value);
+	
+	 // Why ? Crash si on fait appel à un commande style "test"
 }
 
 void		cmd_hub(void)
@@ -117,13 +121,11 @@ void		cmd_hub(void)
 	ft_switch(list);
 	while (list != NULL)
 	{
-		//printf("value: %s\n", list->content->value);
-		if (list->content->type == semicolon && !ft_strcmp(list->content->value, ";")) // Double vérification pas forcément nécessaire
+		if (list->content->type == semicolon || list->content->type == pipeline) 
 		{
 			while (list->next && list->content->type != cmd_instr)
 				list = list->next;
-			if (!list->next)
-				return ;
+			//printf("value: %s\n", list->content->value);
 			ft_switch(list);
 		}
 		list = list->next;
