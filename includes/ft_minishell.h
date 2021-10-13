@@ -25,8 +25,10 @@
 # include <readline/history.h>
 # include <errno.h>
 
-# define STDIN 0
-# define STDOUT 1
+# define MS_ERROR_PARSE 1
+# define MS_ERROR_NO_CMD 4
+# define MS_ERROR_TO_PERROR 3
+
 typedef enum e_token_type
 {
 	space,

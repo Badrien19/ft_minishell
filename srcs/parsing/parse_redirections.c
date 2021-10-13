@@ -9,8 +9,7 @@ t_bool	is_there_literal_for_file(void)
 	file = find_next_literal(1);
 	if (file == NULL)
 	{
-		debug();
-		parsing_error(1); // Parse Error
+		parsing_error(MS_ERROR_PARSE);
 		return (False);
 	}
 	g_minishell.list_input = current;
@@ -30,7 +29,7 @@ void	parse_simple_redirection_right(void)
 	// printf("fd opened : %s\n", find_next_literal(1)->content->value); DEBUG
 	if (fd < 0)
 	{
-		parsing_error(3); // perror
+		parsing_error(MS_ERROR_TO_PERROR);
 		return ;
 	}
 	if (find_next_cmd())
@@ -39,7 +38,7 @@ void	parse_simple_redirection_right(void)
 		find_prev_cmd()->content->pipe_out = fd;
 	else
 	{
-		parsing_error(4); // pas de commande trouvée
+		parsing_error(MS_ERROR_NO_CMD);
 		return ;
 	}
 }
@@ -57,7 +56,7 @@ void	parse_double_redirection_right(void)
 	// printf("fd opened : %s\n", find_next_literal(1)->content->value); DEBUG
 	if (fd < 0)
 	{
-		parsing_error(3); // perror
+		parsing_error(MS_ERROR_TO_PERROR);
 		return ;
 	}
 	if (find_next_cmd())
@@ -66,7 +65,7 @@ void	parse_double_redirection_right(void)
 		find_prev_cmd()->content->pipe_out = fd;
 	else
 	{
-		parsing_error(4); // pas de commande trouvée
+		parsing_error(MS_ERROR_NO_CMD);
 		return ;
 	}
 }
@@ -84,7 +83,7 @@ void	parse_simple_redirection_left(void)
 	// printf("fd opened : %s\n", find_next_literal(1)->content->value); DEBUG
 	if (fd < 0)
 	{
-		parsing_error(3); // perror
+		parsing_error(MS_ERROR_TO_PERROR);
 		return ;
 	}
 	if (find_next_cmd())
@@ -93,7 +92,7 @@ void	parse_simple_redirection_left(void)
 		find_prev_cmd()->content->pipe_in = fd;
 	else
 	{
-		parsing_error(4); // pas de commande trouvée
+		parsing_error(MS_ERROR_NO_CMD);
 		return ;
 	}
 }
@@ -122,7 +121,7 @@ void	parse_double_redirection_left(void)
 		find_prev_cmd()->content->pipe_in = fd[0];
 	else
 	{
-		parsing_error(4);
+		parsing_error(MS_ERROR_NO_CMD);
 		return ;
 	}
 }

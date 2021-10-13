@@ -19,7 +19,7 @@ int	main(int argc, char **argv, char **env)
 	g_minishell.list_input = 0;
 	g_minishell.env = env;
 	g_minishell.parsing_error = False;
-	while (1)
+	while (True)
 	{
 		user_input = readline("\033[1;32mminishell >\033[0m ");
 		if (user_input && *user_input)
@@ -34,5 +34,5 @@ int	main(int argc, char **argv, char **env)
 		}
 		free_list();
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
