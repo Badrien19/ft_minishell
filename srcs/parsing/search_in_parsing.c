@@ -1,37 +1,47 @@
 #include "../../includes/ft_minishell.h"
 
+/* find_next_cmd(void)
+** Renvoie un pointeur vers le prochain cmd_instr. Renvoie NULL s'il ne trouve rien.
+** S'arrête automatiquement dès qu'il trouve un '|', un ';' ou la fin de la chaine.
+*/
 t_cmd	*find_next_cmd(void)
 {
 	t_cmd *current;
 	t_cmd *ret;
 
 	current = g_minishell.list_input;
-    g_minishell.list_input = g_minishell.list_input->next; // Vérifier si ça ne pose pas problème.
-	while (g_minishell.list_input && g_minishell.list_input->content->type != cmd_instr
-	&& g_minishell.list_input->content->type != pipeline)
+	while (g_minishell.list_input 
+	&& g_minishell.list_input->content->type != cmd_instr
+	&& g_minishell.list_input->content->type != pipeline
+	&& g_minishell.list_input->content->type != semicolon)
 		g_minishell.list_input = g_minishell.list_input->next;
-	if (g_minishell.list_input && g_minishell.list_input->content->type == pipeline)
-		ret = NULL;
-	else
+	if (g_minishell.list_input && g_minishell.list_input->content->type == cmd_instr)
 		ret = g_minishell.list_input;
+	else
+		ret = NULL;
 	g_minishell.list_input = current;
 	return (ret);
 }
 
+/* find_next_cmd(void)
+** Renvoie un pointeur vers le précédent cmd_instr. Renvoie NULL s'il ne trouve rien.
+** S'arrête automatiquement dès qu'il trouve un '|', un ';' ou la fin de la chaine.
+*/
 t_cmd	*find_prev_cmd(void)
 {
 	t_cmd *current;
 	t_cmd *ret;
 
 	current = g_minishell.list_input;
-    g_minishell.list_input = g_minishell.list_input->prev; // Vérifier si ça ne pose pas problème.
-	while (g_minishell.list_input && g_minishell.list_input->content->type != cmd_instr
-	&& g_minishell.list_input->content->type != pipeline)
+	while (g_minishell.list_input 
+	&& g_minishell.list_input->content->type != cmd_instr
+	&& g_minishell.list_input->content->type != pipeline
+	&& g_minishell.list_input->content->type != semicolon)
 		g_minishell.list_input = g_minishell.list_input->prev;
-	if (g_minishell.list_input && g_minishell.list_input->content->type == pipeline)
-		ret = NULL;
-	else
+	if (g_minishell.list_input && g_minishell.list_input->content->type == cmd_instr)
 		ret = g_minishell.list_input;
+	else
+		ret = NULL;
 	g_minishell.list_input = current;
 	return (ret);
 }

@@ -94,18 +94,18 @@ t_cmd	*ft_cmdfirst(t_cmd *lst);
 ** parser
 */
 
-t_bool	parsing(char *user_input);
+void	parsing(char *user_input);
+void	pre_parsing(char *user_input);
 void    tokenizer(char *input);
 void	detect_cmd_type(void);
 
-void	check_redirection_and_pipe(void);
-int		verify_redir_parse_error(void);
-void	check_simple_redirection_left(void);
-void	check_simple_redirection_right(void);
-void	check_double_redirection_left(void);
-void	check_double_redirection_right(void);
+t_bool	is_there_literal_for_file(void);
+void	parse_simple_redirection_left(void);
+void	parse_simple_redirection_right(void);
+void	parse_double_redirection_left(void);
+void	parse_double_redirection_right(void);
+void	parse_pipe(void);
 t_bool	is_there_pipe(void);
-void	check_pipe(void);
 
 /*
 ** search_in_parsing
@@ -157,7 +157,7 @@ t_token_type 	find_type(char c);
 */
 
 t_bool	checking_if_quotes_even();
-int		check_path(char *cmd);
+t_bool	check_path(char *cmd);
 
 /*
 ** errors.c

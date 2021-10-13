@@ -12,7 +12,7 @@
 
 #include "../../includes/ft_minishell.h"
 
-int check_path(char *cmd)
+t_bool check_path(char *cmd)
 {
 	int		i;
 	char	*path;
@@ -30,14 +30,14 @@ int check_path(char *cmd)
 		if(cmd[0] != '/')
 		{
 			tmp = ft_strjoin(paths[i], "/");
-			path = ft_strjoin(tmp, cmd[0]);
+			path = ft_strjoin(tmp, cmd);
 			free(tmp);
 		}
 		if(access(path, X_OK) == 0) 
-			return (0)
+			return (True);
 		i++;
 	}
-	return (-1);
+	return (False);
 }
 
 t_bool	checking_if_quotes_even(void)
