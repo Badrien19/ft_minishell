@@ -31,7 +31,7 @@ void	detect_cmd_type(void)
 		!ft_strcmp(g_minishell.list_input->content->value, "unset") ||
 		!ft_strcmp(g_minishell.list_input->content->value, "env") ||
 		!ft_strcmp(g_minishell.list_input->content->value, "exit") ||
-		!ft_strcmp(g_minishell.list_input->content->value, "./"))
+		!ft_strncmp(g_minishell.list_input->content->value, "./", 2))
 			g_minishell.list_input->content->type = cmd_instr;
 		g_minishell.list_input = g_minishell.list_input->next;
 	}
