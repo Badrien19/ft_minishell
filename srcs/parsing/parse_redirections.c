@@ -116,9 +116,9 @@ void	parse_double_redirection_left(void)
 			break ;
 	}
 	if (find_next_cmd())
-		find_next_cmd()->content->pipe_in = fd[0];
+		find_next_cmd()->content->pipe_in = fd[1];
 	else if (find_prev_cmd())
-		find_prev_cmd()->content->pipe_in = fd[0];
+		find_prev_cmd()->content->pipe_in = fd[1];
 	else
 	{
 		parsing_error(MS_ERROR_NO_CMD);
