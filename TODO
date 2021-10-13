@@ -1,7 +1,7 @@
 Corentin :
-- Essayer de gérer les redirections avec ;
-- Gérer les cas d'erreurs des redirections
-- Corriger le cas où cmd > file1 file2 : Écrire dans file1 et pas dans file2 (file 2 reste un simple literal)
+- Essayer de gérer les redirections avec ; --done
+- Gérer les cas d'erreurs des redirections --ongoing
+- Corriger le cas où cmd > file1 file2 : Écrire dans file1 et pas dans file2 (file 2 reste un simple literal) --done
 
 Alexandre :
 - Check execve (./)
@@ -11,8 +11,8 @@ Adrien :
 - Gérer $?
 
 ?? :
-- Transformer les commandes qu'il ne faut pas gérer en cmd_instr (Une seule par bloc)
+- Transformer les commandes qu'il ne faut pas gérer en cmd_instr (Une seule par bloc) --done
 - Vérifier la cmd 'cd'
 - Gérer les signaux (CTRL-C, CTRL-D, etc...)
-- Gérer les pipes et redirections pour les commandes non-obligatoires. (Obligation d'utiliser des dup2)
+- Gérer les pipes et redirections pour les commandes non-obligatoires. (Obligation d'utiliser des dup2) --ongoing
 
