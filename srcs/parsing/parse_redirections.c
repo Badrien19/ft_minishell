@@ -116,9 +116,9 @@ void	parse_double_redirection_left(void)
 			break ;
 	}
 	if (find_next_cmd())
-		find_next_cmd()->content->pipe_in = fd[1];
+		find_next_cmd()->content->pipe_in = fd[0];
 	else if (find_prev_cmd())
-		find_prev_cmd()->content->pipe_in = fd[1];
+		find_prev_cmd()->content->pipe_in = fd[0];
 	else
 	{
 		parsing_error(MS_ERROR_NO_CMD);
@@ -145,12 +145,12 @@ void	parse_pipe(void)
 			return ;
 		}
 		if (find_prev_cmd())
-			find_prev_cmd()->content->pipe_out = fd[0];
+			find_prev_cmd()->content->pipe_out = fd[1];
 		else
 			return ; // Erreur
 		g_minishell.list_input = current->next;
 		if (find_next_cmd())
-			find_next_cmd()->content->pipe_in = fd[1];
+			find_next_cmd()->content->pipe_in = fd[0];
 		else
 			return ; // Erreur
 	}
