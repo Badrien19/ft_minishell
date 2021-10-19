@@ -6,13 +6,13 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/10/19 14:55:30 by user42           ###   ########.fr       */
+/*   Updated: 2021/10/19 15:03:15 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
-void	ft_switch(t_cmd *list)
+static void	ft_switch(t_cmd *list)
 {
 	//printf("\nentry -> %s\n", list->content->value);
 	while(list->content->type == space && list->next)
@@ -39,9 +39,7 @@ void	ft_switch(t_cmd *list)
 			cmd_execve(list);
 	}
 	else
-		printf("Minishell: %s command not found\n",(char *) list->content->value);
-	
-	 // Why ? Crash si on fait appel à un commande style "test"
+		perror("minshell");
 }
 
 void		cmd_hub(void)
@@ -52,7 +50,6 @@ void		cmd_hub(void)
 	remove_quote_dollar(list);
 	concat_tokens_same_type();
 	detect_cmd_type();
-	//debug();
 	ft_switch(list);
 	while (list != NULL)
 	{
@@ -60,7 +57,6 @@ void		cmd_hub(void)
 		{
 			while (list->next && list->content->type != cmd_instr)
 				list = list->next;
-			//printf("value: %s\n", list->content->value);
 			ft_switch(list);
 		}
 		list = list->next;

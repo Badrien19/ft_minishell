@@ -6,13 +6,13 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:47:41 by user42            #+#    #+#             */
-/*   Updated: 2021/10/19 14:48:11 by user42           ###   ########.fr       */
+/*   Updated: 2021/10/19 15:01:48 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
-static char	**get_path_pwd(char **env)
+static char **get_path_pwd(char **env)
 {
 		char	**path;
 	int		i;
@@ -31,7 +31,7 @@ static char	**get_path_pwd(char **env)
 	
 }
 
-void	execute_child(t_cmd *list)
+static void execute_child(t_cmd *list)
 {
 	char	**path;
 	char	**args;
@@ -52,7 +52,7 @@ void	execute_child(t_cmd *list)
 	perror("minishell");
 }
 
-void	cmd_execute(t_cmd *list)
+void cmd_execute(t_cmd *list)
 {
 
 	int		pid;

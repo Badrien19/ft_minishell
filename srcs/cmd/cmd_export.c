@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/09/30 12:31:08 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/10/19 15:00:55 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
-int		envchr(char *value)
+static int		envchr(char *value)
 {
 	int		len;
 	int		i;
@@ -22,7 +22,6 @@ int		envchr(char *value)
 	i = -1;
 	while (value[len] && value[len] != '=')
 		len++;
-	//printf("len %i\n", len);
 	needle = malloc(sizeof(char *) * len);
 	if(!needle)
 		error("Malloc error");
@@ -32,12 +31,8 @@ int		envchr(char *value)
 	i = -1;
 	while (g_minishell.env[++i])
 	{
-		//printf("len :%i needle:%s env %s\n", len, needle, g_minishell.env[i]);
 		if(!ft_strncmp(needle, g_minishell.env[i], len))
-		{
-			//printf("i = %i\n", i);
 			return(i);
-		}
 	}
 	return(0);
 }
