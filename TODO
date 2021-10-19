@@ -5,6 +5,7 @@ Corentin :
 
 Alexandre :
 - Check execve (./) -done
+-  verifier que toutes les commandes sont rediriger
 
 Adrien : 
 - Régler segfault variables qui n'existent pas.
