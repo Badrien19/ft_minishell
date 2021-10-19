@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/10/19 10:40:41 by user42           ###   ########.fr       */
+/*   Updated: 2021/10/19 14:56:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ void	ft_exec_free(t_cmd *list, char *cmd)
 			tmp = ft_strjoin(path[i], "/");
 			tmp = ft_strjoin_free(tmp, args[0]);
 		}
-		printf("TEST tmp: %s\n", tmp);
-		printf("TEST args: %s\n", args[0]);
 		execve(tmp, args, g_minishell.env);
 		free(tmp);
 	}
@@ -79,14 +77,14 @@ void	cmd_execve(t_cmd *list)
 	cmd = ft_strdup(list->content->value);
 	in = list->content->pipe_in;
 	out = list->content->pipe_out;
-	while (list->next && (list->next->content->type == literal || list->next->content->type == variable ||
-	list->next->content->type == single_quote || list->next->content->type == double_quote || list->next->content->type == space))
+	while (list->next && (list->next->content->type == literal ||
+	list->next->content->type == variable ||
+	list->next->content->type == single_quote ||
+	list->next->content->type == double_quote || list->next->content->type == space))
 	{
-		//printf("entry_execve -> '%s'\n", (char *)list->next->content->value);
 		cmd = ft_strjoin_free(cmd, list->next->content->value);
 		list = list->next;
 	}
-	printf("TEST %s\n", cmd);
 	pid = fork();
 	if (pid == -1)
 		error("minishell: Failed to create a fork\n");
