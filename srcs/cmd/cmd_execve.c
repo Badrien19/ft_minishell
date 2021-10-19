@@ -6,13 +6,13 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/10/13 19:24:47 by user42           ###   ########.fr       */
+/*   Updated: 2021/10/19 10:40:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
-char	**get_path(char **env)
+static char	**get_path(char **env)
 {
 	char	**path;
 	int		i;
@@ -59,6 +59,8 @@ void	ft_exec_free(t_cmd *list, char *cmd)
 			tmp = ft_strjoin(path[i], "/");
 			tmp = ft_strjoin_free(tmp, args[0]);
 		}
+		printf("TEST tmp: %s\n", tmp);
+		printf("TEST args: %s\n", args[0]);
 		execve(tmp, args, g_minishell.env);
 		free(tmp);
 	}

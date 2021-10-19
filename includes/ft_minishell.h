@@ -192,5 +192,6 @@ void    cmd_unset(t_cmd *list);
 void	cmd_echo(t_cmd *list);
 void	cmd_export(t_cmd *list);
 void	cmd_execve(t_cmd *list);
+void	free_array(char **array);
 
 #endif
