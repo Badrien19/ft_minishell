@@ -3,9 +3,9 @@
 t_bool	is_there_literal_for_file(void)
 {
 	t_cmd	*current;
-	t_cmd	*file;
+	t_cmd 	*file;
 
-	current = g_minishell.list_input;
+	current = g_minishell.list_input; 
 	file = find_next_literal(1);
 	if (file == NULL)
 	{
@@ -25,8 +25,8 @@ void	parse_simple_redirection_right(void)
 		close(fd);
 	if (is_there_literal_for_file() == False)
 		return ;
-	fd = open(find_next_literal(1)->content->value,
-			O_CREAT | O_RDWR | O_TRUNC, 0644);
+	fd = open(find_next_literal(1)->content->value, O_CREAT | O_RDWR | O_TRUNC, 0644);
+	// printf("fd opened : %s\n", find_next_literal(1)->content->value); DEBUG
 	if (fd < 0)
 	{
 		parsing_error(MS_ERROR_TO_PERROR);
@@ -52,8 +52,8 @@ void	parse_double_redirection_right(void)
 		close(fd);
 	if (is_there_literal_for_file() == False)
 		return ;
-	fd = open(find_next_literal(1)->content->value,
-			O_CREAT | O_RDWR | O_APPEND);
+	fd = open(find_next_literal(1)->content->value, O_CREAT | O_RDWR | O_APPEND);
+	// printf("fd opened : %s\n", find_next_literal(1)->content->value); DEBUG
 	if (fd < 0)
 	{
 		parsing_error(MS_ERROR_TO_PERROR);
@@ -79,7 +79,8 @@ void	parse_simple_redirection_left(void)
 		close(fd);
 	if (is_there_literal_for_file() == False)
 		return ;
-	fd = open(find_next_literal(1)->content->value, O_RDONLY);
+	fd = open(find_next_literal(1)->content->value, O_RDONLY);	
+	// printf("fd opened : %s\n", find_next_literal(1)->content->value); DEBUG
 	if (fd < 0)
 	{
 		parsing_error(MS_ERROR_TO_PERROR);

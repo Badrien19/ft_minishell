@@ -1,18 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   tokens.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/19 15:26:13 by cgoncalv          #+#    #+#             */
-/*   Updated: 2021/10/19 15:26:13 by cgoncalv         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../includes/ft_minishell.h"
 
-static t_token	g_tab_token[] = {
+static	t_token			g_tab_token[] = {
 	{"|", pipeline},
 	{"<", simple_redir_left},
 	{">", simple_redir_right},
@@ -32,10 +20,10 @@ static t_token	g_tab_token[] = {
 	{0, 0},
 };
 
-t_token	*create_token(char *value, t_token_type type)
+t_token *create_token(char *value, t_token_type type)
 {
-	t_token	*token;
-
+	t_token *token;
+	
 	token = malloc(sizeof(t_token));
 	if (!(token))
 		exit(-1);
@@ -43,14 +31,15 @@ t_token	*create_token(char *value, t_token_type type)
 	token->type = type;
 	token->pipe_in = STDIN_FILENO;
 	token->pipe_out = STDOUT_FILENO;
+	//printf("New Token ! ('%s' - %i)\n", (char *)token->value, token->type);
 	return (token);
 }
 
-t_token_type	find_type(char c)
+t_token_type find_type(char c)
 {
-	size_t			i;
-	char			*str;
-	t_token_type	type;
+	size_t i;
+	char *str;
+	t_token_type type;
 
 	i = 0;
 	type = none;
