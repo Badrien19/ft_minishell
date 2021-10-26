@@ -6,15 +6,15 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:47:41 by user42            #+#    #+#             */
-/*   Updated: 2021/10/19 15:19:44 by user42           ###   ########.fr       */
+/*   Updated: 2021/10/19 15:01:48 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
-static char *get_path_pwd(char **env)
+static char **get_path_pwd(char **env)
 {
-	char    *path;
+		char	**path;
 	int		i;
 
 	i = -1;
@@ -23,7 +23,7 @@ static char *get_path_pwd(char **env)
 	{
 		if (ft_strncmp(env[i], "PWD=", 4) == 0)
 		{
-			path = ft_strdup((env[i] + 4));
+			path = ft_split((env[i] + 4), ':');
 			break ;
 		}
 	}
@@ -33,7 +33,7 @@ static char *get_path_pwd(char **env)
 
 static void execute_child(t_cmd *list)
 {
-	char	*path;
+	char	**path;
 	char	**args;
 	char	*tmp;
 	size_t	i;
@@ -41,12 +41,14 @@ static void execute_child(t_cmd *list)
 	i = -1;
 	args = ft_split(list->content->value, '/');
 	path = get_path_pwd(g_minishell.env);
-	tmp = ft_strjoin(path, "/");
-	tmp = ft_strjoin_free(tmp, args[1]);
-    free(path);
-	execve(tmp, args, g_minishell.env);
-	free(tmp);
-    free_array(args);
+	while (path[++i])
+	{
+		tmp = ft_strjoin(path[i], "/");
+		tmp = ft_strjoin_free(tmp, args[1]);
+		execve(tmp, args, g_minishell.env);
+		free(tmp);
+	}
+	free_array(path);
 	perror("minishell");
 }
 
