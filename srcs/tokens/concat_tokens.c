@@ -12,30 +12,6 @@
 
 #include "../../includes/ft_minishell.h"
 
-/* void    concat_tokens_all()
-{
-	t_list *begin;
-
-	begin = g_minishell.list_input;
-
-	while (g_minishell.list_input != NULL && g_minishell.list_input->next != NULL)
-	{
-		if (get_token_type(g_minishell.list_input->content) == single_quote
-		|| get_token_type(g_minishell.list_input->content) == double_quote)
-			g_minishell.list_input = g_minishell.list_input->next;
-		else if (get_token_type(g_minishell.list_input->content) == get_token_type(g_minishell.list_input->next->content)
-		|| (get_token_type(g_minishell.list_input->content) == variable && get_token_type(g_minishell.list_input->next->content) == literal))
-		{
-			printf("link - '%s%s'\n", g_minishell.list_input->content->value, g_minishell.list_input->next->content->value);
-			relink_nodes();
-		}
-		else
-			g_minishell.list_input = g_minishell.list_input->next;
-	}
-	g_minishell.list_input = begin;
-	printf("TEST\n");
-} */
-
 void	concat_tokens_same_type(void)
 {
 	t_cmd	*begin;
@@ -43,13 +19,19 @@ void	concat_tokens_same_type(void)
 	begin = g_minishell.list_input;
 	while (g_minishell.list_input->next != NULL)
 	{
-		if (get_token_type(g_minishell.list_input->content) == get_token_type(g_minishell.list_input->next->content)
-		&& (get_token_type(g_minishell.list_input->content) != double_quote && get_token_type(g_minishell.list_input->content) != single_quote))
+		if (get_token_type(g_minishell.list_input->content)
+			== get_token_type(g_minishell.list_input->next->content)
+			&& (get_token_type(g_minishell.list_input->content)
+				!= double_quote
+				&& get_token_type(g_minishell.list_input->content)
+				!= single_quote))
 		{
 			relink_nodes();
-			if (ft_strcmp(g_minishell.list_input->content->value, ">>") == 0)
+			if (ft_strcmp(g_minishell.list_input->content->value, ">>")
+				== 0)
 				g_minishell.list_input->content->type = double_redir_right;
-			else if (ft_strcmp(g_minishell.list_input->content->value, "<<") == 0)
+			else if (ft_strcmp(g_minishell.list_input->content->value, "<<")
+				== 0)
 				g_minishell.list_input->content->type = double_redir_left;
 		}
 		else
@@ -89,23 +71,23 @@ static char	get_last_char(void *value)
 	return (ret);
 }
 
-t_bool	concat_tokens_quotes(void)
+void	concat_tokens_quotes(void)
 {
-	t_cmd			*begin;
 	t_token_type	quote_type;
 
-	begin = g_minishell.list_input;
-	if (checking_if_quotes_even() == False)
-		return (False);
 	while (g_minishell.list_input->next)
 	{
-		if (get_token_type(g_minishell.list_input->content) == single_quote || get_token_type(g_minishell.list_input->content) == double_quote)
+		if (get_token_type(g_minishell.list_input->content) == single_quote
+			|| get_token_type(g_minishell.list_input->content) == double_quote)
 		{
 			quote_type = get_token_type(g_minishell.list_input->content);
-			while ((g_minishell.list_input->next != NULL && get_token_type(g_minishell.list_input->next->content) != quote_type) ||
-			(get_last_char(get_token_value(g_minishell.list_input->content)) == '\\' && g_minishell.list_input->next != NULL && get_token_type(g_minishell.list_input->next->content) == quote_type))
+			while ((g_minishell.list_input->next != NULL
+					&& get_token_type(g_minishell.list_input->next->content)
+					!= quote_type))
 				relink_nodes();
-			if (g_minishell.list_input->next && get_token_type(g_minishell.list_input->next->content) == quote_type)
+			if (g_minishell.list_input->next
+				&& get_token_type(g_minishell.list_input->next->content)
+				== quote_type)
 			{
 				relink_nodes();
 				if (g_minishell.list_input->next)
@@ -115,8 +97,7 @@ t_bool	concat_tokens_quotes(void)
 		else
 			g_minishell.list_input = g_minishell.list_input->next;
 	}
-	g_minishell.list_input = begin;
-	return (True);
+	g_minishell.list_input = ft_cmdfirst(g_minishell.list_input);
 }
 
 void	concat_tokens_var(void)

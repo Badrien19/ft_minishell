@@ -141,7 +141,7 @@ char				**realloc_env(int size);
 void				concat_tokens_same_type(void);
 void				concat_tokens_all(void);
 t_bool				concat_no_spaces(void);
-t_bool				concat_tokens_quotes(void);
+void				concat_tokens_quotes(void);
 void				concat_tokens_var(void);
 void				*join_two_tokens(t_token *token_1, t_token *token_2);
 void				relink_nodes(void);
