@@ -12,7 +12,7 @@
 
 #include "../../includes/ft_minishell.h"
 
-t_bool check_path(char *cmd)
+t_bool	check_path(char *cmd)
 {
 	int		i;
 	char	*path;
@@ -20,20 +20,21 @@ t_bool check_path(char *cmd)
 	char	**paths;
 
 	i = 0;
-	while (ft_strnstr(g_minishell.env[i], "PATH=", 5) == 0 && g_minishell.env[i] != NULL)
+	while (ft_strnstr(g_minishell.env[i], "PATH=", 5) == 0
+		&& g_minishell.env[i] != NULL)
 		i++;
-	if(g_minishell.env[i] != NULL)
+	if (g_minishell.env[i] != NULL)
 		paths = ft_split(g_minishell.env[i] + 5, ':');
 	i = 0;
-	while(paths[i])
+	while (paths[i])
 	{
-		if(cmd[0] != '/')
+		if (cmd[0] != '/')
 		{
 			tmp = ft_strjoin(paths[i], "/");
 			path = ft_strjoin(tmp, cmd);
 			free(tmp);
 		}
-		if(access(path, X_OK) == 0) 
+		if (access(path, X_OK) == 0) 
 			return (True);
 		i++;
 	}
