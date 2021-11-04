@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/10/19 15:00:55 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/04 11:28:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,15 @@ static int		envchr(char *value)
 	needle[len] = '\0';
 	i = -1;
 	while (g_minishell.env[++i])
-	{
 		if(!ft_strncmp(needle, g_minishell.env[i], len))
 			return(i);
-	}
 	return(0);
 }
 
-void	cmd_export(t_cmd *list)
+static void	ft_exporting(int i, int j, t_cmd *list)
 {
 	int	env_size;
-	int	i;
-	int	j;
 
-	i = 0;
-	j = -1;
-	if (!list || list->next == NULL)
-		return ;
-	list = list->next;
 	while (list && list->content->type != semicolon)
 	{
 		if(ft_strchr((char *)list->content->value, 61))
@@ -70,4 +61,22 @@ void	cmd_export(t_cmd *list)
 		}
 		list = list->next;
 	}
+}
+
+void	cmd_export(t_cmd *list)
+{
+	int	i;
+	int	pid;
+	int	j;
+
+	i = 0;
+	j = -1;
+	if (!list || list->next == NULL)
+		return ;
+	list = list->next;
+	pid = fork();
+	if (!pid)
+		ft_exporting(i, j, list);
+	else
+		waitpid(pid, NULL, 0);
 }
