@@ -5,12 +5,12 @@ Corentin :
 
 Alexandre :
 - Check execve (./) -done
--  verifier que toutes les commandes sont rediriger
+-  verifier que toutes les commandes sont rediriger -done
 
 Adrien : 
 - Régler segfault variables qui n'existent pas.
 - Gérer $?
-- changer l environement lors d'un cd (PWD)
+- changer l environement lors d'un cd (PWD) -done
 
 ?? :
 - Transformer les commandes qu'il ne faut pas gérer en cmd_instr (Une seule par bloc) -- Done
