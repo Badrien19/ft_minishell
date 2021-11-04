@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/04 12:45:01 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/04 15:43:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ void	cmd_export(t_cmd *list)
 	list = list->next;
 	pid = fork();
 	if (!pid)
+	{
 		ft_exporting(i, j, list);
+		exit(0);
+	}
 	else
 		waitpid(pid, NULL, 0);
 }

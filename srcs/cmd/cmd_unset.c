@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 09:46:55 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/04 11:22:27 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/04 15:42:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ void    cmd_unset(t_cmd *list)
 	list = list->next;
 	pid = fork();
 	if(!pid)
+	{
 		ft_unseting(list);
+		exit(0);
+	}
 	else
 		waitpid(pid, NULL, 0);
 }

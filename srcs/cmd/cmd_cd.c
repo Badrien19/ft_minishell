@@ -6,13 +6,13 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:53:10 by user42            #+#    #+#             */
-/*   Updated: 2021/11/04 15:04:56 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/04 15:42:17 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
-int		ft_int_strrchr(char *s, int c)
+static int	ft_int_strrchr(char *s, int c)
 {
 	size_t	i;
 
@@ -28,7 +28,7 @@ int		ft_int_strrchr(char *s, int c)
 	return (0);
 }
 
-void	pwd_remove(void)
+static void	pwd_remove(void)
 {
 	int		end;
 	char	*tmp;
@@ -40,12 +40,11 @@ void	pwd_remove(void)
 	
 }
 
-void	pwd_add(char *value)
+static void	pwd_add(char *value)
 {
 	char	*tmp;
 
 	tmp = g_minishell.env[envchr("PWD")];
-	printf("value_end = %c\n", value[ft_strlen(value) -1]);
 	if (tmp[ft_strlen(tmp) - 1] != '/')
 		tmp =  ft_strjoin(tmp, "/");
 	g_minishell.env[envchr("PWD")] = ft_strjoin(tmp, value);
@@ -55,23 +54,31 @@ void	pwd_add(char *value)
 void	cmd_cd(t_cmd *list)
 {
 	int		ret;
+	int		pid;
 	char	*cwd;
 
 	errno = 0;
+	pid = fork();
 	ret = chdir(list->content->value);
 	printf("\nentry -> %s\n", (char *)list->content->value);
-	if (ret == -1)
-		printf("%s : %s\n", (char*)list->content->value, strerror(errno));
-	else
+	if(!pid)
 	{
-		printf("Successfuly changed directory.\n"); // Temporaire
-		if(!ft_strcmp((char *)list->content->value, ".."))
-			pwd_remove();
+		if (ret == -1)
+			printf("%s : %s\n", (char*)list->content->value, strerror(errno));
 		else
-			pwd_add((char *)list->content->value);
-		if (errno == ERANGE)
-			printf("<error> : %s\n", strerror(errno));
-		//else
-			//free(cwd);
+		{
+			printf("Successfuly changed directory.\n"); // Temporaire
+			if(!ft_strcmp((char *)list->content->value, ".."))
+				pwd_remove();
+			else
+				pwd_add((char *)list->content->value);
+			if (errno == ERANGE)
+				printf("<error> : %s\n", strerror(errno));
+			//else
+				//free(cwd);
+		}
+		exit(0);
 	}
+	else
+		waitpid(pid, NULL, 0);
 }
