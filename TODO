@@ -17,4 +17,4 @@ Adrien :
 - Gérer les signaux (CTRL-C, CTRL-D, etc...)
 - Gérer les pipes et redirections pour les commandes non-obligatoires. (Obligation d'utiliser des dup2) -- Ongoing
     - Corriger la boucle infinie avec certaines commandes (grep test << end)
-    - Corriger l'output des cmd avec pipe (echo wow > test | cat)
+    - Corriger l'output des cmd avec pipe (echo wow > test | cat) --done
