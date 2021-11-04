@@ -12,10 +12,17 @@
 
 #include "../../includes/ft_minishell.h"
 
+void	sigstp_handler(int sig)
+{
+	printf("SIGSTP_PRESSED\n");
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char	*user_input;
 	
+	
+	signal(SIGTSTP, &sigstp_handler);
 	g_minishell.list_input = 0;
 	g_minishell.env = env;
 	while (True)
