@@ -35,9 +35,10 @@ void	detect_cmd_type(void)
 	t_bool	already_cmd;
 
 	already_cmd = False;
-	while (g_minishell.list_input->next)
+	while (g_minishell.list_input)
 	{
-		if ((!ft_strcmp(g_minishell.list_input->content->value, "echo")
+		if (already_cmd == False
+				&& (!ft_strcmp(g_minishell.list_input->content->value, "echo")
 				|| !ft_strcmp(g_minishell.list_input->content->value, "cd")
 				|| !ft_strcmp(g_minishell.list_input->content->value, "pwd")
 				|| !ft_strcmp(g_minishell.list_input->content->value, "export")
@@ -45,8 +46,7 @@ void	detect_cmd_type(void)
 				|| !ft_strcmp(g_minishell.list_input->content->value, "env")
 				|| !ft_strcmp(g_minishell.list_input->content->value, "exit")
 				|| !ft_strncmp(g_minishell.list_input->content->value, "./", 2)
-				|| check_path(g_minishell.list_input->content->value) == True)
-			&& already_cmd == False)
+				|| check_path(g_minishell.list_input->content->value) == True))
 		{
 			g_minishell.list_input->content->type = cmd_instr;
 			already_cmd = True;
@@ -54,7 +54,10 @@ void	detect_cmd_type(void)
 		if (get_token_type(g_minishell.list_input->content) == pipeline
 			|| get_token_type(g_minishell.list_input->content) == semicolon)
 			already_cmd = False;
-		g_minishell.list_input = g_minishell.list_input->next;
+		if (g_minishell.list_input->next)
+			g_minishell.list_input = g_minishell.list_input->next;
+		else
+			break;
 	}
 	g_minishell.list_input = ft_cmdfirst(g_minishell.list_input);
 }
@@ -79,7 +82,7 @@ void	pre_parsing(char *user_input)
 	detect_cmd_type();
 	if (checking_if_quotes_even() == True)
 		concat_tokens_quotes();
-	else 
+	else
 		g_minishell.parsing_error = True;
 }
 
