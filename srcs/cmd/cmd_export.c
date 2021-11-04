@@ -6,13 +6,13 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/04 11:28:24 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/04 12:45:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
-static int		envchr(char *value)
+int		envchr(char *value)
 {
 	int		len;
 	int		i;
@@ -30,15 +30,17 @@ static int		envchr(char *value)
 	needle[len] = '\0';
 	i = -1;
 	while (g_minishell.env[++i])
+	{
 		if(!ft_strncmp(needle, g_minishell.env[i], len))
 			return(i);
+	}
 	return(0);
 }
 
 static void	ft_exporting(int i, int j, t_cmd *list)
 {
 	int	env_size;
-
+	
 	while (list && list->content->type != semicolon)
 	{
 		if(ft_strchr((char *)list->content->value, 61))

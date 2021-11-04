@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:00:43 by user42            #+#    #+#              #
-#    Updated: 2021/10/19 14:54:36 by user42           ###   ########.fr        #
+#    Updated: 2021/11/04 11:53:16 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC		=	gcc
 #CFLAGS =	-Wall -Wextra -Werror
 SRC		=	./srcs/others/minishell.c ./srcs/others/free.c ./srcs/others/errors.c ./srcs/others/debug.c \
 			./srcs/cmd/cmd_echo.c ./srcs/cmd/cmd_unset.c ./srcs/cmd/hub.c ./srcs/cmd/cmd_export.c ./srcs/cmd/cmd_execve.c \
-			./srcs/cmd/cmd_execute.c ./srcs/cmd/cmd_pwd.c ./srcs/cmd/cmd_c.c \
+			./srcs/cmd/cmd_execute.c ./srcs/cmd/cmd_pwd.c ./srcs/cmd/cmd_cd.c \
 			./srcs/cmd_struct/ft_cmdadd_back.c ./srcs/cmd_struct/ft_cmdadd_front.c ./srcs/cmd_struct/ft_cmdlast.c ./srcs/cmd_struct/ft_cmdnew.c ./srcs/cmd_struct/ft_cmdsize.c ./srcs/cmd_struct/ft_cmdfirst.c \
 			./srcs/env/env.c \
 			./srcs/parsing/checker.c ./srcs/parsing/parser.c ./srcs/parsing/apply.c ./srcs/parsing/parse_redirections.c ./srcs/parsing/search_in_parsing.c \

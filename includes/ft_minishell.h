@@ -133,6 +133,7 @@ void				print_env(void);
 char				*get_value_env(char *name);
 int					add_env(char *name, char *value);
 char				**realloc_env(int size);
+int					envchr(char *value);
 
 /*
 ** concat_tokens
