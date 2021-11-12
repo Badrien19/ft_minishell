@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 11:28:30 by cgoncalv          #+#    #+#             */
-/*   Updated: 2021/09/30 16:07:54 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/11/12 09:28:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int				ft_isalpha(int c);
 int				ft_isascii(int c);
 t_bool			ft_isdigit(int c);
 int				ft_isprint(int c);
+int				ft_isstralpha(char *str);
 int				ft_memcmp(const void *s1, const void *s2, size_t n);
 int				ft_toupper(int c);
 int				ft_tolower(int c);

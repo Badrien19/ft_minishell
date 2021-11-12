@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:53:10 by user42            #+#    #+#             */
-/*   Updated: 2021/11/04 15:42:17 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/04 19:39:30 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static void	pwd_remove(void)
 	end = ft_int_strrchr(tmp, '/');
 	g_minishell.env[envchr("PWD") + 1] = ft_strdup(tmp - end);
 	printf("pwd = %s\n", g_minishell.env[envchr("PWD") + 1]);
-	
 }
 
 static void	pwd_add(char *value)
@@ -54,31 +53,24 @@ static void	pwd_add(char *value)
 void	cmd_cd(t_cmd *list)
 {
 	int		ret;
-	int		pid;
 	char	*cwd;
 
 	errno = 0;
-	pid = fork();
 	ret = chdir(list->content->value);
-	printf("\nentry -> %s\n", (char *)list->content->value);
-	if(!pid)
-	{
-		if (ret == -1)
-			printf("%s : %s\n", (char*)list->content->value, strerror(errno));
-		else
-		{
-			printf("Successfuly changed directory.\n"); // Temporaire
-			if(!ft_strcmp((char *)list->content->value, ".."))
-				pwd_remove();
-			else
-				pwd_add((char *)list->content->value);
-			if (errno == ERANGE)
-				printf("<error> : %s\n", strerror(errno));
-			//else
-				//free(cwd);
-		}
-		exit(0);
-	}
+	//printf("\nentry -> %s\n", (char *)list->content->value);
+	if (ret == -1)
+		printf("%s : %s\n", (char*)list->content->value, strerror(errno));
 	else
-		waitpid(pid, NULL, 0);
+	{
+		printf("Successfuly changed directory.\n"); // Temporaire
+		if(!ft_strcmp((char *)list->content->value, ".."))
+			pwd_remove();
+		else
+			pwd_add((char *)list->content->value);
+		if (errno == ERANGE)
+			printf("<error> : %s\n", strerror(errno));
+		//else
+			//free(cwd);
+	}
+	exit(0);
 }

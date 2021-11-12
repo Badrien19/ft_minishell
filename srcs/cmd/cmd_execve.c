@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/10/19 15:21:19 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/04 16:33:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	cmd_execve(t_cmd *list)
 	int		out;
 	char	*cmd;
 
+	//printf("\nentry -> %s\n", list->content->value);
 	cmd = ft_strdup(list->content->value);
 	in = list->content->pipe_in;
 	out = list->content->pipe_out;
@@ -92,6 +93,7 @@ void	cmd_execve(t_cmd *list)
 	{
 		if(in != STDIN_FILENO)
 		{
+			//printf("TEST1\n");
 			dup2(in, STDIN_FILENO);
 			close(in);
 		}
@@ -105,4 +107,5 @@ void	cmd_execve(t_cmd *list)
 	}
 	else
 		waitpid(pid, NULL, 0);
+	//printf("TESTfin\n");
 }
