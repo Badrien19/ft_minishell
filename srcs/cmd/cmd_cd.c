@@ -6,11 +6,25 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:53:10 by user42            #+#    #+#             */
-/*   Updated: 2021/11/04 19:39:30 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/12 10:32:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
+
+static char	*ft_strcut(char *str, size_t size)
+{
+	char *array;
+
+	array = ft_strdup(str);
+	if (!(str = malloc(sizeof(char) * size + 1)))
+		return (NULL);
+	ft_memcpy(str, array, size + 1);
+	str[size] = '\0';
+	free(array);
+	array = NULL;
+	return (str);
+}
 
 static int	ft_int_strrchr(char *s, int c)
 {
@@ -33,10 +47,13 @@ static void	pwd_remove(void)
 	int		end;
 	char	*tmp;
 
-	tmp = g_minishell.env[envchr("PWD") + 1];
+	tmp = g_minishell.env[envchr("PWD")];
+	//printf("tmp 1= %s\n", tmp);
 	end = ft_int_strrchr(tmp, '/');
-	g_minishell.env[envchr("PWD") + 1] = ft_strdup(tmp - end);
-	printf("pwd = %s\n", g_minishell.env[envchr("PWD") + 1]);
+	tmp = ft_strcut(tmp, end);
+	//printf("tmp 2= %s\n", tmp);
+	g_minishell.env[envchr("PWD")] = ft_strdup(tmp);
+	//printf("pwd = %s\n", g_minishell.env[envchr("PWD")]);
 }
 
 static void	pwd_add(char *value)
@@ -44,10 +61,12 @@ static void	pwd_add(char *value)
 	char	*tmp;
 
 	tmp = g_minishell.env[envchr("PWD")];
-	if (tmp[ft_strlen(tmp) - 1] != '/')
-		tmp =  ft_strjoin(tmp, "/");
+	//printf("pwd = %s\n", tmp);
+	tmp =  ft_strjoin(tmp, "/");
+	if (value[ft_strlen(value) - 1] == '/')
+		value = ft_strcut(value, (ft_strlen(value) - 1));
 	g_minishell.env[envchr("PWD")] = ft_strjoin(tmp, value);
-	printf("pwd = %s\n", g_minishell.env[envchr("PWD")]);
+	//printf("pwd = %s\n", g_minishell.env[envchr("PWD")]);
 }
 
 void	cmd_cd(t_cmd *list)
@@ -62,7 +81,7 @@ void	cmd_cd(t_cmd *list)
 		printf("%s : %s\n", (char*)list->content->value, strerror(errno));
 	else
 	{
-		printf("Successfuly changed directory.\n"); // Temporaire
+		//printf("Successfuly changed directory.\n"); // Temporaire
 		if(!ft_strcmp((char *)list->content->value, ".."))
 			pwd_remove();
 		else
@@ -72,5 +91,4 @@ void	cmd_cd(t_cmd *list)
 		//else
 			//free(cwd);
 	}
-	exit(0);
 }

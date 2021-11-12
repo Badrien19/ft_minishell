@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 09:46:55 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/12 09:40:26 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/12 10:02:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,8 @@ void    cmd_unset(t_cmd *list)
 	list = list->next;
 	if (!ft_isalpha(((char *)list->content->value)[0]))
 	{
-		write(1, "minishell: unset: ", 18);
-		write(1, list->content->value, ft_strlen((char *)list->content->value));
-		write(1, " not a valid identifier\n", 24);
+		printf("minishell: unset: %s not a valid identifier\n", (char *)list->content->value);
 		return ;
 	}
-	pid = fork();
-	if(!pid)
-	{
-		ft_unseting(list);
-		exit(0);
-	}
-	else
-		waitpid(pid, NULL, 0);
+	ft_unseting(list);
 }
