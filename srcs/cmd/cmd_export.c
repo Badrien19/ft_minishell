@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/12 09:37:29 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/12 09:40:17 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	cmd_export(t_cmd *list)
 		write(1, "minishell: unset: ", 18);
 		write(1, list->content->value, ft_strlen((char *)list->content->value));
 		write(1, " not a valid identifier\n", 24);
+		return ;
 	}
 	pid = fork();
 	if (!pid)
