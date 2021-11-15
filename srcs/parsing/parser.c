@@ -80,7 +80,7 @@ void	pre_parsing(char *user_input)
 	concat_tokens_same_type();
 	concat_tokens_var();
 	detect_cmd_type();
-	if (checking_if_quotes_even() == True)
+	if (new_str_len(user_input) > 0)
 		concat_tokens_quotes();
 	else
 		g_minishell.parsing_error = True;

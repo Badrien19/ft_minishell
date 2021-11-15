@@ -124,6 +124,7 @@ t_cmd				*find_next_cmd(void);
 */
 
 int					remove_quote_dollar(t_cmd *list);
+int					new_str_len(char *str);
 
 /*
 **	env.c
