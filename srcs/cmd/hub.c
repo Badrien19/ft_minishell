@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/11/04 16:38:44 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/15 15:56:15 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	ft_switch(t_cmd *list)
 	//printf("\nentry -> %i\n", list->content->type);
 	while(list->content->type == space && list->next)
 		list = list->next;
+	printf("Before switch\n");
+	debug();
 	if (g_minishell.parsing_error == False && list && list->content->type == cmd_instr)
 	{
 		if (!ft_strcmp(list->content->value, "exit"))
@@ -47,9 +49,11 @@ void		cmd_hub(void)
 	t_cmd	*list;
 	
 	list = g_minishell.list_input;
-	remove_quote_dollar(list);
 	concat_tokens_same_type();
 	detect_cmd_type();
+	remove_quote_dollar(list);
+	printf("after remove_quote_dollar\n");
+	debug();
 	ft_switch(list);
 	while (list != NULL)
 	{
