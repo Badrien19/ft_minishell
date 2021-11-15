@@ -6,7 +6,7 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/11/15 15:56:15 by badrien          ###   ########.fr       */
+/*   Updated: 2021/11/15 16:02:10 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static void	ft_switch(t_cmd *list)
 	//printf("\nentry -> %i\n", list->content->type);
 	while(list->content->type == space && list->next)
 		list = list->next;
-	printf("Before switch\n");
-	debug();
 	if (g_minishell.parsing_error == False && list && list->content->type == cmd_instr)
 	{
 		if (!ft_strcmp(list->content->value, "exit"))
@@ -40,6 +38,8 @@ static void	ft_switch(t_cmd *list)
 		else
 			cmd_execve(list);
 	}
+	else if(list->content->type == none)
+		return ;
 	else
 		perror("minshell:");
 }
@@ -52,8 +52,6 @@ void		cmd_hub(void)
 	concat_tokens_same_type();
 	detect_cmd_type();
 	remove_quote_dollar(list);
-	printf("after remove_quote_dollar\n");
-	debug();
 	ft_switch(list);
 	while (list != NULL)
 	{
