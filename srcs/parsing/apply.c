@@ -6,7 +6,7 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/10/05 14:06:21 by badrien          ###   ########.fr       */
+/*   Updated: 2021/11/15 15:11:56 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char *remove_quote(char *str, int len)
 	return (new_str);
 }
 
-char *apply_quotes(char *str) // OK
+char *apply_quotes(char *str)
 {
 	int i;
 	int len;
@@ -193,14 +193,18 @@ int remove_quote_dollar(t_cmd *list)
 		}
 		if(list->content->type == variable) // OK
 		{
-			list->content->value = get_value_env(list->content->value + 1);
+			list->content->value = apply_dollar(list->content->value);
+			printf("value = %s\n",(char *)list->content->value);
 			list->content->type = literal;
 			if(list->content->value == NULL)
 				list->content->type = none;
+			//debug();
 		}
 		//free(value);
 		list = list->next;
 	}
+	debug();
+	//g_minishell.list_input = ft_cmdfirst(g_minishell.list_input);
 	return (0);
 	//if(list->content->type=variable)
 }
