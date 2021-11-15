@@ -98,3 +98,19 @@ t_cmd	*find_next_literal(int range)
 	g_minishell.list_input = current;
 	return (ret);
 }
+
+t_bool	is_there_literal_for_file(void)
+{
+	t_cmd	*current;
+	t_cmd	*file;
+
+	current = g_minishell.list_input;
+	file = find_next_literal(1);
+	if (file == NULL)
+	{
+		parsing_error(MS_ERROR_PARSE);
+		return (False);
+	}
+	g_minishell.list_input = current;
+	return (True);
+}

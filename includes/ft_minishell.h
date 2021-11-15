@@ -26,6 +26,7 @@
 # include <errno.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <signal.h>
 
 # define MS_ERROR_PARSE 1
 # define MS_ERROR_NO_CMD 4

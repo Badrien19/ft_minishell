@@ -12,22 +12,6 @@
 
 #include "../../includes/ft_minishell.h"
 
-t_bool	is_there_literal_for_file(void)
-{
-	t_cmd	*current;
-	t_cmd	*file;
-
-	current = g_minishell.list_input;
-	file = find_next_literal(1);
-	if (file == NULL)
-	{
-		parsing_error(MS_ERROR_PARSE);
-		return (False);
-	}
-	g_minishell.list_input = current;
-	return (True);
-}
-
 void	parse_simple_redirection_right(void)
 {
 	int	fd;
@@ -158,12 +142,12 @@ void	parse_pipe(void)
 		if (find_prev_cmd())
 			find_prev_cmd()->content->pipe_out = fd[1];
 		else
-			return ; // Erreur
+			return ;
 		g_minishell.list_input = current->next;
 		if (find_next_cmd())
 			find_next_cmd()->content->pipe_in = fd[0];
 		else
-			return ; // Erreur
+			return ;
 	}
 	else
 	{
@@ -173,10 +157,3 @@ void	parse_pipe(void)
 	}
 	g_minishell.list_input = current;
 }
-
-/* Erreurs possibles :
-** cmd > > file1 : parse error
-** cmd > file1 file2 : too many arguments
-** cmd1 > cmd2 : Fonctionne (le fichier cmd2 est créé)
-**
-*/
