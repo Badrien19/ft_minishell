@@ -30,6 +30,24 @@ void	tokenizer(char *input)
 	ft_cmdadd_back(&g_minishell.list_input, new);
 }
 
+t_bool	iterate_cmd(void *str)
+{
+	char	*c_str;
+
+	c_str = (char *)str;
+	if (!ft_strcmp(c_str, "echo")
+		|| !ft_strcmp(c_str, "cd")
+		|| !ft_strcmp(c_str, "pwd")
+		|| !ft_strcmp(c_str, "export")
+		|| !ft_strcmp(c_str, "unset")
+		|| !ft_strcmp(c_str, "env")
+		|| !ft_strcmp(c_str, "exit")
+		|| !ft_strncmp(c_str, "./", 2))
+		return (True);
+	else
+		return (False);
+}
+
 void	detect_cmd_type(void)
 {
 	t_bool	already_cmd;
@@ -38,14 +56,7 @@ void	detect_cmd_type(void)
 	while (g_minishell.list_input)
 	{
 		if (already_cmd == False
-			&& (!ft_strcmp(g_minishell.list_input->content->value, "echo")
-				|| !ft_strcmp(g_minishell.list_input->content->value, "cd")
-				|| !ft_strcmp(g_minishell.list_input->content->value, "pwd")
-				|| !ft_strcmp(g_minishell.list_input->content->value, "export")
-				|| !ft_strcmp(g_minishell.list_input->content->value, "unset")
-				|| !ft_strcmp(g_minishell.list_input->content->value, "env")
-				|| !ft_strcmp(g_minishell.list_input->content->value, "exit")
-				|| !ft_strncmp(g_minishell.list_input->content->value, "./", 2)
+			&& (iterate_cmd(g_minishell.list_input->content->value) == True
 				|| check_path(g_minishell.list_input->content->value) == True))
 		{
 			g_minishell.list_input->content->type = cmd_instr;
