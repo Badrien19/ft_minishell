@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/16 16:55:01 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/16 16:59:48 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	ft_exporting(int i, int j, t_cmd *list)
 			s = 0;
 			if (envchr((char *)list->content->value) == 0)
 			{
-				while (g_minishell.env[size])
+				while (g_minishell.env[s])
 					s++;
 				s--;
 				g_minishell.env = realloc_env(s + 2);
