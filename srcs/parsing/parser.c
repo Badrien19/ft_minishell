@@ -38,7 +38,7 @@ void	detect_cmd_type(void)
 	while (g_minishell.list_input)
 	{
 		if (already_cmd == False
-				&& (!ft_strcmp(g_minishell.list_input->content->value, "echo")
+			&& (!ft_strcmp(g_minishell.list_input->content->value, "echo")
 				|| !ft_strcmp(g_minishell.list_input->content->value, "cd")
 				|| !ft_strcmp(g_minishell.list_input->content->value, "pwd")
 				|| !ft_strcmp(g_minishell.list_input->content->value, "export")
@@ -57,7 +57,7 @@ void	detect_cmd_type(void)
 		if (g_minishell.list_input->next)
 			g_minishell.list_input = g_minishell.list_input->next;
 		else
-			break;
+			break ;
 	}
 	g_minishell.list_input = ft_cmdfirst(g_minishell.list_input);
 }
@@ -83,7 +83,10 @@ void	pre_parsing(char *user_input)
 	if (new_str_len(user_input) > 0)
 		concat_tokens_quotes();
 	else
+	{
 		g_minishell.parsing_error = True;
+		parsing_error(MS_ERROR_INVALID_QUOTE);
+	}
 }
 
 void	parsing(char *user_input)

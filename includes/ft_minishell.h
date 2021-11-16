@@ -29,8 +29,10 @@
 # include <signal.h>
 
 # define MS_ERROR_PARSE 1
-# define MS_ERROR_NO_CMD 4
+# define MS_ERROR_TOO_MANY_ARG 2
 # define MS_ERROR_TO_PERROR 3
+# define MS_ERROR_NO_CMD 4
+# define MS_ERROR_INVALID_QUOTE 5
 
 typedef enum e_token_type
 {

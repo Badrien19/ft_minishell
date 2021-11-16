@@ -4,13 +4,13 @@ Corentin :
 - Corriger le cas où cmd > file1 file2 : Écrire dans file1 et pas dans file2 (file 2 reste un simple literal) -- Done
 
 Alexandre :
-- Check execve (./) - Done
--  verifier que toutes les commandes sont rediriger - Done
+- Check execve (./) -- Done
+- Vérifier que toutes les commandes sont redirigées -- Done
 
 Adrien : 
-- Régler segfault variables qui n'existent pas. --done
-- Gérer $? --ongoing
-- changer l environement lors d'un cd (PWD) -done
+- Régler segfault variables qui n'existent pas -- Done
+- Gérer $? -- Ongoing
+- changer l'environement lors d'un cd (PWD) -- Done
 
 ?? :
 - Transformer les commandes qu'il ne faut pas gérer en cmd_instr (Une seule par bloc) -- Done
@@ -21,5 +21,3 @@ Adrien :
 - Gérer les pipes et redirections pour les commandes non-obligatoires. (Obligation d'utiliser des dup2) -- Ongoing
     - Corriger la boucle infinie avec certaines commandes (grep test << end)
     - Corriger l'output des cmd avec pipe (echo wow > test | cat) -- Done
-
-- Attention ! Gérer les quotes impair.
