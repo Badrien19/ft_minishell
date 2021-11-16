@@ -21,12 +21,12 @@ void	tokenizer(char *input)
 
 	value = ft_strdup(input);
 	if (!value)
-		exit(-1);
+		exit(EXIT_FAILURE);
 	type = find_type(value[0]);
 	token = create_token(value, type);
 	new = ft_cmdnew(token);
 	if (!new)
-		exit (-1);
+		exit (EXIT_FAILURE);
 	ft_cmdadd_back(&g_minishell.list_input, new);
 }
 
