@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:53:10 by user42            #+#    #+#             */
-/*   Updated: 2021/11/12 10:32:35 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/16 13:51:17 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 static char	*ft_strcut(char *str, size_t size)
 {
-	char *array;
+	char	*array;
 
 	array = ft_strdup(str);
-	if (!(str = malloc(sizeof(char) * size + 1)))
+	str = malloc(sizeof(char) * size + 1);
+	if (!str)
 		return (NULL);
 	ft_memcpy(str, array, size + 1);
 	str[size] = '\0';
@@ -48,12 +49,9 @@ static void	pwd_remove(void)
 	char	*tmp;
 
 	tmp = g_minishell.env[envchr("PWD")];
-	//printf("tmp 1= %s\n", tmp);
 	end = ft_int_strrchr(tmp, '/');
 	tmp = ft_strcut(tmp, end);
-	//printf("tmp 2= %s\n", tmp);
 	g_minishell.env[envchr("PWD")] = ft_strdup(tmp);
-	//printf("pwd = %s\n", g_minishell.env[envchr("PWD")]);
 }
 
 static void	pwd_add(char *value)
@@ -61,12 +59,10 @@ static void	pwd_add(char *value)
 	char	*tmp;
 
 	tmp = g_minishell.env[envchr("PWD")];
-	//printf("pwd = %s\n", tmp);
-	tmp =  ft_strjoin(tmp, "/");
+	tmp = ft_strjoin(tmp, "/");
 	if (value[ft_strlen(value) - 1] == '/')
 		value = ft_strcut(value, (ft_strlen(value) - 1));
 	g_minishell.env[envchr("PWD")] = ft_strjoin(tmp, value);
-	//printf("pwd = %s\n", g_minishell.env[envchr("PWD")]);
 }
 
 void	cmd_cd(t_cmd *list)
@@ -76,19 +72,15 @@ void	cmd_cd(t_cmd *list)
 
 	errno = 0;
 	ret = chdir(list->content->value);
-	//printf("\nentry -> %s\n", (char *)list->content->value);
 	if (ret == -1)
-		printf("%s : %s\n", (char*)list->content->value, strerror(errno));
+		printf("%s : %s\n", (char *)list->content->value, strerror(errno));
 	else
 	{
-		//printf("Successfuly changed directory.\n"); // Temporaire
-		if(!ft_strcmp((char *)list->content->value, ".."))
+		if (!ft_strcmp((char *)list->content->value, ".."))
 			pwd_remove();
 		else
 			pwd_add((char *)list->content->value);
 		if (errno == ERANGE)
 			printf("<error> : %s\n", strerror(errno));
-		//else
-			//free(cwd);
 	}
 }

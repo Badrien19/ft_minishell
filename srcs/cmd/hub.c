@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/11/15 16:02:10 by badrien          ###   ########.fr       */
+/*   Updated: 2021/11/16 14:30:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 static void	ft_switch(t_cmd *list)
 {
-	//printf("\nentry -> %i\n", list->content->type);
-	while(list->content->type == space && list->next)
-		list = list->next;
-	if (g_minishell.parsing_error == False && list && list->content->type == cmd_instr)
+	if (g_minishell.parsing_error == False && list && TYPE == cmd_instr)
 	{
 		if (!ft_strcmp(list->content->value, "exit"))
 			error("Exiting minishell...\n");
@@ -38,26 +35,30 @@ static void	ft_switch(t_cmd *list)
 		else
 			cmd_execve(list);
 	}
-	else if(list->content->type == none)
+	else if (list->content->type == none)
 		return ;
 	else
 		perror("minshell:");
 }
 
-void		cmd_hub(void)
+void	cmd_hub(void)
 {
 	t_cmd	*list;
-	
+
 	list = g_minishell.list_input;
 	concat_tokens_same_type();
 	detect_cmd_type();
 	remove_quote_dollar(list);
+	while (list->content->type == space && list->next)
+		list = list->next;
 	ft_switch(list);
 	while (list != NULL)
 	{
-		if (list->content->type == semicolon || list->content->type == pipeline) 
+		if (list->content->type == semicolon || list->content->type == pipeline)
 		{
 			while (list->next && list->content->type != cmd_instr)
+				list = list->next;
+			while (list->content->type == space && list->next)
 				list = list->next;
 			ft_switch(list);
 		}

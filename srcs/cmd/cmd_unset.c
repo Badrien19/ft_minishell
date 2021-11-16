@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 09:46:55 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/12 10:02:40 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/16 14:26:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,33 @@
 
 static void	ft_unseting(t_cmd *list)
 {
-	int     i;
+	int		i;
 	int		env_size;
 	int		word_size;
-	
+
 	i = -1;
-	while(g_minishell.env[++i])
+	while (g_minishell.env[++i])
+	{
+		env_size = 0;
+		while (g_minishell.env[env_size])
+			env_size++;
+		env_size--;
+		word_size = ft_strlen(list->content->value);
+		if (!ft_strncmp(list->content->value, g_minishell.env[i], word_size))
 		{
-			env_size = 0;
-			while (g_minishell.env[env_size])
-				env_size++;
+			g_minishell.env[i] = g_minishell.env[env_size];
 			env_size--;
-			word_size = ft_strlen(list->content->value);
-			if (!ft_strncmp(list->content->value, g_minishell.env[i], word_size))
-			{
-				//printf("i = %d env_size = %d\n", i, env_size);
-				g_minishell.env[i] = g_minishell.env[env_size];
-				env_size--;
-				g_minishell.env = realloc_env(env_size);
-				if (!list->next || list->next->content->type == semicolon)
-					return ;
-				list = list->next;
-			}
+			g_minishell.env = realloc_env(env_size);
+			if (!list->next || list->next->content->type == semicolon)
+				return ;
+			list = list->next;
 		}
+	}
 }
 
-void    cmd_unset(t_cmd *list)
+void	cmd_unset(t_cmd *list)
 {
-	int     i;
+	int		i;
 	pid_t	pid;
 	int		env_size;
 	int		word_size;
@@ -49,9 +48,9 @@ void    cmd_unset(t_cmd *list)
 	if (!list || list->next == NULL)
 		return ;
 	list = list->next;
-	if (!ft_isalpha(((char *)list->content->value)[0]))
+	if (!ft_isalpha(((char *)VALUE)[0]))
 	{
-		printf("minishell: unset: %s not a valid identifier\n", (char *)list->content->value);
+		printf("minishell: unset: %s not a valid identifier\n", (char *)VALUE);
 		return ;
 	}
 	ft_unseting(list);

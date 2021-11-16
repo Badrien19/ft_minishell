@@ -6,15 +6,15 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:47:41 by user42            #+#    #+#             */
-/*   Updated: 2021/10/19 15:19:44 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/16 14:02:30 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
-static char *get_path_pwd(char **env)
+static char	*get_path_pwd(char **env)
 {
-	char    *path;
+	char	*path;
 	int		i;
 
 	i = -1;
@@ -28,46 +28,44 @@ static char *get_path_pwd(char **env)
 		}
 	}
 	return (path);
-	
 }
 
-static void execute_child(t_cmd *list)
+static void	execute_child(t_cmd *list)
 {
 	char	*path;
 	char	**args;
 	char	*tmp;
 	size_t	i;
-	
+
 	i = -1;
 	args = ft_split(list->content->value, '/');
 	path = get_path_pwd(g_minishell.env);
 	tmp = ft_strjoin(path, "/");
 	tmp = ft_strjoin_free(tmp, args[1]);
-    free(path);
+	free(path);
 	execve(tmp, args, g_minishell.env);
 	free(tmp);
-    free_array(args);
+	free_array(args);
 	perror("minishell");
 }
 
-void cmd_execute(t_cmd *list)
+void	cmd_execute(t_cmd *list)
 {
-
 	int		pid;
 	int		in;
 	int		out;
-	
+
 	pid = fork();
 	in = list->content->pipe_in;
 	out = list->content->pipe_out;
-	if(!pid)
+	if (!pid)
 	{
-		if(in != STDIN_FILENO)
+		if (in != STDIN_FILENO)
 		{
 			dup2(in, STDIN_FILENO);
 			close(in);
 		}
-		if(out != STDOUT_FILENO)
+		if (out != STDOUT_FILENO)
 		{
 			dup2(out, STDOUT_FILENO);
 			close(out);

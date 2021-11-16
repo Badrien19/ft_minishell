@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/04 16:33:09 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/16 14:09:44 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	**get_path(char **env)
 	}
 	return (path);
 }
- 
+
 void	free_array(char **array)
 {
 	int		i;
@@ -67,37 +67,21 @@ void	ft_exec_free(t_cmd *list, char *cmd)
 	parsing_error(4);
 }
 
-void	cmd_execve(t_cmd *list)
+void	ft_loop_execve(t_cmd *list, int in, int out, char *cmd)
 {
 	pid_t	pid;
-	int		in;
-	int		out;
-	char	*cmd;
 
-	//printf("\nentry -> %s\n", list->content->value);
-	cmd = ft_strdup(list->content->value);
-	in = list->content->pipe_in;
-	out = list->content->pipe_out;
-	while (list->next && (list->next->content->type == literal ||
-	list->next->content->type == variable ||
-	list->next->content->type == single_quote ||
-	list->next->content->type == double_quote || list->next->content->type == space))
-	{
-		cmd = ft_strjoin_free(cmd, list->next->content->value);
-		list = list->next;
-	}
 	pid = fork();
 	if (pid == -1)
 		error("minishell: Failed to create a fork\n");
 	if (!pid)
 	{
-		if(in != STDIN_FILENO)
+		if (in != STDIN_FILENO)
 		{
-			//printf("TEST1\n");
 			dup2(in, STDIN_FILENO);
 			close(in);
 		}
-		if(out != STDOUT_FILENO)
+		if (out != STDOUT_FILENO)
 		{
 			dup2(out, STDOUT_FILENO);
 			close(out);
@@ -107,5 +91,25 @@ void	cmd_execve(t_cmd *list)
 	}
 	else
 		waitpid(pid, NULL, 0);
-	//printf("TESTfin\n");
+}
+
+void	cmd_execve(t_cmd *list)
+{
+	int		in;
+	int		out;
+	char	*cmd;
+
+	cmd = ft_strdup(list->content->value);
+	in = list->content->pipe_in;
+	out = list->content->pipe_out;
+	while (list->next && (list->next->content->type == literal
+			|| list->next->content->type == variable
+			|| list->next->content->type == single_quote
+			|| list->next->content->type == double_quote
+			|| list->next->content->type == space))
+	{
+		cmd = ft_strjoin_free(cmd, list->next->content->value);
+		list = list->next;
+	}
+	ft_loop_execve(list, in, out, cmd);
 }

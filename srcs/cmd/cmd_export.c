@@ -6,13 +6,13 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/12 10:02:53 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/16 14:18:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
-int		envchr(char *value)
+int	envchr(char *value)
 {
 	int		len;
 	int		i;
@@ -23,7 +23,7 @@ int		envchr(char *value)
 	while (value[len] && value[len] != '=')
 		len++;
 	needle = malloc(sizeof(char *) * len);
-	if(!needle)
+	if (!needle)
 		error("Malloc error");
 	while (++i < len)
 		needle[i] = value[i];
@@ -31,34 +31,34 @@ int		envchr(char *value)
 	i = -1;
 	while (g_minishell.env[++i])
 	{
-		if(!ft_strncmp(needle, g_minishell.env[i], len))
-			return(i);
+		if (!ft_strncmp(needle, g_minishell.env[i], len))
+			return (i);
 	}
-	return(0);
+	return (0);
 }
 
 static void	ft_exporting(int i, int j, t_cmd *list)
 {
 	int	env_size;
-	
+
 	while (list && list->content->type != semicolon)
 	{
-		if(ft_strchr((char *)list->content->value, 61))
+		if (ft_strchr((char *)VALUE, 61))
 		{
 			env_size = 0;
-			if (envchr((char *)list->content->value) == 0)
+			if (envchr((char *)VALUE) == 0)
 			{
 				while (g_minishell.env[env_size])
 					env_size++;
 				env_size--;
 				g_minishell.env = realloc_env(env_size + 2);
-				g_minishell.env[env_size + 1] = ft_strdup((char *) list->content->value);
+				g_minishell.env[env_size + 1] = ft_strdup((char *) VALUE);
 				g_minishell.env[env_size + 2] = NULL;
 			}
 			else
 			{
-				env_size = envchr((char *)list->content->value);
-				g_minishell.env[env_size] = ft_strdup((char *) list->content->value);
+				env_size = envchr((char *)VALUE);
+				g_minishell.env[env_size] = ft_strdup((char *) VALUE);
 			}
 		}
 		list = list->next;
@@ -75,9 +75,9 @@ void	cmd_export(t_cmd *list)
 	if (!list || list->next == NULL)
 		return ;
 	list = list->next;
-	if (!ft_isalpha(((char *)list->content->value)[0]))
+	if (!ft_isalpha(((char *)VALUE)[0]))
 	{
-		printf("minishell: export: %s not a valid identifier\n", (char *)list->content->value);
+		printf("minishell: export: %s not a valid identifier\n", (char *)VALUE);
 		return ;
 	}
 	ft_exporting(i, j, list);
