@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/16 14:18:00 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/16 16:55:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,27 @@ int	envchr(char *value)
 
 static void	ft_exporting(int i, int j, t_cmd *list)
 {
-	int	env_size;
+	int	s;
 
 	while (list && list->content->type != semicolon)
 	{
-		if (ft_strchr((char *)VALUE, 61))
+		if (ft_strchr((char *)list->content->value, 61))
 		{
-			env_size = 0;
-			if (envchr((char *)VALUE) == 0)
+			s = 0;
+			if (envchr((char *)list->content->value) == 0)
 			{
-				while (g_minishell.env[env_size])
-					env_size++;
-				env_size--;
-				g_minishell.env = realloc_env(env_size + 2);
-				g_minishell.env[env_size + 1] = ft_strdup((char *) VALUE);
-				g_minishell.env[env_size + 2] = NULL;
+				while (g_minishell.env[size])
+					s++;
+				s--;
+				g_minishell.env = realloc_env(s + 2);
+				g_minishell.env[s + 1]
+					= ft_strdup((char *)list->content->value);
+				g_minishell.env[s + 2] = NULL;
 			}
 			else
 			{
-				env_size = envchr((char *)VALUE);
-				g_minishell.env[env_size] = ft_strdup((char *) VALUE);
+				s = envchr((char *)list->content->value);
+				g_minishell.env[s] = ft_strdup((char *) list->content->value);
 			}
 		}
 		list = list->next;
@@ -75,9 +76,10 @@ void	cmd_export(t_cmd *list)
 	if (!list || list->next == NULL)
 		return ;
 	list = list->next;
-	if (!ft_isalpha(((char *)VALUE)[0]))
+	if (!ft_isalpha(((char *)list->content->value)[0]))
 	{
-		printf("minishell: export: %s not a valid identifier\n", (char *)VALUE);
+		printf("minishell: export: %s not a valid identifier\n",
+			(char *)list->content->value);
 		return ;
 	}
 	ft_exporting(i, j, list);

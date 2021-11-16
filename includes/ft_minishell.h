@@ -31,8 +31,6 @@
 # define MS_ERROR_PARSE 1
 # define MS_ERROR_NO_CMD 4
 # define MS_ERROR_TO_PERROR 3
-# define VALUE list->content->value
-# define TYPE list->content->type
 
 typedef enum e_token_type
 {

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/11/16 14:30:03 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/16 16:55:53 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	ft_switch(t_cmd *list)
 {
-	if (g_minishell.parsing_error == False && list && TYPE == cmd_instr)
+	if (g_minishell.parsing_error == False && list && list->content->type == cmd_instr)
 	{
 		if (!ft_strcmp(list->content->value, "exit"))
 			error("Exiting minishell...\n");
