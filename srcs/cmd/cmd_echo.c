@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:58:01 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/16 13:58:37 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/16 17:21:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	print_non_quote(void *s, t_cmd *list, int out)
 	}
 }
 
-static int	ft_isstop(t_cmd *list)
+int	ft_isstop(t_cmd *list)
 {
 	if (list->content->value && list->content->type != semicolon
 		&& list->content->type != simple_redir_left

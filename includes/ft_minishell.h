@@ -200,5 +200,6 @@ void				cmd_execute(t_cmd *list);
 void				cmd_pwd(t_cmd *list);
 void				cmd_cd(t_cmd *list);
 void				free_array(char **array);
+int					ft_isstop(t_cmd *list);
 
 #endif
