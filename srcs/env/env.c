@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arapaill <arapaill@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:17:37 by badrien           #+#    #+#             */
-/*   Updated: 2021/10/12 16:36:24 by arapaill         ###   ########.fr       */
+/*   Updated: 2021/11/16 16:43:32 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (s == NULL)
 		return (NULL);
 	i = 0;
-	if ((rep = malloc((sizeof(char) * (len + 1)))) == 0)
+	rep = malloc((sizeof(char) * (len + 1)));
+	if (!rep)
 		return (0);
 	if (!(start > ft_strlen(s)))
 	{
@@ -34,53 +35,53 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (rep);
 }
 
-void print_env() // Vérifier les strings dans le tableau env
+void	print_env(void) // Vérifier les strings dans le tableau env
 {
-	int x;
+	int	x;
 
 	x = 0;
-	while(g_minishell.env[x] != NULL)
+	while (g_minishell.env[x] != NULL)
 	{
 		printf("%s\n", g_minishell.env[x]);
 		x++;
 	}
 }
 
-char **realloc_env(int size)
+char	**realloc_env(int size)
 {
-	char    **new;
-	int i;
-	
+	char	**new;
+	int		i;
+
 	i = 0;
 	new = malloc(sizeof(char *) * (size + 1));
-	if (new==NULL)
-		return NULL;
+	if (new == NULL)
+		return (NULL);
 	new[size] = NULL;
-	while(g_minishell.env[i] != NULL && i < size)
+	while (g_minishell.env[i] != NULL && i < size)
 	{
 		new[i] = ft_strdup(g_minishell.env[i]);
 		i++;
 	}
 	//while(g_minishell.env[i] != NULL)
-	  //  free(g_minishell.env[i++]);
+	//	free(g_minishell.env[i++]);
 	return (new);
 }
 
-int size_env()
+int	size_env(void)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(g_minishell.env[i] != NULL)
+	while (g_minishell.env[i] != NULL)
 		i++;
 	return (i);
 }
 
-int add_env(char *name, char *value)
+int	add_env(char *name, char *value)
 {
+	char	*tmp;
+
 	printf("Enter add env\n");
-	char *tmp;
-	
 	if (name == NULL || value == NULL)
 		return (1);
 	printf("lauch realloc\n");
@@ -90,12 +91,12 @@ int add_env(char *name, char *value)
 	tmp = ft_strjoin("=", value);
 	g_minishell.env[size_env() - 1] = ft_strjoin(name, tmp);
 	free(tmp);
-	return(0);
+	return (0);
 }
 
-int main_env()
+int	main_env(void)
 {
-	add_env("test","test");
+	add_env("test", "test");
 	printf("OK\n");
 	//print_env(g_minishell.env);
 	printf("value of USER = %s\n", get_value_env("PWD"));

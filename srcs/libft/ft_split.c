@@ -6,15 +6,15 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 16:51:50 by cgoncalv          #+#    #+#             */
-/*   Updated: 2019/10/22 13:50:38 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/16 16:35:26 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char		**free_mllc(char **splitted, size_t k)
+static char	**free_mllc(char **splitted, size_t k)
 {
-	size_t i;
+	size_t	i;
 
 	i = -1;
 	while (++i > k)
@@ -25,8 +25,8 @@ static char		**free_mllc(char **splitted, size_t k)
 
 static size_t	nbr_str(char const *s, char c)
 {
-	size_t count;
-	size_t i;
+	size_t	count;
+	size_t	i;
 
 	count = 0;
 	i = 0;
@@ -35,7 +35,7 @@ static size_t	nbr_str(char const *s, char c)
 		if (s[i] == c)
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		count++;
 		while (s[i] && s[i] != c)
@@ -44,7 +44,18 @@ static size_t	nbr_str(char const *s, char c)
 	return (count);
 }
 
-char			**ft_split(char const *s, char c)
+char	**malloc_splitted(char const *s, char c)
+{
+	char	**ret;
+
+	ret = (char **)malloc(sizeof(char *) * (nbr_str(s, c) + 1));
+	if (!(ret))
+		return (NULL);
+	else
+		return (ret);
+}
+
+char	**ft_split(char const *s, char c)
 {
 	size_t	i;
 	size_t	k;
@@ -55,8 +66,7 @@ char			**ft_split(char const *s, char c)
 	k = 0;
 	if (s == NULL)
 		return (NULL);
-	if (!(splitted = (char**)malloc(sizeof(char*) * (nbr_str(s, c) + 1))))
-		return (NULL);
+	splitted = malloc_splitted(s, c);
 	while (s[i] && k < (nbr_str(s, c)))
 	{
 		while (s[i] == c && s[i])
@@ -64,7 +74,8 @@ char			**ft_split(char const *s, char c)
 		start = i;
 		while (s[i] != c && s[i])
 			i++;
-		if (!(splitted[k] = malloc(sizeof(char) * ((i - start) + 1))))
+		splitted[k] = malloc(sizeof(char) * ((i - start) + 1));
+		if (!(splitted[k]))
 			return (free_mllc(splitted, k));
 		ft_strlcpy(splitted[k], &s[start], i - start + 1);
 		k++;

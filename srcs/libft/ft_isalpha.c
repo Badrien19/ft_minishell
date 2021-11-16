@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 09:18:20 by cgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/12 09:27:09 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/16 16:33:54 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	ft_isstralpha(char *str)
 	int	i;
 
 	i = -1;
-	while(str[++i])
-		if(!ft_isalpha((int)str[i]))
-			return(1);
+	while (str[++i])
+		if (!ft_isalpha((int)str[i]))
+			return (1);
 	return (0);
 }
