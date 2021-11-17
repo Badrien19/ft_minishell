@@ -6,12 +6,12 @@ Corentin :
 Alexandre :
 - Check execve (./) -- Done
 - Vérifier que toutes les commandes sont redirigées -- Done
+- Corriger la cmd export (MYVAR="Bonjour" ne fonctionne pas et peut crash à cause d'un free) --done
 
 Adrien : 
 - Régler segfault variables qui n'existent pas -- Done
 - Gérer $? -- Ongoing
 - changer l'environement lors d'un cd (PWD) -- Done
-- Corriger la cmd export (MYVAR="Bonjour" ne fonctionne pas et peut crash à cause d'un free)
 
 ?? :
 - Transformer les commandes qu'il ne faut pas gérer en cmd_instr (Une seule par bloc) -- Done
