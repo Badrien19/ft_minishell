@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/11/16 16:59:57 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/17 13:10:46 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	ft_switch(t_cmd *list)
 	else if (list->content->type == none)
 		return ;
 	else
-		perror("minshell:");
+		perror("minshell");
 }
 
 void	cmd_hub(void)
