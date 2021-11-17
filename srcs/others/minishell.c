@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:37:03 by cgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/16 16:37:46 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/17 14:40:07 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 
 void	sigint_handler(int sig)
 {
-	if (sig == SIGINT)
-	{
-		write(STDIN_FILENO, "\0\n", 2);
-		write(STDOUT_FILENO, "\n\033[1;32mminishell >\033[0m ", 24);
-		signal(SIGINT, &sigint_handler);
-	}
+	write(STDIN_FILENO, "\n", 1);	
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 }
 
 int	main(int argc, char **argv, char **env)

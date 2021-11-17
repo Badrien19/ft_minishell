@@ -15,9 +15,9 @@ Adrien :
 
 ?? :
 - Transformer les commandes qu'il ne faut pas gérer en cmd_instr (Une seule par bloc) -- Done
-- Gérer les signaux (CTRL-C, CTRL-D, etc...) -- Ongoing
+- Gérer les signaux (CTRL-C, CTRL-D, etc...) -- Done (?)
     - Gérer CTRL-D -- Done
-    - Gérer CTRL-C -- Ongoing
+    - Gérer CTRL-C -- Done
     - Gérer CTRL-\ -- Done (?)
 - Gérer les pipes et redirections pour les commandes non-obligatoires. (Obligation d'utiliser des dup2) -- Ongoing
     - Corriger la boucle infinie avec certaines commandes (grep test << end)
