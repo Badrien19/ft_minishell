@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/11/17 13:10:46 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/17 15:10:32 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	cmd_hub(void)
 	ft_switch(list);
 	while (list != NULL)
 	{
-		if (list->content->type == semicolon || list->content->type == pipeline)
+		if (!ft_isstop(list))
 		{
 			while (list->next && list->content->type != cmd_instr)
 				list = list->next;
