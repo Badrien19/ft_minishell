@@ -13,6 +13,7 @@ Adrien :
 - Gérer $? -- Ongoing
 - changer l'environement lors d'un cd (PWD) -- Done
 - Remplacer les $variables petit à petit et non pas une fois dès le début
+- Remplacer le type apres la traduction d 'une variable ( ex : export ok=echo   $ok lol)
 
 ?? :
 - Transformer les commandes qu'il ne faut pas gérer en cmd_instr (Une seule par bloc) -- Done

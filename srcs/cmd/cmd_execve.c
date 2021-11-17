@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/16 14:09:44 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/17 15:34:52 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	ft_exec_free(t_cmd *list, char *cmd)
 			tmp = ft_strjoin(path[i], "/");
 			tmp = ft_strjoin_free(tmp, args[0]);
 		}
+		printf("test01\n");
 		execve(tmp, args, g_minishell.env);
 		free(tmp);
 	}
@@ -76,11 +77,13 @@ void	ft_loop_execve(t_cmd *list, int in, int out, char *cmd)
 		error("minishell: Failed to create a fork\n");
 	if (!pid)
 	{
+		/*
 		if (in != STDIN_FILENO)
 		{
 			dup2(in, STDIN_FILENO);
 			close(in);
 		}
+		*/
 		if (out != STDOUT_FILENO)
 		{
 			dup2(out, STDOUT_FILENO);
@@ -111,5 +114,7 @@ void	cmd_execve(t_cmd *list)
 		cmd = ft_strjoin_free(cmd, list->next->content->value);
 		list = list->next;
 	}
+	printf("cmd: %s\n", cmd);
 	ft_loop_execve(list, in, out, cmd);
+	printf("test\n");
 }
