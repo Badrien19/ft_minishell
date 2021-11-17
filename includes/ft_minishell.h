@@ -18,6 +18,7 @@
 # include <dirent.h>
 # include <string.h>
 # include <stdlib.h>
+# include <termios.h>
 
 # include "../srcs/libft/libft.h"
 
@@ -33,6 +34,7 @@
 # define MS_ERROR_TO_PERROR 3
 # define MS_ERROR_NO_CMD 4
 # define MS_ERROR_INVALID_QUOTE 5
+# define STDERR 2
 
 typedef enum e_token_type
 {
