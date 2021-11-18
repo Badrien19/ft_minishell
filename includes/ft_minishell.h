@@ -170,7 +170,7 @@ void				relink_nodes(void);
 t_token				*create_token(char *value, t_token_type type);
 t_token_type		find_type(char c);
 t_token_type		get_token_type(t_token *token);
-void				*get_token_value(t_token *token);
+char				*get_token_value(t_token *token);
 
 /*
 ** checker.c
