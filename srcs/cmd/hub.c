@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/11/17 16:01:58 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/18 17:09:12 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 static void	ft_switch(t_cmd *list)
 {
+	remove_quote_dollar(list); // TODO
+	concat_tokens_same_type();
+	detect_cmd_type();
 	debug();
 	if (list && list->content->type == cmd_instr)
 	{
@@ -47,9 +50,6 @@ void	cmd_hub(void)
 	t_cmd	*list;
 
 	list = g_minishell.list_input;
-	concat_tokens_same_type();
-	detect_cmd_type();
-	remove_quote_dollar(list);
 	while (list->content->type == space && list->next)
 		list = list->next;
 	ft_switch(list);

@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   apply.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/17 16:03:34 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/18 16:54:54 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
+
+//int	ft_isstop(t_cmd *list)
 
 int	new_str_len(char *str)
 {
@@ -182,6 +184,8 @@ int	remove_quote_dollar(t_cmd *list)
 	while (list != NULL)
 	{
 		value = list->content->value;
+		if(ft_isstop(list) == 0)
+			return(0);
 		if (list->content->type == double_quote || list->content->type == single_quote) // OK
 		{
 			list->content->value = apply_quotes(list->content->value);
