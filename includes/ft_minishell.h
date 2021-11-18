@@ -122,6 +122,8 @@ t_bool				is_there_pipe(void);
 t_cmd				*find_next_literal(int range);
 t_cmd				*find_prev_cmd(void);
 t_cmd				*find_next_cmd(void);
+t_bool				ft_isstop(t_cmd *list);
+
 
 /*
 **	apply
@@ -202,6 +204,5 @@ void				cmd_execute(t_cmd *list);
 void				cmd_pwd(t_cmd *list);
 void				cmd_cd(t_cmd *list);
 void				free_array(char **array);
-int					ft_isstop(t_cmd *list);
 
 #endif

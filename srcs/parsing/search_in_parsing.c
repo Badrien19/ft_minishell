@@ -114,3 +114,19 @@ t_bool	is_there_literal_for_file(void)
 	g_minishell.list_input = current;
 	return (True);
 }
+
+/* t_bool	ft_isstop(t_cmd *list)
+** Permet de vérifier si le node actuel est un stop
+*/
+t_bool	ft_isstop(t_cmd *list)
+{
+	if (list->content->value && list->content->type != semicolon
+		&& list->content->type != simple_redir_left
+		&& list->content->type != simple_redir_right
+		&& list->content->type != pipeline
+		&& list->content->type != double_redir_left
+		&& list->content->type != double_redir_right)
+		return (True);
+	else
+		return (False);
+}
