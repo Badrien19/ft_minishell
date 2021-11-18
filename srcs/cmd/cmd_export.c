@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/18 19:09:07 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/18 22:29:06 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,12 @@ int	envchr(char *value)
 	while (g_minishell.env[++i])
 	{
 		if (!ft_strncmp(needle, g_minishell.env[i], len))
+		{
+			free(needle);
 			return (i);
+		}
 	}
+	free(needle);
 	return (-1);
 }
 
@@ -77,7 +81,7 @@ void	cmd_export(t_cmd *list)
 	if (list->next && (list->next->content->type == double_quote
 			|| list->next->content->type == single_quote))
 	{
-		value = ft_strjoin(value, list->next->content->value);
+		value = ft_strjoin_free(value, list->next->content->value);
 		list = list->next;
 	}
 	if (!ft_isalpha(value[0]))
@@ -86,4 +90,5 @@ void	cmd_export(t_cmd *list)
 		return ;
 	}
 	ft_exporting(list, value);
+	free(value);
 }

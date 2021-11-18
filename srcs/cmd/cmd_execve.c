@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/18 18:01:41 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/18 22:27:47 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	ft_exec_free(char *cmd)
 	if (ft_strlen(cmd) == 0)
 		parsing_error(4);
 	args = ft_split(cmd, ' ');
+	free(cmd);
 	path = get_path(g_minishell.env);
 	while (path[++i])
 	{
@@ -111,7 +112,5 @@ void	cmd_execve(t_cmd *list)
 		cmd = ft_strjoin_free(cmd, list->next->content->value);
 		list = list->next;
 	}
-	printf("cmd: %s\n", cmd);
 	ft_loop_execve(in, out, cmd);
-	printf("test\n");
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_execute.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:47:41 by user42            #+#    #+#             */
-/*   Updated: 2021/11/18 17:03:56 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/18 22:26:52 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void	execute_child(t_cmd *list)
 	args = ft_split(list->content->value, '/');
 	path = get_path_pwd(g_minishell.env);
 	tmp = ft_strjoin(path, "/");
+	free(path);
 	tmp = ft_strjoin_free(tmp, args[1]);
 	free(path);
 	execve(tmp, args, g_minishell.env);
