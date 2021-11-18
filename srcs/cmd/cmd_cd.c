@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:53:10 by user42            #+#    #+#             */
-/*   Updated: 2021/11/16 13:51:17 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/18 17:04:11 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ static void	pwd_add(char *value)
 void	cmd_cd(t_cmd *list)
 {
 	int		ret;
-	char	*cwd;
 
 	errno = 0;
 	ret = chdir(list->content->value);

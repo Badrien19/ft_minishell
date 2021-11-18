@@ -6,13 +6,13 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:58:01 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/18 16:48:40 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/18 16:59:48 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
-static void	print_non_quote(void *s, t_cmd *list, int out)
+static void	print_non_quote(void *s, int out)
 {
 	char	*str;
 	int		len;
@@ -42,7 +42,7 @@ static void	loop_echo(int flag, t_cmd *list, int out)
 	}
 	while (ft_isstop(list))
 	{
-		print_non_quote(list->content->value, list, out);
+		print_non_quote(list->content->value, out);
 		if (list->next)
 			list = list->next;
 		else

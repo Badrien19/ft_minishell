@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
+#    By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:00:43 by user42            #+#    #+#              #
-#    Updated: 2021/11/04 11:53:16 by user42           ###   ########.fr        #
+#    Updated: 2021/11/18 16:55:13 by cgoncalv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC		=	gcc
-#CFLAGS =	-Wall -Wextra -Werror
+CFLAGS =	-Wall -Wextra -Werror
 SRC		=	./srcs/others/minishell.c ./srcs/others/free.c ./srcs/others/errors.c ./srcs/others/debug.c \
 			./srcs/cmd/cmd_echo.c ./srcs/cmd/cmd_unset.c ./srcs/cmd/hub.c ./srcs/cmd/cmd_export.c ./srcs/cmd/cmd_execve.c \
 			./srcs/cmd/cmd_execute.c ./srcs/cmd/cmd_pwd.c ./srcs/cmd/cmd_cd.c \

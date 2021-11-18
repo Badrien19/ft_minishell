@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/16 18:08:00 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/18 17:02:13 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	envchr(char *value)
 	return (0);
 }
 
-static void	ft_exporting(int i, int j, t_cmd *list, char *value)
+static void	ft_exporting(t_cmd *list, char *value)
 {
 	int	s;
 
@@ -68,12 +68,8 @@ static void	ft_exporting(int i, int j, t_cmd *list, char *value)
 
 void	cmd_export(t_cmd *list)
 {
-	int		i;
-	int		j;
 	char	*value;
 
-	i = 0;
-	j = -1;
 	if (!list || list->next == NULL)
 		return ;
 	list = list->next;
@@ -89,5 +85,5 @@ void	cmd_export(t_cmd *list)
 		printf("minishell: export: %s not a valid identifier\n", value);
 		return ;
 	}
-	ft_exporting(i, j, list, value);
+	ft_exporting(list, value);
 }

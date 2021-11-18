@@ -55,13 +55,18 @@ typedef enum e_token_type
 	none
 }	t_token_type;
 
+typedef struct	s_symbols
+{
+	char *symbol;
+	t_token_type type;
+}				t_symbols;
+
 typedef struct s_token
 {
 	void			*value;
 	t_token_type	type;
 	int				pipe_in;
 	int				pipe_out;
-
 }					t_token;
 
 typedef struct s_cmd

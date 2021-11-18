@@ -59,18 +59,6 @@ t_bool	concat_no_spaces(void)
 	return (False);
 }
 
-static char	get_last_char(void *value)
-{
-	size_t	size;
-	char	*str;
-	char	ret;
-
-	str = (char *)value;
-	size = ft_strlen(str);
-	ret = str[size - 1];
-	return (ret);
-}
-
 void	concat_tokens_quotes(void)
 {
 	t_token_type	quote_type;
