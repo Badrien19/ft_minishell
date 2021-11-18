@@ -133,8 +133,10 @@ t_bool				ft_isstop(t_cmd *list);
 **	apply
 */
 
-int					remove_quote_dollar(t_cmd *list);
-int					new_str_len(char *str);
+int					replace_value_from_env(t_cmd *list);
+int					get_quote_len(char *str);
+char				*get_value_env(char *name);
+
 
 /*
 **	env.c
@@ -142,7 +144,6 @@ int					new_str_len(char *str);
 
 int					main_env(void);
 void				print_env(void);
-char				*get_value_env(char *name);
 int					add_env(char *name, char *value);
 char				**realloc_env(int size);
 int					envchr(char *value);
