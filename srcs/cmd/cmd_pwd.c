@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_pwd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:49:46 by user42            #+#    #+#             */
-/*   Updated: 2021/11/16 14:23:15 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/18 19:27:15 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,14 @@
 void	ft_pwdchild(t_cmd *list)
 {
 	int		i;
-	int		j;
+	char	*buffer;
 
 	i = 0;
-	j = 4;
-	while (g_minishell.env[i] && ft_strncmp(g_minishell.env[i], "PWD=", 4))
-		i++;
-	while (g_minishell.env[i][j])
+	buffer = getcwd(NULL, 0);
+	while (buffer[i])
 	{
-		write(list->content->pipe_out, &g_minishell.env[i][j], 1);
-		j++;
+		write(list->content->pipe_out, &buffer[i], 1);
+		i++;
 	}
 	write(list->content->pipe_out, "\n", 1);
 }
@@ -35,7 +33,10 @@ void	cmd_pwd(t_cmd *list)
 
 	pid = fork();
 	if (!pid)
+	{
 		ft_pwdchild(list);
+		exit(0);
+	}
 	else
 	{
 		waitpid(pid, NULL, 0);
@@ -43,6 +44,5 @@ void	cmd_pwd(t_cmd *list)
 			close(list->content->pipe_out);
 		if (list->content->pipe_in && list->content->pipe_in != 0)
 			close(list->content->pipe_in);
-		exit(0);
 	}
 }
