@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_execve.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/18 17:03:30 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/18 18:01:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	ft_exec_free(char *cmd)
 			tmp = ft_strjoin(path[i], "/");
 			tmp = ft_strjoin_free(tmp, args[0]);
 		}
-		printf("test01\n");
 		execve(tmp, args, g_minishell.env);
 		free(tmp);
 	}
