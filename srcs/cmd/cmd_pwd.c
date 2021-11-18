@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:49:46 by user42            #+#    #+#             */
-/*   Updated: 2021/11/18 19:27:15 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/18 19:32:32 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,17 @@
 void	ft_pwdchild(t_cmd *list)
 {
 	int		i;
-	char	*buffer;
+	char	*cwd;
 
 	i = 0;
-	buffer = getcwd(NULL, 0);
-	while (buffer[i])
+	cwd = getcwd(NULL, 0);
+	while (cwd[i])
 	{
-		write(list->content->pipe_out, &buffer[i], 1);
+		write(list->content->pipe_out, &cwd[i], 1);
 		i++;
 	}
 	write(list->content->pipe_out, "\n", 1);
+	free(cwd);
 }
 
 void	cmd_pwd(t_cmd *list)
