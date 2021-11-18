@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
-/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/11/18 17:09:12 by badrien          ###   ########.fr       */
-=======
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/11/18 16:49:35 by cgoncalv         ###   ########.fr       */
->>>>>>> 5830903774d8059bc9e06253e49bfda7325f42e3
+/*   Updated: 2021/11/18 17:29:57 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +14,9 @@
 
 static void	ft_switch(t_cmd *list)
 {
-	remove_quote_dollar(list); // TODO
+	remove_quote_dollar(list);
 	concat_tokens_same_type();
 	detect_cmd_type();
-	debug();
-	// Appeler les fonctions d'Adri
 	if (list && list->content->type == cmd_instr)
 	{
 		if (!ft_strcmp(list->content->value, "exit"))
