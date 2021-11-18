@@ -12,7 +12,7 @@
 
 #include "../../includes/ft_minishell.h"
 
-void	*join_two_tokens(t_token *token_1, t_token *token_2)
+static void	*join_two_tokens(t_token *token_1, t_token *token_2)
 {
 	char	*str_1;
 	char	*str_2;

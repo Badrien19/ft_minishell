@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/11/18 17:55:13 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/18 18:14:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	ft_switch(t_cmd *list)
 {
-	remove_quote_dollar(list);
+	replace_value_from_env(list);
 	concat_tokens_same_type();
 	detect_cmd_type();
 	if (list && list->content->type == cmd_instr)

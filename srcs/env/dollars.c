@@ -6,13 +6,13 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/18 17:28:37 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/18 17:56:32 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
-int	new_str_len(char *str)
+int	get_quote_len(char *str)
 {
 	int	i;
 	int	quote;
@@ -34,7 +34,7 @@ int	new_str_len(char *str)
 	return (i - quote - double_quote);
 }
 
-char	*remove_quote(char *str, int len)
+static char	*remove_quote_2(char *str, int len)
 {
 	char	*new_str;
 	int		quote;
@@ -71,19 +71,17 @@ char	*remove_quote(char *str, int len)
 	return (new_str);
 }
 
-char	*apply_quotes(char *str) // OK
+static char	*remove_quote(char *str)
 {
 	int		len;
-	char	*new_str;
 
-	len = new_str_len(str);
+	len = get_quote_len(str);
 	if (len == -1)
 	{
 		printf("quote not even\n");
 		exit(-1);
 	}
-	new_str = remove_quote(str, len);
-	return (new_str);
+	return (remove_quote_2(str, len));
 }
 
 char	*get_value_env(char *name)
@@ -108,7 +106,7 @@ char	*get_value_env(char *name)
 	return (NULL);
 }
 
-int	size_str(char *str)
+static int	get_dollar_len(char *str)
 {
 	int		i;
 	int		len;
@@ -135,14 +133,14 @@ int	size_str(char *str)
 	return (len - 1);
 }
 
-char	*apply_dollar(char *str)
+static char	*dollar_to_value(char *str)
 {
 	int		len;
 	int		i;
 	char	*new;
 	char	*tmp;
 
-	len = size_str(str);
+	len = get_dollar_len(str);
 	new = NULL;
 	i = 0;
 	new = malloc(sizeof(char) * (len + 1));
@@ -172,7 +170,7 @@ char	*apply_dollar(char *str)
 	return (new); 
 }
 
-int	remove_quote_dollar(t_cmd *list)
+int	replace_value_from_env(t_cmd *list)
 {
 	//char	*value;
 
@@ -183,16 +181,16 @@ int	remove_quote_dollar(t_cmd *list)
 			return(0);
 		if (list->content->type == double_quote || list->content->type == single_quote) // OK
 		{
-			list->content->value = apply_quotes(list->content->value);
+			list->content->value = remove_quote(list->content->value);
 			//list->content->type = literal;
 		}
 		if (list->content->type == double_quote) // OK $?
 		{
-			list->content->value = apply_dollar(list->content->value);
+			list->content->value = dollar_to_value(list->content->value);
 		}
 		if (list->content->type == variable) // OK
 		{
-			list->content->value = apply_dollar(list->content->value);
+			list->content->value = dollar_to_value(list->content->value);
 			//printf("value = (%s)\n",(char *)list->content->value);
 			list->content->type = literal;
 			//if(list->content->value == NULL)

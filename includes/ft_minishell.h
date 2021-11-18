@@ -129,13 +129,14 @@ t_cmd				*find_prev_cmd(void);
 t_cmd				*find_next_cmd(void);
 t_bool				ft_isstop(t_cmd *list);
 
-
 /*
 **	apply
 */
 
-int					remove_quote_dollar(t_cmd *list);
-int					new_str_len(char *str);
+int					replace_value_from_env(t_cmd *list);
+int					get_quote_len(char *str);
+char				*get_value_env(char *name);
+
 
 /*
 **	env.c
@@ -143,31 +144,33 @@ int					new_str_len(char *str);
 
 int					main_env(void);
 void				print_env(void);
-char				*get_value_env(char *name);
 int					add_env(char *name, char *value);
 char				**realloc_env(int size);
 int					envchr(char *value);
 
 /*
-** concat_tokens
+** concat_tokens.c
 */
 
 void				concat_tokens_same_type(void);
-void				concat_tokens_all(void);
 t_bool				concat_no_spaces(void);
 void				concat_tokens_quotes(void);
 void				concat_tokens_var(void);
-void				*join_two_tokens(t_token *token_1, t_token *token_2);
+
+/*
+** utils_concat_tokens.c
+*/
+
 void				relink_nodes(void);
 
 /*
 ** tokens
 */
 
-t_token_type		get_token_type(t_token *token);
-void				*get_token_value(t_token *token);
 t_token				*create_token(char *value, t_token_type type);
 t_token_type		find_type(char c);
+t_token_type		get_token_type(t_token *token);
+void				*get_token_value(t_token *token);
 
 /*
 ** checker.c
