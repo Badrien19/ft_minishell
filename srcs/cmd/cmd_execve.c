@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_execve.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/17 15:34:52 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/18 17:03:30 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	free_array(char **array)
 	free(array);
 }
 
-void	ft_exec_free(t_cmd *list, char *cmd)
+void	ft_exec_free(char *cmd)
 {
 	char	**args;
 	char	**path;
@@ -68,7 +68,7 @@ void	ft_exec_free(t_cmd *list, char *cmd)
 	parsing_error(4);
 }
 
-void	ft_loop_execve(t_cmd *list, int in, int out, char *cmd)
+void	ft_loop_execve(int in, int out, char *cmd)
 {
 	pid_t	pid;
 
@@ -77,19 +77,17 @@ void	ft_loop_execve(t_cmd *list, int in, int out, char *cmd)
 		error("minishell: Failed to create a fork\n");
 	if (!pid)
 	{
-		/*
 		if (in != STDIN_FILENO)
 		{
 			dup2(in, STDIN_FILENO);
 			close(in);
 		}
-		*/
 		if (out != STDOUT_FILENO)
 		{
 			dup2(out, STDOUT_FILENO);
 			close(out);
 		}
-		ft_exec_free(list, cmd);
+		ft_exec_free(cmd);
 		exit(0);
 	}
 	else
@@ -115,6 +113,6 @@ void	cmd_execve(t_cmd *list)
 		list = list->next;
 	}
 	printf("cmd: %s\n", cmd);
-	ft_loop_execve(list, in, out, cmd);
+	ft_loop_execve(in, out, cmd);
 	printf("test\n");
 }

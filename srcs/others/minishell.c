@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:37:03 by cgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/17 14:55:20 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/18 16:59:10 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 void	sigint_handler(int sig)
 {
-	write(STDIN_FILENO, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
+	if (sig == SIGINT)
+	{
+		write(STDIN_FILENO, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
 }
 
 int	main(int argc, char **argv, char **env)
@@ -25,6 +28,8 @@ int	main(int argc, char **argv, char **env)
 	char	*user_input;
 
 	signal(SIGINT, &sigint_handler);
+	argc = argc;
+	argv = argv;
 	g_minishell.list_input = 0;
 	g_minishell.env = env;
 	while (True)

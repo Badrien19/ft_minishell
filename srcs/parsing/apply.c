@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   apply.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/17 16:03:34 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/18 17:06:30 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,9 @@ char	*remove_quote(char *str, int len)
 
 char	*apply_quotes(char *str) // OK
 {
-	int		i;
 	int		len;
 	char	*new_str;
 
-	i = 0;
 	len = new_str_len(str);
 	if (len == -1)
 	{
@@ -176,12 +174,11 @@ char	*apply_dollar(char *str)
 
 int	remove_quote_dollar(t_cmd *list)
 {
-	int		i;
-	char	*value;
+	//char	*value;
 
 	while (list != NULL)
 	{
-		value = list->content->value;
+		//value = list->content->value;
 		if (list->content->type == double_quote || list->content->type == single_quote) // OK
 		{
 			list->content->value = apply_quotes(list->content->value);

@@ -12,7 +12,7 @@
 
 #include "../../includes/ft_minishell.h"
 
-static t_token	g_tab_token[] = {
+static t_symbols	g_tab_token[] = {
 	{"|", pipeline},
 	{"<", simple_redir_left},
 	{">", simple_redir_right},
@@ -29,7 +29,7 @@ static t_token	g_tab_token[] = {
 	{"\v", space},
 	{" ", space},
 	{"$", variable},
-	{0, 0},
+	{0},
 };
 
 t_token	*create_token(char *value, t_token_type type)
@@ -54,9 +54,9 @@ t_token_type	find_type(char c)
 
 	i = 0;
 	type = none;
-	while (g_tab_token[i].value)
+	while (g_tab_token[i].symbol)
 	{
-		str = g_tab_token[i].value;
+		str = g_tab_token[i].symbol;
 		if (str[0] == c)
 		{
 			type = g_tab_token[i].type;

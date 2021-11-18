@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_unset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 09:46:55 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/16 16:56:27 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/18 17:00:25 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,6 @@ static void	ft_unseting(t_cmd *list)
 
 void	cmd_unset(t_cmd *list)
 {
-	int		i;
-	pid_t	pid;
-	int		env_size;
-	int		word_size;
-
 	if (!list || list->next == NULL)
 		return ;
 	list = list->next;
