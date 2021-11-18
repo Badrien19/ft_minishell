@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/11/18 17:33:19 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/18 17:55:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	ft_switch(t_cmd *list)
 		else if (!ft_strcmp(list->content->value, "pwd"))
 			cmd_pwd(list);
 		else if (!ft_strcmp(list->content->value, "cd"))
-			cmd_cd(list->next->next);
+			cmd_cd(list->next);
 		else if (!ft_strncmp(list->content->value, "./", 2))
 			cmd_execute(list);
 		else if (!ft_strcmp(list->content->value, "unset"))
