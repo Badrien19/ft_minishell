@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   apply.c                                            :+:      :+:    :+:   */
+/*   dollars.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/18 17:56:32 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/18 19:38:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ int	replace_value_from_env(t_cmd *list)
 		if (list->content->type == double_quote || list->content->type == single_quote) // OK
 		{
 			list->content->value = remove_quote(list->content->value);
-			//list->content->type = literal;
+			list->content->type = literal;
 		}
 		if (list->content->type == double_quote) // OK $?
 		{
