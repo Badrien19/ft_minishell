@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/18 17:02:13 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/18 19:09:07 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ int	envchr(char *value)
 		if (!ft_strncmp(needle, g_minishell.env[i], len))
 			return (i);
 	}
-	return (0);
+	return (-1);
 }
 
-static void	ft_exporting(t_cmd *list, char *value)
+void	ft_exporting(t_cmd *list, char *value)
 {
 	int	s;
 
@@ -46,7 +46,7 @@ static void	ft_exporting(t_cmd *list, char *value)
 		if (ft_strchr(value, 61))
 		{
 			s = 0;
-			if (envchr(value) == 0)
+			if (envchr(value) == -1)
 			{
 				while (g_minishell.env[s])
 					s++;
