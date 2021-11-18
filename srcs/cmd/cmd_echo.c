@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_echo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:58:01 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/16 17:21:24 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/18 16:48:40 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,6 @@ static void	print_non_quote(void *s, t_cmd *list, int out)
 			i++;
 		write(out, &str[i], 1);
 	}
-}
-
-int	ft_isstop(t_cmd *list)
-{
-	if (list->content->value && list->content->type != semicolon
-		&& list->content->type != simple_redir_left
-		&& list->content->type != simple_redir_right
-		&& list->content->type != pipeline
-		&& list->content->type != double_redir_left
-		&& list->content->type != double_redir_right)
-		return (1);
-	else
-		return (0);
 }
 
 static void	loop_echo(int flag, t_cmd *list, int out)
