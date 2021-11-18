@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/18 17:06:30 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/18 17:28:37 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,8 @@ int	remove_quote_dollar(t_cmd *list)
 	while (list != NULL)
 	{
 		//value = list->content->value;
+		if(ft_isstop(list) == 0)
+			return(0);
 		if (list->content->type == double_quote || list->content->type == single_quote) // OK
 		{
 			list->content->value = apply_quotes(list->content->value);
