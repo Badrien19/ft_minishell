@@ -55,10 +55,10 @@ typedef enum e_token_type
 	none
 }	t_token_type;
 
-typedef struct	s_symbols
+typedef struct s_symbols
 {
-	char *symbol;
-	t_token_type type;
+	char			*symbol;
+	t_token_type	type;
 }				t_symbols;
 
 typedef struct s_token
@@ -143,7 +143,6 @@ int					replace_value_from_env(t_cmd *list);
 int					get_quote_len(char *str);
 char				*get_value_env(char *name);
 
-
 /*
 **	env.c
 */
@@ -196,7 +195,7 @@ void				parsing_error(int error_code);
 ** free.c
 */
 
-void				free_list(void);
+void				free_list(t_cmd *list);
 
 /*
 ** debug.c
