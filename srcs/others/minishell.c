@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:37:03 by cgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/19 17:37:47 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/19 18:35:25 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	main(int argc, char **argv, char **env)
 	argc = argc;
 	argv = argv;
 	g_minishell.list_input = 0;
+	g_minishell.last_return_value = 1;
 	g_minishell.env = env;
 	while (True)
 	{
