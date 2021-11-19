@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/11/19 15:58:05 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/19 17:34:04 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,7 @@ static void	loop_hub(t_cmd *list)
 	else if (list->content->type == none || list->content->type == semicolon)
 		return ;
 	else
-	{
-		free_list();
 		perror("minishell");
-	}
 }
 
 void	cmd_hub(void)

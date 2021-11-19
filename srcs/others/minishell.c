@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:37:03 by cgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/18 16:59:10 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/19 17:37:47 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	main(int argc, char **argv, char **env)
 		else if (!user_input)
 			exit(EXIT_SUCCESS);
 		free_list();
+		free(user_input);
 	}
 	return (EXIT_SUCCESS);
 }

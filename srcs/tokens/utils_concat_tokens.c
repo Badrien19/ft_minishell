@@ -12,29 +12,28 @@
 
 #include "../../includes/ft_minishell.h"
 
-static void	*join_two_tokens(t_token *token_1, t_token *token_2)
+static void	clear_node(t_cmd *node)
+{
+	free(node->content->value);
+	node->content = NULL;
+	free(node->content);
+	node->content = NULL;
+	free(node);
+	node = NULL;
+}
+
+static void	join_two_tokens(t_cmd *list)
 {
 	char	*str_1;
 	char	*str_2;
 	char	*new_tok_value;
-	t_token	*token;
 
-	str_1 = token_1->value;
-	str_2 = token_2->value;
+	str_1 = list->content->value;
+	str_2 = list->next->content->value;
 	new_tok_value = ft_strjoin(str_1, str_2);
-	token = create_token(new_tok_value, get_token_type(token_1));
-	free(token_1->value);
-	free(token_1);
-	return (token);
-}
-
-static void	clear_node(t_cmd *node)
-{
-	node->content = NULL;
-	free(node->content);
-	node->next = NULL;
-	free(node->next);
-	free(node);
+	//token = create_token(new_tok_value, get_token_type(list->content));
+	free(list->content->value);
+	list->content->value = new_tok_value;
 }
 
 /* Fusionne le token actuel avec le token suivant 
@@ -45,18 +44,19 @@ void	relink_nodes(void)
 	t_cmd	*tmp_list;
 
 	tmp_list = NULL;
-	g_minishell.list_input->content = join_two_tokens(
-			g_minishell.list_input->content,
-			g_minishell.list_input->next->content);
+	join_two_tokens(g_minishell.list_input);
+	//printf("next->next : %p\n", g_minishell.list_input->next->next);
 	if (g_minishell.list_input->next->next)
 		tmp_list = g_minishell.list_input->next->next;
 	else
 	{
+		//printf("size : %ld\n", sizeof(t_cmd));
 		clear_node(g_minishell.list_input->next);
 		g_minishell.list_input->next = NULL;
 	}
 	if (tmp_list)
 	{
+		clear_node(g_minishell.list_input->next);
 		g_minishell.list_input->next = tmp_list;
 	}
 }

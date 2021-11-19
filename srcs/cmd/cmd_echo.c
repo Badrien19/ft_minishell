@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_echo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:58:01 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/19 09:34:26 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/19 16:10:23 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	cmd_echo(t_cmd *list)
 		if (list->next && list->content->type == space)
 			list = list->next;
 		loop_echo(flag, list, out);
-		exit(0);
+		exit(EXIT_SUCCESS);
 	}
 	else
 	{

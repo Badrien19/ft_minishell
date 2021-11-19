@@ -37,6 +37,8 @@ t_bool	check_path(char *cmd)
 		if (access(path, X_OK) == 0)
 			return (True);
 		i++;
+		free(path);
 	}
+	free_array(paths);
 	return (False);
 }

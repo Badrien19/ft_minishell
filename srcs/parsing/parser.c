@@ -26,7 +26,7 @@ void	tokenizer(char *input)
 	token = create_token(value, type);
 	new = ft_cmdnew(token);
 	if (!new)
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	ft_cmdadd_back(&g_minishell.list_input, new);
 }
 
