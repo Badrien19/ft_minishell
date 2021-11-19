@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/11/18 22:37:11 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/19 09:36:56 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 static void	ft_switch(t_cmd *list)
 {
 	if (!ft_strcmp(list->content->value, "exit"))
+	{
+		free_list(list);
 		error("Exiting minishell...\n");
+	}
 	else if (!ft_strcmp(list->content->value, "echo"))
 		cmd_echo(list);
 	else if (!ft_strcmp(list->content->value, "env"))
@@ -44,7 +47,10 @@ static void	loop_hub(t_cmd *list)
 	else if (list->content->type == none || list->content->type == semicolon)
 		return ;
 	else
+	{
+		free_list(list);
 		perror("minishell");
+	}
 }
 
 void	cmd_hub(void)
