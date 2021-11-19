@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:58:01 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/18 19:36:27 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/19 09:34:26 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static void	print_non_quote(void *s, int out)
 
 static void	loop_echo(int flag, t_cmd *list, int out)
 {
-	debug();
 	if (list->content->type == literal
 		&& !ft_strncmp(list->content->value, "-n", 2))
 	{
