@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:49:46 by user42            #+#    #+#             */
-/*   Updated: 2021/11/18 19:32:32 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/18 19:47:37 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	cmd_pwd(t_cmd *list)
 	if (!pid)
 	{
 		ft_pwdchild(list);
-		exit(0);
+		exit(EXIT_SUCCESS);
 	}
 	else
 	{

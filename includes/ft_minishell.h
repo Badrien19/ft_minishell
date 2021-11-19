@@ -195,7 +195,7 @@ void				parsing_error(int error_code);
 ** free.c
 */
 
-void				free_list(t_cmd *list);
+void				free_list(void);
 
 /*
 ** debug.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/11/19 09:36:56 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/19 15:58:05 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	ft_switch(t_cmd *list)
 {
 	if (!ft_strcmp(list->content->value, "exit"))
 	{
-		free_list(list);
+		free_list();
 		error("Exiting minishell...\n");
 	}
 	else if (!ft_strcmp(list->content->value, "echo"))
@@ -48,7 +48,7 @@ static void	loop_hub(t_cmd *list)
 		return ;
 	else
 	{
-		free_list(list);
+		free_list();
 		perror("minishell");
 	}
 }
