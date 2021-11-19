@@ -80,6 +80,7 @@ typedef struct s_minishell
 {
 	t_cmd			*list_input;
 	char			**env;
+	int				last_return_value;
 	t_bool			parsing_error;
 }					t_minishell;
 

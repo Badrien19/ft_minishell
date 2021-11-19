@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollars.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/18 19:38:01 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/19 16:29:46 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,14 +118,21 @@ static int	get_dollar_len(char *str)
 	{
 		if (str[i] == '$')
 		{
-			i++;
-			tmp = get_value_env(&str[i]);
-			if (tmp != NULL)
-				len += ft_strlen(tmp);
-			free(tmp);
-			//len += ft_strlen(get_value_env(&str[i]));
-			while (str[i] != '\0' && str[i] != ' ' && str[i] != '$')
+			if (str[i + 1] == '?')
+			{
+				len += ft_strlen(ft_itoa(g_minishell.last_return_value));
+			}
+			else
+			{
 				i++;
+				tmp = get_value_env(&str[i]);
+				if (tmp != NULL)
+					len += ft_strlen(tmp);
+				free(tmp);
+				//len += ft_strlen(get_value_env(&str[i]));
+				while (str[i] != '\0' && str[i] != ' ' && str[i] != '$')
+					i++;
+			}
 		}
 		i++;
 		len++;
@@ -152,12 +159,21 @@ static char	*dollar_to_value(char *str)
 	{
 		if (str[i] == '$')
 		{
-			tmp = get_value_env(&str[i + 1]);
-			if (tmp != NULL)
-				new = ft_strjoin(new, tmp);
-			if (new != NULL)
-				len = ft_strlen(new);
-			i++;
+			if (str[i + 1] == '?')
+			{
+				new = ft_strjoin(new, ft_itoa(g_minishell.last_return_value));
+				len += ft_strlen(ft_itoa(g_minishell.last_return_value));
+				i += 2;
+			}
+			else
+			{
+				tmp = get_value_env(&str[i + 1]);
+				if (tmp != NULL)
+					new = ft_strjoin(new, tmp);
+				if (new != NULL)
+					len = ft_strlen(new);
+				i++;
+			}
 			while (str[i] != '\0' && str[i]  != ' ' && str[i]  != '$'
 				&& str[i]  != '\'' && str[i]  != '\"')
 				i++;
