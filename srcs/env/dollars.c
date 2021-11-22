@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollars.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/22 18:25:22 by badrien          ###   ########.fr       */
+/*   Updated: 2021/11/22 18:37:50 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ static char	*dollar_to_value(char *str, int len)
 
 int	replace_value_from_env(t_cmd *list)
 {
-	debug();
 	while (list != NULL)
 	{
 		if (ft_isstop(list) == 0)

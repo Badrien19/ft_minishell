@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/22 18:12:34 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/22 18:36:59 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	ft_exporting(t_cmd *list, char *value)
 			else
 			{
 				s = envchr(value);
+				free(g_minishell.env[s]);
 				g_minishell.env[s] = ft_strdup(value);
 			}
 		}
