@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollars.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/22 17:39:50 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/22 18:23:14 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,14 @@ static char	*remove_quote_2(char *str, int len)
 	if (new_str == NULL)
 		return (NULL);
 	len = 0;
-	while (str[i] != '\0')
+	while (str[i++] != '\0')
 	{
 		if (str[i] == '\'' && double_quote % 2 == 0)
-		{
-			i++;
 			quote++;
-		}
 		else if (str[i] == '\"' && quote % 2 == 0)
-		{
-			i++;
 			double_quote++;
-		}
 		else
-		{
-			new_str[len] = str[i];
-			len++;
-			i++;
-		}
+			new_str[len++] = str[i];
 	}
 	new_str[len] = '\0';
 	free(str);
@@ -115,35 +105,54 @@ static int	get_dollar_len(char *str)
 
 	i = 0;
 	len = 0;
-	while (str[i] != '\0')
+	while (str[i++] != '\0')
 	{
 		if (str[i] == '$')
 		{
 			if (str[i + 1] == '?')
-			{
 				len += ft_strlen(ft_itoa(g_minishell.last_return_value));
-			}
 			else
 			{
-				i++;
-				tmp = get_value_env(&str[i]);
+				tmp = get_value_env(&str[++i]);
 				if (tmp != NULL)
 					len += ft_strlen(tmp);
 				free(tmp);
-				//len += ft_strlen(get_value_env(&str[i]));
 				while (str[i] != '\0' && str[i] != ' ' && str[i] != '$')
 					i++;
 			}
 		}
-		i++;
 		len++;
 	}
 	return (len - 1);
 }
 
-static char	*dollar_to_value(char *str)
+static char	*next_dollar_value(int *i, int *len, char *str)
 {
-	int		len;
+	char	*new;
+
+	new = NULL;
+	if (str[*i + 1] == '?')
+	{
+		new = ft_strjoin_free(new,
+				ft_itoa(g_minishell.last_return_value));
+		len += ft_strlen(ft_itoa(g_minishell.last_return_value));
+		*i += 2;
+	}
+	else
+	{
+		new = get_value_env(&str[*i + 1]);
+		if (new != NULL)
+			*len += ft_strlen(new);
+		(*i)++;
+	}
+	while (str[*i] != '\0' && str[*i] != ' ' && str[*i] != '$'
+		&& str[*i] != '\'' && str[*i] != '\"')
+		(*i)++;
+	return (new);
+}
+
+static char	*dollar_to_value(char *str, int len)
+{
 	int		i;
 	char	*new;
 	char	*tmp;
@@ -152,78 +161,49 @@ static char	*dollar_to_value(char *str)
 	new = NULL;
 	i = 0;
 	new = malloc(sizeof(char) * (len + 1));
-	ft_bzero(new, len + 1);
 	if (new == NULL)
 		return (NULL);
+	ft_bzero(new, len + 1);
 	len = 0;
 	while (str[i] != '\0')
 	{
 		if (str[i] == '$')
 		{
-			if (str[i + 1] == '?')
-			{
-				new = ft_strjoin_free(new, ft_itoa(g_minishell.last_return_value));
-				len += ft_strlen(ft_itoa(g_minishell.last_return_value));
-				i += 2;
-			}
-			else
-			{
-				tmp = get_value_env(&str[i + 1]);
-				if (tmp != NULL)
-					new = ft_strjoin_free(new, tmp);
-				if (new != NULL)
-					len = ft_strlen(new);
-				i++;
-			}
-			while (str[i] != '\0' && str[i]  != ' ' && str[i]  != '$'
-				&& str[i]  != '\'' && str[i]  != '\"')
-				i++;
+			tmp = next_dollar_value(&i, &len, str);
+			new = ft_strjoin_free(new, tmp);
+			free(tmp);
 		}
-		new[len] = str[i];
-		i++;
-		len++;
+		new[len++] = str[i++];
 	}
 	new[len] = '\0';
 	free(str);
-	return (new); 
+	return (new);
 }
 
 int	replace_value_from_env(t_cmd *list)
 {
-	//char	*value;
-
+	debug();
 	while (list != NULL)
 	{
-		//value = list->content->value;
-		if(ft_isstop(list) == 0)
-			return(0);
-		if (list->content->type == double_quote || list->content->type == single_quote) // FREE OK
+		if (ft_isstop(list) == 0)
+			return (0);
+		if (list->content->type == double_quote
+			|| list->content->type == single_quote)
 		{
-			printf("single et double quote\n"); // OK
 			list->content->value = remove_quote(list->content->value);
-			list->content->type = literal;
 		}
-		if (list->content->type == double_quote) // FREE OK
+		if (list->content->type == double_quote)
 		{
-			printf("double quote\n");
-			list->content->value = dollar_to_value(list->content->value);
+			list->content->value = dollar_to_value(list->content->value, 0);
 		}
-		if (list->content->type == variable) // FREE OK
+		if (list->content->type == variable)
 		{
-			printf("variable\n");
-			list->content->value = dollar_to_value(list->content->value);
-			//printf("value = (%s)\n",(char *)list->content->value);
+			list->content->value = dollar_to_value(list->content->value, 0);
 			list->content->type = literal;
-			//if(list->content->value == NULL)
-			//	list->content->type = none;
-			//debug();
 		}
 		if (((char *)list->content->value)[0] == '\0')
 			list->content->type = none;
-		//free(value);
 		list = list->next;
 	}
-	//g_minishell.list_input = ft_cmdfirst(g_minishell.list_input);
 	return (0);
-	//if(list->content->type=variable)
 }
