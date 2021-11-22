@@ -151,8 +151,9 @@ char				*get_value_env(char *name);
 int					main_env(void);
 void				print_env(void);
 int					add_env(char *name, char *value);
-char				**realloc_env(int size);
+char				**realloc_env(char **env, size_t size);
 int					envchr(char *value);
+int					size_env(char **env);
 
 /*
 ** concat_tokens.c

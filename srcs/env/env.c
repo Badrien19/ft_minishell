@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:17:37 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/18 22:30:23 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/22 17:39:11 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,58 +47,35 @@ void	print_env(void) // Vérifier les strings dans le tableau env
 	}
 }
 
-char	**realloc_env(int size)
+char	**realloc_env(char **env, size_t size)
 {
 	char	**new;
-	int		i;
+	size_t	i;
 
 	i = 0;
 	new = malloc(sizeof(char *) * (size + 1));
-	if (new == NULL)
+	if (!new)
 		return (NULL);
 	new[size] = NULL;
-	while (g_minishell.env[i] != NULL && i < size)
+	while (env[i] != NULL && i < size)
 	{
-		new[i] = ft_strdup(g_minishell.env[i]);
+		new[i] = ft_strdup(env[i]);
+		if (!new[i])
+			exit(EXIT_FAILURE);
 		i++;
 	}
-	while(g_minishell.env[i] != NULL)
-		free(g_minishell.env[i++]);
+	i = 0;
+	if (g_minishell.env)
+		free_array(g_minishell.env);
 	return (new);
 }
 
-int	size_env(void)
+int	size_env(char **env)
 {
 	int	i;
 
 	i = 0;
-	while (g_minishell.env[i] != NULL)
+	while (env[i] != NULL)
 		i++;
 	return (i);
-}
-
-int	add_env(char *name, char *value)
-{
-	char	*tmp;
-
-	printf("Enter add env\n");
-	if (name == NULL || value == NULL)
-		return (1);
-	printf("lauch realloc\n");
-	g_minishell.env = realloc_env(size_env() + 1);
-	if (g_minishell.env == NULL)
-		return (1);
-	tmp = ft_strjoin("=", value);
-	g_minishell.env[size_env() - 1] = ft_strjoin(name, tmp);
-	free(tmp);
-	return (0);
-}
-
-int	main_env(void)
-{
-	add_env("test", "test");
-	printf("OK\n");
-	//print_env(g_minishell.env);
-	printf("value of USER = %s\n", get_value_env("PWD"));
-	return (0);
 }

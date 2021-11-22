@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:37:03 by cgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/22 15:36:56 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/22 17:27:27 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int argc, char **argv, char **env)
 	argv = argv;
 	g_minishell.list_input = 0;
 	g_minishell.last_return_value = 1;
-	g_minishell.env = env;
+	g_minishell.env = realloc_env(env, (size_t)size_env(env));
 	while (True)
 	{
 		g_minishell.parsing_error = False;
