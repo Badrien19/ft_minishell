@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:21:04 by user42            #+#    #+#             */
-/*   Updated: 2021/11/19 17:29:42 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/22 18:53:46 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ void	free_list(void)
 	t_cmd	*buffer;
 
 	if (g_minishell.list_input == NULL)
+	{
+		free_array(g_minishell.env);
+		g_minishell.env = NULL;
 		return ;
+	}
 	buffer = ft_cmdfirst(g_minishell.list_input);
 	while (buffer != NULL)
 	{
@@ -30,5 +34,7 @@ void	free_list(void)
 		free(g_minishell.list_input);
 		g_minishell.list_input = NULL;
 	}
+	free_array(g_minishell.env);
 	g_minishell.list_input = NULL;
+	g_minishell.env = NULL;
 }
