@@ -55,5 +55,6 @@ void	relink_nodes(void)
 	{
 		clear_node(g_minishell.list_input->next);
 		g_minishell.list_input->next = tmp_list;
+		g_minishell.list_input->next->prev = g_minishell.list_input;
 	}
 }
