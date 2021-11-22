@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollars.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/22 15:54:53 by badrien          ###   ########.fr       */
+/*   Updated: 2021/11/22 17:39:50 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,7 +223,6 @@ int	replace_value_from_env(t_cmd *list)
 		//free(value);
 		list = list->next;
 	}
-	debug();
 	//g_minishell.list_input = ft_cmdfirst(g_minishell.list_input);
 	return (0);
 	//if(list->content->type=variable)
