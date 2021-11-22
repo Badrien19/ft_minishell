@@ -17,6 +17,7 @@ void	concat_tokens_same_type(void)
 	t_cmd	*begin;
 
 	begin = g_minishell.list_input;
+	print_current_chain();
 	while (g_minishell.list_input->next != NULL)
 	{
 		if (get_token_type(g_minishell.list_input->content)
@@ -26,6 +27,7 @@ void	concat_tokens_same_type(void)
 				&& get_token_type(g_minishell.list_input->content)
 				!= single_quote))
 		{
+			print_current_chain();
 			relink_nodes();
 			if (ft_strcmp(g_minishell.list_input->content->value, ">>")
 				== 0)
