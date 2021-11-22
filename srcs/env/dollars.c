@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollars.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/22 18:37:50 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/22 19:12:27 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	get_dollar_len(char *str)
 
 	i = 0;
 	len = 0;
-	while (str[i++] != '\0')
+	while (str[i] != '\0')
 	{
 		if (str[i] == '$')
 		{
@@ -54,11 +54,12 @@ static int	get_dollar_len(char *str)
 				if (tmp != NULL)
 					len += ft_strlen(tmp);
 				free(tmp);
-				while (str[i] != '\0' && str[i] != ' ' && str[i] != '$')
+				while (str[i + 1] != '\0' && str[i] != ' ' && str[i] != '$')
 					i++;
 			}
 		}
 		len++;
+		i++;
 	}
 	return (len - 1);
 }
@@ -107,10 +108,12 @@ static char	*dollar_to_value(char *str, int len)
 		if (str[i] == '$')
 		{
 			tmp = next_dollar_value(&i, &len, str);
-			new = ft_strjoin_free(new, tmp);
+			if	(tmp != NULL)
+				new = ft_strjoin_free(new, tmp);
 			free(tmp);
 		}
-		new[len++] = str[i++];
+		else
+			new[len++] = str[i++];
 	}
 	new[len] = '\0';
 	free(str);
