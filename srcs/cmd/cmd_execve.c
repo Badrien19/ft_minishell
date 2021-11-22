@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_execve.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/18 22:27:47 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/22 15:45:25 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,10 @@ void	ft_loop_execve(int in, int out, char *cmd)
 		exit(0);
 	}
 	else
+	{
 		waitpid(pid, NULL, 0);
+		free(cmd);
+	}
 }
 
 void	cmd_execve(t_cmd *list)
