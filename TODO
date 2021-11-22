@@ -7,6 +7,7 @@ Alexandre :
 - Check execve (./) -- Done
 - Vérifier que toutes les commandes sont redirigées -- Done
 - Corriger la cmd export (MYVAR="Bonjour" ne fonctionne pas et peut crash à cause d'un free) -- Done
+- Unset double free (unset PATH)
 
 Adrien : 
 - Régler segfault variables qui n'existent pas -- Done
