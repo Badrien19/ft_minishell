@@ -15,7 +15,7 @@
 static void	clear_node(t_cmd *node)
 {
 	free(node->content->value);
-	node->content = NULL;
+	node->content->value = NULL;
 	free(node->content);
 	node->content = NULL;
 	free(node);
@@ -31,7 +31,6 @@ static void	join_two_tokens(t_cmd *list)
 	str_1 = list->content->value;
 	str_2 = list->next->content->value;
 	new_tok_value = ft_strjoin(str_1, str_2);
-	//token = create_token(new_tok_value, get_token_type(list->content));
 	free(list->content->value);
 	list->content->value = new_tok_value;
 }
@@ -45,12 +44,10 @@ void	relink_nodes(void)
 
 	tmp_list = NULL;
 	join_two_tokens(g_minishell.list_input);
-	//printf("next->next : %p\n", g_minishell.list_input->next->next);
 	if (g_minishell.list_input->next->next)
 		tmp_list = g_minishell.list_input->next->next;
 	else
 	{
-		//printf("size : %ld\n", sizeof(t_cmd));
 		clear_node(g_minishell.list_input->next);
 		g_minishell.list_input->next = NULL;
 	}
