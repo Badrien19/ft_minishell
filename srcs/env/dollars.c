@@ -6,74 +6,11 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/22 18:23:14 by badrien          ###   ########.fr       */
+/*   Updated: 2021/11/22 18:25:22 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
-
-int	get_quote_len(char *str)
-{
-	int	i;
-	int	quote;
-	int	double_quote;
-
-	i = 0;
-	quote = 0;
-	double_quote = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '\'' && double_quote % 2 == 0)
-			quote++;
-		else if (str[i] == '\"' && quote % 2 == 0)
-			double_quote++;
-		i++;
-	}
-	if (quote % 2 == 1 || double_quote % 2 == 1)
-		return (-1);
-	return (i - quote - double_quote);
-}
-
-static char	*remove_quote_2(char *str, int len)
-{
-	char	*new_str;
-	int		quote;
-	int		double_quote;
-	int		i;
-
-	i = 0;
-	quote = 0;
-	double_quote = 0;
-	new_str = malloc(sizeof(char) * (len + 1));
-	if (new_str == NULL)
-		return (NULL);
-	len = 0;
-	while (str[i++] != '\0')
-	{
-		if (str[i] == '\'' && double_quote % 2 == 0)
-			quote++;
-		else if (str[i] == '\"' && quote % 2 == 0)
-			double_quote++;
-		else
-			new_str[len++] = str[i];
-	}
-	new_str[len] = '\0';
-	free(str);
-	return (new_str);
-}
-
-static char	*remove_quote(char *str)
-{
-	int		len;
-
-	len = get_quote_len(str);
-	if (len == -1)
-	{
-		printf("quote not even\n");
-		exit(-1);
-	}
-	return (remove_quote_2(str, len));
-}
 
 char	*get_value_env(char *name)
 {

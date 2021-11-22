@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+         #
+#    By: badrien <badrien@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:00:43 by user42            #+#    #+#              #
-#    Updated: 2021/11/18 17:57:51 by cgoncalv         ###   ########.fr        #
+#    Updated: 2021/11/22 18:28:21 by badrien          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRC		=	./srcs/others/minishell.c ./srcs/others/free.c ./srcs/others/errors.c ./s
 			./srcs/cmd/cmd_echo.c ./srcs/cmd/cmd_unset.c ./srcs/cmd/hub.c ./srcs/cmd/cmd_export.c ./srcs/cmd/cmd_execve.c \
 			./srcs/cmd/cmd_execute.c ./srcs/cmd/cmd_pwd.c ./srcs/cmd/cmd_cd.c \
 			./srcs/cmd_struct/ft_cmdadd_back.c ./srcs/cmd_struct/ft_cmdadd_front.c ./srcs/cmd_struct/ft_cmdlast.c ./srcs/cmd_struct/ft_cmdnew.c ./srcs/cmd_struct/ft_cmdsize.c ./srcs/cmd_struct/ft_cmdfirst.c \
-			./srcs/env/env.c ./srcs/env/dollars.c\
+			./srcs/env/env.c ./srcs/env/dollars.c ./srcs/env/quotes.c \
 			./srcs/parsing/checker.c ./srcs/parsing/parser.c ./srcs/parsing/parse_redirections.c ./srcs/parsing/search_in_parsing.c \
 			./srcs/tokens/concat_tokens.c ./srcs/tokens/get_token.c ./srcs/tokens/utils_concat_tokens.c ./srcs/tokens/tokens.c
 OBJ 	=	$(SRC:%.c=%.o)

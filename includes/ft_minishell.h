@@ -137,12 +137,18 @@ t_cmd				*find_next_cmd(void);
 t_bool				ft_isstop(t_cmd *list);
 
 /*
-**	apply
+**	dollars.c
 */
 
 int					replace_value_from_env(t_cmd *list);
-int					get_quote_len(char *str);
 char				*get_value_env(char *name);
+
+/*
+**	quotes.c
+*/
+
+char				*remove_quote(char *str);
+int					get_quote_len(char *str);
 
 /*
 **	env.c
