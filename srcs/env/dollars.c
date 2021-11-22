@@ -6,7 +6,7 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/22 18:22:33 by badrien          ###   ########.fr       */
+/*   Updated: 2021/11/22 18:23:14 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,10 +205,5 @@ int	replace_value_from_env(t_cmd *list)
 			list->content->type = none;
 		list = list->next;
 	}
-<<<<<<< HEAD
-	debug();
-=======
-	//g_minishell.list_input = ft_cmdfirst(g_minishell.list_input);
->>>>>>> 0990a2826f5d0c062235753b578b85769e8b411d
 	return (0);
 }
