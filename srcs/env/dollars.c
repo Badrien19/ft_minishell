@@ -6,7 +6,7 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/22 15:49:43 by badrien          ###   ########.fr       */
+/*   Updated: 2021/11/22 15:54:53 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,18 +197,18 @@ int	replace_value_from_env(t_cmd *list)
 		//value = list->content->value;
 		if(ft_isstop(list) == 0)
 			return(0);
-		if (list->content->type == double_quote || list->content->type == single_quote) // OK
+		if (list->content->type == double_quote || list->content->type == single_quote) // FREE OK
 		{
-			printf("single et double quote\n");
+			printf("single et double quote\n"); // OK
 			list->content->value = remove_quote(list->content->value);
 			list->content->type = literal;
 		}
-		if (list->content->type == double_quote) // OK $?
+		if (list->content->type == double_quote) // FREE OK
 		{
 			printf("double quote\n");
 			list->content->value = dollar_to_value(list->content->value);
 		}
-		if (list->content->type == variable) // OK
+		if (list->content->type == variable) // FREE OK
 		{
 			printf("variable\n");
 			list->content->value = dollar_to_value(list->content->value);
