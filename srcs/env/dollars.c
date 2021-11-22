@@ -6,7 +6,7 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/19 16:29:46 by badrien          ###   ########.fr       */
+/*   Updated: 2021/11/22 15:27:04 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ static char	*remove_quote_2(char *str, int len)
 		}
 	}
 	new_str[len] = '\0';
+	free(str);
 	return (new_str);
 }
 
@@ -161,7 +162,7 @@ static char	*dollar_to_value(char *str)
 		{
 			if (str[i + 1] == '?')
 			{
-				new = ft_strjoin(new, ft_itoa(g_minishell.last_return_value));
+				new = ft_strjoin_free(new, ft_itoa(g_minishell.last_return_value));
 				len += ft_strlen(ft_itoa(g_minishell.last_return_value));
 				i += 2;
 			}
@@ -169,7 +170,7 @@ static char	*dollar_to_value(char *str)
 			{
 				tmp = get_value_env(&str[i + 1]);
 				if (tmp != NULL)
-					new = ft_strjoin(new, tmp);
+					new = ft_strjoin_free(new, tmp);
 				if (new != NULL)
 					len = ft_strlen(new);
 				i++;
@@ -183,6 +184,7 @@ static char	*dollar_to_value(char *str)
 		len++;
 	}
 	new[len] = '\0';
+	free(str);
 	return (new); 
 }
 
@@ -197,15 +199,18 @@ int	replace_value_from_env(t_cmd *list)
 			return(0);
 		if (list->content->type == double_quote || list->content->type == single_quote) // OK
 		{
+			printf("single et double quote\n");
 			list->content->value = remove_quote(list->content->value);
 			list->content->type = literal;
 		}
 		if (list->content->type == double_quote) // OK $?
 		{
+			printf("double quote\n");
 			list->content->value = dollar_to_value(list->content->value);
 		}
 		if (list->content->type == variable) // OK
 		{
+			printf("variable\n");
 			list->content->value = dollar_to_value(list->content->value);
 			//printf("value = (%s)\n",(char *)list->content->value);
 			list->content->type = literal;
@@ -218,7 +223,7 @@ int	replace_value_from_env(t_cmd *list)
 		//free(value);
 		list = list->next;
 	}
-	//debug();
+	debug();
 	//g_minishell.list_input = ft_cmdfirst(g_minishell.list_input);
 	return (0);
 	//if(list->content->type=variable)
