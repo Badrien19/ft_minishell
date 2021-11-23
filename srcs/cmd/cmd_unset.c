@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_unset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 09:46:55 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/23 16:42:15 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/23 17:14:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ void	cmd_unset(t_cmd *list)
 	{
 		printf("minishell: unset: %s not a valid identifier\n",
 			(char *)list->content->value);
+		g_minishell.last_return_value = 1;
 		return ;
 	}
 	ft_unseting(list);
+	g_minishell.last_return_value = 0;
 }

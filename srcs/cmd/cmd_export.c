@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/22 18:36:59 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/23 17:23:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,10 @@ void	cmd_export(t_cmd *list)
 	if (!ft_isalpha(value[0]))
 	{
 		printf("minishell: export: %s not a valid identifier\n", value);
+		g_minishell.last_return_value = 1;
 		return ;
 	}
 	ft_exporting(list, value);
 	free(value);
+	g_minishell.last_return_value = 0;
 }
