@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:37:03 by cgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/22 18:50:34 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/23 15:43:46 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	main(int argc, char **argv, char **env)
 		}
 		else if (!user_input)
 		{
+			free_array(g_minishell.env);
 			free_list();
 			exit(EXIT_SUCCESS);
 		}

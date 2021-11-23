@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:28:08 by user42            #+#    #+#             */
-/*   Updated: 2021/11/21 13:16:51 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/23 15:43:14 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	error(char *error_text)
 {
 	ft_putstr_fd(error_text, 2);
 	free_list();
+	free_array(g_minishell.env);
+	g_minishell.env = NULL;
 	exit (0);
 }
 
