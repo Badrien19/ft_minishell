@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_echo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:58:01 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/19 16:10:23 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/23 17:14:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,5 @@ void	cmd_echo(t_cmd *list)
 		if (list->content->pipe_in && list->content->pipe_in != 0)
 			close(list->content->pipe_in);
 	}
+	g_minishell.last_return_value = 0;
 }

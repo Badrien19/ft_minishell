@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:49:46 by user42            #+#    #+#             */
-/*   Updated: 2021/11/21 13:19:14 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/23 17:08:52 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,5 @@ void	cmd_pwd(t_cmd *list)
 		if (list->content->pipe_in && list->content->pipe_in != 0)
 			close(list->content->pipe_in);
 	}
+	g_minishell.last_return_value = 0;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:17:37 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/22 17:39:11 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/23 15:41:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ char	**realloc_env(char **env, size_t size)
 			exit(EXIT_FAILURE);
 		i++;
 	}
-	i = 0;
 	if (g_minishell.env)
 		free_array(g_minishell.env);
 	return (new);
