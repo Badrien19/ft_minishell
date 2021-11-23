@@ -6,7 +6,7 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:24:44 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/22 18:29:39 by badrien          ###   ########.fr       */
+/*   Updated: 2021/11/23 16:46:39 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char	*remove_quote_2(char *str, int len)
 	if (new_str == NULL)
 		return (NULL);
 	len = 0;
-	while (str[i++] != '\0')
+	while (str[i] != '\0')
 	{
 		if (str[i] == '\'' && double_quote % 2 == 0)
 			quote++;
@@ -56,6 +56,7 @@ static char	*remove_quote_2(char *str, int len)
 			double_quote++;
 		else
 			new_str[len++] = str[i];
+		i++;
 	}
 	new_str[len] = '\0';
 	free(str);
