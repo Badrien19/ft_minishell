@@ -127,6 +127,7 @@ void	parse_pipe(void)
 	t_cmd	*current;
 	int		tmp_fd;
 
+	tmp_fd = 0;
 	current = g_minishell.list_input;
 	if (g_minishell.list_input->prev)
 		g_minishell.list_input = g_minishell.list_input->prev;
