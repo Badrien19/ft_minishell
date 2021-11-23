@@ -132,28 +132,6 @@ void	parse_pipe(void)
 		g_minishell.list_input = g_minishell.list_input->prev;
 	else
 		return ;
-	if (find_prev_cmd()->content->pipe_out == STDOUT_FILENO)
-	{
-		if (pipe(fd) < 0)
-		{
-			perror("minishell");
-			return ;
-		}
-		if (find_prev_cmd())
-			find_prev_cmd()->content->pipe_out = fd[1];
-		else
-			return ;
-		g_minishell.list_input = current->next;
-		if (find_next_cmd())
-			find_next_cmd()->content->pipe_in = fd[0];
-		else
-			return ;
-	}
-	else
-	{
-		tmp_fd = find_prev_cmd()->content->pipe_out;
-		g_minishell.list_input = current->next;
-		find_next_cmd()->content->pipe_in = tmp_fd;
-	}
+	assign_pipe(fd, current, tmp_fd);
 	g_minishell.list_input = current;
 }
