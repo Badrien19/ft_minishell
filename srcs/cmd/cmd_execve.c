@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_execve.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/22 15:49:44 by badrien          ###   ########.fr       */
+/*   Updated: 2021/11/23 16:30:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,18 @@ static char	**get_path(char **env)
 	char	**path;
 	int		i;
 
-	i = -1;
+	i = 0;
 	path = NULL;
-	while (env[++i])
+	while (env[i])
 	{
 		if (ft_strncmp(env[i], "PATH=", 5) == 0)
 		{
 			path = ft_split((env[i] + 5), ':');
-			break ;
+			return (path);
 		}
+		i++;
 	}
-	return (path);
+	return(NULL);
 }
 
 void	free_array(char **array)

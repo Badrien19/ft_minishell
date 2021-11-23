@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:47:41 by user42            #+#    #+#             */
-/*   Updated: 2021/11/21 13:17:10 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/23 16:02:51 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,9 @@ static void	execute_child(t_cmd *list)
 	tmp = ft_strjoin(path, "/");
 	free(path);
 	tmp = ft_strjoin_free(tmp, args[1]);
-	free(path);
 	execve(tmp, args, g_minishell.env);
 	free(tmp);
 	free_array(args);
-	free_list();
 	perror("minishell");
 }
 
