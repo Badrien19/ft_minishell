@@ -56,15 +56,15 @@ void	print_current_chain(void)
 {
 	t_cmd *begin = g_minishell.list_input;
 
-    while (g_minishell.list_input)
-    {
-        printf("'%s'", (char *)g_minishell.list_input->content->value);
-        if (g_minishell.list_input->next)
-            printf(" -> ");
-        g_minishell.list_input = g_minishell.list_input->next;
-    }
-    printf("\n");
-    g_minishell.list_input = begin;
+	while (g_minishell.list_input)
+	{
+		printf("'%s'", (char *)g_minishell.list_input->content->value);
+		if (g_minishell.list_input->next)
+			printf(" -> ");
+		g_minishell.list_input = g_minishell.list_input->next;
+	}
+	printf("\n");
+	g_minishell.list_input = begin;
 }
 
 void	debug(void)

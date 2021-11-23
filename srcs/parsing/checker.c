@@ -20,11 +20,13 @@ t_bool	check_path(char *cmd)
 	char	**paths;
 
 	i = 0;
-	while (ft_strnstr(g_minishell.env[i], "PATH=", 5) == 0
-		&& g_minishell.env[i] != NULL)
+	while (g_minishell.env[i] != NULL
+		&& ft_strnstr(g_minishell.env[i], "PATH=", 5) == 0)
 		i++;
 	if (g_minishell.env[i] != NULL)
 		paths = ft_split(g_minishell.env[i] + 5, ':');
+	else
+		return (False);
 	i = 0;
 	while (paths[i])
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/11/23 09:36:45 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/23 16:29:57 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	loop_hub(t_cmd *list)
 		ft_switch(list);
 	else if (list->content->type == none || list->content->type == semicolon)
 		return ;
-	else
+	else if (errno != 0)
 		perror("minishell");
 }
 
