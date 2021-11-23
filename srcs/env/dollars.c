@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/23 17:39:48 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/23 19:14:12 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,36 +33,6 @@ char	*get_value_env(char *name)
 	}
 	return (NULL);
 }
-
-/* static int	get_dollar_len(char *str)
-{
-	int		i;
-	int		len;
-	char	*tmp;
-
-	i = 0;
-	len = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '$')
-		{
-			if (str[i + 1] == '?')
-				len += ft_strlen(ft_itoa(g_minishell.last_return_value));
-			else
-			{
-				tmp = get_value_env(&str[++i]);
-				if (tmp != NULL)
-					len += ft_strlen(tmp);
-				free(tmp);
-				while (str[i + 1] != '\0' && str[i] != ' ' && str[i] != '$')
-					i++;
-			}
-		}
-		len++;
-		i++;
-	}
-	return (len - 1);
-} */
 
 static int	get_dollar_len(char *str)
 {
@@ -102,60 +72,56 @@ static int	get_dollar_len(char *str)
 	return (len);
 }
 
-static char	*next_dollar_value(int *i, int *len, char *str)
+static char	*next_dollar_value(int i, char *str)
 {
-	char	*new;
-
-	new = NULL;
-	if (str[*i + 1] == '?')
-	{
-		new = ft_strjoin_free(new,
-				ft_itoa(g_minishell.last_return_value));
-		len += ft_strlen(ft_itoa(g_minishell.last_return_value));
-		*i += 2;
-	}
-	else
-	{
-		new = get_value_env(&str[*i + 1]);
-		if (new != NULL)
-			*len += ft_strlen(new);
-		(*i)++;
-	}
-	while (str[*i] != '\0' && str[*i] != ' ' && str[*i] != '$'
-		&& str[*i] != '\'' && str[*i] != '\"')
-		(*i)++;
-	return (new);
-}
-
-static char	*dollar_to_value(char *str, int len)
-{
-	int		i;
 	char	*new;
 	char	*tmp;
 
-	len = get_dollar_len(str);
 	new = NULL;
-	i = 0;
-	new = malloc(sizeof(char) * (len + 1));
-	if (new == NULL)
-		return (NULL);
-	ft_bzero(new, len + 1);
-	len = 0;
-	while (str[i] != '\0')
+	i++;
+	if (str[i] == '?')
 	{
-		if (str[i] == '$')
-		{
-			tmp = next_dollar_value(&i, &len, str);
-			if	(tmp != NULL)
-				new = ft_strjoin_free(new, tmp);
-			free(tmp);
-		}
-		else
-			new[len++] = str[i++];
+		tmp = ft_itoa(g_minishell.last_return_value);
+		new = ft_strjoin_free(new, tmp);
+		free(tmp);
 	}
-	new[len] = '\0';
-	free(str);
+	else
+		new = get_value_env(&str[i]);
 	return (new);
+}
+
+static char	*dollar_to_value(char *original_str, int len)
+{
+	size_t	i;
+	size_t	j;
+	char	*new_str;
+	char	*env_value;
+
+	i = 0;
+	len = get_dollar_len(original_str);
+	new_str = malloc(sizeof(char) * (len + 1));
+	if (!new_str)
+		return (NULL);
+	new_str[len] = '\0';
+	len = 0;
+	while (original_str[i] != '\0')
+	{
+		if (original_str[i] != '$')
+			new_str[len++] = original_str[i++];
+		else
+		{
+			j = 0;
+			env_value = next_dollar_value(i, original_str);
+			while (env_value[j] != '\0')
+				new_str[len++] = env_value[j++];
+			i++;
+			while (original_str[i] != '\0' && original_str[i] != ' ' && original_str[i] != '$')
+				i++;
+			free(env_value);
+		}
+	}
+	free(original_str);
+	return (new_str);
 }
 
 int	replace_value_from_env(t_cmd *list)
