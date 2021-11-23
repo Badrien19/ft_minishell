@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:37:03 by cgoncalv          #+#    #+#             */
-/*   Updated: 2021/11/23 15:43:46 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/23 15:49:43 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,10 @@ void	sigint_handler(int sig)
 	}
 }
 
-int	main(int argc, char **argv, char **env)
+void	main_loop(void)
 {
 	char	*user_input;
 
-	signal(SIGINT, &sigint_handler);
-	argc = argc;
-	argv = argv;
-	g_minishell.list_input = 0;
-	g_minishell.last_return_value = 1;
-	g_minishell.env = realloc_env(env, (size_t)size_env(env));
 	while (True)
 	{
 		g_minishell.parsing_error = False;
@@ -45,7 +39,7 @@ int	main(int argc, char **argv, char **env)
 		if (user_input && ft_strlen(user_input) != 0
 			&& g_minishell.parsing_error == False)
 		{
-			debug();
+			debug(); // Finira par partir.
 			cmd_hub();
 		}
 		else if (!user_input)
@@ -57,5 +51,16 @@ int	main(int argc, char **argv, char **env)
 		free_list();
 		free(user_input);
 	}
+}
+
+int	main(int argc, char **argv, char **env)
+{
+	signal(SIGINT, &sigint_handler);
+	argc = argc;
+	argv = argv;
+	g_minishell.list_input = 0;
+	g_minishell.last_return_value = 1;
+	g_minishell.env = realloc_env(env, (size_t)size_env(env));
+	main_loop();
 	return (EXIT_SUCCESS);
 }
