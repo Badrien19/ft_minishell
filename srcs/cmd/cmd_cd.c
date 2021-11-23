@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:53:10 by user42            #+#    #+#             */
-/*   Updated: 2021/11/23 17:24:37 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/23 18:17:46 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ void	cmd_cd(t_cmd *list)
 {
 	char	*cwd;
 	char	*tmp;
+	int		env_i;
 
 	cwd = getcwd(NULL, 0);
 	tmp = ft_strjoin("PWD=", cwd);
+	env_i = envchr("PWD");
 	if (!tmp)
 		error("Malloc error");
 	while (list && list->content->type == space && list->next)
@@ -27,9 +29,12 @@ void	cmd_cd(t_cmd *list)
 		chdir(&g_minishell.env[envchr("HOME")][5]);
 	else
 		chdir(list->content->value);
-	if (envchr("PWD") == -1)
+	if (env_i == -1)
 		ft_exporting(list, tmp);
 	else
-		g_minishell.env[envchr("PWD")] = tmp;
+	{
+		free(g_minishell.env[env_i]);
+		g_minishell.env[env_i] = tmp;
+	}
 	free(cwd);
 }
