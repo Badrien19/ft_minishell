@@ -12,29 +12,20 @@
 
 #include "../../includes/ft_minishell.h"
 
-t_bool	check_path(char *cmd)
+static t_bool	verify_executable(char **paths, char *cmd)
 {
-	int		i;
+	size_t	i;
 	char	*path;
-	char	*tmp;
-	char	**paths;
+	char	*buf;
 
-	i = 0;
-	while (g_minishell.env[i] != NULL
-		&& ft_strnstr(g_minishell.env[i], "PATH=", 5) == 0)
-		i++;
-	if (g_minishell.env[i] != NULL)
-		paths = ft_split(g_minishell.env[i] + 5, ':');
-	else
-		return (False);
 	i = 0;
 	while (paths[i])
 	{
 		if (cmd[0] != '/')
 		{
-			tmp = ft_strjoin(paths[i], "/");
-			path = ft_strjoin(tmp, cmd);
-			free(tmp);
+			buf = ft_strjoin(paths[i], "/");
+			path = ft_strjoin(buf, cmd);
+			free(buf);
 		}
 		if (access(path, X_OK) == 0)
 		{
@@ -47,4 +38,22 @@ t_bool	check_path(char *cmd)
 	}
 	free_array(paths);
 	return (False);
+}
+
+t_bool	check_path(char *cmd)
+{
+	size_t	i;
+	char	**paths;
+
+	i = 0;
+	while (g_minishell.env[i] != NULL
+		&& ft_strnstr(g_minishell.env[i], "PATH=", 5) == 0)
+		i++;
+	if (g_minishell.env[i] == NULL)
+		return (False);
+	paths = ft_split(g_minishell.env[i] + 5, ':');
+	if (verify_executable(paths, cmd) == True)
+		return (True);
+	else
+		return (False);
 }

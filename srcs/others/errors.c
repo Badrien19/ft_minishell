@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:28:08 by user42            #+#    #+#             */
-/*   Updated: 2021/11/23 15:43:14 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/23 17:24:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	error(char *error_text)
 	free_list();
 	free_array(g_minishell.env);
 	g_minishell.env = NULL;
+	if (errno)
+		g_minishell.last_return_value = errno;
 	exit (0);
 }
 

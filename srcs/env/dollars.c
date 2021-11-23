@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollars.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/22 19:12:27 by badrien          ###   ########.fr       */
+/*   Updated: 2021/11/23 17:39:48 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*get_value_env(char *name)
 	return (NULL);
 }
 
-static int	get_dollar_len(char *str)
+/* static int	get_dollar_len(char *str)
 {
 	int		i;
 	int		len;
@@ -62,6 +62,44 @@ static int	get_dollar_len(char *str)
 		i++;
 	}
 	return (len - 1);
+} */
+
+static int	get_dollar_len(char *str)
+{
+	size_t	i;
+	size_t	len;
+	char	*tmp;
+
+	i = 0;
+	len = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == '$')
+		{
+			i++;
+			if (str[i] == '?')
+			{
+				tmp = ft_itoa(g_minishell.last_return_value);
+				len += ft_strlen(tmp);
+				free(tmp);
+			}
+			else
+			{
+				tmp = get_value_env(&str[i]);
+				if (tmp != NULL)
+					len += ft_strlen(tmp);
+				free(tmp);
+				while (str[i] != '\0' && str[i] != ' ' && str[i] != '$')
+					i++;
+			}
+		}
+		if (str[i] != '\0')
+		{
+			i++;
+			len++;
+		}
+	}
+	return (len);
 }
 
 static char	*next_dollar_value(int *i, int *len, char *str)

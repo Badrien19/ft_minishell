@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/23 16:30:14 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/23 16:57:47 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static char	**get_path(char **env)
 		}
 		i++;
 	}
-	return(NULL);
+	return (NULL);
 }
 
 void	free_array(char **array)
