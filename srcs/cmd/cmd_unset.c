@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_unset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 09:46:55 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/22 17:23:39 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/23 16:23:18 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ static void	ft_unseting(t_cmd *list)
 		word_size = ft_strlen(list->content->value);
 		if (!ft_strncmp(list->content->value, g_minishell.env[i], word_size))
 		{
+			free(g_minishell.env[i]);
 			g_minishell.env[i] = g_minishell.env[env_size];
+			g_minishell.env[env_size] = NULL;
 			env_size--;
 			g_minishell.env = realloc_env(g_minishell.env, env_size);
 			if (!list->next || list->next->content->type == semicolon)
