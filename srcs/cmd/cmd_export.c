@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/24 17:25:56 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/24 17:37:22 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,11 @@ void	cmd_export(t_cmd *list)
 	value = NULL;
 	while (list && ft_isstop(list))
 	{
-		while (ft_isstop(list) && list->next
-			&& (list->content->type == space || list->content->type == none))
+		while (list->next && (list->content->type == space
+			|| list->content->type == none))
 			list = list->next;
+		if(!ft_isstop(list))
+			return ;
 		value = ft_strdup(list->content->value);
 		if (!ft_isalpha(value[0]))
 		{
