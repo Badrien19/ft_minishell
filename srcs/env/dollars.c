@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollars.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/23 19:14:12 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/24 15:02:14 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*get_value_env(char *name)
 	i = 0;
 	len = 0;
 	while (name[len] != '\0' && name[len] != ' '
-		&& name[len] != '$' && name[len] != '\"' && name[len] != '\'')
+		&& name[len] != '$' && name[len] != '\"' && name[len] != '\'' && name[len] != '/')
 		len++;
 	while (g_minishell.env[i] != NULL)
 	{
@@ -33,6 +33,8 @@ char	*get_value_env(char *name)
 	}
 	return (NULL);
 }
+
+//static int value_
 
 static int	get_dollar_len(char *str)
 {
@@ -59,7 +61,7 @@ static int	get_dollar_len(char *str)
 				if (tmp != NULL)
 					len += ft_strlen(tmp);
 				free(tmp);
-				while (str[i] != '\0' && str[i] != ' ' && str[i] != '$')
+				while (str[i] != '\0' && str[i] != ' ' && str[i] != '$' && str[i] != '/')
 					i++;
 			}
 		}
@@ -115,7 +117,7 @@ static char	*dollar_to_value(char *original_str, int len)
 			while (env_value[j] != '\0')
 				new_str[len++] = env_value[j++];
 			i++;
-			while (original_str[i] != '\0' && original_str[i] != ' ' && original_str[i] != '$')
+			while (original_str[i] != '\0' && original_str[i] != ' ' && original_str[i] != '$' && original_str[i] != '/')
 				i++;
 			free(env_value);
 		}
