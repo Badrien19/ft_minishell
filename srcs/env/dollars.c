@@ -6,7 +6,7 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/24 15:02:14 by badrien          ###   ########.fr       */
+/*   Updated: 2021/11/24 15:24:28 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,27 @@ char	*get_value_env(char *name)
 	}
 	return (NULL);
 }
-
-//static int value_
-
+/*
+static int	next_len_value(char *str)
+{
+	i++;
+	if (str[i] == '?')
+	{
+		tmp = ft_itoa(g_minishell.last_return_value);
+		len += ft_strlen(tmp);
+		free(tmp);
+	}
+	else
+	{
+		tmp = get_value_env(&str[i]);
+		if (tmp != NULL)
+			len += ft_strlen(tmp);
+		free(tmp);
+		while (str[i] != '\0' && str[i] != ' ' && str[i] != '$' && str[i] != '/')
+			i++;
+	}
+}
+*/
 static int	get_dollar_len(char *str)
 {
 	size_t	i;
@@ -53,6 +71,7 @@ static int	get_dollar_len(char *str)
 			{
 				tmp = ft_itoa(g_minishell.last_return_value);
 				len += ft_strlen(tmp);
+				i++;
 				free(tmp);
 			}
 			else
@@ -117,8 +136,11 @@ static char	*dollar_to_value(char *original_str, int len)
 			while (env_value[j] != '\0')
 				new_str[len++] = env_value[j++];
 			i++;
-			while (original_str[i] != '\0' && original_str[i] != ' ' && original_str[i] != '$' && original_str[i] != '/')
+			if (original_str[i] == '?')
 				i++;
+			else
+				while (original_str[i] != '\0' && original_str[i] != ' ' && original_str[i] != '$' && original_str[i] != '/')
+					i++;
 			free(env_value);
 		}
 	}
