@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/24 18:00:25 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/24 18:04:31 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void	cmd_export(t_cmd *list)
 	{
 		while (list->next && list->content->type == space)
 			list = list->next;
+		if(!ft_isstop(list))
+			return ;
 		if (!ft_isalpha(((char *)list->content->value)[0]))
 			{
 				printf("minishell: export: %s not a valid identifier\n",
