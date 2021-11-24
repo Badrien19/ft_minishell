@@ -120,6 +120,8 @@ t_bool	is_there_literal_for_file(void)
 */
 t_bool	ft_isstop(t_cmd *list)
 {
+	if (list == NULL)
+		return (False);
 	if (list->content->value && list->content->type != semicolon
 		&& list->content->type != simple_redir_left
 		&& list->content->type != simple_redir_right

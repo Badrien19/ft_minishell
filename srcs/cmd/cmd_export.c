@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/24 17:39:41 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/24 18:00:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,19 +79,18 @@ void	cmd_export(t_cmd *list)
 	value = NULL;
 	while (list && ft_isstop(list))
 	{
-		while (list->next && (list->content->type == space
-			|| list->content->type == none))
+		while (list->next && list->content->type == space)
 			list = list->next;
+		if (!ft_isalpha(((char *)list->content->value)[0]))
+			{
+				printf("minishell: export: %s not a valid identifier\n",
+					(char *)list->content->value);
+				list = list->next;
+				g_minishell.last_return_value = 1;
+			}
 		if(!ft_isstop(list))
 			return ;
 		value = ft_strdup(list->content->value);
-		if (!ft_isalpha(value[0]))
-		{
-			printf("minishell: export: %s not a valid identifier\n", value);
-			free(value);
-			g_minishell.last_return_value = 1;
-			return ;
-		}
 		ft_exporting(list, value);
 		free(value);
 		list = list->next;
