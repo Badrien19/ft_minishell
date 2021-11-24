@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/23 17:23:28 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/24 17:25:56 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,20 +76,22 @@ void	cmd_export(t_cmd *list)
 	if (!list || list->next == NULL)
 		return ;
 	list = list->next;
-	value = ft_strdup(list->content->value);
-	if (list->next && (list->next->content->type == double_quote
-			|| list->next->content->type == single_quote))
+	value = NULL;
+	while (list && ft_isstop(list))
 	{
-		value = ft_strjoin_free(value, list->next->content->value);
+		while (ft_isstop(list) && list->next
+			&& (list->content->type == space || list->content->type == none))
+			list = list->next;
+		value = ft_strdup(list->content->value);
+		if (!ft_isalpha(value[0]))
+		{
+			printf("minishell: export: %s not a valid identifier\n", value);
+			g_minishell.last_return_value = 1;
+			return ;
+		}
+		ft_exporting(list, value);
+		free(value);
 		list = list->next;
 	}
-	if (!ft_isalpha(value[0]))
-	{
-		printf("minishell: export: %s not a valid identifier\n", value);
-		g_minishell.last_return_value = 1;
-		return ;
-	}
-	ft_exporting(list, value);
-	free(value);
 	g_minishell.last_return_value = 0;
 }
