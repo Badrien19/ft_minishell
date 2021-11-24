@@ -6,7 +6,7 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/24 15:24:28 by badrien          ###   ########.fr       */
+/*   Updated: 2021/11/24 15:30:39 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,10 +158,12 @@ int	replace_value_from_env(t_cmd *list)
 			|| list->content->type == single_quote)
 		{
 			list->content->value = remove_quote(list->content->value);
+			list->content->type = literal;
 		}
 		if (list->content->type == double_quote)
 		{
 			list->content->value = dollar_to_value(list->content->value, 0);
+			list->content->type = literal;
 		}
 		if (list->content->type == variable)
 		{
@@ -171,6 +173,7 @@ int	replace_value_from_env(t_cmd *list)
 		if (((char *)list->content->value)[0] == '\0')
 			list->content->type = none;
 		list = list->next;
+		debug();
 	}
 	return (0);
 }
