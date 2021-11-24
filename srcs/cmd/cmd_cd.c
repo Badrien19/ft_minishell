@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:53:10 by user42            #+#    #+#             */
-/*   Updated: 2021/11/24 17:28:21 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/24 17:35:30 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ void	cmd_cd(t_cmd *list)
 		g_minishell.env[env_i] = tmp;
 	}
 	if (ret < 0)
+	{
 		g_minishell.last_return_value = 1;
+		perror("minishell: cd:");
+	}
 	else
 		g_minishell.last_return_value = 0;
 	free(cwd);
