@@ -99,12 +99,13 @@ void	concat_tokens_var(void)
 		&& get_token_type(g_minishell.list_input->content) != variable)
 		g_minishell.list_input = g_minishell.list_input->next;
 	if (g_minishell.list_input
+		&& g_minishell.list_input->next != NULL
 		&& get_token_type(g_minishell.list_input->content) == variable)
 	{
 		relink_nodes();
 		g_minishell.list_input = g_minishell.list_input->next;
 	}
-	if (g_minishell.list_input)
+	if (g_minishell.list_input && g_minishell.list_input->next)
 		concat_tokens_var();
 	g_minishell.list_input = begin;
 }
