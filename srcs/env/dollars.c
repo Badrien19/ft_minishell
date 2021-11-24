@@ -6,7 +6,7 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/24 15:30:39 by badrien          ###   ########.fr       */
+/*   Updated: 2021/11/24 16:43:16 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,28 +120,32 @@ static char	*dollar_to_value(char *original_str, int len)
 
 	i = 0;
 	len = get_dollar_len(original_str);
+	//printf("len = %d\n", len);
 	new_str = malloc(sizeof(char) * (len + 1));
 	if (!new_str)
 		return (NULL);
 	new_str[len] = '\0';
-	len = 0;
-	while (original_str[i] != '\0')
+	if (len != 0)
 	{
-		if (original_str[i] != '$')
-			new_str[len++] = original_str[i++];
-		else
+		len = 0;
+		while (original_str[i] != '\0')
 		{
-			j = 0;
-			env_value = next_dollar_value(i, original_str);
-			while (env_value[j] != '\0')
-				new_str[len++] = env_value[j++];
-			i++;
-			if (original_str[i] == '?')
-				i++;
+			if (original_str[i] != '$')
+				new_str[len++] = original_str[i++];
 			else
-				while (original_str[i] != '\0' && original_str[i] != ' ' && original_str[i] != '$' && original_str[i] != '/')
+			{
+				j = 0;
+				env_value = next_dollar_value(i, original_str);
+				while (env_value[j] != '\0')
+					new_str[len++] = env_value[j++];
+				i++;
+				if (original_str[i] == '?')
 					i++;
-			free(env_value);
+				else
+					while (original_str[i] != '\0' && original_str[i] != ' ' && original_str[i] != '$' && original_str[i] != '/')
+						i++;
+				free(env_value);
+			}
 		}
 	}
 	free(original_str);
@@ -173,7 +177,7 @@ int	replace_value_from_env(t_cmd *list)
 		if (((char *)list->content->value)[0] == '\0')
 			list->content->type = none;
 		list = list->next;
-		debug();
+		//debug();
 	}
 	return (0);
 }
