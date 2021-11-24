@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/11/23 16:29:57 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/24 16:41:53 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ void	cmd_hub(void)
 	{
 		if (!ft_isstop(list))
 		{
-			while (list->next && list->content->type != cmd_instr)
-				list = list->next;
 			while (list->content->type == space && list->next)
+				list = list->next;
+			while (list->next && list->content->type != cmd_instr)
 				list = list->next;
 			loop_hub(list);
 		}

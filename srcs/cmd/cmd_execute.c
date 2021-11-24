@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:47:41 by user42            #+#    #+#             */
-/*   Updated: 2021/11/23 16:02:51 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/23 18:39:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,10 @@ static void	execute_child(t_cmd *list)
 	execve(tmp, args, g_minishell.env);
 	free(tmp);
 	free_array(args);
+	if (errno)
+		g_minishell.last_return_value = errno;
+	else
+		g_minishell.last_return_value = 0;
 	perror("minishell");
 }
 

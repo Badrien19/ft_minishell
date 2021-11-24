@@ -33,6 +33,3 @@ Error:
 
 Segfault : 
     - $
-
-Boucle infinie:
-    - unset ok | cat
