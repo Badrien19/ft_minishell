@@ -6,7 +6,7 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/24 16:43:16 by badrien          ###   ########.fr       */
+/*   Updated: 2021/11/25 19:02:42 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*get_value_env(char *name)
 	i = 0;
 	len = 0;
 	while (name[len] != '\0' && name[len] != ' '
-		&& name[len] != '$' && name[len] != '\"' && name[len] != '\'' && name[len] != '/')
+		&& name[len] != '$' && name[len] != '\"' && name[len] != '\'' && name[len] != '/'  && name[len] != '=')
 		len++;
 	while (g_minishell.env[i] != NULL)
 	{
@@ -80,7 +80,7 @@ static int	get_dollar_len(char *str)
 				if (tmp != NULL)
 					len += ft_strlen(tmp);
 				free(tmp);
-				while (str[i] != '\0' && str[i] != ' ' && str[i] != '$' && str[i] != '/')
+				while (str[i] != '\0' && str[i] != ' ' && str[i] != '$' && str[i] != '/'  && str[i] != '=')
 					i++;
 			}
 		}
@@ -142,7 +142,7 @@ static char	*dollar_to_value(char *original_str, int len)
 				if (original_str[i] == '?')
 					i++;
 				else
-					while (original_str[i] != '\0' && original_str[i] != ' ' && original_str[i] != '$' && original_str[i] != '/')
+					while (original_str[i] != '\0' && original_str[i] != ' ' && original_str[i] != '$' && original_str[i] != '/' && original_str[i] != '=')
 						i++;
 				free(env_value);
 			}
@@ -177,7 +177,7 @@ int	replace_value_from_env(t_cmd *list)
 		if (((char *)list->content->value)[0] == '\0')
 			list->content->type = none;
 		list = list->next;
-		//debug();
 	}
+	debug();
 	return (0);
 }
