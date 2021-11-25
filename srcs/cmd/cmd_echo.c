@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:58:01 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/24 17:03:34 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/25 15:47:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,18 @@ static void	loop_echo(int flag, t_cmd *list, int out)
 		write(out, "\n", 1);
 }
 
-int		is_flag(t_cmd **list)
+int	is_flag(t_cmd **list)
 {
 	int		i;
 	int		flag;
 
 	flag = 0;
 	while ((*list)->content->type == space && (*list)->next)
-			*list = (*list)->next;
+		*list = (*list)->next;
 	while (!ft_strncmp((*list)->content->value, "-n", 2))
 	{
 		i = 1;
-		while(((char *)(*list)->content->value)[i])
+		while (((char *)(*list)->content->value)[i])
 		{
 			if (((char *)(*list)->content->value)[i] != 'n')
 				return (flag);

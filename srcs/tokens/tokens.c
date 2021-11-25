@@ -38,7 +38,10 @@ t_token	*create_token(char *value, t_token_type type)
 
 	token = malloc(sizeof(t_token));
 	if (!(token))
-		exit(EXIT_FAILURE);
+	{
+		free(value);
+		error("Malloc error\n");
+	}
 	token->value = value;
 	token->type = type;
 	token->pipe_in = STDIN_FILENO;

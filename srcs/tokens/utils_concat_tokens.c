@@ -31,6 +31,8 @@ static void	join_two_tokens(t_cmd *list)
 	str_1 = list->content->value;
 	str_2 = list->next->content->value;
 	new_tok_value = ft_strjoin(str_1, str_2);
+	if (!new_tok_value)
+		error("Malloc error\n");
 	free(list->content->value);
 	list->content->value = new_tok_value;
 }

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 09:46:55 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/23 17:14:36 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/25 15:54:02 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,20 @@ static void	ft_unseting(t_cmd *list)
 	int		word_size;
 
 	i = -1;
-	while (g_minishell.env[++i] && ft_isstop(list))
+	env_size = 0;
+	while (g_minishell.env[env_size])
+		env_size++;
+	word_size = ft_strlen(list->content->value);
+	while (g_minishell.env[++i])
 	{
-		env_size = 0;
-		while (g_minishell.env[env_size])
-			env_size++;
-		env_size--;
-		word_size = ft_strlen(list->content->value);
 		if (!ft_strncmp(list->content->value, g_minishell.env[i], word_size))
 		{
 			free(g_minishell.env[i]);
 			g_minishell.env[i] = g_minishell.env[env_size];
 			g_minishell.env[env_size] = NULL;
 			g_minishell.env = realloc_env(g_minishell.env, --env_size);
-			if (!list->next || list->next->content->type == semicolon)
-				return ;
-			list = list->next;
+			return ;
 		}
-		while (list->content->type == space && list->next)
-			list = list->next;
 	}
 }
 
@@ -46,13 +41,23 @@ void	cmd_unset(t_cmd *list)
 	if (!list || list->next == NULL)
 		return ;
 	list = list->next;
-	if (!ft_isalpha(((char *)list->content->value)[0]))
+	while (list && ft_isstop(list))
 	{
-		printf("minishell: unset: %s not a valid identifier\n",
-			(char *)list->content->value);
-		g_minishell.last_return_value = 1;
-		return ;
+		while (list->next && list->content->type == space)
+			list = list->next;
+		if (!ft_isstop(list))
+			return ;
+		if (!ft_isalpha(((char *)list->content->value)[0]))
+		{
+			printf("minishell: export: %s not a valid identifier\n",
+				(char *)list->content->value);
+			list = list->next;
+			g_minishell.last_return_value = 1;
+		}
+		if (!ft_isstop(list))
+			return ;
+		ft_unseting(list);
+		list = list->next;
 	}
-	ft_unseting(list);
 	g_minishell.last_return_value = 0;
 }
