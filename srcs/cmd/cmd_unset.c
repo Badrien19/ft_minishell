@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 09:46:55 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/25 13:51:01 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/25 15:54:02 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	ft_unseting(t_cmd *list)
 	i = -1;
 	env_size = 0;
 	while (g_minishell.env[env_size])
-			env_size++;
+		env_size++;
 	word_size = ft_strlen(list->content->value);
 	while (g_minishell.env[++i])
 	{
@@ -45,7 +45,7 @@ void	cmd_unset(t_cmd *list)
 	{
 		while (list->next && list->content->type == space)
 			list = list->next;
-		if(!ft_isstop(list))
+		if (!ft_isstop(list))
 			return ;
 		if (!ft_isalpha(((char *)list->content->value)[0]))
 		{
@@ -54,7 +54,7 @@ void	cmd_unset(t_cmd *list)
 			list = list->next;
 			g_minishell.last_return_value = 1;
 		}
-		if(!ft_isstop(list))
+		if (!ft_isstop(list))
 			return ;
 		ft_unseting(list);
 		list = list->next;

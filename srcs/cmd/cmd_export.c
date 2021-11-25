@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/24 18:12:43 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/25 15:54:23 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,12 @@ void	ft_exporting(t_cmd *list, char *value)
 			{
 				s = size_env(g_minishell.env);
 				g_minishell.env = realloc_env(g_minishell.env, s + 1);
-				g_minishell.env[s]
-					= ft_strdup(value);
+				g_minishell.env[s] = ft_strdup(value);
+				if(!g_minishell.env[s])
+				{
+					free(value);
+					error("malloc error\n");
+				}
 				g_minishell.env[s + 1] = NULL;
 			}
 			else
@@ -63,8 +67,37 @@ void	ft_exporting(t_cmd *list, char *value)
 				s = envchr(value);
 				free(g_minishell.env[s]);
 				g_minishell.env[s] = ft_strdup(value);
+				if(!g_minishell.env[s])
+				{
+					free(value);
+					error("malloc error\n");
+				}
 			}
 		}
+		list = list->next;
+	}
+}
+
+static void	loop_export(t_cmd *list, char *value)
+{
+	while (list && ft_isstop(list))
+	{
+		while (list->next && list->content->type == space)
+			list = list->next;
+		if (!ft_isstop(list))
+			return ;
+		if (!ft_isalpha(((char *)list->content->value)[0]))
+		{
+			printf("minishell: export: %s not a valid identifier\n",
+				(char *)list->content->value);
+			list = list->next;
+			g_minishell.last_return_value = 1;
+		}
+		if (!ft_isstop(list))
+			return ;
+		value = ft_strdup(list->content->value);
+		ft_exporting(list, value);
+		free(value);
 		list = list->next;
 	}
 }
@@ -77,25 +110,6 @@ void	cmd_export(t_cmd *list)
 		return ;
 	list = list->next;
 	value = NULL;
-	while (list && ft_isstop(list))
-	{
-		while (list->next && list->content->type == space)
-			list = list->next;
-		if(!ft_isstop(list))
-			return ;
-		if (!ft_isalpha(((char *)list->content->value)[0]))
-		{
-			printf("minishell: export: %s not a valid identifier\n",
-				(char *)list->content->value);
-			list = list->next;
-			g_minishell.last_return_value = 1;
-		}
-		if(!ft_isstop(list))
-			return ;
-		value = ft_strdup(list->content->value);
-		ft_exporting(list, value);
-		free(value);
-		list = list->next;
-	}
+	loop_export(list, value);
 	g_minishell.last_return_value = 0;
 }

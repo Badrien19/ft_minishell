@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:17:37 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/23 15:41:14 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/25 16:02:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	i = 0;
 	rep = malloc((sizeof(char) * (len + 1)));
 	if (!rep)
-		return (0);
+		errro("Malloc error\n");
 	if (!(start > ft_strlen(s)))
 	{
 		while (i < len && s[start + i] != '\0')
@@ -61,7 +61,7 @@ char	**realloc_env(char **env, size_t size)
 	{
 		new[i] = ft_strdup(env[i]);
 		if (!new[i])
-			exit(EXIT_FAILURE);
+			error("Malloc error\n");
 		i++;
 	}
 	if (g_minishell.env)

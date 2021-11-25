@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollars.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/24 16:43:16 by badrien          ###   ########.fr       */
+/*   Updated: 2021/11/25 16:00:32 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ static int	get_dollar_len(char *str)
 			if (str[i] == '?')
 			{
 				tmp = ft_itoa(g_minishell.last_return_value);
+				if (!tmp)
+					error("Malloc error\n");
 				len += ft_strlen(tmp);
 				i++;
 				free(tmp);
@@ -77,6 +79,8 @@ static int	get_dollar_len(char *str)
 			else
 			{
 				tmp = get_value_env(&str[i]);
+				if (!tmp)
+					error("Malloc error\n");
 				if (tmp != NULL)
 					len += ft_strlen(tmp);
 				free(tmp);
@@ -103,7 +107,14 @@ static char	*next_dollar_value(int i, char *str)
 	if (str[i] == '?')
 	{
 		tmp = ft_itoa(g_minishell.last_return_value);
+		if (!tmp)
+			error("Malloc error\n");
 		new = ft_strjoin_free(new, tmp);
+		if (!new)
+		{
+			free(tmp);
+			error("Malloc error\n");
+		}
 		free(tmp);
 	}
 	else
