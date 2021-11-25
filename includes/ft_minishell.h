@@ -197,7 +197,7 @@ t_bool				check_path(char *cmd);
 ** errors.c
 */
 
-void				error(char *error_text);
+void				cmd_error(void);
 void				parsing_error(int error_code);
 
 /*

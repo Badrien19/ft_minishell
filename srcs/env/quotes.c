@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:24:44 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/25 16:02:55 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/25 20:02:17 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char	*remove_quote_2(char *str, int len)
 	if (new_str == NULL)
 	{
 		free(str);
-		error("Malloc error\n");
+		cmd_error();
 	}
 	len = 0;
 	while (str[i] != '\0')

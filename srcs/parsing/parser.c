@@ -21,14 +21,14 @@ void	tokenizer(char *input)
 
 	value = ft_strdup(input);
 	if (!value)
-		error("Malloc error\n");
+		cmd_error();
 	type = find_type(value[0]);
 	token = create_token(value, type);
 	new = ft_cmdnew(token);
 	if (!new)
 	{
 		free(value);
-		error("Malloc error\n");
+		cmd_error();
 	}
 	ft_cmdadd_back(&g_minishell.list_input, new);
 }
@@ -87,8 +87,8 @@ void	pre_parsing(char *user_input)
 	while (i < size)
 	{
 		new = ft_strndup(user_input + i, 1);
-		if(!new)
-			error("Malloc error\n");
+		if (!new)
+			cmd_error();
 		tokenizer(new);
 		free(new);
 		i++;

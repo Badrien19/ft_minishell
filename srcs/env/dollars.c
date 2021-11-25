@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/25 19:47:05 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/25 20:02:17 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	get_dollar_len(char *str)
 			{
 				tmp = ft_itoa(g_minishell.last_return_value);
 				if (!tmp)
-					error("Malloc error\n");
+					cmd_error();
 				len += ft_strlen(tmp);
 				i++;
 				free(tmp);
@@ -80,7 +80,7 @@ static int	get_dollar_len(char *str)
 			{
 				tmp = get_value_env(&str[i]);
 				if (!tmp)
-					error("Malloc error\n");
+					cmd_error();
 				if (tmp != NULL)
 					len += ft_strlen(tmp);
 				free(tmp);
@@ -108,12 +108,12 @@ static char	*next_dollar_value(int i, char *str)
 	{
 		tmp = ft_itoa(g_minishell.last_return_value);
 		if (!tmp)
-			error("Malloc error\n");
+			cmd_error();
 		new = ft_strjoin_free(new, tmp);
 		if (!new)
 		{
 			free(tmp);
-			error("Malloc error\n");
+			cmd_error();
 		}
 		free(tmp);
 	}

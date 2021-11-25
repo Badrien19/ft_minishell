@@ -40,7 +40,7 @@ t_token	*create_token(char *value, t_token_type type)
 	if (!(token))
 	{
 		free(value);
-		error("Malloc error\n");
+		cmd_error();
 	}
 	token->value = value;
 	token->type = type;

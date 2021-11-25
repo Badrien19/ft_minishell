@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:53:10 by user42            #+#    #+#             */
-/*   Updated: 2021/11/25 15:56:32 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/25 20:01:22 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	cmd_cd(t_cmd *list)
 	if (!tmp)
 	{
 		free(cwd);
-		error("Malloc error");
+		cmd_error();
 	}
 	while (list && list->content->type == space && list->next)
 		list = list->next;

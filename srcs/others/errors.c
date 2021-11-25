@@ -3,25 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:28:08 by user42            #+#    #+#             */
-/*   Updated: 2021/11/25 16:14:29 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/25 20:05:16 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
-void	error(char *error_text)
+void	cmd_error(void)
 {
-	ft_putstr_fd(error_text, 2);
+	if (errno)
+	{
+		perror("minishell:");
+		g_minishell.last_return_value = errno;
+	}
 	free_list();
-	if(g_minishell.env)
+	if (g_minishell.env)
 		free_array(g_minishell.env);
 	g_minishell.env = NULL;
-	if (errno)
-		g_minishell.last_return_value = errno;
-	exit (0);
+	exit(EXIT_SUCCESS);
 }
 
 void	parsing_error(int error_code)

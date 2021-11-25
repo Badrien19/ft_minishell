@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/25 15:54:23 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/25 20:01:58 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	envchr(char *value)
 		len++;
 	needle = malloc(sizeof(char *) * len);
 	if (!needle)
-		error("Malloc error");
+		cmd_error();
 	while (++i < len)
 		needle[i] = value[i];
 	needle[len] = '\0';
@@ -55,10 +55,10 @@ void	ft_exporting(t_cmd *list, char *value)
 				s = size_env(g_minishell.env);
 				g_minishell.env = realloc_env(g_minishell.env, s + 1);
 				g_minishell.env[s] = ft_strdup(value);
-				if(!g_minishell.env[s])
+				if (!g_minishell.env[s])
 				{
 					free(value);
-					error("malloc error\n");
+					cmd_error();
 				}
 				g_minishell.env[s + 1] = NULL;
 			}
@@ -67,10 +67,10 @@ void	ft_exporting(t_cmd *list, char *value)
 				s = envchr(value);
 				free(g_minishell.env[s]);
 				g_minishell.env[s] = ft_strdup(value);
-				if(!g_minishell.env[s])
+				if (!g_minishell.env[s])
 				{
 					free(value);
-					error("malloc error\n");
+					cmd_error();
 				}
 			}
 		}

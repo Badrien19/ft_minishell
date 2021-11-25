@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/23 17:46:14 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/25 20:04:07 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	ft_loop_execve(int in, int out, char *cmd)
 
 	pid = fork();
 	if (pid == -1)
-		error("minishell: Failed to create a fork\n");
+		cmd_error(); // Pas sûr de ça
 	if (!pid)
 	{
 		if (in != STDIN_FILENO)
