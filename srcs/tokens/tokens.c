@@ -39,7 +39,7 @@ t_token	*create_token(char *value, t_token_type type)
 	token = malloc(sizeof(t_token));
 	if (!(token))
 	{
-		free(value)
+		free(value);
 		error("Malloc error\n");
 	}
 	token->value = value;

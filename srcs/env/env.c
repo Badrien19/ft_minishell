@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:17:37 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/25 16:02:13 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/25 17:30:08 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	i = 0;
 	rep = malloc((sizeof(char) * (len + 1)));
 	if (!rep)
-		errro("Malloc error\n");
+		error("Malloc error\n");
 	if (!(start > ft_strlen(s)))
 	{
 		while (i < len && s[start + i] != '\0')
