@@ -96,7 +96,7 @@ void	pre_parsing(char *user_input)
 	concat_tokens_same_type();
 	concat_tokens_var();
 	detect_cmd_type();
-	if (get_quote_len(user_input) > 0)
+	if (get_quote_len(user_input) >= 0)
 		concat_tokens_quotes();
 	else
 	{
