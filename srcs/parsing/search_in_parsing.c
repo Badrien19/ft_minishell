@@ -108,7 +108,7 @@ t_bool	is_there_literal_for_file(void)
 	file = find_next_literal(1);
 	if (file == NULL)
 	{
-		parsing_error(MS_ERROR_PARSE);
+		parsing_error(MS_ERROR_SYNTAX);
 		return (False);
 	}
 	g_minishell.list_input = current;

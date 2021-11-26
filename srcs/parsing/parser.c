@@ -108,7 +108,7 @@ void	pre_parsing(char *user_input)
 void	parsing(char *user_input)
 {
 	pre_parsing(user_input);
-	while (g_minishell.list_input->next)
+	while (g_minishell.list_input)
 	{
 		if (get_token_type(g_minishell.list_input->content)
 			== simple_redir_right)
@@ -125,6 +125,8 @@ void	parsing(char *user_input)
 		else if (get_token_type(g_minishell.list_input->content)
 			== pipeline)
 			parse_pipe();
+		if (g_minishell.list_input->next == NULL)
+			break ;
 		g_minishell.list_input = g_minishell.list_input->next;
 	}
 	g_minishell.list_input = ft_cmdfirst(g_minishell.list_input);

@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:28:08 by user42            #+#    #+#             */
-/*   Updated: 2021/11/25 20:05:16 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/26 15:18:03 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@ void	parsing_error(int error_code)
 		write(2, "minishell: command not found.\n", 30);
 	else if (error_code == MS_ERROR_INVALID_QUOTE)
 		write(2, "minishell: quote are uneven.\n", 29);
+	else if (error_code == MS_ERROR_SYNTAX)
+		write(2, "minishell: syntax error.\n", 25);
 	g_minishell.parsing_error = True;
 }

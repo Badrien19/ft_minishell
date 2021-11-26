@@ -132,7 +132,10 @@ void	parse_pipe(void)
 	if (g_minishell.list_input->prev)
 		g_minishell.list_input = g_minishell.list_input->prev;
 	else
+	{
+		parsing_error(MS_ERROR_SYNTAX);
 		return ;
+	}
 	assign_pipe(fd, current, tmp_fd);
 	g_minishell.list_input = current;
 }
