@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_unset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 09:46:55 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/26 15:16:35 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/26 15:52:03 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	ft_unseting(t_cmd *list)
 	env_size = 0;
 	while (g_minishell.env[env_size])
 		env_size++;
+	env_size--;
 	word_size = ft_strlen(list->content->value);
 	while (g_minishell.env[++i])
 	{
@@ -30,7 +31,7 @@ static void	ft_unseting(t_cmd *list)
 			free(g_minishell.env[i]);
 			g_minishell.env[i] = g_minishell.env[env_size];
 			g_minishell.env[env_size] = NULL;
-			g_minishell.env = realloc_env(g_minishell.env, --env_size);
+			g_minishell.env = realloc_env(g_minishell.env, env_size);
 			return ;
 		}
 	}
