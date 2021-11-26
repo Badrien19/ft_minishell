@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/11/26 15:13:46 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/26 17:16:39 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,22 @@ static void	loop_hub(t_cmd *list)
 
 void	cmd_hub(void)
 {
-	t_cmd *lst;
+	t_cmd	*list;
 
-	lst = g_minishell.list_input;
-	while (lst)
+	list = g_minishell.list_input;
+	while (list->content->type == space && list->next)
+		list = list->next;
+	loop_hub(list);
+	while (list != NULL)
 	{
-		if (ft_isstop(lst))
+		if (!ft_isstop(list))
 		{
-			while (lst->next && lst->content->type != cmd_instr)
-				lst = lst->next;
-			loop_hub(lst);
+			while (list->content->type == space && list->next)
+				list = list->next;
+			while (list->next && list->content->type != cmd_instr)
+				list = list->next;
+			loop_hub(list);
 		}
-		lst = lst->next;
+		list = list->next;
 	}
 }
