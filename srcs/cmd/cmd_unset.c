@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 09:46:55 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/25 15:54:02 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/26 15:16:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	cmd_unset(t_cmd *list)
 			return ;
 		if (!ft_isalpha(((char *)list->content->value)[0]))
 		{
-			printf("minishell: export: %s not a valid identifier\n",
+			printf("minishell: unset: %s not a valid identifier\n",
 				(char *)list->content->value);
 			list = list->next;
 			g_minishell.last_return_value = 1;
