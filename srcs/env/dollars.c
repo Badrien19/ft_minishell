@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollars.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/25 20:02:17 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/26 15:10:18 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 char	*get_value_env(char *name)
 {
-	int	i;
-	int	len;
+	int		i;
+	int		len;
+	char	*tmp;
 
 	i = 0;
 	len = 0;
+	tmp = NULL;
 	while (name[len] != '\0' && name[len] != ' '
 		&& name[len] != '$' && name[len] != '\"' && name[len] != '\'' && name[len] != '/'  && name[len] != '=')
 		len++;
@@ -26,8 +28,11 @@ char	*get_value_env(char *name)
 	{
 		if (ft_strncmp(g_minishell.env[i], name, len) == 0)
 		{
-			return (ft_substr(g_minishell.env[i],
-					(len + 1), ft_strlen(g_minishell.env[i])));
+			tmp = ft_substr(g_minishell.env[i],
+					(len + 1), ft_strlen(g_minishell.env[i]));
+			if(tmp == NULL)
+				cmd_error();
+			return (tmp);
 		}
 		i++;
 	}
@@ -79,8 +84,6 @@ static int	get_dollar_len(char *str)
 			else
 			{
 				tmp = get_value_env(&str[i]);
-				if (!tmp)
-					cmd_error();
 				if (tmp != NULL)
 					len += ft_strlen(tmp);
 				free(tmp);
@@ -173,7 +176,7 @@ int	replace_value_from_env(t_cmd *list)
 			|| list->content->type == single_quote)
 		{
 			list->content->value = remove_quote(list->content->value);
-			list->content->type = literal;
+			//list->content->type = literal;
 		}
 		if (list->content->type == double_quote)
 		{
@@ -189,6 +192,5 @@ int	replace_value_from_env(t_cmd *list)
 			list->content->type = none;
 		list = list->next;
 	}
-	debug();
 	return (0);
 }
