@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 15:14:55 by cgoncalv          #+#    #+#              #
-#    Updated: 2021/05/27 19:23:32 by marvin           ###   ########.fr        #
+#    Updated: 2021/11/26 14:37:44 by cgoncalv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,8 +69,7 @@ NAME		=	libft.a
 
 all:		$(NAME)
 
-$(NAME):
-			@$(CC) $(CFLAGS) $(SRC)
+$(NAME):	$(OBJ)
 			@$(LIB) $(NAME) $(OBJ)
 			@echo "\033[32m\n[✓]\033[0m		[$(NAME) compiled]"
 

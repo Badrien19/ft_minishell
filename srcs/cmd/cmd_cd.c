@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:53:10 by user42            #+#    #+#             */
-/*   Updated: 2021/11/25 20:01:22 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/26 14:22:27 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	cmd_cd(t_cmd *list)
 	else
 	{
 		free(g_minishell.env[env_i]);
-		g_minishell.env[env_i] = tmp;
+		g_minishell.env[env_i] = ft_strdup(tmp);
 	}
 	if (ret < 0)
 	{
