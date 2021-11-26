@@ -6,7 +6,7 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/26 15:10:18 by badrien          ###   ########.fr       */
+/*   Updated: 2021/11/26 16:18:01 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int	get_dollar_len(char *str)
 				if (tmp != NULL)
 					len += ft_strlen(tmp);
 				free(tmp);
-				while (str[i] != '\0' && str[i] != ' ' && str[i] != '$' && str[i] != '/'  && str[i] != '=')
+				while (str[i] != '\0' && str[i] != ' ' && str[i] != '$' && str[i] != '/'  && str[i] != '=' && str[i] != '\"' && str[i] != '\'')
 					i++;
 			}
 		}
@@ -156,7 +156,7 @@ static char	*dollar_to_value(char *original_str, int len)
 				if (original_str[i] == '?')
 					i++;
 				else
-					while (original_str[i] != '\0' && original_str[i] != ' ' && original_str[i] != '$' && original_str[i] != '/' && original_str[i] != '=')
+					while (original_str[i] != '\0' && original_str[i] != ' ' && original_str[i] != '$' && original_str[i] != '/' && original_str[i] != '=' && original_str[i] != '\"' && original_str[i] != '\'')
 						i++;
 				free(env_value);
 			}
@@ -168,29 +168,33 @@ static char	*dollar_to_value(char *original_str, int len)
 
 int	replace_value_from_env(t_cmd *list)
 {
+	//printf("DEBUT MOI\n\n");
 	while (list != NULL)
 	{
+		//printf("Maillon actuel = (%s)\n", (char *)list->content->value);
 		if (ft_isstop(list) == 0)
 			return (0);
 		if (list->content->type == double_quote
 			|| list->content->type == single_quote)
 		{
 			list->content->value = remove_quote(list->content->value);
-			//list->content->type = literal;
 		}
 		if (list->content->type == double_quote)
 		{
 			list->content->value = dollar_to_value(list->content->value, 0);
-			list->content->type = literal;
 		}
 		if (list->content->type == variable)
 		{
 			list->content->value = dollar_to_value(list->content->value, 0);
 			list->content->type = literal;
 		}
+		if (list->content->type == double_quote
+			|| list->content->type == single_quote)
+			list->content->type = literal;
 		if (((char *)list->content->value)[0] == '\0')
 			list->content->type = none;
 		list = list->next;
 	}
+	//debug();
 	return (0);
 }
