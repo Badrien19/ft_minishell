@@ -107,7 +107,7 @@ void	parse_double_redirection_left(void)
 	{
 		buffer = readline("\033[1;32m>\033[0m ");
 		write(fd[0], &buffer, ft_strlen(buffer));
-		if (!ft_strcmp(buffer, end_redir))
+		if (!buffer || !ft_strcmp(buffer, end_redir))
 			break ;
 	}
 	if (find_next_cmd())
