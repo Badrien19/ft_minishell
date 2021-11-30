@@ -33,3 +33,8 @@ Error:
 
 Segfault : 
     - $""
+
+Bizzarie:
+    - export test=" foo   bar " ; echo a$test 
+        Notre Minishell : afoo bar
+        bash            : a foo bar

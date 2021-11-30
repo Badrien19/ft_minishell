@@ -6,7 +6,7 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/30 15:52:19 by badrien          ###   ########.fr       */
+/*   Updated: 2021/11/30 17:26:56 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static int	get_dollar_len(char *str)
 			}
 			else
 			{
-				if(str[i] == '\0' || ft_isalnum(str[i]) == 0)
+				if((str[i] == '\0' || ft_isalnum(str[i]) == 0) && str[i + 1] != '?')
 					len++;
 				else
 				{
@@ -131,27 +131,52 @@ static char	*next_dollar_value(int i, char *str)
 		new = get_value_env(&str[i]);
 	return (new);
 }
-/*
-static char *remove_space(char *original_str, int len); // " n               oui            n "
+
+static char *remove_space(char *original_str, int len)
 {
 	char	*new;
 	int		i;
 
+	i = 0;
+	len = 0;
 	new = ft_strtrim(original_str, " ");
 	if (new == NULL)
 		cmd_error();
 	free(original_str);
 	original_str = new;
-	while(original_str[i])
+	while(original_str[i + len] != '\0')
 	{
-		while(original_str[])
-		i++;
+		if(original_str[i + len] == ' ')
+		{
+			len++;
+			while(original_str[i + len] == ' ')
+				i++;
+		}
+		len++;
 	}
-
-
+	//printf("len = %d\n", len);
+	new = malloc(sizeof(char*) * (len + 1));
+	if (new == NULL)
+	{
+		free(original_str);
+		cmd_error();
+	}
+	i = 0;
+	len = 0;
+	while(original_str[i] != '\0')
+	{
+		if(original_str[i] == ' ')
+		{
+			new[len++] = original_str[i++];
+			while(original_str[i] == ' ')
+				i++;
+		}
+		new[len++] = original_str[i++];
+	}
+	new[len] = '\0';
 	return (new);
 }
-*/
+
 static char	*dollar_to_value(char *original_str, int len)
 {
 	size_t	i;
@@ -161,7 +186,7 @@ static char	*dollar_to_value(char *original_str, int len)
 
 	i = 0;
 	len = get_dollar_len(original_str);
-	//printf("len = %d\n", len);
+	//printf("(dollar to value) len = %d\n", len);
 	new_str = malloc(sizeof(char) * (len + 1));
 	if (!new_str)
 		return (NULL);
@@ -175,21 +200,22 @@ static char	*dollar_to_value(char *original_str, int len)
 				new_str[len++] = original_str[i++];
 			else
 			{
-				if(original_str[i + 1] == '\0' || ft_isalnum(original_str[i + 1]) == 0) //que si y'a rien apres ou que c'est pas un alphanumeric
+				if((original_str[i + 1] == '\0' || ft_isalnum(original_str[i + 1]) == 0) && original_str[i + 1] != '?') //que si y'a rien apres ou que c'est pas un alphanumeric
 					new_str[len++] = original_str[i++];
 				else
 				{
-				j = 0;
-				env_value = next_dollar_value(i, original_str);
-				while (env_value[j] != '\0')
-					new_str[len++] = env_value[j++];
-				i++;
-				if (original_str[i] == '?')
+					j = 0;
+					env_value = next_dollar_value(i, original_str);
+					//printf("en_value = %s\n", env_value);
+					while (env_value[j] != '\0')
+						new_str[len++] = env_value[j++];
 					i++;
-				else
-					while (original_str[i] != '\0' && original_str[i] != ' ' && original_str[i] != '$' && original_str[i] != '/' && original_str[i] != '=' && original_str[i] != '\"' && original_str[i] != '\'')
+					if (original_str[i] == '?')
 						i++;
-				free(env_value);
+					else
+						while (original_str[i] != '\0' && original_str[i] != ' ' && original_str[i] != '$' && original_str[i] != '/' && original_str[i] != '=' && original_str[i] != '\"' && original_str[i] != '\'')
+							i++;
+					free(env_value);
 				}
 			}
 		}
@@ -218,7 +244,7 @@ int	replace_value_from_env(t_cmd *list)
 		if (list->content->type == variable) //echo $"ok"
 		{
 			list->content->value = dollar_to_value(list->content->value, 0);
-			//list->content->value = remove_space(list->content->value, 0);
+			list->content->value = remove_space(list->content->value, 0);
 			list->content->type = literal;
 		}
 		if (list->content->type == double_quote
