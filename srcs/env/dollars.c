@@ -6,7 +6,7 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/26 16:18:01 by badrien          ###   ########.fr       */
+/*   Updated: 2021/11/30 15:52:19 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ char	*get_value_env(char *name)
 	while (name[len] != '\0' && name[len] != ' '
 		&& name[len] != '$' && name[len] != '\"' && name[len] != '\'' && name[len] != '/'  && name[len] != '=')
 		len++;
+	if(len == 0)
+		return(NULL);
 	while (g_minishell.env[i] != NULL)
 	{
 		if (ft_strncmp(g_minishell.env[i], name, len) == 0)
@@ -83,12 +85,17 @@ static int	get_dollar_len(char *str)
 			}
 			else
 			{
+				if(str[i] == '\0' || ft_isalnum(str[i]) == 0)
+					len++;
+				else
+				{
 				tmp = get_value_env(&str[i]);
 				if (tmp != NULL)
 					len += ft_strlen(tmp);
 				free(tmp);
 				while (str[i] != '\0' && str[i] != ' ' && str[i] != '$' && str[i] != '/'  && str[i] != '=' && str[i] != '\"' && str[i] != '\'')
 					i++;
+				}			
 			}
 		}
 		if (str[i] != '\0')
@@ -124,7 +131,27 @@ static char	*next_dollar_value(int i, char *str)
 		new = get_value_env(&str[i]);
 	return (new);
 }
+/*
+static char *remove_space(char *original_str, int len); // " n               oui            n "
+{
+	char	*new;
+	int		i;
 
+	new = ft_strtrim(original_str, " ");
+	if (new == NULL)
+		cmd_error();
+	free(original_str);
+	original_str = new;
+	while(original_str[i])
+	{
+		while(original_str[])
+		i++;
+	}
+
+
+	return (new);
+}
+*/
 static char	*dollar_to_value(char *original_str, int len)
 {
 	size_t	i;
@@ -148,6 +175,10 @@ static char	*dollar_to_value(char *original_str, int len)
 				new_str[len++] = original_str[i++];
 			else
 			{
+				if(original_str[i + 1] == '\0' || ft_isalnum(original_str[i + 1]) == 0) //que si y'a rien apres ou que c'est pas un alphanumeric
+					new_str[len++] = original_str[i++];
+				else
+				{
 				j = 0;
 				env_value = next_dollar_value(i, original_str);
 				while (env_value[j] != '\0')
@@ -159,6 +190,7 @@ static char	*dollar_to_value(char *original_str, int len)
 					while (original_str[i] != '\0' && original_str[i] != ' ' && original_str[i] != '$' && original_str[i] != '/' && original_str[i] != '=' && original_str[i] != '\"' && original_str[i] != '\'')
 						i++;
 				free(env_value);
+				}
 			}
 		}
 	}
@@ -183,9 +215,10 @@ int	replace_value_from_env(t_cmd *list)
 		{
 			list->content->value = dollar_to_value(list->content->value, 0);
 		}
-		if (list->content->type == variable)
+		if (list->content->type == variable) //echo $"ok"
 		{
 			list->content->value = dollar_to_value(list->content->value, 0);
+			//list->content->value = remove_space(list->content->value, 0);
 			list->content->type = literal;
 		}
 		if (list->content->type == double_quote
