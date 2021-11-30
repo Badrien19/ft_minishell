@@ -101,7 +101,7 @@ void	concat_tokens_var(void)
 			&& g_minishell.list_input->next)
 		{
 			first = ((char *)g_minishell.list_input->next->content->value)[0];
-			if (ft_isalpha(first) == 1 || first == '?')
+			if (ft_isalnum(first) == 1 || first == '?')
 				relink_nodes();
 			else if (g_minishell.list_input->next)
 				g_minishell.list_input = g_minishell.list_input->next;
