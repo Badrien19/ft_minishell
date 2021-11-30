@@ -90,29 +90,26 @@ void	concat_tokens_quotes(void)
 
 void	concat_tokens_var(void)
 {
-	t_cmd	*begin;
-	char	last;
+	char	first;
 
-	begin = g_minishell.list_input;
-	if (!g_minishell.list_input)
-		return ;
-	while (g_minishell.list_input
-		&& get_token_type(g_minishell.list_input->content) != variable)
-		g_minishell.list_input = g_minishell.list_input->next;
-	if (g_minishell.list_input
-		&& g_minishell.list_input->next != NULL
-		&& get_token_type(g_minishell.list_input->content) == variable)
+	while (True)
 	{
-		last = ((char *)g_minishell.list_input->next->content->value)[0];
-		if (ft_isalpha(last) == 1)
-		{
-			relink_nodes();
+		while (g_minishell.list_input && g_minishell.list_input->next
+			&& get_token_type(g_minishell.list_input->content) != variable)
 			g_minishell.list_input = g_minishell.list_input->next;
+		if (get_token_type(g_minishell.list_input->content) == variable
+			&& g_minishell.list_input->next)
+		{
+			first = ((char *)g_minishell.list_input->next->content->value)[0];
+			if (ft_isalpha(first) == 1 || first == '?')
+				relink_nodes();
+			else if (g_minishell.list_input->next)
+				g_minishell.list_input = g_minishell.list_input->next;
 		}
+		if (g_minishell.list_input->next == NULL)
+			break ;
 		else
-			return ;
+			g_minishell.list_input = g_minishell.list_input->next;
 	}
-	if (g_minishell.list_input && g_minishell.list_input->next)
-		concat_tokens_var();
-	g_minishell.list_input = begin;
+	g_minishell.list_input = ft_cmdfirst(g_minishell.list_input);
 }
