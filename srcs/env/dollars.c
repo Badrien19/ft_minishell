@@ -6,7 +6,7 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/30 17:26:56 by badrien          ###   ########.fr       */
+/*   Updated: 2021/11/30 18:00:48 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,8 +206,7 @@ static char	*dollar_to_value(char *original_str, int len)
 				{
 					j = 0;
 					env_value = next_dollar_value(i, original_str);
-					//printf("en_value = %s\n", env_value);
-					while (env_value[j] != '\0')
+					while (env_value != NULL && env_value[j] != '\0')
 						new_str[len++] = env_value[j++];
 					i++;
 					if (original_str[i] == '?')
@@ -254,6 +253,6 @@ int	replace_value_from_env(t_cmd *list)
 			list->content->type = none;
 		list = list->next;
 	}
-	//debug();
+	debug();
 	return (0);
 }
