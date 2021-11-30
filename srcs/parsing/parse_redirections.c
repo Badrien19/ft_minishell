@@ -22,7 +22,7 @@ void	parse_simple_redirection_right(void)
 	if (is_there_literal_for_file() == False)
 		return ;
 	fd = open(find_next_literal(1)->content->value,
-			O_CREAT | O_RDWR | O_TRUNC);
+			O_CREAT | O_RDWR | O_TRUNC, 0666);
 	if (fd < 0)
 	{
 		parsing_error(MS_ERROR_TO_PERROR);
@@ -46,7 +46,7 @@ void	parse_double_redirection_right(void)
 	if (is_there_literal_for_file() == False)
 		return ;
 	fd = open(find_next_literal(1)->content->value,
-			O_CREAT | O_RDWR | O_APPEND);
+			O_CREAT | O_RDWR | O_APPEND, 0666);
 	if (fd < 0)
 	{
 		parsing_error(MS_ERROR_TO_PERROR);
