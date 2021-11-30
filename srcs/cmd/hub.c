@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/11/26 17:16:39 by badrien          ###   ########.fr       */
+/*   Updated: 2021/11/30 15:54:15 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	loop_hub(t_cmd *list)
 	detect_cmd_type();
 	if (list && list->content->type == cmd_instr)
 		ft_switch(list);
-	else if (list->content->type == none || list->content->type == semicolon)
+	else if (ft_isstop(list))
 		return ;
 	else if (errno != 0)
 		perror("minishell");
