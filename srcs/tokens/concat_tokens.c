@@ -91,6 +91,7 @@ void	concat_tokens_quotes(void)
 void	concat_tokens_var(void)
 {
 	t_cmd	*begin;
+	char	last;
 
 	begin = g_minishell.list_input;
 	if (!g_minishell.list_input)
@@ -102,8 +103,14 @@ void	concat_tokens_var(void)
 		&& g_minishell.list_input->next != NULL
 		&& get_token_type(g_minishell.list_input->content) == variable)
 	{
-		relink_nodes();
-		g_minishell.list_input = g_minishell.list_input->next;
+		last = ((char *)g_minishell.list_input->next->content->value)[0];
+		if (ft_isalpha(last) == 1)
+		{
+			relink_nodes();
+			g_minishell.list_input = g_minishell.list_input->next;
+		}
+		else
+			return ;
 	}
 	if (g_minishell.list_input && g_minishell.list_input->next)
 		concat_tokens_var();
