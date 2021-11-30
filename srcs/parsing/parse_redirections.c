@@ -33,10 +33,7 @@ void	parse_simple_redirection_right(void)
 	else if (find_prev_cmd())
 		find_prev_cmd()->content->pipe_out = fd;
 	else
-	{
-		parsing_error(MS_ERROR_NO_CMD);
 		return ;
-	}
 }
 
 void	parse_double_redirection_right(void)
@@ -60,10 +57,7 @@ void	parse_double_redirection_right(void)
 	else if (find_prev_cmd())
 		find_prev_cmd()->content->pipe_out = fd;
 	else
-	{
-		parsing_error(MS_ERROR_NO_CMD);
 		return ;
-	}
 }
 
 void	parse_simple_redirection_left(void)
@@ -86,10 +80,7 @@ void	parse_simple_redirection_left(void)
 	else if (find_prev_cmd())
 		find_prev_cmd()->content->pipe_in = fd;
 	else
-	{
-		parsing_error(MS_ERROR_NO_CMD);
 		return ;
-	}
 }
 
 void	parse_double_redirection_left(void)
@@ -115,10 +106,7 @@ void	parse_double_redirection_left(void)
 	else if (find_prev_cmd())
 		find_prev_cmd()->content->pipe_in = fd[0];
 	else
-	{
-		parsing_error(MS_ERROR_NO_CMD);
 		return ;
-	}
 }
 
 void	parse_pipe(void)
@@ -129,6 +117,11 @@ void	parse_pipe(void)
 
 	tmp_fd = 0;
 	current = g_minishell.list_input;
+	if (!find_prev_cmd() || !find_next_cmd())
+	{
+		parsing_error(MS_ERROR_SYNTAX);
+		return ;
+	}
 	if (g_minishell.list_input->prev)
 		g_minishell.list_input = g_minishell.list_input->prev;
 	else
