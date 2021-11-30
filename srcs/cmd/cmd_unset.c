@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_unset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 09:46:55 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/26 15:52:03 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/11/30 17:35:31 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	cmd_unset(t_cmd *list)
 	if (!list || list->next == NULL)
 		return ;
 	list = list->next;
+	g_minishell.last_return_value = 0;
 	while (list && ft_isstop(list))
 	{
 		while (list->next && list->content->type == space)
@@ -60,5 +61,4 @@ void	cmd_unset(t_cmd *list)
 		ft_unseting(list);
 		list = list->next;
 	}
-	g_minishell.last_return_value = 0;
 }

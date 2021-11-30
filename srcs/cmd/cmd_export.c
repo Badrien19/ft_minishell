@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/30 14:55:30 by user42           ###   ########.fr       */
+/*   Updated: 2021/11/30 17:35:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	cmd_export(t_cmd *list)
 	if (!list || list->next == NULL)
 		return ;
 	list = list->next;
+	g_minishell.last_return_value = 0;
 	value = NULL;
 	loop_export(list, value);
-	g_minishell.last_return_value = 0;
 }
