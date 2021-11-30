@@ -31,6 +31,8 @@ static char *replace_by_name(t_token_type nb)
 	else if (nb == 13)
 		return ("cmd_instr");
 	else if (nb == 14)
+		return ("filename");
+	else if (nb == 15)
 		return ("none");
 	return(NULL);
 }

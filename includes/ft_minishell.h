@@ -52,6 +52,7 @@ typedef enum e_token_type
 	variable,
 	literal,
 	cmd_instr,
+	filename,
 	none
 }	t_token_type;
 
@@ -118,6 +119,7 @@ void				parsing(char *user_input);
 void				pre_parsing(char *user_input);
 void				tokenizer(char *input);
 void				detect_cmd_type(void);
+void				detect_file_type(void);
 
 t_bool				is_there_literal_for_file(void);
 void				parse_simple_redirection_left(void);

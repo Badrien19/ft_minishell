@@ -84,6 +84,8 @@ t_cmd	*find_next_literal(int range)
 	current = g_minishell.list_input;
 	while (g_minishell.list_input
 		&& g_minishell.list_input->content->type != literal
+		&& g_minishell.list_input->content->type != cmd_instr
+		&& g_minishell.list_input->content->type != filename
 		&& g_minishell.list_input->content->type != pipeline && range > 0)
 	{
 		if (g_minishell.list_input->content->type != space)
