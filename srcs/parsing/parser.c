@@ -109,7 +109,6 @@ void	parsing(char *user_input)
 {
 	pre_parsing(user_input);
 	detect_file_type();
-	debug();
 	while (g_minishell.list_input)
 	{
 		if (get_token_type(g_minishell.list_input->content)

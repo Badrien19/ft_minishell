@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_echo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:58:01 by arapaill          #+#    #+#             */
-/*   Updated: 2021/12/02 17:28:43 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/02 18:19:32 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,12 @@ void	cmd_echo(t_cmd *list)
 	}
 	else
 	{
+		while (list->content->type != cmd_instr)
+			list = list->prev;
 		waitpid(pid, NULL, 0);
-		if (list->content->pipe_out && list->content->pipe_out != 1)
+		if (list->content->pipe_out != STDOUT_FILENO)
 			close(list->content->pipe_out);
-		if (list->content->pipe_in && list->content->pipe_in != 0)
+		if (list->content->pipe_in != STDIN_FILENO)
 			close(list->content->pipe_in);
 	}
 	g_minishell.last_return_value = 0;

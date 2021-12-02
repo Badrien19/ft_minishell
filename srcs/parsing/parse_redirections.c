@@ -97,9 +97,11 @@ void	parse_double_redirection_left(void)
 	while (True)
 	{
 		buffer = readline("\033[1;32m>\033[0m ");
-		write(fd[0], &buffer, ft_strlen(buffer));
 		if (!buffer || !ft_strcmp(buffer, end_redir))
 			break ;
+		buffer = ft_strjoin_free(buffer, "\n");
+		ft_putstr_fd(buffer, fd[1]);
+		free(buffer);
 	}
 	if (find_next_cmd())
 		find_next_cmd()->content->pipe_in = fd[0];
@@ -107,6 +109,7 @@ void	parse_double_redirection_left(void)
 		find_prev_cmd()->content->pipe_in = fd[0];
 	else
 		return ;
+	close(fd[1]);
 }
 
 void	parse_pipe(void)
