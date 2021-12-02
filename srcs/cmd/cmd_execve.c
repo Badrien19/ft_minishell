@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_execve.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/12/02 14:52:37 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/02 16:54:30 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,20 +81,21 @@ void	ft_loop_execve(int in, int out, char *cmd)
 		if (in != STDIN_FILENO)
 		{
 			dup2(in, STDIN_FILENO);
-			close(in);
 		}
 		if (out != STDOUT_FILENO)
 		{
 			dup2(out, STDOUT_FILENO);
-			close(out);
 		}
 		ft_exec_free(cmd);
-		printf("TEST\n");
 		exit(0);
 	}
 	else
 	{
 		waitpid(pid, NULL, 0);
+		if (in != STDIN_FILENO)
+			close(in);
+		if (out != STDOUT_FILENO)
+			close(out);
 		free(cmd);
 	}
 }
