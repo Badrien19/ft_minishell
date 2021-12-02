@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/12/02 16:54:30 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/02 17:27:52 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,9 @@ void	ft_loop_execve(int in, int out, char *cmd)
 	if (!pid)
 	{
 		if (in != STDIN_FILENO)
-		{
 			dup2(in, STDIN_FILENO);
-		}
 		if (out != STDOUT_FILENO)
-		{
 			dup2(out, STDOUT_FILENO);
-		}
 		ft_exec_free(cmd);
 		exit(0);
 	}

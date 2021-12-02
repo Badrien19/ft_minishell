@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/11/30 17:15:00 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/02 17:28:53 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ static void	loop_hub(t_cmd *list)
 		ft_switch(list);
 	else if (!ft_isstop(list) || list->content->type == filename)
 		return ;
+	else if (errno == 2)
+		parsing_error(MS_ERROR_NO_CMD);
 	else if (errno != 0)
 		perror("minishell");
-	else
-		parsing_error(MS_ERROR_NO_CMD);
 }
 void	cmd_hub(void)
 {
