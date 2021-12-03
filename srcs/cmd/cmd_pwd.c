@@ -6,13 +6,13 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:49:46 by user42            #+#    #+#             */
-/*   Updated: 2021/11/23 17:08:52 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/03 14:37:50 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
-void	ft_pwdchild(t_cmd *list)
+static void	ft_pwdchild(t_cmd *list)
 {
 	int		i;
 	char	*cwd;

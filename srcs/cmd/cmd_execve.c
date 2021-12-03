@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_execve.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/12/02 18:09:28 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/03 14:37:05 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	free_array(char **array)
 	free(array);
 }
 
-void	ft_exec_free(char *cmd)
+static void	ft_exec_free(char *cmd)
 {
 	char	**args;
 	char	**path;
@@ -69,7 +69,7 @@ void	ft_exec_free(char *cmd)
 	parsing_error(MS_ERROR_NO_CMD);
 }
 
-void	ft_loop_execve(int in, int out, char *cmd)
+static void	ft_loop_execve(int in, int out, char *cmd)
 {
 	pid_t	pid;
 
