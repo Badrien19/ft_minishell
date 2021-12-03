@@ -38,7 +38,7 @@ void	detect_file_type(void)
 			|| g_minishell.list_input->content->type == double_redir_left
 			|| g_minishell.list_input->content->type == simple_redir_right
 			|| g_minishell.list_input->content->type == double_redir_right)
-		find_next_literal(1)->content->type = filename;
+			find_next_literal(1)->content->type = filename;
 		g_minishell.list_input = g_minishell.list_input->next;
 	}
 	g_minishell.list_input = ft_cmdfirst(g_minishell.list_input);
