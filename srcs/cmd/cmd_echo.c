@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:58:01 by arapaill          #+#    #+#             */
-/*   Updated: 2021/12/03 12:13:11 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/03 14:36:34 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	loop_echo(int flag, t_cmd *list, int out)
 		write(out, "\n", 1);
 }
 
-int	is_flag(t_cmd **list)
+static int	is_flag(t_cmd **list)
 {
 	int		i;
 	int		flag;
@@ -97,6 +97,7 @@ void	cmd_echo(t_cmd *list)
 	pid_t	pid;
 
 	pid = fork();
+	debug();
 	out = list->content->pipe_out;
 	if (list->next)
 		list = list->next;
