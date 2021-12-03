@@ -21,9 +21,9 @@ Adrien :
 - Gérer les signaux (CTRL-C, CTRL-D, etc...) -- Done (?)
     - Gérer CTRL-D -- Done
     - Gérer CTRL-C -- Done
-    - Gérer CTRL-\ -- Done (?)
-- Gérer les pipes et redirections pour les commandes non-obligatoires. (Obligation d'utiliser des dup2) -- Ongoing
-    - Corriger la boucle infinie avec certaines commandes (grep test << end)
+    - Gérer CTRL-\ -- A FAIRE
+- Gérer les pipes et redirections pour les commandes non-obligatoires. (Obligation d'utiliser des dup2)  -- Done
+    - Corriger la boucle infinie avec certaines commandes (grep test << end) -- Done
     - Corriger l'output des cmd avec pipe (echo wow > test | cat) -- Done
 
 Error:
