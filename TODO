@@ -26,15 +26,12 @@ Adrien :
     - Corriger la boucle infinie avec certaines commandes (grep test << end) -- Done
     - Corriger l'output des cmd avec pipe (echo wow > test | cat) -- Done
 
-Error:
-    - <
-    - >
-    - |
 
-Segfault : 
-    - $""
 
-Bizzarie:
+Ce qu'il reste :
     - export test=" foo   bar " ; echo a$test 
         Notre Minishell : afoo bar
         bash            : a foo bar
+    - Vérifier les valeurs de retour
+    - Éxecuter une commande lorsqu'on nous envoie un chemin relatif ou absolu (/bin/echo)
+    - Normer
