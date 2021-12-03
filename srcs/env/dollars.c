@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollars.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/12/03 12:25:01 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/03 18:09:39 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,7 @@ static char *remove_space(char *original_str, int len)
 		new[len++] = original_str[i++];
 	}
 	new[len] = '\0';
+	free(original_str);
 	return (new);
 }
 
@@ -244,15 +245,17 @@ int	replace_value_from_env(t_cmd *list)
 		{
 			list->content->value = dollar_to_value(list->content->value, 0);
 			list->content->value = remove_space(list->content->value, 0);
-			//list->content->type = literal;
+			list->content->type = literal;
 		}
 		if (list->content->type == double_quote
 			|| list->content->type == single_quote)
 			list->content->type = literal;
 		if (((char *)list->content->value)[0] == '\0')
 			list->content->type = none;
+		if(list->prev && list->prev->content->type == literal && list->content->type == none)
+			list = delete_node(list);
 		list = list->next;
 	}
-	//debug();
+	debug();
 	return (0);
 }
