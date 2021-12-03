@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:58:01 by arapaill          #+#    #+#             */
-/*   Updated: 2021/12/03 10:49:41 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/03 12:13:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ static void	loop_echo(int flag, t_cmd *list, int out)
 	while (list->content->value && list->content->type != semicolon
 		&& list->content->type != pipeline)
 	{
-		if (list->content->type == literal)
+		if (list->content->type == literal
+			|| list->content->type == variable)
 		{
 			print_non_quote(list->content->value, out);
 			if (check_space(list))
