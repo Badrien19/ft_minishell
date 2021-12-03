@@ -69,7 +69,11 @@ void	detect_cmd_type(void)
 			|| get_token_type(g_minishell.list_input->content) == semicolon)
 			already_cmd = False;
 		if (g_minishell.list_input->next)
+		{
 			g_minishell.list_input = g_minishell.list_input->next;
+			if (already_cmd == True && g_minishell.list_input->content->type == cmd_instr)
+				g_minishell.list_input->content->type = literal;
+		}
 		else
 			break ;
 	}
@@ -95,6 +99,7 @@ void	pre_parsing(char *user_input)
 	}
 	concat_tokens_same_type();
 	concat_tokens_var();
+	//replace_value_from_env(g_minishell.list_input);
 	detect_cmd_type();
 	if (get_quote_len(user_input) >= 0)
 		concat_tokens_quotes();
