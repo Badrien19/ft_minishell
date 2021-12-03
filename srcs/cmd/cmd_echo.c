@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_echo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:58:01 by arapaill          #+#    #+#             */
-/*   Updated: 2021/12/02 18:19:32 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/03 10:49:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,35 +28,37 @@ static void	print_non_quote(void *s, int out)
 		write(out, &str[i], 1);
 	}
 }
-/*
+
 static int	check_space(t_cmd *list)
 {
+	if (list->next)
+		list = list->next;
 	while (list->next && list->content->type == space)
 		list = list->next;
-	if (!ft_isstop(list))
-		return (0);
-	else
+	if (list->content->value && list->content->type != semicolon
+		&& list->content->type != pipeline)
 		return (1);
+	else
+		return (0);
 }
-*/
+
 static void	loop_echo(int flag, t_cmd *list, int out)
 {
-	while (list->content->type != semicolon
-			|| list->content->type != line_return)
+	while (list->content->value && list->content->type != semicolon
+		&& list->content->type != pipeline)
 	{
-		if(list->content->type == literal)
+		if (list->content->type == literal)
+		{
 			print_non_quote(list->content->value, out);
+			if (check_space(list))
+				write(out, " ", 1);
+		}
 		if (list->next)
 			list = list->next;
 		else
 			break ;
 		while (list->next && list->content->type == space)
 			list = list->next;
-		if (list->content->type == semicolon
-			|| list->content->type == line_return)
-			break ;
-		if(list && !ft_isstop(list))
-			write(out, " ", 1);
 	}
 	if (flag == 0)
 		write(out, "\n", 1);
