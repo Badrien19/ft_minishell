@@ -14,17 +14,15 @@
 
 void	assign_pipe(int *fd, t_cmd *current)
 {
-	if (find_prev_cmd()->content->pipe_out != STDOUT_FILENO)
-		close(find_prev_cmd()->content->pipe_out);
 	if (pipe(fd) < 0)
 	{
 		perror("minishell");
 		return ;
 	}
-	if (find_prev_cmd())
+	if (find_prev_cmd() && find_prev_cmd()->content->pipe_out == STDOUT_FILENO)
 		find_prev_cmd()->content->pipe_out = fd[1];
 	else
-		return ;
+		close(fd[1]);
 	g_minishell.list_input = current->next;
 	if (find_next_cmd())
 		find_next_cmd()->content->pipe_in = fd[0];
