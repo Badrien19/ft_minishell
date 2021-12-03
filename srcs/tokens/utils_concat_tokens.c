@@ -60,3 +60,25 @@ void	relink_nodes(void)
 		g_minishell.list_input->next->prev = g_minishell.list_input;
 	}
 }
+
+/* Supprime le node envoyé en pointeur, et renvoie le node précédent celui
+** qui vient d'être supprimé.
+*/
+t_cmd	*delete_node(t_cmd *node_to_delete)
+{
+	t_cmd *prev;
+	t_cmd *next;
+
+	prev = node_to_delete->prev;
+	next = node_to_delete->next;
+
+	node_to_delete->prev->next = next;
+	node_to_delete->next->prev = prev;
+	free(node_to_delete->content->value);
+	node_to_delete->content->value = NULL;
+	free(node_to_delete->content);
+	node_to_delete->content = NULL;
+	free(node_to_delete);
+	node_to_delete = NULL;
+	return (prev);
+}

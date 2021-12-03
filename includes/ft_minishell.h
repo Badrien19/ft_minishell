@@ -178,6 +178,8 @@ void				concat_tokens_var(void);
 */
 
 void				relink_nodes(void);
+t_cmd				*delete_node(t_cmd *node_to_delete);
+
 
 /*
 ** tokens
