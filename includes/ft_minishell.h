@@ -127,7 +127,7 @@ void				parse_simple_redirection_right(void);
 void				parse_double_redirection_left(void);
 void				parse_double_redirection_right(void);
 void				parse_pipe(void);
-void				assign_pipe(int *fd, t_cmd *current, int tmp_fd);
+void				assign_pipe(int *fd, t_cmd *current);
 t_bool				is_there_pipe(void);
 
 /*

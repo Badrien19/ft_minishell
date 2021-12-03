@@ -116,9 +116,7 @@ void	parse_pipe(void)
 {
 	int		fd[2];
 	t_cmd	*current;
-	int		tmp_fd;
 
-	tmp_fd = 0;
 	current = g_minishell.list_input;
 	if (!find_prev_cmd() || !find_next_cmd())
 	{
@@ -132,6 +130,6 @@ void	parse_pipe(void)
 		parsing_error(MS_ERROR_SYNTAX);
 		return ;
 	}
-	assign_pipe(fd, current, tmp_fd);
+	assign_pipe(fd, current);
 	g_minishell.list_input = current;
 }

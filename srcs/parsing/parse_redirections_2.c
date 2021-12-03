@@ -12,31 +12,24 @@
 
 #include "../../includes/ft_minishell.h"
 
-void	assign_pipe(int *fd, t_cmd *current, int tmp_fd)
+void	assign_pipe(int *fd, t_cmd *current)
 {
-	if (find_prev_cmd()->content->pipe_out == STDOUT_FILENO)
+	if (find_prev_cmd()->content->pipe_out != STDOUT_FILENO)
+		close(find_prev_cmd()->content->pipe_out);
+	if (pipe(fd) < 0)
 	{
-		if (pipe(fd) < 0)
-		{
-			perror("minishell");
-			return ;
-		}
-		if (find_prev_cmd())
-			find_prev_cmd()->content->pipe_out = fd[1];
-		else
-			return ;
-		g_minishell.list_input = current->next;
-		if (find_next_cmd())
-			find_next_cmd()->content->pipe_in = fd[0];
-		else
-			return ;
+		perror("minishell");
+		return ;
 	}
+	if (find_prev_cmd())
+		find_prev_cmd()->content->pipe_out = fd[1];
 	else
-	{
-		tmp_fd = find_prev_cmd()->content->pipe_out;
-		g_minishell.list_input = current->next;
-		find_next_cmd()->content->pipe_in = tmp_fd;
-	}
+		return ;
+	g_minishell.list_input = current->next;
+	if (find_next_cmd())
+		find_next_cmd()->content->pipe_in = fd[0];
+	else
+		return ;
 }
 
 void	detect_file_type(void)
