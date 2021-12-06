@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 18:24:44 by badrien           #+#    #+#             */
-/*   Updated: 2021/11/25 20:02:17 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/06 14:28:06 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,12 @@ int	get_quote_len(char *str)
 	return (i - quote - double_quote);
 }
 
-static char	*remove_quote_2(char *str, int len)
+static char	*remove_quote_2(char *str, int len, int i)
 {
 	char	*new_str;
 	int		quote;
 	int		double_quote;
-	int		i;
 
-	i = 0;
 	quote = 0;
 	double_quote = 0;
 	new_str = malloc(sizeof(char) * (len + 1));
@@ -51,7 +49,7 @@ static char	*remove_quote_2(char *str, int len)
 		cmd_error();
 	}
 	len = 0;
-	while (str[i] != '\0')
+	while (str[++i] != '\0')
 	{
 		if (str[i] == '\'' && double_quote % 2 == 0)
 			quote++;
@@ -59,7 +57,6 @@ static char	*remove_quote_2(char *str, int len)
 			double_quote++;
 		else
 			new_str[len++] = str[i];
-		i++;
 	}
 	new_str[len] = '\0';
 	free(str);
@@ -76,5 +73,5 @@ char	*remove_quote(char *str)
 		printf("quote not even\n");
 		exit(-1);
 	}
-	return (remove_quote_2(str, len));
+	return (remove_quote_2(str, len, -1));
 }
