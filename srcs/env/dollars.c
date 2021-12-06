@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollars.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/12/03 18:09:39 by badrien          ###   ########.fr       */
+/*   Updated: 2021/12/06 17:21:40 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@ char	*get_value_env(char *name)
 	len = 0;
 	tmp = NULL;
 	while (name[len] != '\0' && name[len] != ' '
-		&& name[len] != '$' && name[len] != '\"' && name[len] != '\'' && name[len] != '/'  && name[len] != '=')
+		&& name[len] != '$' && name[len] != '\"' && name[len] != '\'' && name[len] != '/' && name[len] != '=')
 		len++;
-	if(len == 0)
-		return(NULL);
+	if (len == 0)
+		return (NULL);
 	while (g_minishell.env[i] != NULL)
 	{
 		if (ft_strncmp(g_minishell.env[i], name, len) == 0)
 		{
 			tmp = ft_substr(g_minishell.env[i],
 					(len + 1), ft_strlen(g_minishell.env[i]));
-			if(tmp == NULL)
+			if (tmp == NULL)
 				cmd_error();
 			return (tmp);
 		}
@@ -61,6 +61,7 @@ static int	next_len_value(char *str)
 	}
 }
 */
+
 static int	get_dollar_len(char *str)
 {
 	size_t	i;
@@ -85,16 +86,16 @@ static int	get_dollar_len(char *str)
 			}
 			else
 			{
-				if((str[i] == '\0' || ft_isalnum(str[i]) == 0) && str[i + 1] != '?')
+				if ((str[i] == '\0' || ft_isalnum(str[i]) == 0) && str[i + 1] != '?')
 					len++;
 				else
 				{
-				tmp = get_value_env(&str[i]);
-				if (tmp != NULL)
-					len += ft_strlen(tmp);
-				free(tmp);
-				while (str[i] != '\0' && str[i] != ' ' && str[i] != '$' && str[i] != '/'  && str[i] != '=' && str[i] != '\"' && str[i] != '\'')
-					i++;
+					tmp = get_value_env(&str[i]);
+					if (tmp != NULL)
+						len += ft_strlen(tmp);
+					free(tmp);
+					while (str[i] != '\0' && str[i] != ' ' && str[i] != '$' && str[i] != '/' && str[i] != '=' && str[i] != '\"' && str[i] != '\'')
+						i++;
 				}			
 			}
 		}
@@ -132,7 +133,7 @@ static char	*next_dollar_value(int i, char *str)
 	return (new);
 }
 
-static char *remove_space(char *original_str, int len)
+static char	*remove_space(char *original_str, int len)
 {
 	char	*new;
 	int		i;
@@ -144,18 +145,18 @@ static char *remove_space(char *original_str, int len)
 		cmd_error();
 	free(original_str);
 	original_str = new;
-	while(original_str[i + len] != '\0')
+	while (original_str[i + len] != '\0')
 	{
-		if(original_str[i + len] == ' ')
+		if (original_str[i + len] == ' ')
 		{
 			len++;
-			while(original_str[i + len] == ' ')
+			while (original_str[i + len] == ' ')
 				i++;
 		}
 		len++;
 	}
 	//printf("len = %d\n", len);
-	new = malloc(sizeof(char*) * (len + 1));
+	new = malloc(sizeof(char *) * (len + 1));
 	if (new == NULL)
 	{
 		free(original_str);
@@ -163,12 +164,12 @@ static char *remove_space(char *original_str, int len)
 	}
 	i = 0;
 	len = 0;
-	while(original_str[i] != '\0')
+	while (original_str[i] != '\0')
 	{
-		if(original_str[i] == ' ')
+		if (original_str[i] == ' ')
 		{
 			new[len++] = original_str[i++];
-			while(original_str[i] == ' ')
+			while (original_str[i] == ' ')
 				i++;
 		}
 		new[len++] = original_str[i++];
@@ -201,7 +202,7 @@ static char	*dollar_to_value(char *original_str, int len)
 				new_str[len++] = original_str[i++];
 			else
 			{
-				if((original_str[i + 1] == '\0' || ft_isalnum(original_str[i + 1]) == 0) && original_str[i + 1] != '?') //que si y'a rien apres ou que c'est pas un alphanumeric
+				if ((original_str[i + 1] == '\0' || ft_isalnum(original_str[i + 1]) == 0) && original_str[i + 1] != '?') //que si y'a rien apres ou que c'est pas un alphanumeric
 					new_str[len++] = original_str[i++];
 				else
 				{
@@ -252,10 +253,10 @@ int	replace_value_from_env(t_cmd *list)
 			list->content->type = literal;
 		if (((char *)list->content->value)[0] == '\0')
 			list->content->type = none;
-		if(list->prev && list->prev->content->type == literal && list->content->type == none)
+		if (list->prev && list->prev->content->type == literal && list->content->type == none)
 			list = delete_node(list);
 		list = list->next;
 	}
-	debug();
+	//debug();
 	return (0);
 }

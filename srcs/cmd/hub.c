@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/12/03 14:38:00 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/06 17:07:29 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	loop_hub(t_cmd *list)
 	concat_tokens_same_type();
 	detect_cmd_type();
 	detect_file_type();
-	
+	debug();
 	if (list && list->content->type == cmd_instr)
 		ft_switch(list);
 	else if (!ft_isstop(list) || list->content->type == filename)
@@ -53,6 +53,7 @@ static void	loop_hub(t_cmd *list)
 	else if (errno != 0)
 		perror("minishell");
 }
+
 void	cmd_hub(void)
 {
 	t_cmd	*list;
