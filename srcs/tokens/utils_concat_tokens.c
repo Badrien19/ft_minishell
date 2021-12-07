@@ -83,6 +83,6 @@ t_cmd	*delete_node(t_cmd *node_to_delete)
 	node_to_delete = NULL;
 	if (prev)
 		return (prev);
-	else 
+	else
 		return (next);
 }
