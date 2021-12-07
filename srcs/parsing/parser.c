@@ -45,7 +45,8 @@ t_bool	iterate_cmd(void *str)
 		|| !ft_strcmp(c_str, "unset")
 		|| !ft_strcmp(c_str, "env")
 		|| !ft_strcmp(c_str, "exit")
-		|| !ft_strncmp(c_str, "./", 2))
+		|| !ft_strncmp(c_str, "./", 2)
+		|| check_exec(c_str) == True)
 		return (True);
 	else
 		return (False);

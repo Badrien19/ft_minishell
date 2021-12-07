@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/12/06 17:07:29 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/07 15:19:16 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	ft_switch(t_cmd *list)
 		cmd_pwd(list);
 	else if (!ft_strcmp(list->content->value, "cd"))
 		cmd_cd(list->next);
-	else if (!ft_strncmp(list->content->value, "./", 2))
+	else if (!ft_strncmp(list->content->value, "./", 2) || check_exec(list->content->value))
 		cmd_execute(list);
 	else if (!ft_strcmp(list->content->value, "unset"))
 		cmd_unset(list->next);
