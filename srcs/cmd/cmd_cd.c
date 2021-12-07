@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:53:10 by user42            #+#    #+#             */
-/*   Updated: 2021/12/06 17:17:05 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/07 16:19:06 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	cmd_cd(t_cmd *list)
 	g_minishell.last_return_value = 0;
 	if (ret < 0)
 	{
-		g_minishell.last_return_value = 1;
+		g_minishell.last_return_value = errno;
 		perror("minishell: cd");
 	}
 	free (new_cwd);

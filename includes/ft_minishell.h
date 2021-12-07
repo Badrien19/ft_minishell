@@ -197,7 +197,6 @@ t_bool				checking_if_quotes_even(void);
 t_bool				check_path(char *cmd);
 t_bool				check_exec(char *path);
 
-
 /*
 ** errors.c
 */

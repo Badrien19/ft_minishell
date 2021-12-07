@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_execve.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/12/03 14:37:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/07 16:22:26 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	ft_loop_execve(int in, int out, char *cmd)
 
 	pid = fork();
 	if (pid == -1)
-		cmd_error(); // Pas sûr de ça
+		cmd_error();
 	if (!pid)
 	{
 		if (in != STDIN_FILENO)
@@ -115,4 +115,8 @@ void	cmd_execve(t_cmd *list)
 		list = list->next;
 	}
 	ft_loop_execve(in, out, cmd);
+	if (errno)
+		g_minishell.last_return_value = errno;
+	else
+		g_minishell.last_return_value = 0;
 }
