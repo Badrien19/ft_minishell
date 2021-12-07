@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:58:01 by arapaill          #+#    #+#             */
-/*   Updated: 2021/12/03 14:36:34 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/07 18:02:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,15 +90,12 @@ static int	is_flag(t_cmd **list)
 	return (flag);
 }
 
-void	cmd_echo(t_cmd *list)
+void	cmd_echo(t_cmd *list, int out, int in)
 {
 	int		flag;
-	int		out;
 	pid_t	pid;
 
 	pid = fork();
-	debug();
-	out = list->content->pipe_out;
 	if (list->next)
 		list = list->next;
 	while (list->next && list->content->type == space)
@@ -111,13 +108,11 @@ void	cmd_echo(t_cmd *list)
 	}
 	else
 	{
-		while (list->content->type != cmd_instr)
-			list = list->prev;
 		waitpid(pid, NULL, 0);
-		if (list->content->pipe_out != STDOUT_FILENO)
-			close(list->content->pipe_out);
-		if (list->content->pipe_in != STDIN_FILENO)
-			close(list->content->pipe_in);
+		if (out != STDOUT_FILENO)
+			close(out);
+		if (in != STDIN_FILENO)
+			close(in);
 	}
 	g_minishell.last_return_value = 0;
 }
