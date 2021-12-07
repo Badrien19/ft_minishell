@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollars.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/12/06 17:21:40 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/07 17:51:37 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,16 @@ char	*get_value_env(char *name)
 	int		len;
 	char	*tmp;
 
-	i = 0;
+	i = -1;
 	len = 0;
 	tmp = NULL;
-	while (name[len] != '\0' && name[len] != ' '
-		&& name[len] != '$' && name[len] != '\"' && name[len] != '\'' && name[len] != '/' && name[len] != '=')
+	while (name[len] != '\0' && name[len] != ' ' && name[len] != '$'
+		&& name[len] != '\"' && name[len] != '\'' && name[len] != '/'
+		&& name[len] != '=')
 		len++;
 	if (len == 0)
 		return (NULL);
-	while (g_minishell.env[i] != NULL)
+	while (g_minishell.env[++i] != NULL)
 	{
 		if (ft_strncmp(g_minishell.env[i], name, len) == 0)
 		{
@@ -36,31 +37,9 @@ char	*get_value_env(char *name)
 				cmd_error();
 			return (tmp);
 		}
-		i++;
 	}
 	return (NULL);
 }
-/*
-static int	next_len_value(char *str)
-{
-	i++;
-	if (str[i] == '?')
-	{
-		tmp = ft_itoa(g_minishell.last_return_value);
-		len += ft_strlen(tmp);
-		free(tmp);
-	}
-	else
-	{
-		tmp = get_value_env(&str[i]);
-		if (tmp != NULL)
-			len += ft_strlen(tmp);
-		free(tmp);
-		while (str[i] != '\0' && str[i] != ' ' && str[i] != '$' && str[i] != '/')
-			i++;
-	}
-}
-*/
 
 static int	get_dollar_len(char *str)
 {
@@ -86,7 +65,8 @@ static int	get_dollar_len(char *str)
 			}
 			else
 			{
-				if ((str[i] == '\0' || ft_isalnum(str[i]) == 0) && str[i + 1] != '?')
+				if ((str[i] == '\0' || ft_isalnum(str[i]) == 0)
+					&& str[i + 1] != '?')
 					len++;
 				else
 				{
@@ -94,7 +74,9 @@ static int	get_dollar_len(char *str)
 					if (tmp != NULL)
 						len += ft_strlen(tmp);
 					free(tmp);
-					while (str[i] != '\0' && str[i] != ' ' && str[i] != '$' && str[i] != '/' && str[i] != '=' && str[i] != '\"' && str[i] != '\'')
+					while (str[i] != '\0' && str[i] != ' ' && str[i] != '$'
+						&& str[i] != '/' && str[i] != '=' && str[i] != '\"'
+						&& str[i] != '\'')
 						i++;
 				}			
 			}
@@ -133,18 +115,13 @@ static char	*next_dollar_value(int i, char *str)
 	return (new);
 }
 
-static char	*remove_space(char *original_str, int len)
+static char	*remove_space(char *original_str, int len, t_cmd *list)
 {
 	char	*new;
 	int		i;
 
 	i = 0;
 	len = 0;
-	new = ft_strtrim(original_str, " ");
-	if (new == NULL)
-		cmd_error();
-	free(original_str);
-	original_str = new;
 	while (original_str[i + len] != '\0')
 	{
 		if (original_str[i + len] == ' ')
@@ -155,8 +132,7 @@ static char	*remove_space(char *original_str, int len)
 		}
 		len++;
 	}
-	//printf("len = %d\n", len);
-	new = malloc(sizeof(char *) * (len + 1));
+	new = malloc (sizeof(char *) * (len + 1));
 	if (new == NULL)
 	{
 		free(original_str);
@@ -175,6 +151,14 @@ static char	*remove_space(char *original_str, int len)
 		new[len++] = original_str[i++];
 	}
 	new[len] = '\0';
+	if(list->prev->content->type != literal)
+	{
+		original_str = ft_strtrim(new, " ");
+		free(new);
+		if (original_str == NULL)
+			cmd_error();
+		return (original_str);
+	}
 	free(original_str);
 	return (new);
 }
@@ -188,7 +172,6 @@ static char	*dollar_to_value(char *original_str, int len)
 
 	i = 0;
 	len = get_dollar_len(original_str);
-	//printf("(dollar to value) len = %d\n", len);
 	new_str = malloc(sizeof(char) * (len + 1));
 	if (!new_str)
 		return (NULL);
@@ -202,7 +185,9 @@ static char	*dollar_to_value(char *original_str, int len)
 				new_str[len++] = original_str[i++];
 			else
 			{
-				if ((original_str[i + 1] == '\0' || ft_isalnum(original_str[i + 1]) == 0) && original_str[i + 1] != '?') //que si y'a rien apres ou que c'est pas un alphanumeric
+				if ((original_str[i + 1] == '\0'
+						|| ft_isalnum(original_str[i + 1]) == 0)
+					&& original_str[i + 1] != '?')
 					new_str[len++] = original_str[i++];
 				else
 				{
@@ -227,33 +212,27 @@ static char	*dollar_to_value(char *original_str, int len)
 
 int	replace_value_from_env(t_cmd *list)
 {
-	//printf("DEBUT MOI\n\n");
 	while (list != NULL)
 	{
-		//printf("Maillon actuel = (%s)\n", (char *)list->content->value);
-		if (ft_isstop(list) == 0)
+		if (list->content->type == pipeline || list->content->type == semicolon)
 			return (0);
 		if (list->content->type == double_quote
 			|| list->content->type == single_quote)
-		{
 			list->content->value = remove_quote(list->content->value);
-		}
 		if (list->content->type == double_quote)
+			list->content->value = dollar_to_value(list->content->value, 0);
+		if (list->content->type == variable)
 		{
 			list->content->value = dollar_to_value(list->content->value, 0);
+			list->content->value = remove_space(list->content->value, 0, list);
 		}
-		if (list->content->type == variable) //echo $"ok"
-		{
-			list->content->value = dollar_to_value(list->content->value, 0);
-			list->content->value = remove_space(list->content->value, 0);
-			list->content->type = literal;
-		}
-		if (list->content->type == double_quote
-			|| list->content->type == single_quote)
+		if (list->content->type == double_quote || list->content->type
+			== single_quote || list->content->type == variable)
 			list->content->type = literal;
 		if (((char *)list->content->value)[0] == '\0')
 			list->content->type = none;
-		if (list->prev && list->prev->content->type == literal && list->content->type == none)
+		if (list->prev && list->prev->content->type == literal
+			&& list->content->type == none)
 			list = delete_node(list);
 		list = list->next;
 	}
