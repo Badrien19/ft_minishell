@@ -66,19 +66,23 @@ void	relink_nodes(void)
 */
 t_cmd	*delete_node(t_cmd *node_to_delete)
 {
-	t_cmd *prev;
-	t_cmd *next;
+	t_cmd	*prev;
+	t_cmd	*next;
 
 	prev = node_to_delete->prev;
 	next = node_to_delete->next;
-
-	node_to_delete->prev->next = next;
-	node_to_delete->next->prev = prev;
+	if (node_to_delete->prev)
+		node_to_delete->prev->next = next;
+	if (node_to_delete->next)
+		node_to_delete->next->prev = prev;
 	free(node_to_delete->content->value);
 	node_to_delete->content->value = NULL;
 	free(node_to_delete->content);
 	node_to_delete->content = NULL;
 	free(node_to_delete);
 	node_to_delete = NULL;
-	return (prev);
+	if (prev)
+		return (prev);
+	else 
+		return (next);
 }

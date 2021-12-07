@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/11/30 17:54:41 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/07 16:41:26 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,38 +41,39 @@ int	envchr(char *value)
 	return (-1);
 }
 
-void	ft_exporting(t_cmd *list, char *value)
+void	ft_exporting_2(char *value)
 {
 	int	s;
 
+	s = 0;
+	if (envchr(value) == -1)
+	{
+		s = size_env(g_minishell.env);
+		g_minishell.env = realloc_env(g_minishell.env, s + 1);
+		g_minishell.env[s] = ft_strdup(value);
+		free(value);
+		if (!g_minishell.env[s])
+			cmd_error();
+		g_minishell.env[s + 1] = NULL;
+	}
+	else
+	{
+		s = envchr(value);
+		free(g_minishell.env[s]);
+		g_minishell.env[s] = ft_strdup(value);
+		free(value);
+		if (!g_minishell.env[s])
+			cmd_error();
+	}
+}
+
+void	ft_exporting(t_cmd *list, char *value)
+{
 	while (list && ft_isstop(list))
 	{
 		if (ft_strchr(value, 61))
 		{
-			s = 0;
-			if (envchr(value) == -1)
-			{
-				s = size_env(g_minishell.env);
-				g_minishell.env = realloc_env(g_minishell.env, s + 1);
-				g_minishell.env[s] = ft_strdup(value);
-				if (!g_minishell.env[s])
-				{
-					free(value);
-					cmd_error();
-				}
-				g_minishell.env[s + 1] = NULL;
-			}
-			else
-			{
-				s = envchr(value);
-				free(g_minishell.env[s]);
-				g_minishell.env[s] = ft_strdup(value);
-				if (!g_minishell.env[s])
-				{
-					free(value);
-					cmd_error();
-				}
-			}
+			ft_exporting_2(value);
 		}
 		list = list->next;
 	}
@@ -96,8 +97,9 @@ static void	loop_export(t_cmd *list, char *value)
 		if (!ft_isstop(list))
 			return ;
 		value = ft_strdup(list->content->value);
+		if (!value)
+			cmd_error();
 		ft_exporting(list, value);
-		free(value);
 		list = list->next;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/12/03 14:38:00 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/07 16:29:22 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static void	ft_switch(t_cmd *list)
 		cmd_pwd(list);
 	else if (!ft_strcmp(list->content->value, "cd"))
 		cmd_cd(list->next);
-	else if (!ft_strncmp(list->content->value, "./", 2))
+	else if (!ft_strncmp(list->content->value, "./", 2)
+		|| check_exec(list->content->value))
 		cmd_execute(list);
 	else if (!ft_strcmp(list->content->value, "unset"))
 		cmd_unset(list->next);
@@ -43,7 +44,7 @@ static void	loop_hub(t_cmd *list)
 	concat_tokens_same_type();
 	detect_cmd_type();
 	detect_file_type();
-	
+	debug();
 	if (list && list->content->type == cmd_instr)
 		ft_switch(list);
 	else if (!ft_isstop(list) || list->content->type == filename)
@@ -53,6 +54,7 @@ static void	loop_hub(t_cmd *list)
 	else if (errno != 0)
 		perror("minishell");
 }
+
 void	cmd_hub(void)
 {
 	t_cmd	*list;

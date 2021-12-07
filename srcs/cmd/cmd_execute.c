@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_execute.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:47:41 by user42            #+#    #+#             */
-/*   Updated: 2021/12/02 15:05:21 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/07 16:04:50 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,75 @@ static char	*get_path_pwd(char **env)
 	return (path);
 }
 
+/* 
+** tmp = /bin/echo
+** args[0] = echo
+** args[1->fin] : aux arguments (bonjour je suis Corentin)
+*/
+
+static char	*find_slash(void *s)
+{
+	size_t	i;
+	char	*char_s;
+	char	*ret;
+
+	char_s = (char *)s;
+	i = ft_strlen(char_s);
+	i--;
+	while (char_s[i] && char_s[i] != '/')
+		i--;
+	ret = ft_strdup(&char_s[++i]);
+	return (ret);
+}
+
+static char	**add_arguments(t_cmd *list)
+{
+	char	**ret;
+	size_t	nb_args;
+	size_t	i;
+	t_cmd	*begin;
+
+	begin = list;
+	i = 1;
+	nb_args = 0;
+	while (ft_isstop(list) != 0)
+	{	
+		if (list->content->type == literal)
+			nb_args++;
+		list = list->next;
+	}
+	list = begin;
+	ret = malloc(sizeof(char *) * (nb_args + 2));
+	ret[0] = find_slash(list->content->value);
+	ret[nb_args + 1] = NULL;
+	while (i < nb_args + 1)
+	{
+		list = list->next;
+		if (list->content->type == literal)
+			ret[i++] = list->content->value;
+	}
+	return (ret);
+}
+
 static void	execute_child(t_cmd *list)
 {
 	char	*path;
 	char	**args;
 	char	*tmp;
 
-	args = ft_split(list->content->value, '/');
-	path = get_path_pwd(g_minishell.env);
-	tmp = ft_strjoin(path, "/");
-	free(path);
-	tmp = ft_strjoin_free(tmp, args[1]);
+	if (check_exec(list->content->value) == True)
+	{
+		tmp = ft_split(list->content->value, ' ')[0];
+		args = add_arguments(list);
+	}
+	else
+	{
+		args = ft_split(list->content->value, '/');
+		path = get_path_pwd(g_minishell.env);
+		tmp = ft_strjoin(path, "/");
+		free(path);
+		tmp = ft_strjoin_free(tmp, args[1]);
+	}
 	execve(tmp, args, g_minishell.env);
 	free(tmp);
 	free_array(args);

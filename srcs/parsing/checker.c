@@ -57,3 +57,11 @@ t_bool	check_path(char *cmd)
 	else
 		return (False);
 }
+
+t_bool	check_exec(char *path)
+{
+	if (access(path, X_OK) == 0)
+		return (True);
+	else
+		return (False);
+}

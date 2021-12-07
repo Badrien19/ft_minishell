@@ -6,7 +6,7 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/12/07 17:45:00 by badrien          ###   ########.fr       */
+/*   Updated: 2021/12/07 17:51:37 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,7 @@ int	replace_value_from_env(t_cmd *list)
 {
 	while (list != NULL)
 	{
-		if (ft_isstop(list) == 0)
+		if (list->content->type == pipeline || list->content->type == semicolon)
 			return (0);
 		if (list->content->type == double_quote
 			|| list->content->type == single_quote)

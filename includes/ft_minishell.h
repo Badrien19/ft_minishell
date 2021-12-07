@@ -180,7 +180,6 @@ void				concat_tokens_var(void);
 void				relink_nodes(void);
 t_cmd				*delete_node(t_cmd *node_to_delete);
 
-
 /*
 ** tokens
 */
@@ -196,6 +195,7 @@ char				*get_token_value(t_token *token);
 
 t_bool				checking_if_quotes_even(void);
 t_bool				check_path(char *cmd);
+t_bool				check_exec(char *path);
 
 /*
 ** errors.c

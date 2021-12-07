@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:28:08 by user42            #+#    #+#             */
-/*   Updated: 2021/11/26 15:18:03 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/07 16:14:55 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	cmd_error(void)
 	if (g_minishell.env)
 		free_array(g_minishell.env);
 	g_minishell.env = NULL;
-	exit(EXIT_SUCCESS);
+	exit(EXIT_FAILURE);
 }
 
 void	parsing_error(int error_code)
