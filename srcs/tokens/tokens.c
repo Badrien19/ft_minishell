@@ -12,7 +12,7 @@
 
 #include "../../includes/ft_minishell.h"
 
-static t_symbols	g_tab_token[] = {
+static const t_symbols	g_tab_token[] = {
 	{"|", pipeline},
 	{"<", simple_redir_left},
 	{">", simple_redir_right},
