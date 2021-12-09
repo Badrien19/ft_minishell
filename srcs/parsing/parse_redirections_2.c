@@ -34,11 +34,18 @@ void	detect_file_type(void)
 {
 	while (g_minishell.list_input->next)
 	{
-		if (g_minishell.list_input->content->type == simple_redir_left
-			|| g_minishell.list_input->content->type == double_redir_left
-			|| g_minishell.list_input->content->type == simple_redir_right
-			|| g_minishell.list_input->content->type == double_redir_right)
+		if ((g_minishell.list_input->content->type == simple_redir_left
+				|| g_minishell.list_input->content->type == double_redir_left
+				|| g_minishell.list_input->content->type == simple_redir_right
+				|| g_minishell.list_input->content->type == double_redir_right)
+			&& find_next_literal(1))
 			find_next_literal(1)->content->type = filename;
+		else
+		{
+			parsing_error(MS_ERROR_SYNTAX);
+			g_minishell.parsing_error = True;
+			return ;
+		}
 		g_minishell.list_input = g_minishell.list_input->next;
 	}
 	g_minishell.list_input = ft_cmdfirst(g_minishell.list_input);

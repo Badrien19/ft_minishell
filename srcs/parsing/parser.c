@@ -113,7 +113,7 @@ void	parsing(char *user_input)
 {
 	pre_parsing(user_input);
 	detect_file_type();
-	while (g_minishell.list_input)
+	while (g_minishell.parsing_error == False && g_minishell.list_input)
 	{
 		if (get_token_type(g_minishell.list_input->content)
 			== simple_redir_right)

@@ -99,6 +99,7 @@ void				ft_exporting(t_cmd *list, char *value);
 
 void				sh_pre(void);
 int					main(int argc, char **argv, char **env);
+void				sigint_handler(int sig);
 
 /* 
 **	cmd_struct 
