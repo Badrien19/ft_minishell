@@ -44,7 +44,7 @@ Ce qu'il reste :
         minishell > echo xyz | < x cat -e
     n'a pas le meme comportement que bash
     - echo $$PWD: segfault
-    - echo $PW : imprime le PWD
+    - echo $PW : imprime le PWD -- Done
     - exit 10 ne set pas la valeur de ret. de minishell
     - echo hello | hgiulhgul | echo lol  pas le mm comportement
 
@@ -52,5 +52,4 @@ Ce qu'il reste :
     minishell > mkdir hello
     minishell > cd hello/
     -> segfault
-
     - proteger les fork(), pipe(), dup2()

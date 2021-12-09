@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:17:37 by badrien           #+#    #+#             */
-/*   Updated: 2021/12/09 16:16:08 by badrien          ###   ########.fr       */
+/*   Updated: 2021/12/09 18:19:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*get_value_env(char *name)
 		return (NULL);
 	while (g_minishell.env[++i] != NULL)
 	{
-		if (ft_strncmp(g_minishell.env[i], name, len) == 0)
+		if (!ft_envncmp(name, g_minishell.env[i], len))
 		{
 			tmp = ft_substr(g_minishell.env[i],
 					(len + 1), ft_strlen(g_minishell.env[i]));
