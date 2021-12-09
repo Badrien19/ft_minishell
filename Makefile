@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: badrien <badrien@student.42.fr>            +#+  +:+       +#+         #
+#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:00:43 by user42            #+#    #+#              #
-#    Updated: 2021/12/09 11:40:57 by badrien          ###   ########.fr        #
+#    Updated: 2021/12/09 15:27:28 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC		=	gcc
 CFLAGS =	-Wall -Wextra -Werror
 SRC		=	./srcs/others/minishell.c ./srcs/others/free.c ./srcs/others/errors.c ./srcs/others/debug.c \
 			./srcs/cmd/cmd_echo.c ./srcs/cmd/cmd_unset.c ./srcs/cmd/hub.c ./srcs/cmd/cmd_export.c ./srcs/cmd/cmd_execve.c \
-			./srcs/cmd/cmd_execute.c ./srcs/cmd/cmd_pwd.c ./srcs/cmd/cmd_cd.c \
+			./srcs/cmd/cmd_execute.c ./srcs/cmd/cmd_pwd.c ./srcs/cmd/cmd_cd.c ./srcs/cmd/cmd_export_utils.c\
 			./srcs/cmd_struct/ft_cmdadd_back.c ./srcs/cmd_struct/ft_cmdadd_front.c ./srcs/cmd_struct/ft_cmdlast.c ./srcs/cmd_struct/ft_cmdnew.c ./srcs/cmd_struct/ft_cmdsize.c ./srcs/cmd_struct/ft_cmdfirst.c \
 			./srcs/env/env.c ./srcs/env/dollars.c ./srcs/env/quotes.c ./srcs/env/dollars_utils_len.c ./srcs/env/dollars_utils_trim.c\
 			./srcs/parsing/checker.c ./srcs/parsing/parser.c ./srcs/parsing/parse_redirections.c ./srcs/parsing/parse_redirections_2.c ./srcs/parsing/search_in_parsing.c \

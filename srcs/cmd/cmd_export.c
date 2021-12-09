@@ -3,51 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/12/07 16:41:26 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/09 15:52:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
-int	envchr(char *value)
+void	ft_exporting_2(char *value, int s)
 {
-	int		len;
-	int		i;
-	char	*needle;
-
-	len = 0;
-	i = -1;
-	while (value[len] && value[len] != '=')
-		len++;
-	needle = malloc(sizeof(char *) * len);
-	if (!needle)
-		cmd_error();
-	while (++i < len)
-		needle[i] = value[i];
-	needle[len] = '\0';
-	i = -1;
-	while (g_minishell.env[++i])
+	if (envchr(value, -1) == -1)
 	{
-		if (!ft_strncmp(needle, g_minishell.env[i], len))
-		{
-			free(needle);
-			return (i);
-		}
-	}
-	free(needle);
-	return (-1);
-}
-
-void	ft_exporting_2(char *value)
-{
-	int	s;
-
-	s = 0;
-	if (envchr(value) == -1)
-	{
+		if (ft_envplussearch(value) != 0)
+			value = ft_plus_cut(value);
 		s = size_env(g_minishell.env);
 		g_minishell.env = realloc_env(g_minishell.env, s + 1);
 		g_minishell.env[s] = ft_strdup(value);
@@ -56,9 +26,9 @@ void	ft_exporting_2(char *value)
 			cmd_error();
 		g_minishell.env[s + 1] = NULL;
 	}
-	else
+	else if (envchr(value, -1) > -1)
 	{
-		s = envchr(value);
+		s = envchr(value, -1);
 		free(g_minishell.env[s]);
 		g_minishell.env[s] = ft_strdup(value);
 		free(value);
@@ -69,11 +39,24 @@ void	ft_exporting_2(char *value)
 
 void	ft_exporting(t_cmd *list, char *value)
 {
+	int	s;
+
 	while (list && ft_isstop(list))
 	{
 		if (ft_strchr(value, 61))
 		{
-			ft_exporting_2(value);
+			s = 0;
+			if (ft_envplussearch(value) != 0 && envchr(value, -1) > -1)
+			{
+				s = envchr(value, -1);
+				g_minishell.env[s] = ft_strjoin_free(g_minishell.env[s],
+						&value[ft_envplussearch(value) + 2]);
+				free(value);
+				if (!g_minishell.env[s])
+					cmd_error();
+			}
+			else
+				ft_exporting_2(value, s);
 		}
 		list = list->next;
 	}

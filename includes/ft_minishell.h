@@ -168,7 +168,6 @@ int					main_env(void);
 void				print_env(void);
 int					add_env(char *name, char *value);
 char				**realloc_env(char **env, size_t size);
-int					envchr(char *value);
 int					size_env(char **env);
 char				*get_value_env(char *name);
 
@@ -238,5 +237,13 @@ void				cmd_execute(t_cmd *list);
 void				cmd_pwd(t_cmd *list);
 void				cmd_cd(t_cmd *list);
 void				free_array(char **array);
+
+/*
+**export_utils.c
+*/
+
+int					envchr(char *value, int i);
+int					ft_envplussearch(char *value);
+char				*ft_plus_cut(char *value);	
 
 #endif
