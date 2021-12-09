@@ -154,6 +154,13 @@ char				*remove_quote(char *str);
 int					get_quote_len(char *str);
 
 /*
+** dollar_utils_*.c
+*/
+
+char				*remove_space(char *original_str, int len, t_cmd *list);
+int					get_dollar_len(char *str);
+
+/*
 **	env.c
 */
 
@@ -163,6 +170,7 @@ int					add_env(char *name, char *value);
 char				**realloc_env(char **env, size_t size);
 int					envchr(char *value);
 int					size_env(char **env);
+char				*get_value_env(char *name);
 
 /*
 ** concat_tokens.c
@@ -223,7 +231,7 @@ void				print_current_chain(void);
 
 void				cmd_hub(void);
 void				cmd_unset(t_cmd *list);
-void				cmd_echo(t_cmd *list);
+void				cmd_echo(t_cmd *list, int out, int in);
 void				cmd_export(t_cmd *list);
 void				cmd_execve(t_cmd *list);
 void				cmd_execute(t_cmd *list);
