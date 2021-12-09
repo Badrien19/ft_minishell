@@ -46,7 +46,7 @@ Ce qu'il reste :
     - echo $$PWD: segfault
     - echo $PW : imprime le PWD -- Done
     - exit 10 ne set pas la valeur de ret. de minishell
-    - echo hello | hgiulhgul | echo lol  pas le mm comportement
+    - echo hello | hgiulhgul | echo lol  pas le mm comportement -- Done
 
     minishell > unset PWD
     minishell > mkdir hello
