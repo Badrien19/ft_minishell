@@ -6,7 +6,7 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:34:42 by badrien           #+#    #+#             */
-/*   Updated: 2021/12/09 11:48:53 by badrien          ###   ########.fr       */
+/*   Updated: 2021/12/09 19:07:36 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	*trim_space(char *str, char *original_str, t_cmd *list)
 	char	*new;
 
 	free (original_str);
-	if (list->prev->content->type != literal)
+	if (list->prev && list->prev->content->type != literal)
 	{
 		new = ft_strtrim(str, " ");
 		free (str);

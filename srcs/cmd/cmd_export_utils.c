@@ -6,11 +6,31 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 15:24:26 by user42            #+#    #+#             */
-/*   Updated: 2021/12/09 15:54:48 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/09 18:06:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
+
+int	ft_envncmp(char *needle, char *env, int len)
+{
+	int		i;
+
+	i = 0;
+	if (len == 0)
+		return (0);
+	while (i < len && needle[i] && env[i])
+	{
+		if (needle[i] != env[i])
+			return ((unsigned char)(needle)[i] - (unsigned char)(env)[i]);
+		i++;
+	}
+	if (i == len)
+		i--;
+	if(env[i + 1] != '=')
+		return (-1);
+	return ((unsigned char)(needle)[i] - (unsigned char)(env)[i]);
+}
 
 int	envchr(char *value, int i)
 {
@@ -31,7 +51,7 @@ int	envchr(char *value, int i)
 	i = -1;
 	while (g_minishell.env[++i])
 	{
-		if (!ft_strncmp(needle, g_minishell.env[i], len))
+		if (!ft_envncmp(needle, g_minishell.env[i], len))
 		{
 			free(needle);
 			return (i);
