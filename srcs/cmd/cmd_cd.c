@@ -6,7 +6,7 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:53:10 by user42            #+#    #+#             */
-/*   Updated: 2021/12/09 16:20:38 by badrien          ###   ########.fr       */
+/*   Updated: 2021/12/09 16:27:48 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	cmd_cd(t_cmd *list)
 	env_i = envchr("PWD=", -1);
 	new_cwd = get_new_cwd();
 	list = skip_spaces(list);
-	if (!list || !ft_isstop(list) || ft_strcmp((char *)list->content->value, "~") == 0
-		|| ft_strcmp((char *)list->content->value, " ") == 0)
+	if (!list || !ft_isstop(list) || ft_strcmp((char *)list->content->value
+			, "~") == 0 || ft_strcmp((char *)list->content->value, " ") == 0)
 		chdir(&g_minishell.env[envchr("HOME=", -1)][5]);
 	else
 		chdir(list->content->value);
