@@ -118,11 +118,6 @@ void	parse_pipe(void)
 	t_cmd	*current;
 
 	current = g_minishell.list_input;
-	if (!find_prev_cmd() || !find_next_cmd())
-	{
-		parsing_error(MS_ERROR_SYNTAX);
-		return ;
-	}
 	if (g_minishell.list_input->prev)
 		g_minishell.list_input = g_minishell.list_input->prev;
 	else

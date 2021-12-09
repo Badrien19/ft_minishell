@@ -27,7 +27,12 @@ void	assign_pipe(int *fd, t_cmd *current)
 	if (find_next_cmd())
 		find_next_cmd()->content->pipe_in = fd[0];
 	else
-		return ;
+	{
+		close(fd[0]);
+		close(fd[1]);
+		g_minishell.list_input = current;
+		find_prev_cmd()->content->pipe_out = -1;
+	}
 }
 
 void	detect_file_type(void)
