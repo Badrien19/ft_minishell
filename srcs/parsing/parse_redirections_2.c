@@ -40,7 +40,7 @@ void	detect_file_type(void)
 				|| g_minishell.list_input->content->type == double_redir_right)
 			&& find_next_literal(1))
 			find_next_literal(1)->content->type = filename;
-		else
+		else if (find_next_literal(1) == NULL)
 		{
 			parsing_error(MS_ERROR_SYNTAX);
 			g_minishell.parsing_error = True;
