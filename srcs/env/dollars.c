@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollars.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/12/09 19:09:17 by badrien          ###   ########.fr       */
+/*   Updated: 2021/12/09 19:18:38 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	make_new_block(char *new_str, char *original_str)
 	return (0);
 }
 
-static char	*dollar_to_value(char *original_str, int len)
+char	*dollar_to_value(char *original_str, int len)
 {
 	char	*new_str;
 

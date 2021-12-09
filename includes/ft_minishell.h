@@ -171,6 +171,7 @@ int					add_env(char *name, char *value);
 char				**realloc_env(char **env, size_t size);
 int					size_env(char **env);
 char				*get_value_env(char *name);
+char				*dollar_to_value(char *original_str, int len);
 
 /*
 ** concat_tokens.c
