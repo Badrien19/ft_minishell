@@ -245,6 +245,7 @@ void				free_array(char **array);
 
 int					envchr(char *value, int i);
 int					ft_envplussearch(char *value);
-char				*ft_plus_cut(char *value);	
+char				*ft_plus_cut(char *value);
+int					ft_envncmp(char *needle, char *env, int len);
 
 #endif
