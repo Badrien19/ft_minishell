@@ -6,7 +6,7 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:36:58 by badrien           #+#    #+#             */
-/*   Updated: 2021/12/09 11:48:55 by badrien          ###   ########.fr       */
+/*   Updated: 2021/12/09 16:16:47 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ static int	len_block_var(char *str, size_t *i)
 		if (tmp != NULL)
 			len += ft_strlen(tmp);
 		free (tmp);
-		while (str[*i] != '\0' && str[*i] != ' ' && str[*i] != '$'
-			&& str[*i] != '/' && str[*i] != '=' && str[*i] != '\"'
-			&& str[*i] != '\'')
+		while (str[*i] != '\0' && ft_isalnum(str[*i]))
 			*i = *i + 1;
 	}
 	return (len);

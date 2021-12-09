@@ -6,7 +6,7 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/12/09 11:49:31 by badrien          ###   ########.fr       */
+/*   Updated: 2021/12/09 16:17:50 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,7 @@ void	add_value(size_t *i, size_t *len, char *new_str, char *original_str)
 	if (original_str[*i] == '?')
 		(*i)++;
 	else
-		while (original_str[*i] != '\0' && original_str[*i] != ' '
-			&& original_str[*i] != '$' && original_str[*i] != '/'
-			&& original_str[*i] != '=' && original_str[*i] != '\"'
-			&& original_str[*i] != '\'')
+		while (original_str[*i] != '\0' && ft_isalnum(original_str[*i]))
 			(*i)++;
 	free(env_value);
 }

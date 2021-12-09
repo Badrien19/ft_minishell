@@ -6,7 +6,7 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:17:37 by badrien           #+#    #+#             */
-/*   Updated: 2021/12/09 11:39:20 by badrien          ###   ########.fr       */
+/*   Updated: 2021/12/09 16:16:08 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ char	*get_value_env(char *name)
 	i = -1;
 	len = 0;
 	tmp = NULL;
-	while (name[len] != '\0' && name[len] != ' ' && name[len] != '$'
-		&& name[len] != '\"' && name[len] != '\'' && name[len] != '/'
-		&& name[len] != '=')
+	while (name[++i] != '\0' && ft_isalnum(name[i]))
 		len++;
 	if (len == 0)
 		return (NULL);
