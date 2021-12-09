@@ -29,10 +29,28 @@ Adrien :
 
 
 Ce qu'il reste :
-    - export test=" foo   bar " ; echo a$test 
-        Notre Minishell : afoo bar
-        bash            : a foo bar
-    - echo lol > file $ok
-        notre file : lol $ok 
-        bash : lol oui
-    - Normer
+    - ctrl-c non géré dans les heredoc;
+    pour gerer ca mettre le process (la boucle de readline pour le heredoc) dans un child avec fork() et call signal(SIGINT, SIG_DFL) seulement dans l'enfant
+    - variables d'environement non gerées dans le heredoc
+    - la retval ($?) de minishell est 1 au lieu de 0 quand on vient de lancer le shell
+    - la retval doit etre set a 1 quand tu ctrl-c
+    - ctrl-d et exit doivent print exit mais ca c'est pas encore trop grave
+    - votre retval donne pas la bonne valeur. (example: base64 -f  donne la retval 64, mais 2 chez vous) pour regler ca tu passe la valeur que tu envoie a waitpid(_, &ici, _) dans WEXITSTATUS(ici)
+    - export sans arguments ne fonctionne pas
+    - echo hello | exit 19 ne devrai pas faire exit minishell et devrai set la retval du press a 19
+    - export AA=b | echo $AA  segfault
+    - cat | cat | ls  pas le meme comportement que bash, mais c'est un peu un cas mystique
+    -   minishell > echo abc > x
+        minishell > echo xyz | < x cat -e
+    n'a pas le meme comportement que bash
+    - echo $$PWD: segfault
+    - echo $PW : imprime le PWD
+    - exit 10 ne set pas la valeur de ret. de minishell
+    - echo hello | hgiulhgul | echo lol  pas le mm comportement
+
+    minishell > unset PWD
+    minishell > mkdir hello
+    minishell > cd hello/
+    -> segfault
+
+    - proteger les fork(), pipe(), dup2()
