@@ -53,3 +53,4 @@ Ce qu'il reste :
     minishell > cd hello/
     -> segfault
     - proteger les fork(), pipe(), dup2()
+    segfault quand $, $PWD, $PATH,...
