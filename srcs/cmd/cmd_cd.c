@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:53:10 by user42            #+#    #+#             */
-/*   Updated: 2021/12/09 16:27:48 by badrien          ###   ########.fr       */
+/*   Updated: 2021/12/09 19:35:40 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ void	cmd_cd(t_cmd *list)
 	else
 		chdir(list->content->value);
 	if (env_i == -1)
+	{
 		ft_exporting(list, new_cwd);
+		new_cwd = NULL;
+	}
 	else
 	{
 		free(g_minishell.env[env_i]);
@@ -59,5 +62,5 @@ void	cmd_cd(t_cmd *list)
 		g_minishell.last_return_value = errno;
 		perror("minishell: cd");
 	}
-	free (new_cwd);
+	free(new_cwd);
 }
