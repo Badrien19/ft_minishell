@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/12/07 16:29:22 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/07 18:00:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static void	ft_switch(t_cmd *list)
 		exit(EXIT_SUCCESS);
 	}
 	else if (!ft_strcmp(list->content->value, "echo"))
-		cmd_echo(list);
+		cmd_echo(list, list->content->pipe_out,
+			list->content->pipe_in);
 	else if (!ft_strcmp(list->content->value, "env"))
 		print_env();
 	else if (!ft_strcmp(list->content->value, "pwd"))
