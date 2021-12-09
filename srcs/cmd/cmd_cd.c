@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:53:10 by user42            #+#    #+#             */
-/*   Updated: 2021/12/07 16:19:06 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/09 14:49:05 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ void	cmd_cd(t_cmd *list)
 {
 	char	*new_cwd;
 	int		env_i;
-	int		ret;
 
 	env_i = envchr("PWD=");
 	new_cwd = get_new_cwd();
 	list = skip_spaces(list);
-	if (!list || !ft_isstop(list) || get_token_value(list->content)[0] == '~')
-		ret = chdir(&g_minishell.env[envchr("HOME=")][5]);
+	if (!list || !ft_isstop(list) || ft_strcmp((char *)list->content->value, "~") == 0
+		|| ft_strcmp((char *)list->content->value, " ") == 0)
+		chdir(&g_minishell.env[envchr("HOME=")][5]);
 	else
-		ret = chdir(list->content->value);
+		chdir(list->content->value);
 	if (env_i == -1)
 		ft_exporting(list, new_cwd);
 	else
@@ -54,7 +54,7 @@ void	cmd_cd(t_cmd *list)
 		g_minishell.env[env_i] = ft_strdup(new_cwd);
 	}
 	g_minishell.last_return_value = 0;
-	if (ret < 0)
+	if (errno != 0)
 	{
 		g_minishell.last_return_value = errno;
 		perror("minishell: cd");
