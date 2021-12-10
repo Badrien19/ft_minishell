@@ -1,35 +1,6 @@
-Corentin :
-- Essayer de gérer les redirections avec ; -- Done
-- Gérer les cas d'erreurs des redirections -- Ongoing
-- Corriger le cas où cmd > file1 file2 : Écrire dans file1 et pas dans file2 (file 2 reste un simple literal) -- Done
-
-Alexandre :
-- Check execve (./) -- Done
-- Vérifier que toutes les commandes sont redirigées -- Done
-- Corriger la cmd export (MYVAR="Bonjour" ne fonctionne pas et peut crash à cause d'un free) -- Done
-- Unset double free (unset PATH) -- Done
-
-Adrien : 
-- Régler segfault variables qui n'existent pas -- Done
-- Gérer $? -- Done
-- changer l'environement lors d'un cd (PWD) -- Done
-- Remplacer les $variables petit à petit et non pas une fois dès le début -- Done
-- Remplacer le type apres la traduction d 'une variable ( ex : export ok=echo   $ok lol) -- Done
-
-?? :
-- Transformer les commandes qu'il ne faut pas gérer en cmd_instr (Une seule par bloc) -- Done
-- Gérer les signaux (CTRL-C, CTRL-D, etc...) -- Done (?)
-    - Gérer CTRL-D -- Done
-    - Gérer CTRL-C -- Done
-    - Gérer CTRL-\ -- A FAIRE
-- Gérer les pipes et redirections pour les commandes non-obligatoires. (Obligation d'utiliser des dup2)  -- Done
-    - Corriger la boucle infinie avec certaines commandes (grep test << end) -- Done
-    - Corriger l'output des cmd avec pipe (echo wow > test | cat) -- Done
-
-
-
 Ce qu'il reste :
     Corentin :
+        - Gérer les cas d'erreurs des redirections -- Ongoing
         - Ctrl-c non géré dans les heredoc 
                 Pour gerer ca mettre le process (la boucle de readline pour le heredoc) dans un child avec fork() et call signal(SIGINT, SIG_DFL) seulement dans l'enfant
         - Variables d'environement non gerées dans le heredoc -- Done
@@ -52,6 +23,7 @@ Ce qu'il reste :
         - exit 10 ne set pas la valeur de ret. de minishell -- Done
 
     ?? :
+        - Gérer CTRL-\
         - La retval doit etre set a 1 quand tu ctrl-c -- Done
         - Ctrl-D et exit doivent print exit mais ca c'est pas encore trop grave -- Done
         - Votre retval donne pas la bonne valeur. (Example: base64 -f  donne la retval 64, mais 2 chez vous) pour regler ca tu passe la valeur que tu envoie a waitpid(_, &ici, _) dans WEXITSTATUS(ici) -- Done
