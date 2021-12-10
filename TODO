@@ -45,7 +45,7 @@ Ce qu'il reste :
         - segfault quand $, $PWD, $PATH,...
 
     Alex :
-        - Export sans arguments ne fonctionne pas 
+        - Export sans arguments ne fonctionne pas --Done 
         - Echo hello | exit 19 ne devrait pas faire exit minishell et devrai set la retval du press a 19 -- Done
         - Export AA=b | echo $AA  segfault
         - echo $PW : imprime le PWD -- Done
