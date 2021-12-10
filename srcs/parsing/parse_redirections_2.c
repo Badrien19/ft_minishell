@@ -31,7 +31,8 @@ void	assign_pipe(int *fd, t_cmd *current)
 		close(fd[0]);
 		close(fd[1]);
 		g_minishell.list_input = current;
-		find_prev_cmd()->content->pipe_out = -1;
+		if (find_prev_cmd())
+			find_prev_cmd()->content->pipe_out = -1;
 	}
 }
 

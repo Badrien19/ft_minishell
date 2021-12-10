@@ -88,28 +88,39 @@ void	parse_double_redirection_left(void)
 	char	*end_redir;
 	char	*buffer;
 	int		fd[2];
+	pid_t	pid;
 
 	buffer = NULL;
 	if (is_there_literal_for_file() == False)
 		return ;
 	end_redir = find_next_literal(1)->content->value;
-	pipe(fd);
-	while (True)
+	pid = fork();
+	if (pid == 0)
 	{
-		buffer = readline("\033[1;32m>\033[0m ");
-		if (!buffer || !ft_strcmp(buffer, end_redir))
-			break ;
-		buffer = ft_strjoin_free(buffer, "\n");
-		ft_putstr_fd(buffer, fd[1]);
-		free(buffer);
+		pipe(fd);
+		signal(SIGINT, &sigint_handler);
+		while (True)
+		{
+			buffer = readline("\033[1;32m>\033[0m ");
+			if (!buffer || !ft_strcmp(buffer, end_redir))
+				break ;
+			buffer = ft_strjoin_free(buffer, "\n");
+			buffer = dollar_to_value(buffer, 0);
+			ft_putstr_fd(buffer, fd[1]);
+			free(buffer);
+		}
+		if (find_next_cmd())
+			find_next_cmd()->content->pipe_in = fd[0];
+		else if (find_prev_cmd())
+			find_prev_cmd()->content->pipe_in = fd[0];
+		else
+			return ;
+		close(fd[1]);
 	}
-	if (find_next_cmd())
-		find_next_cmd()->content->pipe_in = fd[0];
-	else if (find_prev_cmd())
-		find_prev_cmd()->content->pipe_in = fd[0];
 	else
-		return ;
-	close(fd[1]);
+	{
+		waitpid(pid, NULL, 0);
+	}
 }
 
 void	parse_pipe(void)
