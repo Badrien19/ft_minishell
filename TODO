@@ -29,28 +29,33 @@ Adrien :
 
 
 Ce qu'il reste :
-    - ctrl-c non géré dans les heredoc;
-    pour gerer ca mettre le process (la boucle de readline pour le heredoc) dans un child avec fork() et call signal(SIGINT, SIG_DFL) seulement dans l'enfant
-    - variables d'environement non gerées dans le heredoc
-    - la retval ($?) de minishell est 1 au lieu de 0 quand on vient de lancer le shell
-    - la retval doit etre set a 1 quand tu ctrl-c --done
-    - ctrl-d et exit doivent print exit mais ca c'est pas encore trop grave
-    - votre retval donne pas la bonne valeur. (example: base64 -f  donne la retval 64, mais 2 chez vous) pour regler ca tu passe la valeur que tu envoie a waitpid(_, &ici, _) dans WEXITSTATUS(ici)
-    - export sans arguments ne fonctionne pas --Done
-    - echo hello | exit 19 ne devrai pas faire exit minishell et devrai set la retval du press a 19
-    - export AA=b | echo $AA  segfault
-    - cat | cat | ls  pas le meme comportement que bash, mais c'est un peu un cas mystique
-    -   minishell > echo abc > x
-        minishell > echo xyz | < x cat -e
-    n'a pas le meme comportement que bash
-    - echo $$PWD: segfault --Done
-    - echo $PW : imprime le PWD --Done
-    - exit 10 ne set pas la valeur de ret. de minishell
-    - echo hello | hgiulhgul | echo lol  pas le mm comportement -- Done
+    Corentin :
+        - Ctrl-c non géré dans les heredoc 
+                Pour gerer ca mettre le process (la boucle de readline pour le heredoc) dans un child avec fork() et call signal(SIGINT, SIG_DFL) seulement dans l'enfant
+        - Variables d'environement non gerées dans le heredoc -- Done
+        - echo hello | hgiulhgul | echo lol  pas le mm comportement -- Done
+        "minishell > unset PWD
+         minishell > mkdir hello
+         minishell > cd hello/" -> segfault -- Done
 
-    minishell > unset PWD
-    minishell > mkdir hello
-    minishell > cd hello/
-    -> segfault -- Done
-    - proteger les fork(), pipe(), dup2()
-    segfault quand $, $PWD, $PATH,...
+    Adrien :
+        - La retval ($?) de minishell est 1 au lieu de 0 quand on vient de lancer le shell
+        - echo $$PWD: segfault --Done
+        - segfault quand $, $PWD, $PATH,...
+
+    Alex :
+        - Export sans arguments ne fonctionne pas -- Done
+        - Echo hello | exit 19 ne devrait pas faire exit minishell et devrai set la retval du press a 19
+        - Export AA=b | echo $AA  segfault
+        - echo $PW : imprime le PWD -- Done
+        - exit 10 ne set pas la valeur de ret. de minishell
+
+    ?? :
+        - La retval doit etre set a 1 quand tu ctrl-c -- Done
+        - Ctrl-D et exit doivent print exit mais ca c'est pas encore trop grave
+        - Votre retval donne pas la bonne valeur. (Example: base64 -f  donne la retval 64, mais 2 chez vous) pour regler ca tu passe la valeur que tu envoie a waitpid(_, &ici, _) dans WEXITSTATUS(ici)
+        - cat | cat | ls  pas le meme comportement que bash, mais c'est un peu un cas mystique
+        - minishell > echo abc > x n'a pas le meme comportement que bash
+        - minishell > echo xyz | < x cat -e n'a pas le meme comportement que bash
+        - Protéger les fork(), pipe(), dup2()
+
