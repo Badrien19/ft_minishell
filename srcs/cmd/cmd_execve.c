@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/12/07 16:22:26 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/10 16:04:03 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,10 @@ static void	ft_exec_free(char *cmd)
 static void	ft_loop_execve(int in, int out, char *cmd)
 {
 	pid_t	pid;
+	int		status;
 
 	pid = fork();
+	status = 0;
 	if (pid == -1)
 		cmd_error();
 	if (!pid)
@@ -87,7 +89,9 @@ static void	ft_loop_execve(int in, int out, char *cmd)
 	}
 	else
 	{
-		waitpid(pid, NULL, 0);
+		waitpid(pid, &status, 0);
+		if (WEXITSTATUS(status))
+			g_minishell.last_return_value = WEXITSTATUS(status);
 		if (in != STDIN_FILENO)
 			close(in);
 		if (out != STDOUT_FILENO)
@@ -115,8 +119,4 @@ void	cmd_execve(t_cmd *list)
 		list = list->next;
 	}
 	ft_loop_execve(in, out, cmd);
-	if (errno)
-		g_minishell.last_return_value = errno;
-	else
-		g_minishell.last_return_value = 0;
 }

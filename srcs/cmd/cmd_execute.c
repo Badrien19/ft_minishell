@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:47:41 by user42            #+#    #+#             */
-/*   Updated: 2021/12/07 16:04:50 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/10 16:06:17 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,37 +102,34 @@ static void	execute_child(t_cmd *list)
 	execve(tmp, args, g_minishell.env);
 	free(tmp);
 	free_array(args);
-	if (errno)
-		g_minishell.last_return_value = errno;
-	else
-		g_minishell.last_return_value = 0;
 	perror("minishell");
 }
 
 void	cmd_execute(t_cmd *list)
 {
 	int		pid;
-	int		in;
-	int		out;
+	int		status;
 
 	pid = fork();
-	in = list->content->pipe_in;
-	out = list->content->pipe_out;
 	if (!pid)
 	{
-		if (in != STDIN_FILENO)
+		if (list->content->pipe_in != STDIN_FILENO)
 		{
-			dup2(in, STDIN_FILENO);
-			close(in);
+			dup2(list->content->pipe_in, STDIN_FILENO);
+			close(list->content->pipe_in);
 		}
-		if (out != STDOUT_FILENO)
+		if (list->content->pipe_out != STDOUT_FILENO)
 		{
-			dup2(out, STDOUT_FILENO);
-			close(out);
+			dup2(list->content->pipe_out, STDOUT_FILENO);
+			close(list->content->pipe_out);
 		}
 		execute_child(list);
-		exit(0);
+		exit(EXIT_SUCCESS);
 	}
 	else
-		waitpid(pid, NULL, 0);
+	{
+		waitpid(pid, &status, 0);
+		if (WEXITSTATUS(status))
+			g_minishell.last_return_value = WEXITSTATUS(status);
+	}
 }
