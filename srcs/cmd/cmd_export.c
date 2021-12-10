@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/12/09 18:23:26 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/10 10:54:59 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	ft_exporting_2(char *value, int s)
 		g_minishell.env = realloc_env(g_minishell.env, s + 1);
 		g_minishell.env[s] = ft_strdup(value);
 		free(value);
+		value = NULL;
 		if (!g_minishell.env[s])
 			cmd_error();
 		g_minishell.env[s + 1] = NULL;
@@ -32,6 +33,7 @@ void	ft_exporting_2(char *value, int s)
 		free(g_minishell.env[s]);
 		g_minishell.env[s] = ft_strdup(value);
 		free(value);
+		value = NULL;
 		if (!g_minishell.env[s])
 			cmd_error();
 	}
@@ -52,6 +54,7 @@ void	ft_exporting(t_cmd *list, char *value)
 				g_minishell.env[s] = ft_strjoin_free(g_minishell.env[s],
 						&value[ft_envplussearch(value) + 2]);
 				free(value);
+				value = NULL;
 				if (!g_minishell.env[s])
 					cmd_error();
 			}
@@ -87,12 +90,42 @@ static void	loop_export(t_cmd *list, char *value)
 	}
 }
 
-void	cmd_export(t_cmd *list)
+void	ft_exporting_no_arg(int out)
+{
+	int		i;
+
+	i = -1;
+	while (g_minishell.env[++i])
+	{
+		ft_putstr_fd("declare -x ", out);
+		ft_putstr_fd(g_minishell.env[i], out);
+		write(out, "\n", 1);
+	}
+}
+
+void	cmd_export(t_cmd *list, int out, int in)
 {
 	char	*value;
+	int		pid;
 
 	if (!list || list->next == NULL)
+	{
+		pid = fork();
+		if (!pid)
+		{
+			ft_exporting_no_arg(out);
+			exit(EXIT_SUCCESS);
+		}
+		else
+		{
+			waitpid(pid, NULL, 0);
+			if (out != STDOUT_FILENO)
+				close(out);
+			if (in != STDIN_FILENO)
+				close(in);
+		}
 		return ;
+	}
 	list = list->next;
 	g_minishell.last_return_value = 0;
 	value = NULL;

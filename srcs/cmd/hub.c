@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/12/09 14:32:56 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/10 10:44:15 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	ft_switch(t_cmd *list)
 	else if (!ft_strcmp(list->content->value, "unset"))
 		cmd_unset(list->next);
 	else if (!ft_strcmp(list->content->value, "export"))
-		cmd_export(list->next);
+		cmd_export(list->next, list->content->pipe_out, list->content->pipe_in);
 	else
 		cmd_execve(list);
 }

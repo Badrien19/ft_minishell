@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 15:24:26 by user42            #+#    #+#             */
-/*   Updated: 2021/12/09 18:06:54 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/10 10:55:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_envncmp(char *needle, char *env, int len)
 	}
 	if (i == len)
 		i--;
-	if(env[i + 1] != '=')
+	if (env[i + 1] != '=')
 		return (-1);
 	return ((unsigned char)(needle)[i] - (unsigned char)(env)[i]);
 }
@@ -96,5 +96,6 @@ char	*ft_plus_cut(char *value)
 	}
 	ret[j] = '\0';
 	free(value);
+	value = NULL;
 	return (ret);
 }
