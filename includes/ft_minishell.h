@@ -238,7 +238,7 @@ void				cmd_execve(t_cmd *list);
 void				cmd_execute(t_cmd *list);
 void				cmd_pwd(t_cmd *list);
 void				cmd_cd(t_cmd *list);
-void    			cmd_exit(void);
+void				cmd_exit(t_cmd *list);
 void				free_array(char **array);
 
 /*

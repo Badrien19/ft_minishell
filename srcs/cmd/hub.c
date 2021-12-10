@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/12/10 11:16:36 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/10 15:33:49 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	ft_switch(t_cmd *list)
 {
 	if (!ft_strcmp(list->content->value, "exit"))
-		cmd_exit();
+		cmd_exit(list);
 	else if (!ft_strcmp(list->content->value, "echo"))
 		cmd_echo(list, list->content->pipe_out,
 			list->content->pipe_in);

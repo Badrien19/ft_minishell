@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:37:03 by cgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/10 11:49:36 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/10 15:33:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	sigint_handler(int sig)
 void	sigquit_handler(int sig)
 {
 	if(sig == SIGQUIT)
-		cmd_exit();
+		printf("SIGQUIT\n");
 }
 
 void	main_loop(void)
