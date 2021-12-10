@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_execute.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:47:41 by user42            #+#    #+#             */
-/*   Updated: 2021/12/10 16:06:17 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/10 17:01:18 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ void	cmd_execute(t_cmd *list)
 	int		status;
 
 	pid = fork();
+	if(pid == -1)
+		cmd_error();
 	if (!pid)
 	{
 		if (list->content->pipe_in != STDIN_FILENO)

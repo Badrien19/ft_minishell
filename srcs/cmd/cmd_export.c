@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/12/10 16:54:38 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/10 17:02:02 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ void	cmd_export(t_cmd *list, int out, int in)
 	if (!list || list->next == NULL || !ft_isstop(list))
 	{
 		pid = fork();
+		if(pid == -1)
+			cmd_error();
 		if (!pid)
 		{
 			ft_exporting_no_arg(out);
