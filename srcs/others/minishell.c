@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:37:03 by cgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/09 18:02:10 by badrien          ###   ########.fr       */
+/*   Updated: 2021/12/10 11:49:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ void	sigint_handler(int sig)
 		rl_on_new_line();
 		rl_redisplay();
 	}
+}
+
+void	sigquit_handler(int sig)
+{
+	if(sig == SIGQUIT)
+		cmd_exit();
 }
 
 void	main_loop(void)
@@ -56,6 +62,7 @@ void	main_loop(void)
 int	main(int argc, char **argv, char **env)
 {
 	signal(SIGINT, &sigint_handler);
+	signal(SIGQUIT, &sigquit_handler);
 	argc = argc;
 	argv = argv;
 	g_minishell.list_input = 0;
