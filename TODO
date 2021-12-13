@@ -11,9 +11,9 @@ Ce qu'il reste :
         - "minishell > echo xyz | < x cat -e" -> Segfault -- Done
 
     Adrien :
-        - La retval ($?) de minishell est 1 au lieu de 0 quand on vient de lancer le shell
+        - La retval ($?) de minishell est 1 au lieu de 0 quand on vient de lancer le shell --done
         - echo $$PWD: segfault --Done
-        - segfault quand $, $PWD, $PATH,...
+        - segfault quand $, $PWD, $PATH,... --done
 
     Alex :
         - Export sans arguments ne fonctionne pas --Done 
