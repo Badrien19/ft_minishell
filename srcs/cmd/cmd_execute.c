@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:47:41 by user42            #+#    #+#             */
-/*   Updated: 2021/12/13 15:08:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/13 15:27:32 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,20 +108,14 @@ void	cmd_execute(t_cmd *list)
 	int		status;
 
 	pid = fork();
-	if(pid == -1)
+	if (pid == -1)
 		cmd_error();
 	if (!pid)
 	{
 		if (list->content->pipe_in != STDIN_FILENO)
-		{
 			dup2(list->content->pipe_in, STDIN_FILENO);
-			close(list->content->pipe_in);
-		}
 		if (list->content->pipe_out != STDOUT_FILENO)
-		{
 			dup2(list->content->pipe_out, STDOUT_FILENO);
-			close(list->content->pipe_out);
-		}
 		execute_child(list);
 		exit(EXIT_SUCCESS);
 	}
@@ -130,5 +124,9 @@ void	cmd_execute(t_cmd *list)
 		waitpid(pid, &status, 0);
 		if (WEXITSTATUS(status))
 			g_minishell.last_return_value = WEXITSTATUS(status);
+		if (list->content->pipe_in != STDIN_FILENO)
+			close(list->content->pipe_in);
+		if (list->content->pipe_out != STDOUT_FILENO)
+			close(list->content->pipe_out);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:58:01 by arapaill          #+#    #+#             */
-/*   Updated: 2021/12/10 17:00:52 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/13 15:22:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	cmd_echo(t_cmd *list, int out, int in)
 	pid_t	pid;
 
 	pid = fork();
-	if(pid == -1)
+	if (pid == -1)
 		cmd_error();
 	if (list->next)
 		list = list->next;
