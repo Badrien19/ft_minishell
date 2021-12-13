@@ -83,6 +83,7 @@ typedef struct s_minishell
 	char			**env;
 	int				last_return_value;
 	t_bool			parsing_error;
+	int				signal;
 }					t_minishell;
 
 t_minishell			g_minishell;

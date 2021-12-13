@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:37:03 by cgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/13 15:12:32 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/13 17:20:57 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,15 @@ void	sigint_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		write(STDIN_FILENO, "\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
+		if (g_minishell.signal == 0)
+		{
+			write(STDIN_FILENO, "\n", 1);
+			rl_on_new_line();
+			rl_replace_line("", 0);
+			rl_redisplay();
+		}
+		else if (g_minishell.signal == 1)
+			g_minishell.signal = 0;
 	}
 }
 
@@ -68,6 +73,7 @@ int	main(int argc, char **argv, char **env)
 	argv = argv;
 	g_minishell.list_input = 0;
 	g_minishell.last_return_value = 0;
+	g_minishell.signal = 0;
 	g_minishell.env = realloc_env(env, (size_t)size_env(env));
 	main_loop();
 	return (EXIT_SUCCESS);

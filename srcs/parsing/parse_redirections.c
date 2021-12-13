@@ -89,18 +89,27 @@ void	parse_double_redirection_left(void)
 	char	*buffer;
 	int		fd[2];
 	pid_t	pid;
+	int		retval;
 
 	buffer = NULL;
 	if (is_there_literal_for_file() == False)
 		return ;
 	end_redir = find_next_literal(1)->content->value;
+	g_minishell.signal = 1;
+	if (pipe(fd) < 0)
+		cmd_error();
+	if (find_next_cmd())
+		find_next_cmd()->content->pipe_in = fd[0];
+	else if (find_prev_cmd())
+		find_prev_cmd()->content->pipe_in = fd[0];
+	else
+		return ;
 	pid = fork();
-	if(pid == -1)
+	if (pid == -1)
 		cmd_error();
 	if (pid == 0)
 	{
-		pipe(fd);
-		signal(SIGINT, &sigint_handler);
+		signal(SIGINT, SIG_DFL);
 		while (True)
 		{
 			buffer = readline("\033[1;32m>\033[0m ");
@@ -111,17 +120,23 @@ void	parse_double_redirection_left(void)
 			ft_putstr_fd(buffer, fd[1]);
 			free(buffer);
 		}
-		if (find_next_cmd())
-			find_next_cmd()->content->pipe_in = fd[0];
-		else if (find_prev_cmd())
-			find_prev_cmd()->content->pipe_in = fd[0];
-		else
-			return ;
+		free(buffer);
 		close(fd[1]);
+		close(fd[0]);
+		exit(EXIT_SUCCESS);
 	}
 	else
 	{
-		waitpid(pid, NULL, 0);
+		waitpid(pid, &retval, 0);
+/* 		read(fd[0], buffer, 256);
+		printf("buffer : %s\n", buffer); */
+		close(fd[1]);
+		if (retval != 0)
+		{
+			write(STDIN_FILENO, "\n", 1);
+			close(fd[0]);
+			g_minishell.signal = 0;
+		}
 	}
 }
 
