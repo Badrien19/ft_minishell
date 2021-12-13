@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:53:10 by user42            #+#    #+#             */
-/*   Updated: 2021/12/09 19:35:40 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/13 15:44:22 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,15 @@ static t_cmd	*skip_spaces(t_cmd *list)
 	return (list);
 }
 
+void	error_cd(int err)
+{
+	if (err != 0)
+	{
+		g_minishell.last_return_value = err;
+		perror("minishell: cd");
+	}
+}
+
 void	cmd_cd(t_cmd *list)
 {
 	char	*new_cwd;
@@ -57,10 +66,6 @@ void	cmd_cd(t_cmd *list)
 		g_minishell.env[env_i] = ft_strdup(new_cwd);
 	}
 	g_minishell.last_return_value = 0;
-	if (errno != 0)
-	{
-		g_minishell.last_return_value = errno;
-		perror("minishell: cd");
-	}
+	error_cd(errno);
 	free(new_cwd);
 }
