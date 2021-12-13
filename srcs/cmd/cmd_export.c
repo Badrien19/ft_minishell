@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/12/10 17:02:02 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/13 15:39:07 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,10 @@ void	ft_exporting(t_cmd *list, char *value)
 	}
 }
 
-static void	loop_export(t_cmd *list, char *value)
+static void	loop_export(t_cmd *list)
 {
+	char *value;
+
 	while (list && ft_isstop(list))
 	{
 		while (list->next && list->content->type == space)
@@ -105,12 +107,11 @@ void	ft_exporting_no_arg(int out)
 
 void	cmd_export(t_cmd *list, int out, int in)
 {
-	char	*value;
 	int		pid;
 
 	while(list && list->next && list->content->type == space)
 		list = list->next;
-	if (!list || list->next == NULL || !ft_isstop(list))
+	if (!ft_isstop(list))
 	{
 		pid = fork();
 		if(pid == -1)
@@ -130,8 +131,6 @@ void	cmd_export(t_cmd *list, int out, int in)
 		}
 		return ;
 	}
-	list = list->next;
 	g_minishell.last_return_value = 0;
-	value = NULL;
-	loop_export(list, value);
+	loop_export(list);
 }

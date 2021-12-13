@@ -6,11 +6,21 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 15:24:26 by user42            #+#    #+#             */
-/*   Updated: 2021/12/10 10:55:36 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/13 15:33:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
+
+void	free_array(char **array)
+{
+	int		i;
+
+	i = -1;
+	while (array[++i])
+		free (array[i]);
+	free(array);
+}
 
 int	ft_envncmp(char *needle, char *env, int len)
 {

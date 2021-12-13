@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/12/10 17:01:38 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/13 15:43:26 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,6 @@ static char	**get_path(char **env)
 		i++;
 	}
 	return (NULL);
-}
-
-void	free_array(char **array)
-{
-	int		i;
-
-	i = -1;
-	while (array[++i])
-		free (array[i]);
-	free(array);
 }
 
 static void	ft_exec_free(char *cmd)
@@ -69,6 +59,18 @@ static void	ft_exec_free(char *cmd)
 	parsing_error(MS_ERROR_NO_CMD);
 }
 
+static void ft_loop_execve_child(int in, int out, char *cmd)
+{
+	if (in != STDIN_FILENO)
+		if (dup2(in, STDIN_FILENO) < 0)
+			cmd_error();
+	if (out != STDOUT_FILENO)
+		if (dup2(out, STDOUT_FILENO) < 0)
+			cmd_error();
+	ft_exec_free(cmd);
+	exit(0);
+}
+
 static void	ft_loop_execve(int in, int out, char *cmd)
 {
 	pid_t	pid;
@@ -79,14 +81,7 @@ static void	ft_loop_execve(int in, int out, char *cmd)
 	if (pid == -1)
 		cmd_error();
 	if (!pid)
-	{
-		if (in != STDIN_FILENO)
-			dup2(in, STDIN_FILENO);
-		if (out != STDOUT_FILENO)
-			dup2(out, STDOUT_FILENO);
-		ft_exec_free(cmd);
-		exit(0);
-	}
+		ft_loop_execve_child(in, out, cmd);
 	else
 	{
 		waitpid(pid, &status, 0);
