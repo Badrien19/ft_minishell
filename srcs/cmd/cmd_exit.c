@@ -6,29 +6,18 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 11:15:10 by user42            #+#    #+#             */
-/*   Updated: 2021/12/10 17:01:46 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/13 15:52:45 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
-void	cmd_exit_2(int in, int out, int exit_value)
+static void	cmd_exit_pid(int in, int out, int exit_value)
 {
 	int		pid;
 
-	if ((in == 0 && out == 1 ) || exit_value == -1)
-	{
-		ft_putstr_fd("exit\n", 1);
-		if (exit_value == -1)
-		{
-			printf("minishell: exit: bad argument\n");
-			exit_value = 0;
-		}
-		free_list();
-		exit(exit_value);
-	}
 	pid = fork();
-	if(pid == -1)
+	if (pid == -1)
 		cmd_error();
 	if (!pid)
 		exit(exit_value);
@@ -40,6 +29,22 @@ void	cmd_exit_2(int in, int out, int exit_value)
 		if (in != STDIN_FILENO)
 			close(in);
 	}
+}
+
+static void	cmd_exit_2(int in, int out, int exit_value)
+{
+	if ((in == 0 && out == 1 ) || exit_value == -1)
+	{
+		ft_putstr_fd("exit\n", 1);
+		if (exit_value == -1)
+		{
+			printf("minishell: exit: bad argument\n");
+			exit_value = 0;
+		}
+		free_list();
+		exit(exit_value);
+	}
+	cmd_exit_pid(in, out, exit_value);
 }
 
 void	cmd_exit(t_cmd *list)

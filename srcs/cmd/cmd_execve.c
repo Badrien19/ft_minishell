@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/12/13 15:43:26 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/13 15:45:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	ft_exec_free(char *cmd)
 	parsing_error(MS_ERROR_NO_CMD);
 }
 
-static void ft_loop_execve_child(int in, int out, char *cmd)
+static void	ft_loop_execve_child(int in, int out, char *cmd)
 {
 	if (in != STDIN_FILENO)
 		if (dup2(in, STDIN_FILENO) < 0)
