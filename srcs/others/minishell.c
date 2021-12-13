@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:37:03 by cgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/10 15:33:41 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/13 15:12:32 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	main_loop(void)
 		{
 			free_array(g_minishell.env);
 			free_list();
+			printf("exit\n");
 			exit(EXIT_SUCCESS);
 		}
 		free_list();
