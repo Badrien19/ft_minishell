@@ -100,8 +100,6 @@ void	parse_double_redirection_left(void)
 	if (pid == 0)
 	{
 		pipe(fd);
-		if(pipe == -1)
-			cmd_error();
 		signal(SIGINT, &sigint_handler);
 		while (True)
 		{
