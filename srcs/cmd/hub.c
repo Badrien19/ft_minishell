@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/12/10 17:02:21 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/13 16:03:55 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	ft_switch(t_cmd *list)
 		cmd_cd(list->next);
 	else if (!ft_strncmp(list->content->value, "./", 2)
 		|| check_exec(list->content->value))
-		cmd_execute(list);
+		cmd_execute(list, list->content->pipe_out, list->content->pipe_in);
 	else if (!ft_strcmp(list->content->value, "unset"))
 		cmd_unset(list->next);
 	else if (!ft_strcmp(list->content->value, "export"))

@@ -235,7 +235,7 @@ void				cmd_unset(t_cmd *list);
 void				cmd_echo(t_cmd *list, int out, int in);
 void				cmd_export(t_cmd *list, int out, int in);
 void				cmd_execve(t_cmd *list);
-void				cmd_execute(t_cmd *list);
+void				cmd_execute(t_cmd *list, int in, int out);
 void				cmd_pwd(t_cmd *list);
 void				cmd_cd(t_cmd *list);
 void				cmd_exit(t_cmd *list);

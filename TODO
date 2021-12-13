@@ -30,5 +30,5 @@ Ce qu'il reste :
         - cat | cat | ls  pas le meme comportement que bash, mais c'est un peu un cas mystique
         - "echo abc > x" n'a pas le meme comportement que bash -- Done
         - "echo xyz | < x cat -e" n'a pas le meme comportement que bash -- Done
-        - Protéger les fork(), pipe(), dup2()
+        - Protéger les fork(), pipe(), dup2() --Done
 

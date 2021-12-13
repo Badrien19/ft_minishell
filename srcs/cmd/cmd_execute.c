@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:47:41 by user42            #+#    #+#             */
-/*   Updated: 2021/12/13 15:27:32 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/13 16:05:49 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,10 @@ static void	execute_child(t_cmd *list)
 	free(tmp);
 	free_array(args);
 	perror("minishell");
+	exit(EXIT_SUCCESS);
 }
 
-void	cmd_execute(t_cmd *list)
+void	cmd_execute(t_cmd *list, int in, int out)
 {
 	int		pid;
 	int		status;
@@ -112,12 +113,11 @@ void	cmd_execute(t_cmd *list)
 		cmd_error();
 	if (!pid)
 	{
-		if (list->content->pipe_in != STDIN_FILENO)
-			dup2(list->content->pipe_in, STDIN_FILENO);
-		if (list->content->pipe_out != STDOUT_FILENO)
-			dup2(list->content->pipe_out, STDOUT_FILENO);
+		if (in != STDIN_FILENO && dup2(in, STDIN_FILENO) < 0)
+			cmd_error();
+		if (out != STDOUT_FILENO && dup2(out, STDOUT_FILENO) < 0)
+			cmd_error();
 		execute_child(list);
-		exit(EXIT_SUCCESS);
 	}
 	else
 	{

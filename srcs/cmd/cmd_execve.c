@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/12/13 15:45:29 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/13 16:07:55 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,10 @@ static void	ft_exec_free(char *cmd)
 
 static void	ft_loop_execve_child(int in, int out, char *cmd)
 {
-	if (in != STDIN_FILENO)
-		if (dup2(in, STDIN_FILENO) < 0)
-			cmd_error();
-	if (out != STDOUT_FILENO)
-		if (dup2(out, STDOUT_FILENO) < 0)
-			cmd_error();
+	if (in != STDIN_FILENO && dup2(in, STDIN_FILENO) < 0)
+		cmd_error();
+	if (out != STDOUT_FILENO && dup2(out, STDOUT_FILENO) < 0)
+		cmd_error();
 	ft_exec_free(cmd);
 	exit(0);
 }
