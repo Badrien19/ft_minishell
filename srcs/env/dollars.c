@@ -6,7 +6,7 @@
 /*   By: badrien <badrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 12:19:59 by badrien           #+#    #+#             */
-/*   Updated: 2021/12/13 15:19:52 by badrien          ###   ########.fr       */
+/*   Updated: 2021/12/13 15:40:16 by badrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ int	make_new_block(char *new_str, char *original_str)
 		{
 			if ((original_str[i + 1] == '\0' || ft_isalnum(original_str[i + 1])
 					== 0) && original_str[i + 1] != '?')
-				{
+			{
 				new_str[len++] = original_str[i++];
 				if (original_str[i] == '$')
 					i++;
-				}
+			}
 			else
 				add_value(&i, &len, new_str, original_str);
 		}
