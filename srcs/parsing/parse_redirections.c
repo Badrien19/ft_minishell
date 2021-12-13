@@ -95,9 +95,13 @@ void	parse_double_redirection_left(void)
 		return ;
 	end_redir = find_next_literal(1)->content->value;
 	pid = fork();
+	if(pid == -1)
+		cmd_error();
 	if (pid == 0)
 	{
 		pipe(fd);
+		if(pipe == -1)
+			cmd_error();
 		signal(SIGINT, &sigint_handler);
 		while (True)
 		{
