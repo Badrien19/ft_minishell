@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 14:47:41 by user42            #+#    #+#             */
-/*   Updated: 2021/12/13 11:16:12 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/13 15:08:05 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,6 @@ static char	*get_path_pwd(char **env)
 	}
 	return (path);
 }
-
-/* 
-** tmp = /bin/echo
-** args[0] = echo
-** args[1->fin] : aux arguments (bonjour je suis Corentin)
-*/
 
 static char	*find_slash(void *s)
 {
@@ -85,10 +79,13 @@ static void	execute_child(t_cmd *list)
 	char	*path;
 	char	**args;
 	char	*tmp;
+	char	**tmp_2;
 
 	if (check_exec(list->content->value) == True)
 	{
-		tmp = ft_split(list->content->value, ' ')[0];
+		tmp_2 = ft_split(list->content->value, ' ');
+		tmp = ft_strdup(tmp_2[0]);
+		free_array(tmp_2);
 		args = add_arguments(list);
 	}
 	else
