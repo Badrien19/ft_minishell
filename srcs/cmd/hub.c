@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/12/14 14:49:10 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/14 15:07:54 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ static void	ft_switch(t_cmd *list)
 void	cmd_hub(void)
 {
 	t_cmd	*current;
+	t_cmd	*last;
 
 	g_minishell.list_input = ft_cmdfirst(g_minishell.list_input);
+	last = ft_cmdlast(g_minishell.list_input);
 	while (g_minishell.list_input)
 	{
 		replace_value_from_env(g_minishell.list_input);
@@ -60,4 +62,5 @@ void	cmd_hub(void)
 		if (g_minishell.list_input && g_minishell.list_input->next)
 			g_minishell.list_input = g_minishell.list_input->next;
 	}
+	g_minishell.list_input = last;
 }
