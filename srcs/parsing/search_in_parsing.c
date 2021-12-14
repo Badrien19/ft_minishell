@@ -24,10 +24,9 @@ t_cmd	*find_next_cmd(void)
 	t_cmd	*ret;
 
 	current = g_minishell.list_input;
-
 	if (g_minishell.list_input && g_minishell.list_input->next
 		&& (g_minishell.list_input->content->type == semicolon
-		&& g_minishell.list_input->content->type == pipeline))
+			&& g_minishell.list_input->content->type == pipeline))
 		g_minishell.list_input = g_minishell.list_input->next;
 	while (g_minishell.list_input
 		&& g_minishell.list_input->content->type != cmd_instr
