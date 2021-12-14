@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_execve.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/12/13 16:07:55 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/14 14:53:00 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static void	ft_exec_free(char *cmd)
 
 static void	ft_loop_execve_child(int in, int out, char *cmd)
 {
+	signal(SIGINT, SIG_DFL);
 	if (in != STDIN_FILENO && dup2(in, STDIN_FILENO) < 0)
 		cmd_error();
 	if (out != STDOUT_FILENO && dup2(out, STDOUT_FILENO) < 0)
@@ -99,6 +100,7 @@ void	cmd_execve(t_cmd *list)
 	int		out;
 	char	*cmd;
 
+	g_minishell.signal = 1;
 	cmd = ft_strdup(list->content->value);
 	in = list->content->pipe_in;
 	out = list->content->pipe_out;
@@ -112,4 +114,5 @@ void	cmd_execve(t_cmd *list)
 		list = list->next;
 	}
 	ft_loop_execve(in, out, cmd);
+	g_minishell.signal = 0;
 }
