@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/12/16 14:50:36 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/16 15:20:11 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_exporting(t_cmd *list, char *value)
 
 	while (list && ft_isstop(list))
 	{
-		if (ft_strchr(value, 61))
+		if (value && ft_strchr(value, 61))
 		{
 			s = 0;
 			if (ft_envplussearch(value) != 0 && envchr(value, -1) > -1)
