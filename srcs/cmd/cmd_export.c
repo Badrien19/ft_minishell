@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/12/16 15:20:11 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/16 15:52:46 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,22 @@
 
 void	ft_exporting_2(char *value, int s)
 {
-	if (envchr(value, -1) == -1)
+	if (value && envchr(value, -1) == -1)
 	{
 		if (ft_envplussearch(value) != 0)
 			value = ft_plus_cut(value);
 		s = size_env(g_minishell.env);
 		g_minishell.env = realloc_env(g_minishell.env, s + 1);
 		g_minishell.env[s] = ft_strdup(value);
-		free(value);
-		value = NULL;
 		if (!g_minishell.env[s])
 			cmd_error();
 		g_minishell.env[s + 1] = NULL;
 	}
-	else if (envchr(value, -1) > -1)
+	else if (value && envchr(value, -1) > -1)
 	{
 		s = envchr(value, -1);
 		free(g_minishell.env[s]);
 		g_minishell.env[s] = ft_strdup(value);
-		free(value);
-		value = NULL;
 		if (!g_minishell.env[s])
 			cmd_error();
 	}
@@ -53,8 +49,6 @@ void	ft_exporting(t_cmd *list, char *value)
 				s = envchr(value, -1);
 				g_minishell.env[s] = ft_strjoin_free(g_minishell.env[s],
 						&value[ft_envplussearch(value) + 2]);
-				free(value);
-				value = NULL;
 				if (!g_minishell.env[s])
 					cmd_error();
 			}
@@ -63,6 +57,8 @@ void	ft_exporting(t_cmd *list, char *value)
 		}
 		list = list->next;
 	}
+	free(value);
+	value = NULL;
 }
 
 static void	loop_export(t_cmd *list)
