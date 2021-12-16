@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollars_utils_len.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:36:58 by badrien           #+#    #+#             */
-/*   Updated: 2021/12/16 17:31:50 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/16 18:35:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	get_dollar_len(char *str)
 	len = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i + 1] && str[i] == '$' && !ft_isalpha(str[i + 1]))
+		if (str[i + 1] && str[i] == '$' && ft_isalpha(str[i + 1]))
 		{
 			i++;
 			if (str[i] == '?')
