@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 08:50:18 by arapaill          #+#    #+#             */
-/*   Updated: 2021/12/13 15:57:44 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/16 14:50:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	loop_export(t_cmd *list)
 	g_minishell.last_return_value = 0;
 	while (list && ft_isstop(list))
 	{
-		while (list->next && list->content->type == space)
+		while (list && list->content->type == space)
 			list = list->next;
 		if (!ft_isstop(list))
 			return ;
