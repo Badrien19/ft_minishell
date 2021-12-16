@@ -6,11 +6,22 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:21:04 by user42            #+#    #+#             */
-/*   Updated: 2021/11/25 18:16:35 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/16 18:24:20 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
+
+void	free_array(char **array)
+{
+	int		i;
+
+	i = -1;
+	while (array && array[++i])
+		free (array[i]);
+	if (array)
+		free(array);
+}
 
 void	free_list(void)
 {

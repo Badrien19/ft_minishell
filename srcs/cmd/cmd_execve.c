@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_execve.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 15:56:30 by arapaill          #+#    #+#             */
-/*   Updated: 2021/12/14 14:53:00 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/16 18:25:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	ft_exec_free(char *cmd)
 	args = ft_split(cmd, ' ');
 	free(cmd);
 	path = get_path(g_minishell.env);
-	while (path[++i])
+	while (path && path[++i])
 	{
 		if (args[0][0] != '/')
 		{
