@@ -59,7 +59,7 @@ void	detect_cmd_type(void)
 	already_cmd = False;
 	while (g_minishell.list_input)
 	{
-		if (already_cmd == False
+		if (already_cmd == False && g_minishell.list_input->content->type != filename
 			&& (iterate_cmd(g_minishell.list_input->content->value) == True
 				|| check_path(g_minishell.list_input->content->value) == True))
 		{
@@ -99,6 +99,7 @@ void	pre_parsing(char *user_input)
 	}
 	concat_tokens_same_type();
 	concat_tokens_var();
+	detect_file_type();
 	detect_cmd_type();
 	if (get_quote_len(user_input) >= 0)
 		concat_tokens_quotes();
