@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/12/16 15:54:35 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/16 17:27:21 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	go_to_next_block(void)
 		g_minishell.list_input = g_minishell.list_input->next;
 	if (g_minishell.list_input
 		&& (g_minishell.list_input->content->type == semicolon
-			|| g_minishell.list_input->content->type != pipeline))
+			|| g_minishell.list_input->content->type == pipeline))
 		g_minishell.list_input = g_minishell.list_input->next;
 }
 
