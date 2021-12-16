@@ -167,7 +167,7 @@ int					get_dollar_len(char *str);
 */
 
 int					main_env(void);
-void				print_env(void);
+void				print_env(t_cmd *list);
 int					add_env(char *name, char *value);
 char				**realloc_env(char **env, size_t size);
 int					size_env(char **env);

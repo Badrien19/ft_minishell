@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:15:04 by user42            #+#    #+#             */
-/*   Updated: 2021/12/16 17:27:21 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2021/12/16 17:43:15 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	ft_switch(t_cmd *list)
 		cmd_echo(list, list->content->pipe_out,
 			list->content->pipe_in);
 	else if (!ft_strcmp(list->content->value, "env"))
-		print_env();
+		print_env(list);
 	else if (!ft_strcmp(list->content->value, "pwd"))
 		cmd_pwd(list);
 	else if (!ft_strcmp(list->content->value, "cd"))

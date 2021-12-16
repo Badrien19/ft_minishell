@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:17:37 by badrien           #+#    #+#             */
-/*   Updated: 2021/12/09 18:19:12 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/16 17:47:10 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,31 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (rep);
 }
 
-void	print_env(void)
+void	print_env(t_cmd *list)
 {
-	int	x;
+	int		x;
+	pid_t	pid;
 
 	x = 0;
-	while (g_minishell.env[x] != NULL)
+	pid = fork();
+	if (pid == -1)
+		cmd_error();
+	if (!pid)
 	{
-		printf("%s\n", g_minishell.env[x]);
-		x++;
+		while (g_minishell.env[x] != NULL)
+		{
+			ft_putendl_fd(g_minishell.env[x], list->content->pipe_out);
+			x++;
+		}
+		exit(EXIT_SUCCESS);
+	}
+	else
+	{
+		waitpid(pid, NULL, 0);
+		if (list->content->pipe_out != STDOUT_FILENO)
+			close(list->content->pipe_out);
+		if (list->content->pipe_in != STDIN_FILENO)
+			close(list->content->pipe_in);
 	}
 }
 
