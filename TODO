@@ -12,3 +12,7 @@ Ce qu'il reste :
         - Gérer CTRL-\
         - cat | cat | ls  pas le meme comportement que bash, mais c'est un peu un cas mystique
 
+si ctrl-c val de retour 130
+ctrl \ when cat not working
+inval read echo -n
+invalid read echo """""""
