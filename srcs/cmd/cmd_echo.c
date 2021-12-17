@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_echo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:58:01 by arapaill          #+#    #+#             */
-/*   Updated: 2021/12/17 16:26:45 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/17 17:37:20 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ static int	is_flag(t_cmd **list)
 			i++;
 		}
 		flag = 1;
-		*list = (*list)->next;
+		if ((*list)->next)
+			*list = (*list)->next;
 		while ((*list)->content->type == space && (*list)->next)
 			*list = (*list)->next;
 		if (!list)
