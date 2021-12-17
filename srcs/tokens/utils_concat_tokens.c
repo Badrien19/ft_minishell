@@ -45,6 +45,11 @@ void	relink_nodes(void)
 	t_cmd	*tmp_list;
 
 	tmp_list = NULL;
+	if (g_minishell.list_input->content->type == none)
+	{
+		g_minishell.list_input = g_minishell.list_input->next;
+		return ;
+	}
 	join_two_tokens(g_minishell.list_input);
 	if (g_minishell.list_input->next->next)
 		tmp_list = g_minishell.list_input->next->next;
