@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:37:03 by cgoncalv          #+#    #+#             */
-/*   Updated: 2021/12/16 10:04:28 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/17 14:35:32 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	sigint_handler(int sig)
 		}
 		else if (g_minishell.signal == 1)
 			g_minishell.signal = 0;
+		g_minishell.last_return_value = 130;
 	}
 }
 
