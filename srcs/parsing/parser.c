@@ -59,7 +59,8 @@ void	detect_cmd_type(void)
 	already_cmd = False;
 	while (g_minishell.list_input)
 	{
-		if (already_cmd == False && g_minishell.list_input->content->type != filename
+		if (already_cmd == False
+			&& g_minishell.list_input->content->type != filename
 			&& (iterate_cmd(g_minishell.list_input->content->value) == True
 				|| check_path(g_minishell.list_input->content->value) == True))
 		{
@@ -86,16 +87,15 @@ void	pre_parsing(char *user_input)
 	size_t	i;
 	size_t	size;
 
-	i = 0;
+	i = -1;
 	size = ft_strlen(user_input);
-	while (i < size)
+	while (++i < size)
 	{
 		new = ft_strndup(user_input + i, 1);
 		if (!new)
 			cmd_error();
 		tokenizer(new);
 		free(new);
-		i++;
 	}
 	concat_tokens_same_type();
 	concat_tokens_var();
