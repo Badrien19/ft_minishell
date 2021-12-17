@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 13:58:01 by arapaill          #+#    #+#             */
-/*   Updated: 2021/12/17 15:34:42 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/17 16:26:45 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@ static void	print_non_quote(void *s, int out)
 
 static int	check_space(t_cmd *list)
 {
-	list = list->next;
+	if (list->next)
+		list = list->next;
+	else
+		return (0);
 	while (list && list->content->type == space)
 		list = list->next;
-	if ((!list && list->content->value)
-		|| (list->content->type != semicolon
+	if (list || (list->content->value && list->content->type != semicolon
 			&& list->content->type != pipeline))
 		return (1);
 	else
@@ -40,7 +42,7 @@ static int	check_space(t_cmd *list)
 
 static void	loop_echo(int flag, t_cmd *list, int out)
 {
-	while (list && list->content->value && list->content->type != semicolon
+	while (list->content->value && list->content->type != semicolon
 		&& list->content->type != pipeline)
 	{
 		if (list->content->type == literal
@@ -56,6 +58,8 @@ static void	loop_echo(int flag, t_cmd *list, int out)
 			break ;
 		while (list && list->content->type == space)
 			list = list->next;
+		if (!list)
+			break ;
 	}
 	if (flag == 0)
 		write(out, "\n", 1);
@@ -80,9 +84,9 @@ static int	is_flag(t_cmd **list)
 		}
 		flag = 1;
 		*list = (*list)->next;
-		while (*list && (*list)->content->type == space)
+		while ((*list)->content->type == space && (*list)->next)
 			*list = (*list)->next;
-		if (!(*list))
+		if (!list)
 			exit(EXIT_SUCCESS);
 	}
 	return (flag);
