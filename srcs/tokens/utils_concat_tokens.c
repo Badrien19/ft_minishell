@@ -77,9 +77,9 @@ t_cmd	*delete_node(t_cmd *node_to_delete)
 	prev = node_to_delete->prev;
 	next = node_to_delete->next;
 	if (node_to_delete->prev)
-		node_to_delete->prev->next = next;
+		prev->next = next;
 	if (node_to_delete->next)
-		node_to_delete->next->prev = prev;
+		next->prev = prev;
 	free(node_to_delete->content->value);
 	node_to_delete->content->value = NULL;
 	free(node_to_delete->content);
