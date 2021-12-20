@@ -1,26 +1,15 @@
 # ft_minishell
 
-| Structure
-     
-     |--> 
+ft_minishell est un projet de l'école 42 qui nous demande de développer un "mini shell" reproduisant le comportement de bash. Il est demandé de gérer entre autre
+les redirections, les pipes, ainsi que quelques "built-in" comme les commandes "echo", "export", "unset", "pwd" et d'autres...
 
-| Parsing
-     
-     |--> Gérer les ; -> En cours
-     |--> | Variables d'environnement ; -> Done
-          |--> $? ; En cours
-     |--> Gérer les guillemets ---> Done
-     |--> Remplir la structure -> Done ?
-     |--> Gérer les redirections
-     |--> Gérer les pipes (fonction pipe et fork)
-     |--> Gérer l'historique de commandes -> Done
+Commandes du Makefile :
+- make (all)
+- make exec
+- make (f)clean
+- make re
 
-| Commandes
+Pour pouvoir utiliser readline :
+     sudo apt-get install libreadline-dev
 
-     |--> pwd  --> Done
-     |--> echo --> Done
-     |--> cd -> Presque fini (Reste à modifier la variable d'environement)
-     |--> export
-     |--> unset
-     |--> env  --> Done
-     |--> exit --> Done
+Projet réalisé par Arapaill, Badrien et Cgoncalv.
