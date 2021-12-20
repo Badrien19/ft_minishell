@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 11:15:10 by user42            #+#    #+#             */
-/*   Updated: 2021/12/13 16:03:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/12/20 15:00:51 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	cmd_exit_pid(int in, int out, int exit_value)
 
 static void	cmd_exit_2(int in, int out, int exit_value)
 {
-	if ((in == 0 && out == 1 ) || exit_value == -1)
+	if ((in == 0 && out == 1) || exit_value == -1)
 	{
 		ft_putstr_fd("exit\n", 1);
 		if (exit_value == -1)
